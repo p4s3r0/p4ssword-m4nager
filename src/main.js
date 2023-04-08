@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import * as VueRouter from 'vue-router';
+import VueCryptojs from 'vue-cryptojs'
 
 import App from './App.vue'
 import Login from '@/views/LoginView.vue'
@@ -22,4 +23,4 @@ const router = VueRouter.createRouter({
 });
 
 
-createApp(App).use(router).mount('#app')
+createApp(App).use(router).use(VueCryptojs).mount('#app')

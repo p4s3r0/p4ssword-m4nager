@@ -2,24 +2,48 @@
   <div id="mainLogin">
     <h1>Let's sign you in.</h1>
     <h2>Welcome back. <br>You've been missed!</h2>
-    <username-input id="posUsernameInput" />
-    <password-input />
+    <text-input id="posUsernameInput" placeholder="Username" @valueUpdated="updateUsername" />
+    <password-input @valueUpdated="updatePassword" />
     <p>Don't have an account? <a @click="this.$router.push('/register');">Register</a></p>
-    <big-button-register-signin />
+    <big-button-register-signin text="Sign in" @click="loginUser()"/>
   </div>
 </template>
 
 <script>
-import UsernameInput from '@/components/UsernameInput.vue'
+import TextInput from '@/components/TextInput.vue'
 import PasswordInput from '@/components/PasswordInput.vue'
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue'
+import { DB_loginUser } from '@/supabase';
 
 export default {
   name: 'App',
   components: {
-    UsernameInput,
+    TextInput,
     PasswordInput,
     BigButtonRegisterSignin,
+  },
+  data() {
+      return {
+        username: "",
+        password: ""
+      }
+  },
+  methods: {
+    updateUsername(username) {
+      this.username = username;
+    },
+    updatePassword(password) {
+      this.password = password;
+    },
+    loginUser() {
+      DB_loginUser(this.username, this.password).then((res) => {
+        if (res) {
+          console.log("Login succeded")
+        } else {
+          console.log("Login FAILED")
+        }
+      });
+    }
   }
 }
 </script>
