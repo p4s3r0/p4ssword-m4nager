@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input :type=this.password_state placeholder="Password">
+    <input @input="$emit('valueUpdated', this.my_value)" :type=this.password_state placeholder="Password" v-model="this.my_value">
     <i v-if="this.password_state == 'password'" @click=switchPasswordVisability()>
       <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g opacity="0.59" clip-path="url(#clip0_8_25)">
@@ -28,6 +28,7 @@ export default {
   data() {
       return {
         password_state: "password",
+        my_value: ""
       }
     },
   methods: {
@@ -40,13 +41,17 @@ export default {
 
 <style scoped>
 input {
+  font-size: 1em;
   width: 65vw;
   height: 15vw;
   border-radius: 16px;
   padding-left: 10vw;
-  background-color: #131517;
-  border: solid 1px rgba(255, 255, 255, 0.2);
+  background-color: #46464650;
+  border: solid 0px black;
   color: white;
+}
+input:focus {
+    outline:none;
 }
 
 i {

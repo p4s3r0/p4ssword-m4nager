@@ -1,6 +1,6 @@
 <template>
   <div id="mainBigButtonRegisterSigning">
-    <p>Sign in</p>
+    <p>{{ this.text }}</p>
   </div>
 </template>
 
@@ -8,6 +8,7 @@
 
 export default {
   name: 'App',
+  props: ["text"],
   components: {
   }
 }

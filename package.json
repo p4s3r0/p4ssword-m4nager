@@ -9,9 +9,12 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "crypto-js": "^4.1.1",
     "router": "^1.3.8",
     "vue": "^3.2.13",
-    "vue-router": "^4.1.6"
+    "vue-cryptojs": "^2.3.1",
+    "vue-router": "^4.1.6",
+    "vue-supabase": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
