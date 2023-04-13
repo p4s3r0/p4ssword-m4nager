@@ -14,6 +14,7 @@ import TextInput from '@/components/TextInput.vue'
 import PasswordInput from '@/components/PasswordInput.vue'
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue'
 import { DB_loginUser } from '@/supabase';
+import { store } from '@/store/store';
 
 export default {
   name: 'App',
@@ -38,7 +39,9 @@ export default {
     loginUser() {
       DB_loginUser(this.username, this.password).then((res) => {
         if (res) {
-          console.log("Login succeded")
+          store.user.loggedIn = true;
+          store.user.username = this.username;
+          this.$router.push('/home');
         } else {
           console.log("Login FAILED")
         }
