@@ -46,3 +46,22 @@ export async function DBL_refreshUserLogin() {
     store.user.loggedIn = true;
     return user.username;
 }
+
+export async function DBL_updateFolders(folders) {
+    const current_folders = await db.folders.toArray();
+    if (current_folders.length == folders.length || folders.length == 0) {
+        return await db.folders.toArray();
+    }
+
+    await db.folders.clear();
+    for(let i = 0; i < folders.length; i++)
+    {
+        const data = {
+            folder: folders[i].folder,
+            pass_amount: folders[i].pass_amount,
+            color: folders[i].color
+        }
+        await db.folders.add(data);
+    }
+    return false;
+}

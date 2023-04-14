@@ -7,6 +7,7 @@ import Login from '@/views/LoginView.vue'
 import Register from '@/views/RegisterView.vue'
 import Home from '@/views/HomeView.vue'
 import AddFolder from '@/views/AddNewFolderView.vue'
+import AddPassword from '@/views/AddNewPasswordView.vue'
 
 
 const routes = [{
@@ -25,6 +26,10 @@ const routes = [{
     path: "/addFolder",
     name: "addFolder",
     component: AddFolder,
+}, {
+    path: "/addPassword",
+    name: "addPassword",
+    component: AddPassword,
 }];
 
 const router = VueRouter.createRouter({
