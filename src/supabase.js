@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import CryptoJS from 'crypto-js';
 
-import { DBL_loginUser } from '@/dexie';
+import { DBL_loginUser, DBL_updateFolders } from '@/dexie';
 
 export const supabase = createClient('https://yxqtpqkugnsqbfzcopjt.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4cXRwcWt1Z25zcWJmemNvcGp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODA4OTg5MTksImV4cCI6MTk5NjQ3NDkxOX0.cEnLQtFcI1-FVeFnQ-NLeOLf5UrqGIc8VMt3Nhm-p8c')
 
@@ -37,7 +37,11 @@ export async function DB_loginUser(username, password) {
 }
 
 export async function DB_getAllFolders(username) {
-    const { data } = await supabase.from('folders').select().eq("user", username)
+    const { data } = (await supabase.from('folders').select().eq("user", username))
+    const ret = await DBL_updateFolders(data);
+    if(ret) {
+        return ret;
+    }
     return data;
 }
 
