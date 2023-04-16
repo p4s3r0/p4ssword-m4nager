@@ -4,9 +4,9 @@
     <h2>I'll protect it!</h2>
     <text-input @valueUpdated="updateName" id="posNameInput" placeholder="Name" />
     <password-input @valueUpdated="updatePassword" />
-    <selector-folder />
+    <selector-folder @valueUpdated="updateFolder" />
     <text-input @valueUpdated="updateNote" id="posNoteInput" placeholder="Note" />
-    <big-button-register-signin text="Add Password" @click="addFolder()"/>
+    <big-button-register-signin text="Add Password" @click="addPassword()"/>
   </div>
 </template>
 
@@ -16,8 +16,9 @@ import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue'
 import PasswordInput from '@/components/PasswordInput.vue'
 import SelectorFolder from '@/components/SelectorFolder.vue'
 
-import { DB_addNewFolder } from '@/supabase';
+import { DB_addNewPassword } from '@/supabase';
 import { store } from '@/store/store';
+import { DBL_refreshUserLogin } from '@/dexie';
 
 export default {
   name: 'App',
@@ -29,7 +30,10 @@ export default {
   },
   data() {
       return {
-        folder: "",
+        folder: "NO FOLDER",
+        name: "",
+        password: "",
+        note: "",
         color: "black"
       }
   },
@@ -37,17 +41,32 @@ export default {
     updateFolder(folder) {
       this.folder = folder;
     },
-    updateColor(color) {
-      this.color = color;
+    updateName(name) {
+      this.name = name;
     },
-    addFolder() {
-      DB_addNewFolder(store.user.username, this.folder, this.color).then( (res) => {
+    updatePassword(password) {
+      this.password = password;
+    },
+    updateNote(note) {
+      this.note = note;
+    },
+    addPassword() {
+      DB_addNewPassword(this.name, store.user.password, this.folder, this.note, store.user.username).then( (res) => {
         if (res) {
           this.$router.push('/home');
         }
       });
     }
-  }
+  }, 
+  beforeMount() {
+    if (store.user.username == "") {
+        DBL_refreshUserLogin().then((res) => {
+            if (!res) {
+                this.$router.push('/');
+            }
+        })
+      }
+    }
 }
 </script>
 

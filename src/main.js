@@ -8,6 +8,7 @@ import Register from '@/views/RegisterView.vue'
 import Home from '@/views/HomeView.vue'
 import AddFolder from '@/views/AddNewFolderView.vue'
 import AddPassword from '@/views/AddNewPasswordView.vue'
+import './registerServiceWorker'
 
 
 const routes = [{

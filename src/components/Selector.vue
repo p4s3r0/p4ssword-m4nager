@@ -31,7 +31,7 @@ select {
     width: 75vw;
     height: 15vw;
     border-radius: 16px;
-    padding-left: 10vw;
+    padding-left: 9vw;
     background-color: #46464650;
     border: solid 0px black;
     color: rgba(255, 255, 255, 0.35);

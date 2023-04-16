@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 import CryptoJS from 'crypto-js';
 
 import { DBL_loginUser, DBL_updateFolders } from '@/dexie';
+import { store } from '@/store/store';
 
 export const supabase = createClient('https://yxqtpqkugnsqbfzcopjt.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4cXRwcWt1Z25zcWJmemNvcGp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODA4OTg5MTksImV4cCI6MTk5NjQ3NDkxOX0.cEnLQtFcI1-FVeFnQ-NLeOLf5UrqGIc8VMt3Nhm-p8c')
 
@@ -54,6 +55,19 @@ export async function DB_addNewFolder(username, folder, color) {
         pass_amount: 0,
     };
     await supabase.from('folders').insert(data);
+    return true;
+}
+
+
+export async function DB_addNewPassword(name, password, folder, note, user) {
+    const data = {
+        name: name,
+        password: CryptoJS.AES.encrypt(password, store.user.password).toString(),
+        folder: folder,
+        note: note,
+        user: user
+    };
+    await supabase.from('passwords').insert(data);
     return true;
 }
 
