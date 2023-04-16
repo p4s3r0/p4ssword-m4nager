@@ -1,6 +1,6 @@
 <template>
   <div id="mainLogin">
-    <h1>Let's sign you in.</h1>
+    <h1 @click="deleteLocalDb()">Let's sign you in.</h1>
     <h2>Welcome back. <br>You've been missed!</h2>
     <text-input id="posUsernameInput" placeholder="Username" @valueUpdated="updateUsername" />
     <password-input @valueUpdated="updatePassword" />
@@ -17,6 +17,7 @@ import PasswordInput from '@/components/PasswordInput.vue'
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue'
 import { DB_loginUser } from '@/supabase';
 import { store } from '@/store/store';
+import { del_dexie } from '@/dexie';
 
 export default {
   name: 'App',
@@ -37,6 +38,9 @@ export default {
     },
     updatePassword(password) {
       this.password = password;
+    },
+    deleteLocalDb() {
+      del_dexie();
     },
     loginUser() {
       DB_loginUser(this.username, this.password).then((res) => {
