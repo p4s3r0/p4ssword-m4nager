@@ -7,11 +7,16 @@
             <folders-password-filter text="Folders" @click="activateFoldersButton" :status="this.fold_pass_selector == 'Folders' ? 'active' : 'notActive'"/>
             <folders-password-filter text="Passwords" @click="activatePasswordsButton" :status="this.fold_pass_selector == 'Folders' ? 'notActive' : 'active'"/>
         </div>
-        <div id="posFolders">
-            <folder v-for="f in this.folders"  :key=f.key 
-                                               :name=f.folder
-                                               :pass_amount=f.pass_amount 
-                                               :color=f.color />
+        <div v-if="this.fold_pass_selector == 'Folders'" id="posFolders">
+            <folder v-for="f in this.folders"   :key=f.key 
+                                                :name=f.folder
+                                                :pass_amount=f.pass_amount 
+                                                :color=f.color />
+        </div>
+
+        <div v-else id="posFolders">
+            <password v-for="p in this.passwords" :key=p.key 
+                                                :name=p.name />
         </div>
         <add-button v-if="this.fold_pass_selector == 'Folders'" @click="this.$router.push('/addFolder')"/>
     <add-button v-else @click="this.$router.push('/addPassword')"/>
@@ -25,10 +30,11 @@ import FoldersPasswordFilter from '@/components/FoldersPasswordFilter.vue';
 import AddButton from '@/components/AddButton.vue';
 import Folder from '@/components/Folder.vue';
 import LockButton from '@/components/LockButton.vue';
+import Password from '@/components/Password.vue';
 
 import { store } from '@/store/store'
-import { DB_getAllFolders } from '@/supabase';
-import { DBL_refreshUserLogin, DBL_logoutUser } from '@/dexie';
+import { DB_getAllFolders, DB_getAllPasswords } from '@/supabase';
+import { DBL_refreshUserLogin, DBL_logoutUser, settings_getFolderOrPassword, settings_updateFolderOrPassword } from '@/dexie';
 
 export default {
 name: 'App',
@@ -38,20 +44,24 @@ components: {
     AddButton,
     Folder,
     LockButton,
+    Password,
 },
 data() {
     return {
         username: store.user.username,
         fold_pass_selector: "Folders",
         folders: [],
+        passwords: []
     }
 },
 methods: {
     activateFoldersButton() {
         this.fold_pass_selector = "Folders";
+        settings_updateFolderOrPassword("Folders")
     },
     activatePasswordsButton() {
         this.fold_pass_selector = "Passwords";
+        settings_updateFolderOrPassword("Passwords")
     },
     logout() {
         DBL_logoutUser().then( () => {
@@ -65,15 +75,25 @@ methods: {
                 this.$router.push('/');
             }
             this.username = res;
-            DB_getAllFolders(store.user.username).then( (res) => {
+            DB_getAllFolders(this.username).then( (res) => {
                 this.folders = res;
-            })
+            });
+            DB_getAllPasswords(this.username).then( (res) => {
+                this.passwords = res;
+            });
         })
     } else {
         DB_getAllFolders(store.user.username).then( (res) => {
         this.folders = res;
-    })
+        });
+        DB_getAllPasswords(this.username).then( (res) => {
+                this.passwords = res;
+        });
     }
+    settings_getFolderOrPassword().then( (res) => {
+        this.fold_pass_selector = res;
+        console.log(res)
+    })
 }
 }
 </script>
