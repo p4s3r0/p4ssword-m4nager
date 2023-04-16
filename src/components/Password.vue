@@ -32,16 +32,7 @@ methods: {
         navigator.clipboard.writeText(this.username);
     },
     copyPassword() {
-        const enc = this.$CryptoJS.AES.encrypt("Password", "toor").toString()
-        console.log("encoded: ", enc);
-
-        const dec = this.$CryptoJS.AES.decrypt("U2FsdGVkX18qYLdzOsgJ4DqK4D7F+4UGMsYIOk6zn0Q=", "toor").toString(this.$CryptoJS.enc.Utf8)
-        console.log("decoded: ", dec);
-
-
-        const dec_password = CryptoJS.AES.decrypt(this.enc_password, store.user.password).toString(this.$CryptoJS.enc.Utf8);
-        //console.log(this.enc_password, store.user.password, dec_password)
-        
+        const dec_password = CryptoJS.AES.decrypt(this.enc_password, store.user.password).toString(this.$CryptoJS.enc.Utf8);        
         navigator.clipboard.writeText(dec_password);
     }
 }
