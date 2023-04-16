@@ -2,14 +2,12 @@ import { Dexie } from 'dexie';
 import { store } from '@/store/store';
 
 const db = new Dexie("p4ssword_m4nager");
-db.version(3).stores({
+db.version(1).stores({
     curr_user: "++idx, username, password, email",
     folders: "++idx, folder, pass_amount, color",
     passwords: "++idx, name, password, folder, note, username",
     settings: "idx, fold_pass_select",
 });
-
-
 
 export async function DBL_loginUser(username_, password_, email_) {
     const user_exists = await db.curr_user.toArray(); 
@@ -105,7 +103,6 @@ export async function settings_getFolderOrPassword() {
 }
 
 export async function settings_updateFolderOrPassword(value) {
-    console.log("changing to:", value)
     let settings = await db.settings.toArray();
     if (settings.length == 0) {
         settings = {
