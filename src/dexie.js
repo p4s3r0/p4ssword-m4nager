@@ -9,6 +9,11 @@ db.version(1).stores({
     settings: "idx, fold_pass_select",
 });
 
+export function del_dexie() {
+    db.delete()
+    console.log("deleted db")
+}
+
 export async function DBL_loginUser(username_, password_, email_) {
     const user_exists = await db.curr_user.toArray(); 
     if (user_exists) {
