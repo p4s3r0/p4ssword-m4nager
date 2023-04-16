@@ -44,12 +44,11 @@ export async function DBL_refreshUserLogin() {
     store.user.password = user.password;
     store.user.email = user.email;
     store.user.loggedIn = true;
-    return user.username;
 }
 
 export async function DBL_updateFolders(folders) {
     const current_folders = await db.folders.toArray();
-    if (current_folders.length == folders.length || folders.length == 0) {
+    if (folders == null || current_folders.length == folders.length) {
         return await db.folders.toArray();
     }
 
@@ -64,4 +63,9 @@ export async function DBL_updateFolders(folders) {
         await db.folders.add(data);
     }
     return false;
+}
+
+export async function DBL_getFolders() {
+    const current_folders = await db.folders.toArray();
+    return current_folders;
 }
