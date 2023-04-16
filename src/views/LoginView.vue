@@ -6,6 +6,8 @@
     <password-input @valueUpdated="updatePassword" />
     <p>Don't have an account? <a @click="this.$router.push('/register');">Register</a></p>
     <big-button-register-signin text="Sign in" @click="loginUser()"/>
+  <p id="Version">@1.0</p>
+
   </div>
 </template>
 
@@ -72,5 +74,14 @@ a {
 #posUsernameInput {
   margin-top: 10vh;
   margin-bottom: 1vh;
+}
+
+#Version {
+  position: absolute;
+  bottom: -15px;
+  right: 5px;
+  text-align: right;
+  width: auto;
+  color: rgba(255, 255, 255, 0.093);
 }
 </style>
