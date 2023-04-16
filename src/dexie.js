@@ -2,7 +2,7 @@ import { Dexie } from 'dexie';
 import { store } from '@/store/store';
 
 const db = new Dexie("p4ssword_m4nager");
-db.version(1).stores({
+db.version(2).stores({
     curr_user: "++idx, username, password, email",
     folders: "++idx, folder, pass_amount, color",
     passwords: "++idx, name, password, folder, note",
