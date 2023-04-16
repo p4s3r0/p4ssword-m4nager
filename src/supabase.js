@@ -68,9 +68,10 @@ export async function DB_addNewFolder(username, folder, color) {
 }
 
 
-export async function DB_addNewPassword(name, password, folder, note, user) {
+export async function DB_addNewPassword(name, password, folder, note, user, username) {
     const data = {
         name: name,
+        username: username,
         password: CryptoJS.AES.encrypt(password, store.user.password).toString(),
         folder: folder,
         note: note,

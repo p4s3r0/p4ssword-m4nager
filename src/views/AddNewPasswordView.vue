@@ -3,6 +3,7 @@
     <h1>Add new Password.</h1>
     <h2>I'll protect it!</h2>
     <text-input @valueUpdated="updateName" id="posNameInput" placeholder="Name" />
+    <text-input @valueUpdated="updateUsername" placeholder="Username" style="margin-bottom: 10px;" />
     <password-input @valueUpdated="updatePassword" />
     <selector-folder @valueUpdated="updateFolder" />
     <text-input @valueUpdated="updateNote" id="posNoteInput" placeholder="Note" />
@@ -32,6 +33,7 @@ export default {
       return {
         folder: "NO FOLDER",
         name: "",
+        username: "",
         password: "",
         note: "",
         color: "black"
@@ -50,8 +52,11 @@ export default {
     updateNote(note) {
       this.note = note;
     },
+    updateUsername(username) {
+      this.username = username;
+    },
     addPassword() {
-      DB_addNewPassword(this.name, store.user.password, this.folder, this.note, store.user.username).then( (res) => {
+      DB_addNewPassword(this.name, this.password, this.folder, this.note, store.user.username, this.username).then( (res) => {
         if (res) {
           this.$router.push('/home');
         }

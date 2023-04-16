@@ -16,7 +16,9 @@
 
         <div v-else id="posFolders">
             <password v-for="p in this.passwords" :key=p.key 
-                                                :name=p.name />
+                                                :name=p.name
+                                                :enc_password=p.password
+                                                :username=p.username />
         </div>
         <add-button v-if="this.fold_pass_selector == 'Folders'" @click="this.$router.push('/addFolder')"/>
     <add-button v-else @click="this.$router.push('/addPassword')"/>
@@ -92,7 +94,6 @@ methods: {
     }
     settings_getFolderOrPassword().then( (res) => {
         this.fold_pass_selector = res;
-        console.log(res)
     })
 }
 }
