@@ -105,6 +105,7 @@ methods: {
 }
 #posHello {
     margin-top: 5vh;
+    margin-left: 5%;
 }
 #posSearchBar {
     margin-top: 6vh;
@@ -116,6 +117,7 @@ methods: {
     transform: translateX(-50%);
     display: flex;
     margin-top: 6vh;
+    width: 70%;
 }
 
 button {
