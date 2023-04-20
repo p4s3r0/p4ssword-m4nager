@@ -8,7 +8,8 @@
             <folders-password-filter text="Passwords" @click="activatePasswordsButton" :status="this.fold_pass_selector == 'Folders' ? 'notActive' : 'active'"/>
         </div>
         <div v-if="this.fold_pass_selector == 'Folders'" id="posFolders">
-            <folder v-for="f in this.folders"   :key=f.key 
+            <folder v-for="f in this.folders" @click=openFolder(f.folder)
+                                                :key=f.key 
                                                 :name=f.folder
                                                 :pass_amount=f.pass_amount 
                                                 :color=f.color />
@@ -69,6 +70,10 @@ methods: {
         DBL_logoutUser().then( () => {
             this.$router.push('/');
         })
+    },
+    openFolder(folder_name) {
+        store.temp.curr_folder = folder_name;
+        this.$router.push('/folder');
     }
 }, beforeMount() {
     if (store.user.username == "") {

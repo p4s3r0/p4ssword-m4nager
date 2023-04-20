@@ -99,6 +99,10 @@ export async function DBL_getFolders() {
 }
 
 
+export async function DBL_deleteFolder(folder) {
+    await db.folders.where("folder").equals(folder)
+}
+
 export async function settings_getFolderOrPassword() {
     const settings = await db.settings.toArray();
     if(settings.length == 0) {
@@ -119,3 +123,5 @@ export async function settings_updateFolderOrPassword(value) {
     }
     await db.settings.update(0, {fold_pass_select: value});
 }
+
+

@@ -4,5 +4,8 @@ export let store = {
         username: "",
         password: "",
         email: ""
+    }, 
+    temp: {
+        curr_folder: "",
     }
 }

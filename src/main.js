@@ -8,6 +8,7 @@ import Register from '@/views/RegisterView.vue'
 import Home from '@/views/HomeView.vue'
 import AddFolder from '@/views/AddNewFolderView.vue'
 import AddPassword from '@/views/AddNewPasswordView.vue'
+import FolderView from '@/views/FolderView.vue'
 import './registerServiceWorker'
 
 
@@ -31,6 +32,10 @@ const routes = [{
     path: "/addPassword",
     name: "addPassword",
     component: AddPassword,
+}, {
+    path: "/folder",
+    name: "folder",
+    component: FolderView,
 }];
 
 const router = VueRouter.createRouter({
