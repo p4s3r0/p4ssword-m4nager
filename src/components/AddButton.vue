@@ -23,7 +23,7 @@ components: {
     width: 60px;
     height: 60px;
     border-radius: 16px;
-  background-color: #eab137;
+  background-color: white;
 }
 
 svg {

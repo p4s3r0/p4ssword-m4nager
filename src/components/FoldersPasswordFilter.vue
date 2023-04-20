@@ -16,7 +16,7 @@ export default {
 <style scoped>
 #main {
     text-align: center;
-    width: 30vw;
+    width: 40vw;
     line-height: 0.3em;
     border-radius: 10px;
     margin-right: 10px;

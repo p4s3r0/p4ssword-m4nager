@@ -1,6 +1,5 @@
 <template>
-    <div id="mainFolder">
-        <div id="rectangle" :class="this.color"> </div>
+    <div id="mainFolder" :class="this.color">
       <p id="folderName">{{ this.name }} </p>
       <p id="amount"> {{ this.pass_amount }}</p>
     </div>
@@ -18,18 +17,17 @@ components: {
 
 <style scoped>
 #mainFolder {
-    width: 80%;
+    width: 90%;
     height: 20vw;
-    margin-left: 10%;
-    margin-bottom: 10px;
+    margin-left: 5%;
+    margin-bottom: 8px;
     min-height: 15vw;
-    background-color: white;
     border-radius: 16px; 
     display: flex;
 }
 
 p {
-    color: black;
+    color: white;
 }
 
 #amount {
@@ -39,9 +37,9 @@ p {
 }
 #folderName {
     position: absolute;
-    font-size: 1.5em;
+    font-size: 1.2em;
     transform: translateY(-50%);
-    margin-left: 15vw;
+    margin-left: 20px;
     margin-top: 10vw;
     max-width: 220px;
 }
