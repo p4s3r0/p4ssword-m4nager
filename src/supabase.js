@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import CryptoJS from 'crypto-js';
 
-import { DBL_loginUser, DBL_updateFolders, DBL_updatePasswords } from '@/dexie';
+import { DBL_loginUser, DBL_updateFolders, DBL_updatePasswords, DBL_deleteFolder } from '@/dexie';
 import { store } from '@/store/store';
 
 export const supabase = createClient('https://yxqtpqkugnsqbfzcopjt.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4cXRwcWt1Z25zcWJmemNvcGp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODA4OTg5MTksImV4cCI6MTk5NjQ3NDkxOX0.cEnLQtFcI1-FVeFnQ-NLeOLf5UrqGIc8VMt3Nhm-p8c')
@@ -81,6 +81,22 @@ export async function DB_addNewPassword(name, password, folder, note, user, user
     return true;
 }
 
+export async function DB_getPasswordsForSpecificFolder(username, folder) {
+    const data = await DB_getAllPasswords(username)
+    let ret = [];
+    for(let i = 0; i < data.length; i++) {
+        if (data[i].folder == folder) {
+            ret.push(data[i]);
+        }
+    }
+    return ret
+}
+
+
+export async function DB_deleteFolder(username, folder) {
+    await supabase.from("folders").delete().eq("user", username).eq("folder", folder);
+    await DBL_deleteFolder(folder);
+}
 
 /*
 const enc = this.$CryptoJS.AES.encrypt("Hi There!", "Secret Passphrase").toString()
