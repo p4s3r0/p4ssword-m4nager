@@ -69,7 +69,7 @@ export async function DBL_updateFolders(folders) {
         }
         await db.folders.add(data);
     }
-    return false;
+    return await db.folders.toArray();
 }
 
 export async function DBL_updatePasswords(passwords) {
@@ -91,7 +91,8 @@ export async function DBL_updatePasswords(passwords) {
         }
         await db.passwords.add(data);
     }
-    return false;
+    const ret = await db.passwords.toArray();
+    return ret;
 }
 
 export async function DBL_getFolders() {
@@ -104,6 +105,9 @@ export async function DBL_deleteFolder(folder) {
     await db.folders.where("folder").equals(folder).delete()
 }
 
+export async function DBL_deletePassword(idx) {
+    await db.passwords.where("idx").equals(idx).delete()
+}
 
 export async function settings_getFolderOrPassword() {
     const settings = await db.settings.toArray();
@@ -131,3 +135,5 @@ export async function DBL_getPasswordsByIdx(idx) {
     const data = await db.passwords.where("idx").equals(idx).toArray();
     return data[0];
 }
+
+
