@@ -16,13 +16,14 @@
         </div>
 
         <div v-else id="posFolders">
-            <password v-for="p in this.passwords" :key=p.key 
+            <password v-for="p in this.passwords"
+                                                :key=p.key 
                                                 :name=p.name
                                                 :enc_password=p.password
-                                                :username=p.username />
+                                                :username=p.username 
+                                                :idx=p.idx />
         </div>
-        <add-button v-if="this.fold_pass_selector == 'Folders'" @click="this.$router.push('/addFolder')"/>
-    <add-button v-else @click="this.$router.push('/addPassword')"/>
+    <add-button @click="this.$router.push('/addPasswordOrFolder')" />
     </div>
     
 </template>
@@ -74,8 +75,17 @@ methods: {
     openFolder(folder_name) {
         store.temp.curr_folder = folder_name;
         this.$router.push('/folder');
+    },
+    openPasswordView(name, username, password, folder, note) {
+        store.curr_password.name = name;
+        store.curr_password.username = username;
+        store.curr_password.password = password;
+        store.curr_password.folder = folder;
+        store.curr_password.note = note;
+        this.$router.push('/password');
     }
 }, beforeMount() {
+    console.log("sd")
     if (store.user.username == "") {
         DBL_refreshUserLogin().then((res) => {
             if (!res) {
@@ -94,7 +104,7 @@ methods: {
         this.folders = res;
         });
         DB_getAllPasswords(this.username).then( (res) => {
-                this.passwords = res;
+            this.passwords = res;
         });
     }
     settings_getFolderOrPassword().then( (res) => {

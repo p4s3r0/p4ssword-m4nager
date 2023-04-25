@@ -1,15 +1,10 @@
 <template>
   <div id="mainLogin">
-    <h1>{{ this.folder }}</h1>
+    <h1>{{ this.name }}</h1>
     <div id="delEdit">
       <small-button-delete text="Delete" @click=deleteFolder() />
       <small-button-edit text="Edit" />
     </div>
-
-    <password v-for="p in this.passwords" :key=p.key
-                                          :name=p.name
-                                          :enc_password=p.password
-                                          :username=p.username />
 
     <add-button @click="this.$router.push('/addPasswordOrFolder')" />
     
@@ -22,9 +17,8 @@ import SmallButtonDelete from '@/components/SmallButtonDelete.vue'
 import SmallButtonEdit from '@/components/SmallButtonEdit.vue'
 import AddButton from '@/components/AddButton.vue';
 
-import { DB_getPasswordsForSpecificFolder, DB_deleteFolder } from '@/supabase';
 import { store } from '@/store/store';
-import { DBL_refreshUserLogin } from '@/dexie';
+import { DBL_refreshUserLogin, DBL_getPasswordsByIdx } from '@/dexie';
 
 export default {
   name: 'App',
@@ -36,13 +30,16 @@ export default {
   },
   data() {
       return {
-        folder: store.temp.curr_folder,
-        passwords: []
+        name: "",
+        username: "",
+        password: "",
+        folder: "",
+        note: "",
       }
   },
   methods: {
     deleteFolder() {
-      DB_deleteFolder(store.user.username, store.temp.curr_folder).then( () => {
+      DB_deletePassword(store.user.username, store.temp.curr_folder).then( () => {
         this.$router.push('/home');
       })
     }
@@ -59,8 +56,12 @@ export default {
           }
         })
       } else {
-        DB_getPasswordsForSpecificFolder(store.user.username, store.temp.curr_folder).then( (res) => {
-          this.passwords = res;
+        DBL_getPasswordsByIdx(store.curr_password_id).then( (res) => {
+          this.name = res.name;
+          this.username = res.username;
+          this.password = res.password;
+          this.folder = res.folder;
+          this.note = res.note;
         })
 
       }

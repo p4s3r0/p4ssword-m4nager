@@ -86,7 +86,8 @@ export async function DBL_updatePasswords(passwords) {
             username: passwords[i].username,
             password: passwords[i].password,
             folder: passwords[i].folder,
-            note: passwords[i].note
+            note: passwords[i].note,
+            idx: passwords[i].id
         }
         await db.passwords.add(data);
     }
@@ -100,8 +101,9 @@ export async function DBL_getFolders() {
 
 
 export async function DBL_deleteFolder(folder) {
-    await db.folders.where("folder").equals(folder)
+    await db.folders.where("folder").equals(folder).delete()
 }
+
 
 export async function settings_getFolderOrPassword() {
     const settings = await db.settings.toArray();
@@ -125,3 +127,7 @@ export async function settings_updateFolderOrPassword(value) {
 }
 
 
+export async function DBL_getPasswordsByIdx(idx) {
+    const data = await db.passwords.where("idx").equals(idx).toArray();
+    return data[0];
+}
