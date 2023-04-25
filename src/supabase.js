@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import CryptoJS from 'crypto-js';
 
-import { DBL_loginUser, DBL_updateFolders, DBL_updatePasswords, DBL_deleteFolder } from '@/dexie';
+import { DBL_loginUser, DBL_updateFolders, DBL_updatePasswords, DBL_deleteFolder, DBL_deletePassword } from '@/dexie';
 import { store } from '@/store/store';
 
 export const supabase = createClient('https://yxqtpqkugnsqbfzcopjt.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4cXRwcWt1Z25zcWJmemNvcGp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODA4OTg5MTksImV4cCI6MTk5NjQ3NDkxOX0.cEnLQtFcI1-FVeFnQ-NLeOLf5UrqGIc8VMt3Nhm-p8c')
@@ -90,6 +90,12 @@ export async function DB_getPasswordsForSpecificFolder(username, folder) {
 export async function DB_deleteFolder(username, folder) {
     await supabase.from("folders").delete().eq("user", username).eq("folder", folder);
     await DBL_deleteFolder(folder);
+}
+
+
+export async function DB_deletePassword(id) {
+    await supabase.from("passwords").delete().eq("id", id)
+    await DBL_deletePassword(id);
 }
 
 /*

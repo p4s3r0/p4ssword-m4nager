@@ -85,7 +85,6 @@ methods: {
         this.$router.push('/password');
     }
 }, beforeMount() {
-    console.log("sd")
     if (store.user.username == "") {
         DBL_refreshUserLogin().then((res) => {
             if (!res) {
@@ -101,7 +100,7 @@ methods: {
         })
     } else {
         DB_getAllFolders(store.user.username).then( (res) => {
-        this.folders = res;
+            this.folders = res;
         });
         DB_getAllPasswords(this.username).then( (res) => {
             this.passwords = res;

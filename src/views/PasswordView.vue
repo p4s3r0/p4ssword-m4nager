@@ -1,13 +1,16 @@
 <template>
   <div id="mainLogin">
-    <h1>{{ this.name }}</h1>
+    <h1> Password Data</h1>
     <div id="delEdit">
-      <small-button-delete text="Delete" @click=deleteFolder() />
+      <small-button-delete text="Delete" @click=deletePassword() />
       <small-button-edit text="Edit" />
     </div>
-
+    <text-shower v-if="this.name != ''" :text=this.name />
+    <text-shower v-if="this.username != ''" :text=this.username />
+    <text-shower v-if="this.password != ''" is_pssw="true" :text=this.password />
+    <text-shower v-if="this.folder != 'NO FOLDER'" :text=this.folder />
+    <text-shower v-if="this.note != ''" :text=this.note />
     <add-button @click="this.$router.push('/addPasswordOrFolder')" />
-    
   </div>
 </template>
 
@@ -16,9 +19,13 @@ import Password from '@/components/Password.vue'
 import SmallButtonDelete from '@/components/SmallButtonDelete.vue'
 import SmallButtonEdit from '@/components/SmallButtonEdit.vue'
 import AddButton from '@/components/AddButton.vue';
+import TextShower from '@/components/TextShower.vue';
 
 import { store } from '@/store/store';
 import { DBL_refreshUserLogin, DBL_getPasswordsByIdx } from '@/dexie';
+import { DB_deletePassword } from '@/supabase';
+
+import CryptoJS from 'crypto-js';
 
 export default {
   name: 'App',
@@ -26,7 +33,8 @@ export default {
     Password,
     SmallButtonDelete,
     SmallButtonEdit,
-    AddButton
+    AddButton,
+    TextShower
   },
   data() {
       return {
@@ -38,9 +46,11 @@ export default {
       }
   },
   methods: {
-    deleteFolder() {
-      DB_deletePassword(store.user.username, store.temp.curr_folder).then( () => {
-        this.$router.push('/home');
+    deletePassword() {
+      DB_deletePassword(store.curr_password_id).then( (res) => {
+        if (!res) {
+            this.$router.push('/home');
+          }
       })
     }
   }, 
@@ -59,7 +69,7 @@ export default {
         DBL_getPasswordsByIdx(store.curr_password_id).then( (res) => {
           this.name = res.name;
           this.username = res.username;
-          this.password = res.password;
+          this.password = CryptoJS.AES.decrypt(res.password, store.user.password).toString(this.$CryptoJS.enc.Utf8);        
           this.folder = res.folder;
           this.note = res.note;
         })
