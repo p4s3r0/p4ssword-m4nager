@@ -23,7 +23,8 @@ components: {
     width: 60px;
     height: 60px;
     border-radius: 16px;
-  background-color: white;
+    background-color: white;
+    cursor: pointer;
 }
 
 svg {

@@ -7,5 +7,6 @@ export let store = {
     }, 
     temp: {
         curr_folder: "",
+        curr_password_id: 0,
     }
 }

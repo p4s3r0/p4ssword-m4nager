@@ -40,19 +40,13 @@ export async function DB_loginUser(username, password) {
 export async function DB_getAllFolders(username) {
     const { data } = await supabase.from('folders').select().eq("user", username)
     const ret = await DBL_updateFolders(data);
-    if(ret) {
-        return ret;
-    }
-    return data;
+    return ret;
 }
 
 export async function DB_getAllPasswords(username) {
     const { data } = await supabase.from('passwords').select().eq("user", username)
     const ret = await DBL_updatePasswords(data);
-    if(ret) {
-        return ret;
-    }
-    return data;
+    return ret;
 }
 
 

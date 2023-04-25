@@ -1,5 +1,5 @@
 <template>
-    <div id="mainPassword">
+    <div id="mainPassword" @click=openPasswordView() >
         <p id="passwordName">{{ this.name }} </p>
 
         <div id="posIcons">
@@ -23,10 +23,9 @@
 import { store } from '@/store/store';
 import CryptoJS from 'crypto-js';
 
-
 export default {
 name: 'App',
-props: ["name", "enc_password", "username"],
+props: ["name", "enc_password", "username", "idx"],
 methods: {
     copyUsername() {
         navigator.clipboard.writeText(this.username);
@@ -34,6 +33,10 @@ methods: {
     copyPassword() {
         const dec_password = CryptoJS.AES.decrypt(this.enc_password, store.user.password).toString(this.$CryptoJS.enc.Utf8);        
         navigator.clipboard.writeText(dec_password);
+    },
+    openPasswordView() {
+        store.curr_password_id = this.idx;
+        this.$router.push('/password');
     }
 }
 }
