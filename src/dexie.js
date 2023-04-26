@@ -39,6 +39,16 @@ export async function DBL_logoutUser() {
     }
 }
 
+
+export async function DBL_isUserLoggedIn() {
+    const user_exists = await db.curr_user.toArray(); 
+    if (!user_exists) {
+        return false;
+    }
+
+    return user_exists[0];
+}
+
 export async function DBL_refreshUserLogin() {
     const user_exists = await db.curr_user.toArray(); 
     if (!user_exists) {
