@@ -6,7 +6,7 @@
     <password-input @valueUpdated="updatePassword" />
     <p>Don't have an account? <a @click="this.$router.push('/register');">Register</a></p>
     <big-button-register-signin text="Sign in" @click="loginUser()"/>
-  <p id="Version">@1.5</p>
+  <p id="Version">@1.6</p>
 
   </div>
 </template>
@@ -17,7 +17,7 @@ import PasswordInput from '@/components/PasswordInput.vue'
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue'
 import { DB_loginUser } from '@/supabase';
 import { store } from '@/store/store';
-import { del_dexie } from '@/dexie';
+import { del_dexie, DBL_isUserLoggedIn } from '@/dexie';
 
 export default {
   name: 'App',
@@ -53,6 +53,14 @@ export default {
         }
       });
     }
+  }, beforeMount() {
+    DBL_isUserLoggedIn().then((res) => {
+      if (res) {
+        store.user.loggedIn = true;
+        store.username = res.username;
+        this.$router.push('/home');
+      }
+    })
   }
 }
 </script>
