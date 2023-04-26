@@ -13,11 +13,12 @@
 
 export default {
 name: 'App',
+props: ["value"],
 data() {
       return {
-        my_value: "black",
+        my_value: this.value == undefined ? "black" : this.value,
       }
-  },
+  }
 }
 </script>
 

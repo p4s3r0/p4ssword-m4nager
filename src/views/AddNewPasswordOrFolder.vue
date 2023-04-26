@@ -1,7 +1,14 @@
 <template>
     <div id="mainLogin">
-      <h1>Add new Password.</h1>
-      <h2>I'll protect it!</h2>
+        <div v-if="this.fold_pass_selector == 'Passwords'">
+            <h1>Add new Password.</h1>
+            <h2>I'll protect it!</h2>
+        </div>
+
+        <div v-else>
+            <h1>Add new Folder.</h1>
+            <h2>Order is key!</h2>
+        </div>
 
         <div class="showFoldersOrPasswords">
             <folders-password-filter text="Folder" @click="activateFoldersButton" :status="this.fold_pass_selector == 'Folders' ? 'active' : 'notActive'"/>
@@ -131,7 +138,7 @@ padding-left: 8vw;
 
 .showFoldersOrPasswords {
     margin-left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-60%);
     display: flex;
     margin-top: 6vh;
     width: 70%;

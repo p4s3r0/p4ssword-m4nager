@@ -3,7 +3,7 @@
     <h1>{{ this.folder }}</h1>
     <div id="delEdit">
       <small-button-delete text="Delete" @click=deleteFolder() />
-      <small-button-edit text="Edit" />
+      <small-button-edit text="Edit" @click=editFolder() />
     </div>
 
     <password v-for="p in this.passwords" :key=p.key
@@ -36,20 +36,23 @@ export default {
   },
   data() {
       return {
-        folder: store.temp.curr_folder,
+        folder: store.temp.curr_folder_name,
         passwords: []
       }
   },
   methods: {
     deleteFolder() {
-      DB_deleteFolder(store.user.username, store.temp.curr_folder).then( () => {
+      DB_deleteFolder(store.user.username, store.temp.curr_folder_name).then( () => {
         this.$router.push('/home');
       })
+    },
+    editFolder() {
+      this.$router.push('/editFolder');
     }
   }, 
   beforeMount() {
     if (store.user.username == "") {
-      if (store.temp.curr_folder == "") {
+      if (store.temp.curr_folder_name == "") {
         this.$router.push('/home');
 
       }
@@ -59,7 +62,7 @@ export default {
           }
         })
       } else {
-        DB_getPasswordsForSpecificFolder(store.user.username, store.temp.curr_folder).then( (res) => {
+        DB_getPasswordsForSpecificFolder(store.user.username, store.temp.curr_folder_name).then( (res) => {
           this.passwords = res;
         })
 
