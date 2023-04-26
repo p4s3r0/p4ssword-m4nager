@@ -65,7 +65,8 @@ export async function DBL_updateFolders(folders) {
         const data = {
             folder: folders[i].folder,
             pass_amount: folders[i].pass_amount,
-            color: folders[i].color
+            color: folders[i].color,
+            idx: folders[i].id
         }
         await db.folders.add(data);
     }
@@ -134,6 +135,18 @@ export async function settings_updateFolderOrPassword(value) {
 export async function DBL_getPasswordsByIdx(idx) {
     const data = await db.passwords.where("idx").equals(idx).toArray();
     return data[0];
+}
+
+
+export async function DBL_editFolder(folder_id, folder_name, folder_color) {
+    await db.folders.update(folder_id, {folder: folder_name, color: folder_color})
+    const current_passwords = await db.passwords.toArray();
+    for (let i = 0; i < current_passwords.length; i++) {
+        if (current_passwords[i].folder == store.temp.curr_folder_name) {
+            console.log("updated password")
+            await db.passwords.update(current_passwords[i].idx, {folder: folder_name})
+        }
+    }
 }
 
 

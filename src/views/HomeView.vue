@@ -8,11 +8,12 @@
             <folders-password-filter text="Passwords" @click="activatePasswordsButton" :status="this.fold_pass_selector == 'Folders' ? 'notActive' : 'active'"/>
         </div>
         <div v-if="this.fold_pass_selector == 'Folders'" id="posFolders">
-            <folder v-for="f in this.folders" @click=openFolder(f.folder)
+            <folder v-for="f in this.folders" @click="openFolder(f.idx, f.folder, f.color)"
                                                 :key=f.key 
                                                 :name=f.folder
                                                 :pass_amount=f.pass_amount 
-                                                :color=f.color />
+                                                :color=f.color
+                                                :idx=f.idx />
         </div>
 
         <div v-else id="posFolders">
@@ -72,8 +73,10 @@ methods: {
             this.$router.push('/');
         })
     },
-    openFolder(folder_name) {
-        store.temp.curr_folder = folder_name;
+    openFolder(folder_id, folder_name, folder_color) {
+        store.temp.curr_folder_id = folder_id;        
+        store.temp.curr_folder_name = folder_name;        
+        store.temp.curr_folder_color = folder_color;        
         this.$router.push('/folder');
     },
     openPasswordView(name, username, password, folder, note) {

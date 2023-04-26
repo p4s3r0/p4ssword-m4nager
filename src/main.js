@@ -9,6 +9,7 @@ import Home from '@/views/HomeView.vue'
 import FolderView from '@/views/FolderView.vue'
 import AddPasswordOrFolder from '@/views/AddNewPasswordOrFolder.vue'
 import PasswordView from '@/views/PasswordView.vue'
+import EditFolder from '@/views/EditFolder.vue'
 import './registerServiceWorker'
 
 
@@ -36,6 +37,10 @@ const routes = [{
     path: "/password",
     name: "password",
     component: PasswordView,
+}, {
+    path: "/editFolder",
+    name: "editFolder",
+    component: EditFolder,
 }];
 
 const router = VueRouter.createRouter({

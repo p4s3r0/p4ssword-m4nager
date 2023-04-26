@@ -56,7 +56,7 @@ export default {
   }, 
   beforeMount() {
     if (store.user.username == "") {
-      if (store.temp.curr_folder == "") {
+      if (store.temp.curr_folder_name == "") {
         this.$router.push('/home');
 
       }
