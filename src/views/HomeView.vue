@@ -2,7 +2,7 @@
     <div id="mainLogin">
         <h1 id="posHello">Hello, {{ this.username }} 👋</h1>
         <lock-button @click="logout()"/>
-        <search-bar id="posSearchBar" />
+        <search-bar id="posSearchBar" @valueUpdated=search />
         <div class="showFoldersOrPasswords">
             <folders-password-filter text="Folders" @click="activateFoldersButton" :status="this.fold_pass_selector == 'Folders' ? 'active' : 'notActive'"/>
             <folders-password-filter text="Passwords" @click="activatePasswordsButton" :status="this.fold_pass_selector == 'Folders' ? 'notActive' : 'active'"/>
@@ -43,6 +43,7 @@ import Password from '@/components/Password.vue';
 import { store } from '@/store/store'
 import { DB_getAllFolders, DB_getAllPasswords } from '@/supabase';
 import { DBL_refreshUserLogin, DBL_logoutUser, settings_getFolderOrPassword, settings_updateFolderOrPassword } from '@/dexie';
+import { rankFoldersBySearch, rankPasswordsBySearch, rankPasswordsAlphabetically } from '@/scripts/search';
 
 export default {
 name: 'App',
@@ -89,6 +90,17 @@ methods: {
         store.temp.curr_password_folder = folder;
         store.temp.curr_password_note = note;
         this.$router.push('/password');
+    },
+    search(keyword) {
+        if (this.fold_pass_selector == "Folders") {
+            rankFoldersBySearch(keyword).then((res) => {
+                this.folders = res;
+            });
+        } else {
+            rankPasswordsBySearch(keyword).then((res) => {
+                this.passwords = res;
+            });
+        }
     }
 }, beforeMount() {
     if (store.user.username == "") {
@@ -101,7 +113,8 @@ methods: {
                 this.folders = res;
             });
             DB_getAllPasswords(this.username).then( (res) => {
-                this.passwords = res;
+                console.log()
+                this.passwords = rankPasswordsAlphabetically(res);
             });
         })
     } else {
@@ -109,7 +122,7 @@ methods: {
             this.folders = res;
         });
         DB_getAllPasswords(this.username).then( (res) => {
-            this.passwords = res;
+            this.passwords = rankPasswordsAlphabetically(res);
         });
     }
     settings_getFolderOrPassword().then( (res) => {
