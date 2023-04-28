@@ -3,7 +3,7 @@
     <h1> Password Data</h1>
     <div id="delEdit">
       <small-button-delete text="Delete" @click=deletePassword() />
-      <small-button-edit text="Edit" />
+      <small-button-edit text="Edit" @click=editPassword() />
     </div>
     <text-shower v-if="this.name != ''" :text=this.name />
     <text-shower v-if="this.username != ''" :text=this.username />
@@ -23,7 +23,7 @@ import TextShower from '@/components/TextShower.vue';
 
 import { store } from '@/store/store';
 import { DBL_refreshUserLogin, DBL_getPasswordsByIdx } from '@/dexie';
-import { DB_deletePassword } from '@/supabase';
+import { DB_deletePassword, DB_editPassword } from '@/supabase';
 
 import CryptoJS from 'crypto-js';
 
@@ -47,11 +47,15 @@ export default {
   },
   methods: {
     deletePassword() {
-      DB_deletePassword(store.curr_password_id).then( (res) => {
+      DB_deletePassword(store.temp.curr_password_id).then((res) => {
         if (!res) {
             this.$router.push('/home');
           }
       })
+    },
+    editPassword() {
+      console.log(store.temp.curr_password_password)
+      this.$router.push('/editPassword');
     }
   }, 
   beforeMount() {
@@ -66,7 +70,7 @@ export default {
           }
         })
       } else {
-        DBL_getPasswordsByIdx(store.curr_password_id).then( (res) => {
+        DBL_getPasswordsByIdx(store.temp.curr_password_id).then( (res) => {
           this.name = res.name;
           this.username = res.username;
           this.password = CryptoJS.AES.decrypt(res.password, store.user.password).toString(this.$CryptoJS.enc.Utf8);        

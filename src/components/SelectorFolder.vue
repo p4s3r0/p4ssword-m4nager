@@ -12,6 +12,7 @@ import { DBL_getFolders } from '@/dexie';
 
 export default {
 name: 'App',
+props: ["init_value"],
 data() {
       return {
         my_value: "NO FOLDER",
@@ -21,6 +22,9 @@ data() {
     DBL_getFolders().then( (res) => {
         this.folders = res;
     })
+    if (this.init_value != undefined) {
+        this.my_value = this.init_value;
+    }
   }
 }
 </script>

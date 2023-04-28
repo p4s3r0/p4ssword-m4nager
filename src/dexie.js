@@ -117,6 +117,7 @@ export async function DBL_deleteFolder(folder) {
 }
 
 export async function DBL_deletePassword(idx) {
+    const pssw = await db.passwords.toArray();
     await db.passwords.where("idx").equals(idx).delete()
 }
 
@@ -160,3 +161,16 @@ export async function DBL_editFolder(folder_id, folder_name, folder_color) {
 }
 
 
+
+export async function  DBL_editPassword(password_id, name, username, password, folder, note) {
+    await db.passwords.update(password_id, 
+                                {
+                                    name: name, 
+                                    username: username,
+                                    password: password,
+                                    folder: folder,
+                                    note: note
+                                })
+
+}
+    

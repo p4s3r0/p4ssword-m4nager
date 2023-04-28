@@ -23,7 +23,7 @@ import CryptoJS from 'crypto-js';
 
 export default {
 name: 'App',
-props: ["name", "enc_password", "username", "idx"],
+props: ["name", "enc_password", "username", "idx", "folder", "note"],
 methods: {
     copyUsername() {
         navigator.clipboard.writeText(this.username);
@@ -33,7 +33,13 @@ methods: {
         navigator.clipboard.writeText(dec_password);
     },
     openPasswordView() {
-        store.curr_password_id = this.idx;
+        const dec_password = CryptoJS.AES.decrypt(this.enc_password, store.user.password).toString(this.$CryptoJS.enc.Utf8);  
+        store.temp.curr_password_id = this.idx;
+        store.temp.curr_password_name = this.name;
+        store.temp.curr_password_username = this.username;
+        store.temp.curr_password_password = dec_password;
+        store.temp.curr_password_folder = this.folder;
+        store.temp.curr_password_note = this.note;
         this.$router.push('/password');
     }
 }

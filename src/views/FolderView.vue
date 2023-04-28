@@ -9,7 +9,10 @@
     <password v-for="p in this.passwords" :key=p.key
                                           :name=p.name
                                           :enc_password=p.password
-                                          :username=p.username />
+                                          :username=p.username
+                                          :idx=p.idx 
+                                          :folder=p.folder
+                                          :note=p.note />
 
     <add-button @click="this.$router.push('/addPasswordOrFolder')" />
     
@@ -54,7 +57,6 @@ export default {
     if (store.user.username == "") {
       if (store.temp.curr_folder_name == "") {
         this.$router.push('/home');
-
       }
         DBL_refreshUserLogin().then((res) => {
           if (!res) {
