@@ -1,7 +1,14 @@
 import { createClient } from '@supabase/supabase-js'
 import CryptoJS from 'crypto-js';
 
-import { DBL_loginUser, DBL_updateFolders, DBL_updatePasswords, DBL_deleteFolder, DBL_deletePassword, DBL_editFolder } from '@/dexie';
+import {DBL_loginUser, 
+        DBL_updateFolders, 
+        DBL_updatePasswords, 
+        DBL_deleteFolder,
+        DBL_deletePassword, 
+        DBL_editFolder, 
+        DBL_editPassword 
+        } from '@/dexie';
 import { store } from '@/store/store';
 
 export const supabase = createClient('https://yxqtpqkugnsqbfzcopjt.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4cXRwcWt1Z25zcWJmemNvcGp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODA4OTg5MTksImV4cCI6MTk5NjQ3NDkxOX0.cEnLQtFcI1-FVeFnQ-NLeOLf5UrqGIc8VMt3Nhm-p8c')
@@ -103,8 +110,22 @@ export async function DB_editFolder(folder_id, folder_name, folder_color) {
     await supabase.from("folders").update({folder: folder_name, color: folder_color}).eq("id", folder_id)
     await supabase.from("passwords").update({folder: folder_name}).eq("folder", store.temp.curr_folder_name);
     
-    
     await DBL_editFolder(folder_id, folder_name, folder_color);
+}
+
+
+
+export async function DB_editPassword(password_id, name, username, password, folder, note) {
+    const enc_pass = CryptoJS.AES.encrypt(password, store.user.password).toString()
+    await supabase.from("passwords").update(
+                                            { 
+                                                name: name, 
+                                                username: username,
+                                                password: enc_pass,
+                                                folder: folder,
+                                                note: note
+                                            }).eq("id", password_id)
+    await DBL_editPassword(password_id, name, username, enc_pass, folder, note);
 }
 
 /*

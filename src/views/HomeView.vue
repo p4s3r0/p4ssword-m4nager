@@ -22,7 +22,10 @@
                                                 :name=p.name
                                                 :enc_password=p.password
                                                 :username=p.username 
-                                                :idx=p.idx />
+                                                :idx=p.idx 
+                                                :folder=p.folder 
+                                                :note=p.note />
+                                                
         </div>
     <add-button @click="this.$router.push('/addPasswordOrFolder')" />
     </div>
@@ -80,11 +83,11 @@ methods: {
         this.$router.push('/folder');
     },
     openPasswordView(name, username, password, folder, note) {
-        store.curr_password.name = name;
-        store.curr_password.username = username;
-        store.curr_password.password = password;
-        store.curr_password.folder = folder;
-        store.curr_password.note = note;
+        store.temp.curr_password_name = name;
+        store.temp.curr_password_username = username;
+        store.temp.curr_password_password = password;
+        store.temp.curr_password_folder = folder;
+        store.temp.curr_password_note = note;
         this.$router.push('/password');
     }
 }, beforeMount() {
