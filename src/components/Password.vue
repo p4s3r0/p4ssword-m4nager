@@ -56,6 +56,7 @@ methods: {
     display: flex;
     color: black;
     font-size: 1.2em;
+    cursor: pointer;
 }
 
 #passwordName {

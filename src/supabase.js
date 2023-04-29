@@ -10,12 +10,12 @@ import {DBL_loginUser,
         DBL_editPassword 
         } from '@/dexie';
 import { store } from '@/store/store';
-
 export const supabase = createClient('https://yxqtpqkugnsqbfzcopjt.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4cXRwcWt1Z25zcWJmemNvcGp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODA4OTg5MTksImV4cCI6MTk5NjQ3NDkxOX0.cEnLQtFcI1-FVeFnQ-NLeOLf5UrqGIc8VMt3Nhm-p8c')
 
 function HASH(val) {
     return CryptoJS.SHA3(val).toString(CryptoJS.enc.Hex)
 }
+
 
 
 export async function DB_registerUser(email, username, password) {
@@ -24,9 +24,11 @@ export async function DB_registerUser(email, username, password) {
         username: username,
         password: HASH(password),
     }
-    await supabase.from('user').insert(data);
+    await supabase.from('users').insert(data);
     return true;
 }
+
+
 
 export async function DB_loginUser(username, password) {
     const { data } = await supabase.from('users').select().eq("username", username)
@@ -44,6 +46,8 @@ export async function DB_loginUser(username, password) {
     return true;
 }
 
+
+
 export async function DB_getAllFolders(username) {
     const { data } = await supabase.from('folders').select().eq("user", username)
     const ret = await DBL_updateFolders(data);
@@ -55,6 +59,7 @@ export async function DB_getAllPasswords(username) {
     const ret = await DBL_updatePasswords(data);
     return ret;
 }
+
 
 
 export async function DB_addNewFolder(username, folder, color) {
@@ -69,8 +74,9 @@ export async function DB_addNewFolder(username, folder, color) {
 }
 
 
+
 export async function DB_addNewPassword(name, password, folder, note, user, username) {
-    const data = {
+    const pssw = {
         name: name,
         username: username,
         password: CryptoJS.AES.encrypt(password, store.user.password).toString(),
@@ -78,9 +84,15 @@ export async function DB_addNewPassword(name, password, folder, note, user, user
         note: note,
         user: user
     };
-    await supabase.from('passwords').insert(data);
+    await supabase.from('passwords').insert(pssw);
+
+    let { data } = await supabase.from('folders').select().eq("user", store.user.username).eq("folder", folder)
+    data = data[0] // only one folder with same name
+    await supabase.from("folders").update({pass_amount: data.pass_amount + 1}).eq("folder", folder)
     return true;
 }
+
+
 
 export async function DB_getPasswordsForSpecificFolder(username, folder) {
     const data = await DB_getAllPasswords(username)
@@ -95,19 +107,29 @@ export async function DB_getPasswordsForSpecificFolder(username, folder) {
 
 
 export async function DB_deleteFolder(username, folder) {
+    await supabase.from("passwords").update({folder: "NO FOLDER"}).eq("user", username).eq("folder", folder)
     await supabase.from("folders").delete().eq("user", username).eq("folder", folder);
+
     await DBL_deleteFolder(folder);
 }
 
 
-export async function DB_deletePassword(id) {
+
+export async function DB_deletePassword(id, folder) {
+    let { data } = await supabase.from('folders').select().eq("user", store.user.username).eq("folder", folder)
     await supabase.from("passwords").delete().eq("id", id)
     await DBL_deletePassword(id);
+    if (data.length == 0) {
+        return;
+    }
+    data = data[0] // only one folder with same name
+    await supabase.from("folders").update({pass_amount: data.pass_amount - 1}).eq("folder", folder)
 }
 
 
+
 export async function DB_editFolder(folder_id, folder_name, folder_color) {
-    await supabase.from("folders").update({folder: folder_name, color: folder_color}).eq("id", folder_id)
+    await supabase.from("folders").update({folder: folder_name, color: folder_color}).eq("id", folder_id).eq("user", store.user.username)
     await supabase.from("passwords").update({folder: folder_name}).eq("folder", store.temp.curr_folder_name);
     
     await DBL_editFolder(folder_id, folder_name, folder_color);
@@ -115,7 +137,7 @@ export async function DB_editFolder(folder_id, folder_name, folder_color) {
 
 
 
-export async function DB_editPassword(password_id, name, username, password, folder, note) {
+export async function DB_editPassword(folder_before, password_id, name, username, password, folder, note) {
     const enc_pass = CryptoJS.AES.encrypt(password, store.user.password).toString()
     await supabase.from("passwords").update(
                                             { 
@@ -125,13 +147,10 @@ export async function DB_editPassword(password_id, name, username, password, fol
                                                 folder: folder,
                                                 note: note
                                             }).eq("id", password_id)
-    await DBL_editPassword(password_id, name, username, enc_pass, folder, note);
+    const folder_bef = await supabase.from('folders').select().eq("user", store.user.username).eq("folder", folder_before)
+    await supabase.from("folders").update({pass_amount: folder_bef.data[0].pass_amount - 1}).eq("folder", folder_before).eq("user", store.user.username)
+
+    const folder_aft = await supabase.from('folders').select().eq("user", store.user.username).eq("folder", folder)
+    await supabase.from("folders").update({pass_amount: folder_aft.data[0].pass_amount + 1}).eq("folder", folder).eq("user", store.user.username)
+    await DBL_editPassword(folder_before, password_id, name, username, enc_pass, folder, note);
 }
-
-/*
-const enc = this.$CryptoJS.AES.encrypt("Hi There!", "Secret Passphrase").toString()
-console.log("encoded: ", enc);
-
-const dec = this.$CryptoJS.AES.decrypt(enc, "Secret Passphrase").toString(this.$CryptoJS.enc.Utf8)
-console.log("decoded: ", dec);
-*/

@@ -25,7 +25,6 @@
                                                 :idx=p.idx 
                                                 :folder=p.folder 
                                                 :note=p.note />
-                                                
         </div>
     <add-button @click="this.$router.push('/addPasswordOrFolder')" />
     </div>
@@ -43,7 +42,7 @@ import Password from '@/components/Password.vue';
 import { store } from '@/store/store'
 import { DB_getAllFolders, DB_getAllPasswords } from '@/supabase';
 import { DBL_refreshUserLogin, DBL_logoutUser, settings_getFolderOrPassword, settings_updateFolderOrPassword } from '@/dexie';
-import { rankFoldersBySearch, rankPasswordsBySearch, rankPasswordsAlphabetically } from '@/scripts/search';
+import { rankFoldersBySearch, rankPasswordsBySearch, rankPasswordsAlphabetically, rankFolderAlphabetically } from '@/scripts/search';
 
 export default {
 name: 'App',
@@ -110,16 +109,15 @@ methods: {
             }
             this.username = res;
             DB_getAllFolders(this.username).then( (res) => {
-                this.folders = res;
+                this.folders = rankFolderAlphabetically(res);
             });
             DB_getAllPasswords(this.username).then( (res) => {
-                console.log()
                 this.passwords = rankPasswordsAlphabetically(res);
             });
         })
     } else {
         DB_getAllFolders(store.user.username).then( (res) => {
-            this.folders = res;
+            this.folders = rankFolderAlphabetically(res);
         });
         DB_getAllPasswords(this.username).then( (res) => {
             this.passwords = rankPasswordsAlphabetically(res);

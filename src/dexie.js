@@ -64,11 +64,11 @@ export async function DBL_refreshUserLogin() {
 }
 
 export async function DBL_updateFolders(folders) {
-    const current_folders = await db.folders.toArray();
-    if (folders == null || current_folders.length == folders.length) {
+    if (folders == null) {
         return await db.folders.toArray();
     }
 
+    
     await db.folders.clear();
     for(let i = 0; i < folders.length; i++)
     {
@@ -114,6 +114,11 @@ export async function DBL_getFolders() {
 
 export async function DBL_deleteFolder(folder) {
     await db.folders.where("folder").equals(folder).delete()
+    
+    const current_passwords = await db.passwords.where("folder").equals(folder).toArray();
+    for (let i = 0; i < current_passwords.length; i++) {
+        await db.passwords.update(current_passwords[i].idx, { folder: "NO FOLDER" });
+    }
 }
 
 export async function DBL_deletePassword(idx) {
@@ -162,7 +167,7 @@ export async function DBL_editFolder(folder_id, folder_name, folder_color) {
 
 
 
-export async function  DBL_editPassword(password_id, name, username, password, folder, note) {
+export async function  DBL_editPassword(folder_before, password_id, name, username, password, folder, note) {
     await db.passwords.update(password_id, 
                                 {
                                     name: name, 
@@ -172,5 +177,20 @@ export async function  DBL_editPassword(password_id, name, username, password, f
                                     note: note
                                 })
 
+    const folder_old = await db.folders.where("folder").equals(folder_before).toArray();
+    const folder_old_idx = folder_old[0].idx
+    
+    await db.folders.update(folder_old_idx, 
+        {
+            pass_amount: folder_old.pass_amount - 1
+        });
+
+    const folder_new = await db.folders.where("folder").equals(folder).toArray();
+    const folder_new_idx = folder_new[0].idx
+
+    await db.folders.update(folder_new_idx, 
+        {
+            pass_amount: folder_new.pass_amount + 1
+        });
 }
     

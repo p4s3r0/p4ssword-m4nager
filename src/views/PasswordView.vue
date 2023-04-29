@@ -47,14 +47,13 @@ export default {
   },
   methods: {
     deletePassword() {
-      DB_deletePassword(store.temp.curr_password_id).then((res) => {
+      DB_deletePassword(store.temp.curr_password_id, this.folder).then((res) => {
         if (!res) {
             this.$router.push('/home');
           }
       })
     },
     editPassword() {
-      console.log(store.temp.curr_password_password)
       this.$router.push('/editPassword');
     }
   }, 
@@ -62,7 +61,6 @@ export default {
     if (store.user.username == "") {
       if (store.temp.curr_folder_name == "") {
         this.$router.push('/home');
-
       }
         DBL_refreshUserLogin().then((res) => {
           if (!res) {
