@@ -177,20 +177,27 @@ export async function  DBL_editPassword(folder_before, password_id, name, userna
                                     note: note
                                 })
 
-    const folder_old = await db.folders.where("folder").equals(folder_before).toArray();
-    const folder_old_idx = folder_old[0].idx
+
+    if (folder_before != "NO FOLDER") {
+        const folder_old = await db.folders.where("folder").equals(folder_before).toArray();
+        const folder_old_idx = folder_old[0].idx
+        
+        await db.folders.update(folder_old_idx, 
+            {
+                pass_amount: folder_old.pass_amount - 1
+            });
+
+    }
+
+    if (folder != "NO FOLDER") {
+        const folder_new = await db.folders.where("folder").equals(folder).toArray();
+        const folder_new_idx = folder_new[0].idx
     
-    await db.folders.update(folder_old_idx, 
-        {
-            pass_amount: folder_old.pass_amount - 1
-        });
+        await db.folders.update(folder_new_idx, 
+            {
+                pass_amount: folder_new.pass_amount + 1
+            });
+    }
 
-    const folder_new = await db.folders.where("folder").equals(folder).toArray();
-    const folder_new_idx = folder_new[0].idx
-
-    await db.folders.update(folder_new_idx, 
-        {
-            pass_amount: folder_new.pass_amount + 1
-        });
 }
     

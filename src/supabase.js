@@ -150,10 +150,14 @@ export async function DB_editPassword(folder_before, password_id, name, username
                                                 folder: folder,
                                                 note: note
                                             }).eq("id", password_id)
-    const folder_bef = await supabase.from('folders').select().eq("user", store.user.username).eq("folder", folder_before)
-    await supabase.from("folders").update({pass_amount: folder_bef.data[0].pass_amount - 1}).eq("folder", folder_before).eq("user", store.user.username)
-
-    const folder_aft = await supabase.from('folders').select().eq("user", store.user.username).eq("folder", folder)
-    await supabase.from("folders").update({pass_amount: folder_aft.data[0].pass_amount + 1}).eq("folder", folder).eq("user", store.user.username)
+    if (folder_before != "NO FOLDER") {
+        const folder_bef = await supabase.from('folders').select().eq("user", store.user.username).eq("folder", folder_before)
+        await supabase.from("folders").update({pass_amount: folder_bef.data[0].pass_amount - 1}).eq("folder", folder_before).eq("user", store.user.username)
+    }
+    
+    if (folder != "NO FOLDER") {
+        const folder_aft = await supabase.from('folders').select().eq("user", store.user.username).eq("folder", folder)
+        await supabase.from("folders").update({pass_amount: folder_aft.data[0].pass_amount + 1}).eq("folder", folder).eq("user", store.user.username)
+    }
     await DBL_editPassword(folder_before, password_id, name, username, enc_pass, folder, note);
 }
