@@ -24,6 +24,7 @@ components: {
     min-height: 15vw;
     border-radius: 16px; 
     display: flex;
+    cursor: pointer;
 }
 
 p {

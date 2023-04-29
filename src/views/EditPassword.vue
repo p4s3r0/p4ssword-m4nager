@@ -55,7 +55,7 @@ export default {
       this.curr_password_note = note;
     },
     edit() {
-      DB_editPassword(this.curr_password_id, this.curr_password_name,this.curr_password_username, this.curr_password_password, this.curr_password_folder, this.curr_password_note).then( () => {
+      DB_editPassword(store.temp.curr_password_folder, this.curr_password_id, this.curr_password_name,this.curr_password_username, this.curr_password_password, this.curr_password_folder, this.curr_password_note).then( () => {
         this.$router.push('/home');
       })
     }

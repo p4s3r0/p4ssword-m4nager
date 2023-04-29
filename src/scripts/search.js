@@ -1,7 +1,12 @@
 import { DBL_getFolders, DBL_updatePasswords } from "@/dexie"
 
+
+
 export async function rankFoldersBySearch(search) {
     const folders = await DBL_getFolders()
+    if (search == "") {
+        return rankFolderAlphabetically(folders);
+    }
     let ranking = []
 
     for (let f = 0; f < folders.length; f++) {
@@ -28,13 +33,12 @@ export async function rankFoldersBySearch(search) {
 }
 
 
+
 export async function rankPasswordsBySearch(search) {
     const passwords = await DBL_updatePasswords(null)
     if (search == "") {
         return rankPasswordsAlphabetically(passwords);
     }
-    console.log("search: ", search)
-    console.log("in: ", passwords)
 
     let ranking = []
 
@@ -64,6 +68,7 @@ export async function rankPasswordsBySearch(search) {
 }
 
 
+
 export function rankPasswordsAlphabetically(passwords) {
     let ranking = []
 
@@ -79,6 +84,34 @@ export function rankPasswordsAlphabetically(passwords) {
         ranking.push({
             score: passwords[p].name.charCodeAt(0),
             data: passwords[p]
+        })
+    }
+    ranking.sort((a,b) => a.score - b.score); 
+    for (let i = 0; i < ranking.length; i++) {
+        ranking[i] = ranking[i].data;
+    }
+    return ranking;
+}
+
+
+
+
+export function rankFolderAlphabetically(folders) {
+    let ranking = []
+
+    for (let f = 0; f < folders.length; f++) {
+        if (folders[f].folder.length == 0) {
+            ranking.push({
+                score: 0,
+                data: folders[f]
+            })
+            continue;
+        }
+        const first_letter = folders[f].folder[0].toLowerCase()
+
+        ranking.push({
+            score: first_letter.charCodeAt(0),
+            data: folders[f]
         })
     }
     ranking.sort((a,b) => a.score - b.score); 
