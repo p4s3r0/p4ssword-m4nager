@@ -63,7 +63,6 @@ methods: {
     margin-left: 10%;
     max-width: 60%;
     overflow-wrap: break-word;
-
 }
 
 #posIcons {

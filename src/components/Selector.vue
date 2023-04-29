@@ -29,8 +29,8 @@ data() {
 
 select {
     font-size: 1em;
-    width: 75vw;
-    height: 15vw;
+    width: 90%;
+    height: 7vh;
     border-radius: 16px;
     padding-left: 9vw;
     background-color: #46464650;

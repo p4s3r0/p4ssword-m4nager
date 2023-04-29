@@ -19,7 +19,7 @@ export default {
   position: absolute;
   bottom: 30px;
   width: 80vw;
-  height: 15vw;
+  height: 70px;
   background-color: white;
   border-radius: 16px; 
 }

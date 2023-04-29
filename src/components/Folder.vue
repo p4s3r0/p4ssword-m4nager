@@ -17,11 +17,11 @@ components: {
 
 <style scoped>
 #mainFolder {
+    position: relative;
     width: 90%;
-    height: 20vw;
     margin-left: 5%;
+    height: 70px;
     margin-bottom: 8px;
-    min-height: 15vw;
     border-radius: 16px; 
     display: flex;
     cursor: pointer;
@@ -33,24 +33,22 @@ p {
 
 #amount {
     position: absolute;
-    right: 15%;
-    transform: translateY(100%);
-}
-#folderName {
-    position: absolute;
-    font-size: 1.2em;
-    transform: translateY(-50%);
-    margin-left: 20px;
-    margin-top: 10vw;
-    max-width: 220px;
+    right: 30px;
+    top: 10px;
 }
 
-#rectangle {
-    width: 10vw;
-    height: 15vw;
-    border-radius: 10px;
-    margin-top: 2.5vw;
-    margin-left: 2.5vw;
+#folderName {
+    position: absolute;
+    top: 35px;
+    font-size: 1.2em;
+    left: 30px;
+    width: 70%;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    transform: translateY(-130%);
 }
 
 .black {

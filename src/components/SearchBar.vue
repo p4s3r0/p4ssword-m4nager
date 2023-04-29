@@ -31,7 +31,7 @@ export default {
 input {
   font-size: 1em;
   width: 60vw;
-  height: 15vw;
+  height: 70px;
   border-radius: 16px;
   padding-left: 12vw;
   background-color: #46464650;
@@ -44,7 +44,7 @@ input:focus {
 
 svg {
   position: absolute;
-  top: 7.5vw;
+  top: 35px;
   transform: translateY(-50%);
   width: 30px;
   padding-left: 10px;

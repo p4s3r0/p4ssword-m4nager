@@ -132,8 +132,7 @@ beforeMount() {
 
 <style scoped>
 #mainLogin {
-max-width: 600px;
-padding-left: 8vw;
+    padding-left: 8vw;
 }
 
 .showFoldersOrPasswords {
