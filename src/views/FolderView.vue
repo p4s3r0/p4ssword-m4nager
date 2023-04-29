@@ -75,10 +75,6 @@ export default {
 </script>
 
 <style scoped>
-#mainLogin {
-  max-width: 600px;
-}
-
 #posNameInput {
   margin-top: 10vh;
   margin-bottom: 1vh;

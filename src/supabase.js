@@ -87,6 +87,9 @@ export async function DB_addNewPassword(name, password, folder, note, user, user
     await supabase.from('passwords').insert(pssw);
 
     let { data } = await supabase.from('folders').select().eq("user", store.user.username).eq("folder", folder)
+    if (data.length == 0) {
+        return true;
+    }
     data = data[0] // only one folder with same name
     await supabase.from("folders").update({pass_amount: data.pass_amount + 1}).eq("folder", folder)
     return true;

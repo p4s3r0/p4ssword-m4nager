@@ -42,10 +42,11 @@ export default {
 <style scoped>
 input {
   font-size: 1em;
-  width: 65vw;
-  height: 15vw;
+  width: 70%;
+  height: 7vh;
   border-radius: 16px;
-  padding-left: 10vw;
+  padding-left: 10%;
+  padding-right: 10%;
   background-color: #46464650;
   border: solid 0px black;
   color: white;
@@ -56,7 +57,7 @@ input:focus {
 
 i {
   position: absolute;
-  right: 80px;
+  right: 15%;
   margin-top: 25px;
   width: 30px;
   padding-left: 10px;

@@ -53,7 +53,6 @@ export default {
 
 <style scoped>
 #mainLogin {
-  max-width: 600px;
   padding-left: 8vw;
 }
 
