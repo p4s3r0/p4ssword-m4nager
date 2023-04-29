@@ -82,14 +82,6 @@ methods: {
         store.temp.curr_folder_color = folder_color;        
         this.$router.push('/folder');
     },
-    openPasswordView(name, username, password, folder, note) {
-        store.temp.curr_password_name = name;
-        store.temp.curr_password_username = username;
-        store.temp.curr_password_password = password;
-        store.temp.curr_password_folder = folder;
-        store.temp.curr_password_note = note;
-        this.$router.push('/password');
-    },
     search(keyword) {
         if (this.fold_pass_selector == "Folders") {
             rankFoldersBySearch(keyword).then((res) => {

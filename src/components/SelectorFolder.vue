@@ -36,13 +36,13 @@ data() {
 
 select {
     font-size: 1em;
-    width: 90%;
+    width: 85%;
     height: 7vh;
     border-radius: 16px;
     padding-left: 9vw;
     background-color: #46464650;
     border: solid 0px black;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 1);
 }
 
 select:focus {

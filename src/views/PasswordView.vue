@@ -5,11 +5,13 @@
       <small-button-delete text="Delete" @click=deletePassword() />
       <small-button-edit text="Edit" @click=editPassword() />
     </div>
-    <text-shower v-if="this.name != ''" :text=this.name />
-    <text-shower v-if="this.username != ''" :text=this.username />
-    <text-shower v-if="this.password != ''" is_pssw="true" :text=this.password />
-    <text-shower v-if="this.folder != 'NO FOLDER'" :text=this.folder />
-    <text-shower v-if="this.note != ''" :text=this.note />
+    <div id="textShower">
+      <text-shower v-if="this.name != ''" :text=this.name />
+      <text-shower v-if="this.username != ''" :text=this.username />
+      <text-shower v-if="this.password != ''" is_pssw="true" :text=this.password />
+      <text-shower v-if="this.folder != 'NO FOLDER'" :text=this.folder />
+      <text-shower v-if="this.note != ''" :text=this.note />
+    </div>
     <add-button @click="this.$router.push('/addPasswordOrFolder')" />
   </div>
 </template>
@@ -83,9 +85,6 @@ export default {
 </script>
 
 <style scoped>
-#mainLogin {
-  max-width: 600px;
-}
 
 #posNameInput {
   margin-top: 10vh;
@@ -98,13 +97,17 @@ export default {
 
 #delEdit {
   display: flex;
-  margin-left: 40%;
+  margin-left: 50%;
   margin-bottom: 5vh;
-  transform: translate(-40%);
+  transform: translate(-50%);
 }
 
 h1 {
   margin-left: 8vw;
   margin-bottom: 3vh;
+}
+
+#textShower {
+  margin-left: 10%;
 }
 </style>

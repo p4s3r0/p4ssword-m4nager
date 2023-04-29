@@ -22,7 +22,7 @@ export default {
 input {
   font-size: 1em;
   width: 65vw;
-  height: 15vw;
+  height: 7vh;
   border-radius: 16px;
   padding-left: 10vw;
   background-color: #46464650;
