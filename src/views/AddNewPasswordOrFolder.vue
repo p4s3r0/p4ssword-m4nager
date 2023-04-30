@@ -119,14 +119,15 @@ methods: {
     }
 }, 
 beforeMount() {
-    if (store.user.username == "") {
-        DBL_refreshUserLogin().then((res) => {
-            if (!res) {
-                this.$router.push('/');
-            }
-        })
+    if(!checkUserValid()) {
+      DBL_refreshUserLogin().then((res) => {
+        if (!res) {
+          DBL_logoutUser();
+          this.$router.push('/');
+        }
+      })
     }
-    }
+}
 }
 </script>
 

@@ -58,7 +58,7 @@ export default {
 
 p {
   position: absolute;
-  bottom: 22vw;
+  bottom: 105px;
   width: 80vw;
   text-align: center;
 }
@@ -66,6 +66,7 @@ p {
 a {
   font-weight: bold;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 #posUsernameInput {

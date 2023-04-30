@@ -22,8 +22,9 @@
 </template>
 
 <script>
-import { store } from '@/store/store';
+import { store, checkUserValid } from '@/store/store';
 import CryptoJS from 'crypto-js';
+import { DBL_refreshUserLogin } from '@/dexie';
 
 export default {
 name: 'App',
@@ -42,12 +43,18 @@ methods: {
         store.temp.curr_password_name = this.name;
         store.temp.curr_password_username = this.username;
         store.temp.curr_password_password = dec_password;
-        console.log(this.enc_password)
-        console.log(store.user.password)
-        console.log("dec", dec_password)
         store.temp.curr_password_folder = this.folder;
         store.temp.curr_password_note = this.note;
         this.$router.push('/password');
+    }
+}, beforeMount() {
+    if(!checkUserValid()) {
+        DBL_refreshUserLogin().then((res) => {
+          if (!res) {
+            DBL_logoutUser();
+            this.$router.push('/');
+          }
+        })
     }
 }
 }

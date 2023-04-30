@@ -39,7 +39,7 @@ import Folder from '@/components/Folder.vue';
 import LockButton from '@/components/LockButton.vue';
 import Password from '@/components/Password.vue';
 
-import { store } from '@/store/store'
+import { store, checkUserValid } from '@/store/store'
 import { DB_getAllFolders, DB_getAllPasswords } from '@/supabase';
 import { DBL_refreshUserLogin, DBL_logoutUser, settings_getFolderOrPassword, settings_updateFolderOrPassword } from '@/dexie';
 import { rankFoldersBySearch, rankPasswordsBySearch, rankPasswordsAlphabetically, rankFolderAlphabetically } from '@/scripts/search';
@@ -94,24 +94,26 @@ methods: {
         }
     }
 }, beforeMount() {
-    if (store.user.username == "") {
+    if (!checkUserValid()) {
         DBL_refreshUserLogin().then((res) => {
+            this.username = store.user.username
             if (!res) {
+                DBL_logoutUser();
                 this.$router.push('/');
+            } else {
+                DB_getAllFolders(store.user.username).then( (res) => {
+                    this.folders = rankFolderAlphabetically(res);
+                });
+                DB_getAllPasswords(store.user.username).then( (res) => {
+                    this.passwords = rankPasswordsAlphabetically(res);
+                });
             }
-            this.username = res;
-            DB_getAllFolders(this.username).then( (res) => {
-                this.folders = rankFolderAlphabetically(res);
-            });
-            DB_getAllPasswords(this.username).then( (res) => {
-                this.passwords = rankPasswordsAlphabetically(res);
-            });
         })
     } else {
         DB_getAllFolders(store.user.username).then( (res) => {
             this.folders = rankFolderAlphabetically(res);
         });
-        DB_getAllPasswords(this.username).then( (res) => {
+        DB_getAllPasswords(store.user.username).then( (res) => {
             this.passwords = rankPasswordsAlphabetically(res);
         });
     }
