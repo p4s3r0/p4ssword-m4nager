@@ -19,7 +19,7 @@ import SelectorFolder from '@/components/SelectorFolder.vue';
 import { DBL_refreshUserLogin } from '@/dexie';
 import { DB_editPassword } from '@/supabase';
 
-import { store } from '@/store/store';
+import { store, checkUserValid, checkPasswordValid } from '@/store/store';
 
 export default {
   name: 'App',
@@ -61,19 +61,24 @@ export default {
     }
   }, 
   beforeMount() {
-    if (store.user.username == "") {
-      if (store.temp.curr_folder_name == "") {
-        this.$router.push('/home');
-
-      }
-        DBL_refreshUserLogin().then((res) => {
-          if (!res) {
-            this.$router.push('/');
+    if(!checkUserValid()) {
+      DBL_refreshUserLogin().then((res) => {
+        if (!res) {
+          DBL_logoutUser();
+          this.$router.push('/');
+        } else {
+          if(!checkPasswordValid()) {
+            this.$router.push('/home');
           }
-        })
-      }
+        }
+      })
+    } else {
+      if(!checkPasswordValid()) {
+        this.$router.push('/home');
       }
     }
+  }
+}
 
 </script>
 

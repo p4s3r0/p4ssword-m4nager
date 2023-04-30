@@ -60,7 +60,7 @@ export async function DBL_refreshUserLogin() {
     store.user.password = user.password;
     store.user.email = user.email;
     store.user.loggedIn = true;
-    return user.username;
+    return true;
 }
 
 export async function DBL_updateFolders(folders) {
@@ -159,7 +159,6 @@ export async function DBL_editFolder(folder_id, folder_name, folder_color) {
     const current_passwords = await db.passwords.toArray();
     for (let i = 0; i < current_passwords.length; i++) {
         if (current_passwords[i].folder == store.temp.curr_folder_name) {
-            console.log("updated password")
             await db.passwords.update(current_passwords[i].idx, {folder: folder_name})
         }
     }
@@ -201,3 +200,10 @@ export async function  DBL_editPassword(folder_before, password_id, name, userna
 
 }
     
+
+
+
+/* hi
+U2FsdGVkX182LTLtAAR4WzfY1O3Cw6DKs5sXRGTNpS8=
+U2FsdGVkX19U0p8pkKeCdo7AuqWD1fSD+tO0VbbGDU8=
+*/

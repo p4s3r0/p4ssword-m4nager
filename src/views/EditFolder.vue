@@ -15,7 +15,7 @@ import Selector from '@/components/Selector.vue';
 import { DBL_refreshUserLogin } from '@/dexie';
 import { DB_editFolder } from '@/supabase';
 
-import { store } from '@/store/store';
+import { store, checkFolderValid } from '@/store/store';
 
 export default {
   name: 'App',
@@ -23,12 +23,6 @@ export default {
     BigButtonRegisterSignin,
     EditTextInput,
     Selector
-  },
-  data() {
-      return {
-        folder_name: store.temp.curr_folder_name,
-        folder_color: store.temp.curr_folder_color,
-      }
   },
   methods: {
     updateFolderName(name) {
@@ -38,25 +32,30 @@ export default {
       this.folder_color = color;
     },
     edit() {
-      DB_editFolder(store.temp.curr_folder_id, this.folder_name, this.folder_color).then( (res) => {
+      DB_editFolder(store.temp.curr_folder_id, store.temp.curr_folder_name, store.temp.curr_folder_color).then( (res) => {
         this.$router.push('/home');
       })
     }
   }, 
   beforeMount() {
-    if (store.user.username == "") {
-      if (store.temp.curr_folder_name == "") {
-        this.$router.push('/home');
-
-      }
-        DBL_refreshUserLogin().then((res) => {
-          if (!res) {
-            this.$router.push('/');
+    if(!checkUserValid()) {
+      DBL_refreshUserLogin().then((res) => {
+        if (!res) {
+          DBL_logoutUser();
+          this.$router.push('/');
+        } else {
+          if(!checkFolderValid()) {
+            this.$router.push('/home');
           }
-        })
-      }
+        }
+      })
+    } else {
+      if(!checkFolderValid()) {
+        this.$router.push('/home');
       }
     }
+  }
+}
 
 </script>
 

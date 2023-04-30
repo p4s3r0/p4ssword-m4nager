@@ -23,7 +23,7 @@ import SmallButtonEdit from '@/components/SmallButtonEdit.vue'
 import AddButton from '@/components/AddButton.vue';
 import TextShower from '@/components/TextShower.vue';
 
-import { store } from '@/store/store';
+import { store, checkUserValid, checkPasswordValid } from '@/store/store';
 import { DBL_refreshUserLogin, DBL_getPasswordsByIdx } from '@/dexie';
 import { DB_deletePassword, DB_editPassword } from '@/supabase';
 
@@ -60,27 +60,37 @@ export default {
     }
   }, 
   beforeMount() {
-    if (store.user.username == "") {
-      if (store.temp.curr_folder_name == "") {
-        this.$router.push('/home');
-      }
+    if(!checkUserValid()) {
         DBL_refreshUserLogin().then((res) => {
           if (!res) {
+            DBL_logoutUser();
             this.$router.push('/');
+          } else {
+            if(!checkPasswordValid()) {
+              this.$router.push('/home');
+            } else {
+              DBL_getPasswordsByIdx(store.temp.curr_password_id).then( (res) => {
+                this.name = res.name;
+                this.username = res.username;
+                this.password = CryptoJS.AES.decrypt(res.password, store.user.password).toString(CryptoJS.enc.Utf8);        
+                this.folder = res.folder;
+                this.note = res.note; })
+            }
           }
         })
+    } else {
+      if(!checkPasswordValid()) {
+        this.$router.push('/home');
       } else {
         DBL_getPasswordsByIdx(store.temp.curr_password_id).then( (res) => {
           this.name = res.name;
           this.username = res.username;
-          this.password = CryptoJS.AES.decrypt(res.password, store.user.password).toString(this.$CryptoJS.enc.Utf8);        
+          this.password = CryptoJS.AES.decrypt(res.password, store.user.password).toString(CryptoJS.enc.Utf8);        
           this.folder = res.folder;
-          this.note = res.note;
-        })
-
+          this.note = res.note; })
       }
     }
-
+  }
 }
 </script>
 

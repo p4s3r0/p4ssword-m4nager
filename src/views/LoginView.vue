@@ -6,7 +6,7 @@
     <password-input @valueUpdated="updatePassword" />
     <p>Don't have an account? <a @click="this.$router.push('/register');">Register</a></p>
     <big-button-register-signin text="Sign in" @click="loginUser()"/>
-  <p id="Version">@2.0</p>
+  <p id="Version">@2.1</p>
 
   </div>
 </template>
@@ -57,7 +57,9 @@ export default {
     DBL_isUserLoggedIn().then((res) => {
       if (res) {
         store.user.loggedIn = true;
-        store.username = res.username;
+        store.user.username = res.username;
+        store.user.password = res.password;
+        store.user.email = res.email;
         this.$router.push('/home');
       }
     })
@@ -80,6 +82,7 @@ p {
 a {
   font-weight: bold;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 #posUsernameInput {
@@ -90,7 +93,7 @@ a {
 #Version {
   position: absolute;
   bottom: -15px;
-  right: 5px;
+  right: 15px;
   text-align: right;
   width: auto;
   color: rgba(255, 255, 255, 0.093);

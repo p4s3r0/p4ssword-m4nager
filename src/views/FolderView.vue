@@ -26,7 +26,7 @@ import SmallButtonEdit from '@/components/SmallButtonEdit.vue'
 import AddButton from '@/components/AddButton.vue';
 
 import { DB_getPasswordsForSpecificFolder, DB_deleteFolder } from '@/supabase';
-import { store } from '@/store/store';
+import { store, checkUserValid, checkFolderValid } from '@/store/store';
 import { DBL_refreshUserLogin } from '@/dexie';
 
 export default {
@@ -54,24 +54,31 @@ export default {
     }
   }, 
   beforeMount() {
-    if (store.user.username == "") {
-      if (store.temp.curr_folder_name == "") {
-        this.$router.push('/home');
-      }
+    if(!checkUserValid()) {
         DBL_refreshUserLogin().then((res) => {
           if (!res) {
+            DBL_logoutUser();
             this.$router.push('/');
+          } else {
+            if (!checkFolderValid()) {
+              this.$router.push('/home');
+            }
+            DB_getPasswordsForSpecificFolder(store.user.username, store.temp.curr_folder_name).then( (res) => {
+              this.passwords = res;
+            })
           }
-        })
-      } else {
-        DB_getPasswordsForSpecificFolder(store.user.username, store.temp.curr_folder_name).then( (res) => {
-          this.passwords = res;
-        })
-
+      })
+    } else {
+      if (!checkFolderValid()) {
+        this.$router.push('/home');
       }
+      DB_getPasswordsForSpecificFolder(store.user.username, store.temp.curr_folder_name).then( (res) => {
+        this.passwords = res;
+      })
     }
-
+  }
 }
+
 </script>
 
 <style scoped>
