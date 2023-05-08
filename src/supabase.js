@@ -38,7 +38,6 @@ export async function DB_registerUser(email, username, password) {
 
 export async function DB_loginUser(username, password) {
     const { data } = await supabase.from('users').select().eq("username", username)
-    console.log(data)
     if (data.length < 1) {
         return false;
     }
