@@ -9,8 +9,14 @@ import {DBL_loginUser,
         DBL_editFolder, 
         DBL_editPassword 
         } from '@/dexie';
+
 import { store } from '@/store/store';
-export const supabase = createClient('https://yxqtpqkugnsqbfzcopjt.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4cXRwcWt1Z25zcWJmemNvcGp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODA4OTg5MTksImV4cCI6MTk5NjQ3NDkxOX0.cEnLQtFcI1-FVeFnQ-NLeOLf5UrqGIc8VMt3Nhm-p8c')
+
+
+const URL = process.env.VUE_APP_URL
+const KEY = process.env.VUE_APP_KEY
+
+export const supabase = createClient(URL, KEY)
 
 function HASH(val) {
     return CryptoJS.SHA3(val).toString(CryptoJS.enc.Hex)
@@ -32,6 +38,7 @@ export async function DB_registerUser(email, username, password) {
 
 export async function DB_loginUser(username, password) {
     const { data } = await supabase.from('users').select().eq("username", username)
+    console.log(data)
     if (data.length < 1) {
         return false;
     }
