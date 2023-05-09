@@ -41,7 +41,7 @@ import FoldersPasswordFilter from '@/components/FoldersPasswordFilter.vue';
 import Selector from '@/components/Selector.vue'
 
 import { DB_addNewPassword, DB_addNewFolder } from '@/supabase';
-import { store } from '@/store/store';
+import { store, checkUserValid } from '@/store/store';
 import { DBL_refreshUserLogin } from '@/dexie';
 
 export default {
