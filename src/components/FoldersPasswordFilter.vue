@@ -18,17 +18,20 @@ export default {
     text-align: center;
     width: 40vw;
     line-height: 0.3em;
-    border-radius: 10px;
+    border-radius: 50px;
     margin-right: 10px;
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
 }
 
 .active {
-    background-color: #46464650;
-    border: solid 2px #46464600;
+    background-color: white;
+    border: solid 1px white;
+    color: black
 }
 
 .notActive {
-    border: solid 2px #46464650;
+    border: solid 1px white;
 }
 
 </style>
