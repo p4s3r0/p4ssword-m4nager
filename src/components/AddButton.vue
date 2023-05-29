@@ -25,6 +25,8 @@ components: {
     border-radius: 16px;
     background-color: white;
     cursor: pointer;
+    box-shadow: rgb(38, 57, 77) 0px 20px 20px -10px;
+    border: 1px black solid;
 }
 
 svg {
