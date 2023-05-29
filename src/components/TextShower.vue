@@ -67,12 +67,13 @@ data() {
 .containerTextShower {
     position: relative;
     width: 80%;
-    min-height: 7vh;
+    min-height: 50px;
     padding: 5px 5% 5px 5%;
     border-radius: 16px;
     background-color: #46464650;
     color: white;
     margin-bottom: 10px;
+    overflow-wrap: break-word;
 }
 
 .containerTextShower p {
@@ -86,14 +87,13 @@ data() {
     border: none;
     color: white;
     pointer-events: none;
-    overflow-wrap: break-word;
 }
 
 #copyIcon {
     position: absolute;
     width: 30px;
     right: 10px;
-    top: 3.5vh;
+    top: 3vh;
     transform: translateY(-25%);
     cursor: pointer;
 }

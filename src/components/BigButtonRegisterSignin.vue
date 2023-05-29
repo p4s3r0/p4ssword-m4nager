@@ -22,6 +22,7 @@ export default {
   height: 70px;
   background-color: white;
   border-radius: 16px; 
+  cursor: pointer;
 }
 
 p {

@@ -80,6 +80,8 @@ export default {
         })
     } else {
       if(!checkPasswordValid()) {
+        console.log("here=?")
+
         this.$router.push('/home');
       } else {
         DBL_getPasswordsByIdx(store.temp.curr_password_id).then( (res) => {
