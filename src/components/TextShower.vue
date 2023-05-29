@@ -66,32 +66,33 @@ data() {
 <style scoped>
 .containerTextShower {
     position: relative;
-    font-size: 1em;
     width: 80%;
-    height: 7vh;
-    padding-left: 5%;
+    min-height: 7vh;
+    padding: 5px 5% 5px 5%;
     border-radius: 16px;
     background-color: #46464650;
     color: white;
     margin-bottom: 10px;
-    text-align: left;
-    overflow-wrap: break-word;
+}
+
+.containerTextShower p {
+    width: 70%;
 }
 
 #pssw {
-    position: absolute;
-    width: 90%;
-    height: 7vh;
+    width: 60%;
+    min-height: 7vh;
     background-color: transparent;
     border: none;
     color: white;
-    pointer-events:none
+    pointer-events: none;
+    overflow-wrap: break-word;
 }
 
 #copyIcon {
     position: absolute;
     width: 30px;
-    right: 30px;
+    right: 10px;
     top: 3.5vh;
     transform: translateY(-25%);
     cursor: pointer;
@@ -99,30 +100,21 @@ data() {
 
 #posIcon {
     position: absolute;
-    right: 65px;
+    right: 45px;
     width: 30px;
 }
 
 i {
-    position: absolute;
     cursor: pointer;
 }
 
 #eyeIcon {
     position: absolute;
-    top: 3.5vh;
+    top: 3vh;
     transform: translateY(-25%);
 }
 
 input {
     position: absolute;
 }
-
-p {
-    position: absolute;
-    top: 3vh;
-    transform: translateY(-100%);
-}
-
-
 </style>

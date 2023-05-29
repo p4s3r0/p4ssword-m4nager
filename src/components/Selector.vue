@@ -6,6 +6,9 @@
             <option value="blue">Blue</option>
             <option value="green">Green</option>
         </select>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 11.828L9.17199 14.657L7.75699 13.243L12 9L16.243 13.243L14.828 14.657L12 11.828Z" opacity="0.59" fill="white"/>
+        </svg>
     </div>
 </template>
 
@@ -24,6 +27,7 @@ data() {
 
 <style scoped>
 #mainSelector {
+    position: relative;
     margin-top: 10px;
 }
 
@@ -36,10 +40,22 @@ select {
     background-color: #46464650;
     border: solid 0px black;
     color: rgba(255, 255, 255, 0.35);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 select:focus {
     outline: none;
+}
+
+
+svg {
+    position: absolute;
+    top: 2vh;
+    right: 17.5%;
+    transform: rotate(180deg);
+    pointer-events: none;
 }
 
 
