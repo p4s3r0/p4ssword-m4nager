@@ -10,8 +10,6 @@
 export default {
 name: 'App',
 props: ["name", "pass_amount", "color"],
-components: {
-}
 }
 </script>
 
@@ -74,8 +72,6 @@ p {
 .lightGreen {
     background-color: #8BC34A;
 }
-
-
 .green {
     background-color: #689F38;
 }
