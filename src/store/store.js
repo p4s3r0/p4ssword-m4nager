@@ -1,3 +1,6 @@
+import CryptoJS from 'crypto-js';
+
+
 export let store = {
     user: {
         loggedIn: false,
@@ -40,4 +43,8 @@ export function checkPasswordValid() {
     return store.temp.curr_password_id  != 0 &&
            store.temp.curr_password_name != "" &&
            store.temp.curr_password_folder != "";
+}
+
+export function DECRYPT(val) {
+    return CryptoJS.AES.decrypt(val, store.user.password).toString(CryptoJS.enc.Utf8);    
 }

@@ -23,9 +23,9 @@ import SmallButtonEdit from '@/components/SmallButtonEdit.vue'
 import AddButton from '@/components/AddButton.vue';
 import TextShower from '@/components/TextShower.vue';
 
-import { store, checkUserValid, checkPasswordValid } from '@/store/store';
+import { store, checkUserValid, checkPasswordValid, DECRYPT } from '@/store/store';
 import { DBL_refreshUserLogin, DBL_getPasswordsByIdx } from '@/dexie';
-import { DB_deletePassword, DB_editPassword } from '@/supabase';
+import { DB_deletePassword } from '@/supabase';
 
 import CryptoJS from 'crypto-js';
 
@@ -86,10 +86,10 @@ export default {
       } else {
         DBL_getPasswordsByIdx(store.temp.curr_password_id).then( (res) => {
           this.name = res.name;
-          this.username = res.username;
-          this.password = CryptoJS.AES.decrypt(res.password, store.user.password).toString(CryptoJS.enc.Utf8);        
+          this.username = DECRYPT(res.username);
+          this.password = DECRYPT(res.password),       
           this.folder = res.folder;
-          this.note = res.note; })
+          this.note = DECRYPT(res.note); })
       }
     }
   }

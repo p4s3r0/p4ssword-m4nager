@@ -82,7 +82,6 @@ data() {
 
 #pssw {
     width: 60%;
-    min-height: 7vh;
     background-color: transparent;
     border: none;
     color: white;
@@ -91,10 +90,16 @@ data() {
 
 #copyIcon {
     position: absolute;
-    width: 30px;
-    right: 10px;
-    top: 3vh;
+    right: 15px;
+    top: 25px;
     transform: translateY(-25%);
+    cursor: pointer;
+}
+
+#eyeIcon {
+    position: absolute;
+    right: 15px;
+    transform: translateY(-90%);
     cursor: pointer;
 }
 
@@ -108,13 +113,7 @@ i {
     cursor: pointer;
 }
 
-#eyeIcon {
-    position: absolute;
-    top: 3vh;
-    transform: translateY(-25%);
-}
-
 input {
-    position: absolute;
+    padding-top: 17px;
 }
 </style>
