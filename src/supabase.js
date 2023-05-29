@@ -22,6 +22,10 @@ function HASH(val) {
     return CryptoJS.SHA3(val).toString(CryptoJS.enc.Hex)
 }
 
+function ENCRYPT(val) {
+    return CryptoJS.AES.encrypt(val, store.user.password).toString();
+}
+
 
 
 export async function DB_registerUser(email, username, password) {
@@ -84,10 +88,10 @@ export async function DB_addNewFolder(username, folder, color) {
 export async function DB_addNewPassword(name, password, folder, note, user, username) {
     const pssw = {
         name: name,
-        username: username,
-        password: CryptoJS.AES.encrypt(password, store.user.password).toString(),
+        username: ENCRYPT(username),
+        password: ENCRYPT(password),
         folder: folder,
-        note: note,
+        note: ENCRYPT(note),
         user: user
     };
     await supabase.from('passwords').insert(pssw);
@@ -147,14 +151,13 @@ export async function DB_editFolder(folder_id, folder_name, folder_color) {
 
 
 export async function DB_editPassword(folder_before, password_id, name, username, password, folder, note) {
-    const enc_pass = CryptoJS.AES.encrypt(password, store.user.password).toString()
     await supabase.from("passwords").update(
                                             { 
                                                 name: name, 
-                                                username: username,
-                                                password: enc_pass,
+                                                username: ENCRYPT(username),
+                                                password: ENCRYPT(password),
                                                 folder: folder,
-                                                note: note
+                                                note: ENCRYPT(note)
                                             }).eq("id", password_id)
     if (folder_before != "NO FOLDER") {
         const folder_bef = await supabase.from('folders').select().eq("user", store.user.username).eq("folder", folder_before)
@@ -165,5 +168,5 @@ export async function DB_editPassword(folder_before, password_id, name, username
         const folder_aft = await supabase.from('folders').select().eq("user", store.user.username).eq("folder", folder)
         await supabase.from("folders").update({pass_amount: folder_aft.data[0].pass_amount + 1}).eq("folder", folder).eq("user", store.user.username)
     }
-    await DBL_editPassword(folder_before, password_id, name, username, enc_pass, folder, note);
+    await DBL_editPassword(folder_before, password_id, name, ENCRYPT(username), ENCRYPT(password), folder, ENCRYPT(note));
 }

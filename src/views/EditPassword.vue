@@ -19,7 +19,7 @@ import SelectorFolder from '@/components/SelectorFolder.vue';
 import { DBL_refreshUserLogin } from '@/dexie';
 import { DB_editPassword } from '@/supabase';
 
-import { store, checkUserValid, checkPasswordValid } from '@/store/store';
+import { store, checkUserValid, checkPasswordValid, DECRYPT } from '@/store/store';
 
 export default {
   name: 'App',
@@ -32,10 +32,10 @@ export default {
       return {
         curr_password_id: store.temp.curr_password_id,
         curr_password_name: store.temp.curr_password_name,
-        curr_password_username: store.temp.curr_password_username,
+        curr_password_username: DECRYPT(store.temp.curr_password_username),
         curr_password_password: store.temp.curr_password_password,
         curr_password_folder: store.temp.curr_password_folder,
-        curr_password_note: store.temp.curr_password_note,
+        curr_password_note: DECRYPT(store.temp.curr_password_note),
       }
   },
   methods: {

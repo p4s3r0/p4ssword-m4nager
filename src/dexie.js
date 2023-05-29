@@ -37,6 +37,11 @@ export async function DBL_logoutUser() {
     if (folders_exist) {
         await db.folders.clear();
     }
+
+    const passwords_exists = await db.passwords.toArray(); 
+    if (passwords_exists) {
+        await db.passwords.clear();
+    }
 }
 
 
