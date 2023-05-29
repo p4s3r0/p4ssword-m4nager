@@ -25,16 +25,18 @@
 import { store, checkUserValid } from '@/store/store';
 import CryptoJS from 'crypto-js';
 import { DBL_refreshUserLogin } from '@/dexie';
+import { DECRYPT } from '@/store/store';
 
 export default {
 name: 'App',
 props: ["name", "enc_password", "username", "idx", "folder", "note"],
 methods: {
     copyUsername() {
-        navigator.clipboard.writeText(this.username);
+        const dec_username = DECRYPT(this.username);        
+        navigator.clipboard.writeText(dec_username);
     },
     copyPassword() {
-        const dec_password = CryptoJS.AES.decrypt(this.enc_password, store.user.password).toString(this.$CryptoJS.enc.Utf8);        
+        const dec_password = DECRYPT(this.enc_password);        
         navigator.clipboard.writeText(dec_password);
     },
     openPasswordView(pssw) {
