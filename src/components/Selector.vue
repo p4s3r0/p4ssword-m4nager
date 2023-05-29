@@ -2,9 +2,17 @@
     <div id="mainSelector">
         <select name="cars" id="cars" v-model="this.my_value" @change="$emit('valueUpdated', this.my_value)">
             <option value="black">Black</option>
+            <option value="darkRed">Dark Red</option>
             <option value="red">Red</option>
-            <option value="blue">Blue</option>
+            <option value="darkOrange">Dark Orange</option>
+            <option value="lightOrange">Light Orange</option>
+            <option value="yellow">Yellow</option>
+            <option value="lightGreen">Light Green</option>
             <option value="green">Green</option>
+            <option value="blueGreen">Blue Green</option>
+            <option value="blue">Blue</option>
+            <option value="violet">Violet</option>
+            
         </select>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 11.828L9.17199 14.657L7.75699 13.243L12 9L16.243 13.243L14.828 14.657L12 11.828Z" opacity="0.59" fill="white"/>
@@ -12,8 +20,8 @@
     </div>
 </template>
 
-<script>
 
+<script>
 export default {
 name: 'App',
 props: ["value"],
