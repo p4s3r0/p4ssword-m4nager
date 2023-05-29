@@ -39,6 +39,7 @@ import Folder from '@/components/Folder.vue';
 import LockButton from '@/components/LockButton.vue';
 import Password from '@/components/Password.vue';
 
+
 import { store, checkUserValid } from '@/store/store'
 import { DB_getAllFolders, DB_getAllPasswords } from '@/supabase';
 import { DBL_refreshUserLogin, DBL_logoutUser, settings_getFolderOrPassword, settings_updateFolderOrPassword } from '@/dexie';

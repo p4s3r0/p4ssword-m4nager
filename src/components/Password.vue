@@ -63,8 +63,8 @@ methods: {
 <style scoped>
 #mainPassword {
     position: relative;
-    width: 80%;
-    margin-left: 10%;
+    width: 90%;
+    margin-left: 5%;
     height: 70px;
     margin-bottom: 10px;
     background-color: white;
@@ -88,7 +88,7 @@ methods: {
 
 #posIcons {
     position: absolute;
-    right: 30px;
+    right: 10px;
     top: 35px;
 }
 #lockIcon {
