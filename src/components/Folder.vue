@@ -51,17 +51,50 @@ p {
     transform: translateY(-130%);
 }
 
-.black {
-    background-color: black;
+.darkRed {
+    background-color: #9e0142;
 }
-.green {
-    background-color: rgb(35, 208, 93);
-}
+
 .red {
-    background-color: rgb(218, 72, 70);
+    background-color: #d53e4f;
+}
+
+.darkOrange {
+    background-color: #FF5722;
+}
+
+.lightOrange {
+    background-color: #FF9800;
+}
+
+.yellow {
+    background-color: #FFEB3B;
+}
+
+.lightGreen {
+    background-color: #8BC34A;
+}
+
+
+.green {
+    background-color: #689F38;
+}
+.blueGreen {
+    background-color: #66c2a5;
 }
 .blue {
-    background-color: rgb(56, 113, 212);
+    background-color: #3288bd;
 }
+
+.violet {
+    background-color: #5e4fa2;
+}
+
+
+.black {
+    background-color: black;
+    border: 1px solid rgba(255, 255, 255, 0.277);
+}
+
 </style>
   
