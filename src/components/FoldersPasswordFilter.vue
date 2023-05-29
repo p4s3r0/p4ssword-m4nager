@@ -22,6 +22,7 @@ export default {
     margin-right: 10px;
     padding-top: 2.5px;
     padding-bottom: 2.5px;
+    cursor: pointer;
 }
 
 .active {

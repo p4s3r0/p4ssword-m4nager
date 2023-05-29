@@ -39,8 +39,5 @@ export function checkFolderValid() {
 export function checkPasswordValid() {
     return store.temp.curr_password_id  != 0 &&
            store.temp.curr_password_name != "" &&
-           store.temp.curr_password_username != "" &&
-           store.temp.curr_password_password != "" &&
-           store.temp.curr_password_folder != "" &&
-           store.temp.curr_password_note != "";
+           store.temp.curr_password_folder != "";
 }
