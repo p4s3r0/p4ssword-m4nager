@@ -28,9 +28,14 @@ import { DBL_refreshUserLogin, DBL_getPasswordsByIdx } from '@/dexie';
 import { DB_deletePassword } from '@/supabase';
 
 import CryptoJS from 'crypto-js';
+import { useToast } from "vue-toastification";
 
 export default {
   name: 'App',
+  setup() {
+      const toast = useToast();
+      return { toast }
+    },
   components: {
     Password,
     SmallButtonDelete,
@@ -50,8 +55,37 @@ export default {
   methods: {
     deletePassword() {
       DB_deletePassword(store.temp.curr_password_id, this.folder).then((res) => {
-        if (!res) {
+        if (res) {
+          this.toast.success("Password Deleted!", {
+                position: "top-center",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });
             this.$router.push('/home');
+          } else {
+            this.toast.error("Something went Wrong!", {
+                position: "top-center",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });
           }
       })
     },

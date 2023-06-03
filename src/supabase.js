@@ -29,6 +29,12 @@ function ENCRYPT(val) {
 
 
 export async function DB_registerUser(email, username, password) {
+    const { user_already_exist } = await supabase.from('users').select().eq("username", username)
+    console.log(user_already_exist)
+    if (user_already_exist == undefined) {
+        return false;
+    }
+
     const data = {
         email: email,
         username: username,
@@ -124,6 +130,7 @@ export async function DB_deleteFolder(username, folder) {
     await supabase.from("folders").delete().eq("user", username).eq("folder", folder);
 
     await DBL_deleteFolder(folder);
+    return true;
 }
 
 
@@ -133,10 +140,11 @@ export async function DB_deletePassword(id, folder) {
     await supabase.from("passwords").delete().eq("id", id)
     await DBL_deletePassword(id);
     if (data.length == 0) {
-        return;
+        return true;
     }
     data = data[0] // only one folder with same name
     await supabase.from("folders").update({pass_amount: data.pass_amount - 1}).eq("folder", folder)
+    return true;
 }
 
 
@@ -146,6 +154,7 @@ export async function DB_editFolder(folder_id, folder_name, folder_color) {
     await supabase.from("passwords").update({folder: folder_name}).eq("folder", store.temp.curr_folder_name);
     
     await DBL_editFolder(folder_id, folder_name, folder_color);
+    return true;
 }
 
 
@@ -169,4 +178,5 @@ export async function DB_editPassword(folder_before, password_id, name, username
         await supabase.from("folders").update({pass_amount: folder_aft.data[0].pass_amount + 1}).eq("folder", folder).eq("user", store.user.username)
     }
     await DBL_editPassword(folder_before, password_id, name, ENCRYPT(username), ENCRYPT(password), folder, ENCRYPT(note));
+    return true;
 }

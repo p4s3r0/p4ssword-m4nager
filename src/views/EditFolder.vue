@@ -17,8 +17,14 @@ import { DB_editFolder } from '@/supabase';
 
 import { store, checkFolderValid, checkUserValid } from '@/store/store';
 
+import { useToast } from "vue-toastification";
+
 export default {
   name: 'App',
+  setup() {
+      const toast = useToast();
+      return { toast }
+    },
   components: {
     BigButtonRegisterSignin,
     EditTextInput,
@@ -38,8 +44,39 @@ export default {
       this.folder_color = color;
     },
     edit() {
-      DB_editFolder(store.temp.curr_folder_id, this.folder_name, this.folder_color).then( () => {
-        this.$router.push('/home');
+      DB_editFolder(store.temp.curr_folder_id, this.folder_name, this.folder_color).then( (res) => {
+        if (res) {
+          this.toast.success("Folder edited!", {
+                position: "top-center",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });
+          this.$router.push('/home');
+        } else {
+          this.toast.error("Something went Wrong!", {
+                position: "top-center",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });
+        }
       })
     }
   }, 

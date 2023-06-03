@@ -21,8 +21,14 @@ import { DB_editPassword } from '@/supabase';
 
 import { store, checkUserValid, checkPasswordValid, DECRYPT } from '@/store/store';
 
+import { useToast } from "vue-toastification";
+
 export default {
   name: 'App',
+  setup() {
+      const toast = useToast();
+      return { toast }
+    },
   components: {
     BigButtonRegisterSignin,
     EditTextInput,
@@ -55,8 +61,39 @@ export default {
       this.curr_password_note = note;
     },
     edit() {
-      DB_editPassword(store.temp.curr_password_folder, this.curr_password_id, this.curr_password_name,this.curr_password_username, this.curr_password_password, this.curr_password_folder, this.curr_password_note).then( () => {
-        this.$router.push('/home');
+      DB_editPassword(store.temp.curr_password_folder, this.curr_password_id, this.curr_password_name,this.curr_password_username, this.curr_password_password, this.curr_password_folder, this.curr_password_note).then( (res) => {
+        if(res) {
+          this.toast.success("Password edited!", {
+                position: "top-center",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });
+          this.$router.push('/home');
+        } else {
+          this.toast.error("Something went Wrong!", {
+                position: "top-center",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });
+        }
       })
     }
   }, 

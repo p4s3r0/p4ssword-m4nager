@@ -19,8 +19,14 @@ import { DB_loginUser } from '@/supabase';
 import { store } from '@/store/store';
 import { del_dexie, DBL_isUserLoggedIn } from '@/dexie';
 
+import { useToast } from "vue-toastification";
+
 export default {
   name: 'App',
+  setup() {
+      const toast = useToast();
+      return { toast }
+    },
   components: {
     TextInput,
     PasswordInput,
@@ -49,7 +55,20 @@ export default {
           store.user.username = this.username;
           this.$router.push('/home');
         } else {
-          console.log("Login FAILED")
+          this.toast.error("Incorrect Username or Password", {
+            position: "top-center",
+            timeout: 3000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.6,
+            showCloseButtonOnHover: false,
+            hideProgressBar: true,
+            closeButton: "button",
+            icon: true,
+            rtl: false
+          });
         }
       });
     }

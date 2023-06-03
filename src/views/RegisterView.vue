@@ -16,8 +16,14 @@ import PasswordInput from '@/components/PasswordInput.vue'
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue'
 import { DB_registerUser } from '@/supabase.js'
 
+import { useToast } from "vue-toastification";
+
 export default {
   name: 'App',
+  setup() {
+      const toast = useToast();
+      return { toast }
+    },
   components: {
     TextInput,
     PasswordInput,
@@ -44,6 +50,21 @@ export default {
       DB_registerUser(this.email, this.username, this.password).then( (res) => {
         if(res) {
           this.$router.push("/");
+        } else {
+          this.toast.error("Username already taken!", {
+            position: "top-center",
+            timeout: 3000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.6,
+            showCloseButtonOnHover: false,
+            hideProgressBar: true,
+            closeButton: "button",
+            icon: true,
+            rtl: false
+          });
         }
       })
     }
