@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import * as VueRouter from 'vue-router';
 import VueCryptojs from 'vue-cryptojs'
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
 import App from './App.vue'
 import Login from '@/views/LoginView.vue'
@@ -54,4 +56,7 @@ const router = VueRouter.createRouter({
 });
 
 
-createApp(App).use(router).use(VueCryptojs).mount('#app')
+const toast_options = {
+    maxToasts: 1
+}
+createApp(App).use(router).use(VueCryptojs).use(Toast, toast_options).mount('#app')

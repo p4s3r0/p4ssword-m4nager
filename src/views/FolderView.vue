@@ -29,8 +29,15 @@ import { DB_getPasswordsForSpecificFolder, DB_deleteFolder } from '@/supabase';
 import { store, checkUserValid, checkFolderValid } from '@/store/store';
 import { DBL_refreshUserLogin } from '@/dexie';
 
+import { useToast } from "vue-toastification";
+
+
 export default {
   name: 'App',
+  setup() {
+      const toast = useToast();
+      return { toast }
+    },
   components: {
     Password,
     SmallButtonDelete,
@@ -45,8 +52,39 @@ export default {
   },
   methods: {
     deleteFolder() {
-      DB_deleteFolder(store.user.username, store.temp.curr_folder_name).then( () => {
-        this.$router.push('/home');
+      DB_deleteFolder(store.user.username, store.temp.curr_folder_name).then( (res) => {
+        if(res) {
+          this.toast.success("Folder Deleted!", {
+                position: "top-center",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });
+          this.$router.push('/home');
+        } else {
+          this.toast.error("Something went Wrong!", {
+                position: "top-center",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });
+        }
       })
     },
     editFolder() {

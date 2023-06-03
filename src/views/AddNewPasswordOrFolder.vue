@@ -44,8 +44,14 @@ import { DB_addNewPassword, DB_addNewFolder } from '@/supabase';
 import { store, checkUserValid } from '@/store/store';
 import { DBL_refreshUserLogin } from '@/dexie';
 
+import { useToast } from "vue-toastification";
+
 export default {
 name: 'App',
+setup() {
+      const toast = useToast();
+      return { toast }
+    },
 components: {
     TextInput,
     BigButtonRegisterSignin,
@@ -92,6 +98,7 @@ methods: {
     add() {
         if (this.fold_pass_selector == "Folders") {
             this.addFolder();
+
         } else {
             this.addPassword();
         }
@@ -99,7 +106,36 @@ methods: {
     addPassword() {
     DB_addNewPassword(this.name, this.password, this.folder, this.note, store.user.username, this.username).then( (res) => {
         if (res) {
-        this.$router.push('/home');
+            this.toast.success("New Password Added!", {
+                position: "top-center",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });
+            this.$router.push('/home');
+        } else {
+            this.toast.error("Something went wrong!", {
+                position: "top-center",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });   
         }
     });
     },
@@ -113,7 +149,36 @@ methods: {
     addFolder() {
       DB_addNewFolder(store.user.username, this.folder, this.color).then( (res) => {
         if (res) {
-          this.$router.push('/home');
+            this.toast.success("New Folder Added!", {
+                position: "top-center",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });
+            this.$router.push('/home');
+        } else {
+            this.toast.error("Something went wrong!", {
+                position: "top-center",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });
         }
       });
     }
