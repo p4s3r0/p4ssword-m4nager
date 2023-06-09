@@ -1,5 +1,11 @@
 <template>
-  <router-view  />
+  <transition
+ mode="out-in"
+ enter-active-class="animate__animated animate__fadeIn"
+ leave-active-class="animate__animated animate__fadeOut"
+>
+  <router-view />
+</transition>
 </template>
 
 <script>
@@ -23,5 +29,6 @@ html {
   color: white;
   margin-top: 60px;
   -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; -ms-user-select: none; user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 </style>
