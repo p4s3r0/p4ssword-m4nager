@@ -82,7 +82,7 @@ export function rankPasswordsAlphabetically(passwords) {
         }
 
         ranking.push({
-            score: passwords[p].name.charCodeAt(0),
+            score: passwords[p].name.charCodeAt(0) + (passwords[p].starred ? 0 : 1000),
             data: passwords[p]
         })
     }
@@ -110,7 +110,7 @@ export function rankFolderAlphabetically(folders) {
         const first_letter = folders[f].folder[0].toLowerCase()
 
         ranking.push({
-            score: first_letter.charCodeAt(0),
+            score: first_letter.charCodeAt(0) + (folders[f].starred ? 0 : 1000),
             data: folders[f]
         })
     }

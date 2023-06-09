@@ -21,11 +21,13 @@
             <password-input @valueUpdated="updatePassword" />
             <selector-folder @valueUpdated="updateFolder" />
             <text-input @valueUpdated="updateNote" id="posNoteInput" placeholder="Note" />
+            <star-preferred :selected_init=false @valueUpdated="updateStarred" />
         </div>
         <div v-else id="posFolderInput">
             <text-input @valueUpdated="updateFolder" id="posUsernameInput" placeholder="Folder Name" />
             <selector @valueUpdated="updateColor"/>
             <big-button-register-signin text="Add Folder" @click="addFolder()"/>
+            <star-preferred :selected_init=false @valueUpdated="updateStarred" />
         </div>
 
         <big-button-register-signin text="Add" @click="add()"/>
@@ -39,6 +41,7 @@ import PasswordInput from '@/components/PasswordInput.vue'
 import SelectorFolder from '@/components/SelectorFolder.vue'
 import FoldersPasswordFilter from '@/components/FoldersPasswordFilter.vue';
 import Selector from '@/components/Selector.vue'
+import StarPreferred from '@/components/StarPreferred.vue';
 
 import { DB_addNewPassword, DB_addNewFolder } from '@/supabase';
 import { store, checkUserValid } from '@/store/store';
@@ -58,7 +61,8 @@ components: {
     PasswordInput,
     SelectorFolder,
     FoldersPasswordFilter,
-    Selector
+    Selector,
+    StarPreferred
 },
 data() {
     return {
@@ -69,7 +73,7 @@ data() {
         note: "",
         color: "black",
         fold_pass_selector: "Folders",
-        color: "black"
+        starred: false
     }
 },
 methods: {
@@ -81,19 +85,22 @@ methods: {
         this.fold_pass_selector = "Passwords";
     },
     updateFolder(folder) {
-    this.folder = folder;
+        this.folder = folder;
     },
     updateName(name) {
-    this.name = name;
+        this.name = name;
     },
     updatePassword(password) {
-    this.password = password;
+        this.password = password;
     },
     updateNote(note) {
-    this.note = note;
+        this.note = note;
     },
     updateUsername(username) {
-    this.username = username;
+        this.username = username;
+    },
+    updateStarred(starred) {
+        this.starred = starred;
     },
     add() {
         if (this.fold_pass_selector == "Folders") {
@@ -104,7 +111,7 @@ methods: {
         }
     },
     addPassword() {
-    DB_addNewPassword(this.name, this.password, this.folder, this.note, store.user.username, this.username).then( (res) => {
+    DB_addNewPassword(this.name, this.password, this.folder, this.note, store.user.username, this.username, this.starred).then( (res) => {
         if (res) {
             this.toast.success("New Password Added!", {
                 position: "top-center",
@@ -147,7 +154,7 @@ methods: {
       this.color = color;
     },
     addFolder() {
-      DB_addNewFolder(store.user.username, this.folder, this.color).then( (res) => {
+      DB_addNewFolder(store.user.username, this.folder, this.color, this.starred).then( (res) => {
         if (res) {
             this.toast.success("New Folder Added!", {
                 position: "top-center",

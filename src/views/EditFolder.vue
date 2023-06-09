@@ -3,6 +3,8 @@
       <h1>Edit Folder</h1>
       <edit-text-input placeholder="Folder Name" :value="this.folder_name" @valueUpdated="updateFolderName"/>
       <selector :value="this.folder_color" @valueUpdated="updateFolderColor"/>
+      <star-preferred :selected_init=this.folder_starred @valueUpdated="updateStarred" />
+
       <big-button-register-signin text="Apply Edit" @click="edit"/>
     </div>
   </template>
@@ -11,6 +13,7 @@
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue';
 import EditTextInput from '@/components/EditTextInput.vue';
 import Selector from '@/components/Selector.vue';
+import StarPreferred from '@/components/StarPreferred.vue';
 
 import { DBL_refreshUserLogin } from '@/dexie';
 import { DB_editFolder } from '@/supabase';
@@ -28,12 +31,14 @@ export default {
   components: {
     BigButtonRegisterSignin,
     EditTextInput,
-    Selector
+    Selector,
+    StarPreferred
   },
   data() {
       return {
         folder_name: store.temp.curr_folder_name,
         folder_color: store.temp.curr_folder_color,
+        folder_starred: store.temp.curr_folder_starred,
       }
   },
   methods: {
@@ -43,8 +48,11 @@ export default {
     updateFolderColor(color) {
       this.folder_color = color;
     },
+    updateStarred(starred) {
+      this.folder_starred = starred;
+    },
     edit() {
-      DB_editFolder(store.temp.curr_folder_id, this.folder_name, this.folder_color).then( (res) => {
+      DB_editFolder(store.temp.curr_folder_id, this.folder_name, this.folder_color, this.folder_starred).then( (res) => {
         if (res) {
           this.toast.success("Folder edited!", {
                 position: "top-center",

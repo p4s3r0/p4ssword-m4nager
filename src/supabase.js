@@ -78,12 +78,13 @@ export async function DB_getAllPasswords(username) {
 
 
 
-export async function DB_addNewFolder(username, folder, color) {
+export async function DB_addNewFolder(username, folder, color, starred) {
     const data = {
         folder: folder,
         user: username,
         color: color,
         pass_amount: 0,
+        starred: starred
     };
     await supabase.from('folders').insert(data);
     return true;
@@ -91,14 +92,15 @@ export async function DB_addNewFolder(username, folder, color) {
 
 
 
-export async function DB_addNewPassword(name, password, folder, note, user, username) {
+export async function DB_addNewPassword(name, password, folder, note, user, username, starred) {
     const pssw = {
         name: name,
         username: ENCRYPT(username),
         password: ENCRYPT(password),
         folder: folder,
         note: ENCRYPT(note),
-        user: user
+        user: user,
+        starred: starred
     };
     await supabase.from('passwords').insert(pssw);
 
@@ -149,24 +151,25 @@ export async function DB_deletePassword(id, folder) {
 
 
 
-export async function DB_editFolder(folder_id, folder_name, folder_color) {
-    await supabase.from("folders").update({folder: folder_name, color: folder_color}).eq("id", folder_id).eq("user", store.user.username)
+export async function DB_editFolder(folder_id, folder_name, folder_color, folder_starred) {
+    await supabase.from("folders").update({folder: folder_name, color: folder_color, starred: folder_starred}).eq("id", folder_id).eq("user", store.user.username)
     await supabase.from("passwords").update({folder: folder_name}).eq("folder", store.temp.curr_folder_name);
     
-    await DBL_editFolder(folder_id, folder_name, folder_color);
+    await DBL_editFolder(folder_id, folder_name, folder_color, folder_starred);
     return true;
 }
 
 
 
-export async function DB_editPassword(folder_before, password_id, name, username, password, folder, note) {
+export async function DB_editPassword(folder_before, password_id, name, username, password, folder, note, starred) {
     await supabase.from("passwords").update(
                                             { 
                                                 name: name, 
                                                 username: ENCRYPT(username),
                                                 password: ENCRYPT(password),
                                                 folder: folder,
-                                                note: ENCRYPT(note)
+                                                note: ENCRYPT(note),
+                                                starred: starred
                                             }).eq("id", password_id)
     if (folder_before != "NO FOLDER") {
         const folder_bef = await supabase.from('folders').select().eq("user", store.user.username).eq("folder", folder_before)
@@ -177,6 +180,6 @@ export async function DB_editPassword(folder_before, password_id, name, username
         const folder_aft = await supabase.from('folders').select().eq("user", store.user.username).eq("folder", folder)
         await supabase.from("folders").update({pass_amount: folder_aft.data[0].pass_amount + 1}).eq("folder", folder).eq("user", store.user.username)
     }
-    await DBL_editPassword(folder_before, password_id, name, ENCRYPT(username), ENCRYPT(password), folder, ENCRYPT(note));
+    await DBL_editPassword(folder_before, password_id, name, ENCRYPT(username), ENCRYPT(password), folder, ENCRYPT(note), starred);
     return true;
 }
