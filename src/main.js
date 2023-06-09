@@ -3,6 +3,7 @@ import * as VueRouter from 'vue-router';
 import VueCryptojs from 'vue-cryptojs'
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+import 'animate.css';
 
 import App from './App.vue'
 import Login from '@/views/LoginView.vue'

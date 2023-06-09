@@ -7,8 +7,10 @@
             <folders-password-filter text="Folders" @click="activateFoldersButton" :status="this.fold_pass_selector == 'Folders' ? 'active' : 'notActive'"/>
             <folders-password-filter text="Passwords" @click="activatePasswordsButton" :status="this.fold_pass_selector == 'Folders' ? 'notActive' : 'active'"/>
         </div>
+
+        
         <div v-if="this.fold_pass_selector == 'Folders'" id="posFolders">
-            <folder v-for="f in this.folders" @click="openFolder(f.idx, f.folder, f.color)"
+                <folder v-for="f in this.folders" @click="openFolder(f.idx, f.folder, f.color)"
                                                 :key=f.key 
                                                 :name=f.folder
                                                 :pass_amount=f.pass_amount 
