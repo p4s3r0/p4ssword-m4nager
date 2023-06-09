@@ -4,6 +4,7 @@
     <div id="delEdit">
       <small-button-delete text="Delete" @click=deleteFolder() />
       <small-button-edit text="Edit" @click=editFolder() />
+
     </div>
 
     <password v-for="p in this.passwords" :key=p.key
@@ -12,7 +13,8 @@
                                           :username=p.username
                                           :idx=p.idx 
                                           :folder=p.folder
-                                          :note=p.note />
+                                          :note=p.note 
+                                          :starred=p.starred />
 
     <add-button @click="this.$router.push('/addPasswordOrFolder')" />
     
@@ -42,7 +44,7 @@ export default {
     Password,
     SmallButtonDelete,
     SmallButtonEdit,
-    AddButton
+    AddButton,
   },
   data() {
       return {

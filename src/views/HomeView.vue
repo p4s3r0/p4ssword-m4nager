@@ -10,12 +10,13 @@
 
         
         <div v-if="this.fold_pass_selector == 'Folders'" id="posFolders">
-                <folder v-for="f in this.folders" @click="openFolder(f.idx, f.folder, f.color)"
+                <folder v-for="f in this.folders" @click="openFolder(f.idx, f.folder, f.color, f.starred)"
                                                 :key=f.key 
                                                 :name=f.folder
                                                 :pass_amount=f.pass_amount 
                                                 :color=f.color
-                                                :idx=f.idx />
+                                                :idx=f.idx 
+                                                :starred=f.starred />
         </div>
 
         <div v-else id="posFolders">
@@ -26,7 +27,8 @@
                                                 :username=p.username 
                                                 :idx=p.idx 
                                                 :folder=p.folder 
-                                                :note=p.note />
+                                                :note=p.note 
+                                                :starred=p.starred />
         </div>
     <add-button @click="this.$router.push('/addPasswordOrFolder')" />
     </div>
@@ -79,10 +81,11 @@ methods: {
             this.$router.push('/');
         })
     },
-    openFolder(folder_id, folder_name, folder_color) {
+    openFolder(folder_id, folder_name, folder_color, folder_starred) {
         store.temp.curr_folder_id = folder_id;        
         store.temp.curr_folder_name = folder_name;        
-        store.temp.curr_folder_color = folder_color;        
+        store.temp.curr_folder_color = folder_color;     
+        store.temp.curr_folder_starred = folder_starred;
         this.$router.push('/folder');
     },
     search(keyword) {

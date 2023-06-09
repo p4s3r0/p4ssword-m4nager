@@ -1,5 +1,7 @@
 <template>
     <div id="mainPassword">
+        <svg v-if="this.starred" viewBox="0 0 24 24" class="starred icon flat-color"><path id="primary" d="M22,9.81a1,1,0,0,0-.83-.69l-5.7-.78L12.88,3.53a1,1,0,0,0-1.76,0L8.57,8.34l-5.7.78a1,1,0,0,0-.82.69,1,1,0,0,0,.28,1l4.09,3.73-1,5.24A1,1,0,0,0,6.88,20.9L12,18.38l5.12,2.52a1,1,0,0,0,.44.1,1,1,0,0,0,1-1.18l-1-5.24,4.09-3.73A1,1,0,0,0,22,9.81Z" ></path></svg>
+
         <p id="passwordName">{{ this.name }} </p>
         <div id="back" @click=openPasswordView(this.enc_password)>
 
@@ -17,6 +19,7 @@
                     </g>
                 </svg>
             </div>
+
     </div>
 
 </template>
@@ -29,7 +32,7 @@ import { DECRYPT } from '@/store/store';
 
 export default {
 name: 'App',
-props: ["name", "enc_password", "username", "idx", "folder", "note"],
+props: ["name", "enc_password", "username", "idx", "folder", "note", "starred"],
 methods: {
     copyUsername() {
         const dec_username = DECRYPT(this.username);        
@@ -47,6 +50,7 @@ methods: {
         store.temp.curr_password_password = dec_password;
         store.temp.curr_password_folder = this.folder;
         store.temp.curr_password_note = this.note;
+        store.temp.curr_password_starred = this.starred;
         this.$router.push('/password');
     }
 }, beforeMount() {
@@ -110,6 +114,15 @@ svg {
     margin-right: 10px;
     cursor: pointer;
     top: 35px;
+}
+
+.starred {
+    position: absolute;
+    top: 0px;
+    left: 5px;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    fill: #ffea00;
 }
 
 

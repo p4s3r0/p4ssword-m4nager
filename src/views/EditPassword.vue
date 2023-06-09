@@ -6,6 +6,7 @@
       <edit-text-input placeholder="Password" :value="this.curr_password_password" @valueUpdated="updatePasswordPassword"/>
       <selector-folder :init_value=this.curr_password_folder class="smallSpacing" :value="this.curr_password_folder" @valueUpdated="updatePasswordFolder"/>
       <edit-text-input placeholder="Note" :value="this.curr_password_note" @valueUpdated="updatePasswordNote"/>
+      <star-preferred :selected_init=this.curr_password_starred @valueUpdated="updateStarred" />
 
       <big-button-register-signin text="Apply Edit" @click="edit"/>
     </div>
@@ -15,6 +16,7 @@
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue';
 import EditTextInput from '@/components/EditTextInput.vue';
 import SelectorFolder from '@/components/SelectorFolder.vue';
+import StarPreferred from '@/components/StarPreferred.vue';
 
 import { DBL_refreshUserLogin } from '@/dexie';
 import { DB_editPassword } from '@/supabase';
@@ -32,7 +34,8 @@ export default {
   components: {
     BigButtonRegisterSignin,
     EditTextInput,
-    SelectorFolder
+    SelectorFolder,
+    StarPreferred
   },
   data() {
       return {
@@ -42,6 +45,7 @@ export default {
         curr_password_password: store.temp.curr_password_password,
         curr_password_folder: store.temp.curr_password_folder,
         curr_password_note: DECRYPT(store.temp.curr_password_note),
+        curr_password_starred: store.temp.curr_password_starred,
       }
   },
   methods: {
@@ -60,8 +64,12 @@ export default {
     updatePasswordNote(note) {
       this.curr_password_note = note;
     },
+    updateStarred(starred) {
+      this.curr_password_starred = starred;
+
+    },
     edit() {
-      DB_editPassword(store.temp.curr_password_folder, this.curr_password_id, this.curr_password_name,this.curr_password_username, this.curr_password_password, this.curr_password_folder, this.curr_password_note).then( (res) => {
+      DB_editPassword(store.temp.curr_password_folder, this.curr_password_id, this.curr_password_name,this.curr_password_username, this.curr_password_password, this.curr_password_folder, this.curr_password_note, this.curr_password_starred).then( (res) => {
         if(res) {
           this.toast.success("Password edited!", {
                 position: "top-center",
@@ -125,7 +133,7 @@ export default {
 }
 
 h1 {
-  margin-bottom: 20vh;
+  margin-bottom: 10vh;
 }
 
 .smallSpacing {

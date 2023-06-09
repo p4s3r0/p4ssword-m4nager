@@ -12,12 +12,14 @@ export let store = {
         curr_folder_name: "",
         curr_folder_color: "",
         curr_folder_id: 0,
+        curr_folder_starred: false,
         curr_password_id: 0,
         curr_password_name: "",
         curr_password_username: "",
         curr_password_password: "",
         curr_password_folder: "",
         curr_password_note: "",
+        curr_password_starred: false,
     }
 }
 

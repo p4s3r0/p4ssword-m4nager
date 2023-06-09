@@ -2,10 +2,10 @@ import { Dexie } from 'dexie';
 import { store } from '@/store/store';
 
 const db = new Dexie("p4ssword_m4nager");
-db.version(1).stores({
+db.version(2).stores({
     curr_user: "++idx, username, password, email",
-    folders: "++idx, folder, pass_amount, color",
-    passwords: "++idx, name, password, folder, note, username",
+    folders: "++idx, folder, pass_amount, color, starred",
+    passwords: "++idx, name, password, folder, note, username, starred",
     settings: "idx, fold_pass_select",
 });
 
@@ -81,7 +81,8 @@ export async function DBL_updateFolders(folders) {
             folder: folders[i].folder,
             pass_amount: folders[i].pass_amount,
             color: folders[i].color,
-            idx: folders[i].id
+            idx: folders[i].id,
+            starred: folders[i].starred
         }
         await db.folders.add(data);
     }
@@ -103,7 +104,8 @@ export async function DBL_updatePasswords(passwords) {
             password: passwords[i].password,
             folder: passwords[i].folder,
             note: passwords[i].note,
-            idx: passwords[i].id
+            idx: passwords[i].id,
+            starred: passwords[i].starred,
         }
         await db.passwords.add(data);
     }
@@ -159,8 +161,8 @@ export async function DBL_getPasswordsByIdx(idx) {
 }
 
 
-export async function DBL_editFolder(folder_id, folder_name, folder_color) {
-    await db.folders.update(folder_id, {folder: folder_name, color: folder_color})
+export async function DBL_editFolder(folder_id, folder_name, folder_color, folder_starred) {
+    await db.folders.update(folder_id, {folder: folder_name, color: folder_color, starred: folder_starred})
     const current_passwords = await db.passwords.toArray();
     for (let i = 0; i < current_passwords.length; i++) {
         if (current_passwords[i].folder == store.temp.curr_folder_name) {
@@ -171,14 +173,15 @@ export async function DBL_editFolder(folder_id, folder_name, folder_color) {
 
 
 
-export async function  DBL_editPassword(folder_before, password_id, name, username, password, folder, note) {
+export async function  DBL_editPassword(folder_before, password_id, name, username, password, folder, note, starred) {
     await db.passwords.update(password_id, 
                                 {
                                     name: name, 
                                     username: username,
                                     password: password,
                                     folder: folder,
-                                    note: note
+                                    note: note,
+                                    starred: starred
                                 })
 
 
