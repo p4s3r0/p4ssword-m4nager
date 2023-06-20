@@ -64,6 +64,9 @@ svg {
     pointer-events: none;
 }
 
+option { 
+    background-color: #242424;
+}
 
 </style>
   

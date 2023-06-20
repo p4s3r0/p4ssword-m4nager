@@ -49,6 +49,20 @@ export default {
     clickRegisterUser() {
       DB_registerUser(this.email, this.username, this.password).then( (res) => {
         if(res) {
+          this.toast.success("User Registered!", {
+            position: "top-center",
+            timeout: 3000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.6,
+            showCloseButtonOnHover: false,
+            hideProgressBar: true,
+            closeButton: "button",
+            icon: true,
+            rtl: false
+          });
           this.$router.push("/");
         } else {
           this.toast.error("Username already taken!", {
