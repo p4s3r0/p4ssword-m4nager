@@ -31,7 +31,7 @@ function ENCRYPT(val) {
 export async function DB_registerUser(email, username, password) {
     const { user_already_exist } = await supabase.from('users').select().eq("username", username)
     console.log(user_already_exist)
-    if (user_already_exist == undefined) {
+    if (user_already_exist.length !== 0) {
         return false;
     }
 
