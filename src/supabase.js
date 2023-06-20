@@ -35,12 +35,12 @@ export async function DB_registerUser(email, username, password) {
         return false;
     }
 
-    const data = {
+    const data_user = {
         email: email,
         username: username,
         password: HASH(password),
     }
-    await supabase.from('users').insert(data);
+    await supabase.from('users').insert(data_user);
     return true;
 }
 
