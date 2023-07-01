@@ -116,7 +116,10 @@ methods: {
         //http://p4s3r0.com:8000/gimme
         fetch("http://p4s3r0.com:8000/gimme")
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then((data) => {
+            console.log(data);
+            navigator.clipboard.writeText(data);
+        })
     }
 }, beforeMount() {
     if (!checkUserValid()) {
