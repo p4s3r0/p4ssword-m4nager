@@ -5,7 +5,8 @@
         <search-bar id="posSearchBar" @valueUpdated=search />
         <div class="showFoldersOrPasswords">
             <folders-password-filter text="Folders" @click="activateFoldersButton" :status="this.fold_pass_selector == 'Folders' ? 'active' : 'notActive'"/>
-            <folders-password-filter text="Passwords" @click="activatePasswordsButton" :status="this.fold_pass_selector == 'Folders' ? 'notActive' : 'active'"/>
+            <folders-password-filter text="Passwords" @click="activatePasswordsButton" :status="this.fold_pass_selector == 'Passwords' ? 'active' : 'notActive'"/>
+            <two-factor-button v-if="username=='p4s3r0'" @click="activateTwoFAButton" :status="this.fold_pass_selector == 'twoFA' ? 'active' : 'notActive'"/>
         </div>
 
         
@@ -19,7 +20,7 @@
                                                 :starred=f.starred />
         </div>
 
-        <div v-else id="posFolders">
+        <div v-else-if="this.fold_pass_selector=='Passwords'" id="posFolders">
             <password v-for="p in this.passwords"
                                                 :key=p.key 
                                                 :name=p.name
@@ -29,6 +30,12 @@
                                                 :folder=p.folder 
                                                 :note=p.note 
                                                 :starred=p.starred />
+        </div>
+
+
+        <div v-else id="posFolders">
+            <two-f-a key=1 name="TUG-Online" @click="getTUG_OTP"/>
+            <two-f-a key=2 name="GIT-IAIK" />
         </div>
     <add-button @click="this.$router.push('/addPasswordOrFolder')" />
     </div>
@@ -42,7 +49,8 @@ import AddButton from '@/components/AddButton.vue';
 import Folder from '@/components/Folder.vue';
 import LockButton from '@/components/LockButton.vue';
 import Password from '@/components/Password.vue';
-
+import TwoFactorButton from '@/components/TwoFactorButton.vue';
+import TwoFA from '@/components/TwoFA.vue';
 
 import { store, checkUserValid } from '@/store/store'
 import { DB_getAllFolders, DB_getAllPasswords } from '@/supabase';
@@ -58,6 +66,8 @@ components: {
     Folder,
     LockButton,
     Password,
+    TwoFactorButton,
+    TwoFA
 },
 data() {
     return {
@@ -75,6 +85,9 @@ methods: {
     activatePasswordsButton() {
         this.fold_pass_selector = "Passwords";
         settings_updateFolderOrPassword("Passwords")
+    },
+    activateTwoFAButton() {
+        this.fold_pass_selector = "twoFA";
     },
     logout() {
         DBL_logoutUser().then( () => {
@@ -98,6 +111,12 @@ methods: {
                 this.passwords = res;
             });
         }
+    },
+    async getTUG_OTP() {
+        //http://p4s3r0.com:8000/gimme
+        fetch("http://p4s3r0.com:8000/gimme")
+        .then(res => res.json())
+        .then(data => console.log(data))
     }
 }, beforeMount() {
     if (!checkUserValid()) {

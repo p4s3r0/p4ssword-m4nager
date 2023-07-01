@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div id="container">
+    
     <input @input="$emit('valueUpdated', this.my_value)" :type=this.password_state placeholder="Password" v-model="this.my_value">
     <i v-if="this.password_state == 'password'" @click=switchPasswordVisability()>
       <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,6 +41,11 @@ export default {
 </script>
 
 <style scoped>
+#container {
+  position: relative;
+}
+
+
 input {
   font-size: 1em;
   width: 70%;
@@ -55,11 +61,13 @@ input:focus {
     outline:none;
 }
 
+
 i {
   position: absolute;
   right: 15%;
-  margin-top: 25px;
+  transform: translateY(-50%);
   width: 30px;
+  top: 50%;
   padding-left: 10px;
 }
 </style>
