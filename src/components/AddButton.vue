@@ -1,5 +1,5 @@
 <template>
-    <div id="mainAddButton">
+    <div class="ripple" id="mainAddButton">
         <svg width="18" height="18" viewBox="0 0 10 10" fill="none">
         <path d="M4.79545 10.0057V0.630681H6.38636V10.0057H4.79545ZM0.903409 6.11364V4.52273H10.2784V6.11364H0.903409Z" fill="black"/>
 </svg>
@@ -34,6 +34,21 @@ svg {
     transform: translate(-50%, -50%);
     left: 50%;
     top: 50%;
+}
+
+
+.ripple {
+  background-position: center;
+  transition: background 0.3s;
+}
+.ripple:hover {
+  background: #ffffff radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
+  color: black;
+}
+.ripple:active {
+  background-color: #ffffff;
+  background-size: 100%;
+  transition: background 0.5s;
 }
 
 </style>
