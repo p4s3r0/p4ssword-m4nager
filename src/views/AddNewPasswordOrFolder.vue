@@ -11,8 +11,8 @@
         </div>
 
         <div class="showFoldersOrPasswords">
-            <folders-password-filter text="Folder" @click="activateFoldersButton" :status="this.fold_pass_selector == 'Folders' ? 'active' : 'notActive'"/>
-            <folders-password-filter text="Password" @click="activatePasswordsButton" :status="this.fold_pass_selector == 'Folders' ? 'notActive' : 'active'"/>
+            <folders-password-filter class="ripple" text="Folder" @click="activateFoldersButton" :status="this.fold_pass_selector == 'Folders' ? 'active' : 'notActive'"/>
+            <folders-password-filter class="ripple" text="Password" @click="activatePasswordsButton" :status="this.fold_pass_selector == 'Folders' ? 'notActive' : 'active'"/>
         </div>
 
         <div v-if="this.fold_pass_selector == 'Passwords'">
@@ -30,7 +30,7 @@
             <star-preferred :selected_init=false @valueUpdated="updateStarred" />
         </div>
 
-        <big-button-register-signin text="Add" @click="add()"/>
+        <big-button-register-signin class="ripple" text="Add" @click="add()"/>
     </div>
 </template>
   
@@ -111,6 +111,23 @@ methods: {
         }
     },
     addPassword() {
+        if(this.password == "") {
+            this.toast.error("Name is required!", {
+                position: "top-center",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });
+            return;
+        }
     DB_addNewPassword(this.name, this.password, this.folder, this.note, store.user.username, this.username, this.starred).then( (res) => {
         if (res) {
             this.toast.success("New Password Added!", {
@@ -154,6 +171,8 @@ methods: {
       this.color = color;
     },
     addFolder() {
+        if(this.folder == "")
+            return;
       DB_addNewFolder(store.user.username, this.folder, this.color, this.starred).then( (res) => {
         if (res) {
             this.toast.success("New Folder Added!", {
@@ -240,5 +259,20 @@ margin-top: 10px;
 
 #posFolderInput {
     margin-top: 5vh;
+}
+
+
+.ripple {
+  background-position: center;
+  transition: background 0.3s;
+}
+.ripple:hover {
+  background: #ffffff radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
+  color: black;
+}
+.ripple:active {
+  background-color: #ffffff;
+  background-size: 100%;
+  transition: background 0.5s;
 }
 </style>

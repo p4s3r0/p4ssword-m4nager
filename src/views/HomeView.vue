@@ -1,12 +1,12 @@
 <template>
     <div id="mainLogin">
         <h1 id="posHello">Hello, {{ this.username }} 👋</h1>
-        <lock-button @click="logout()"/>
+        <lock-button class="ripple" @click="logout()"/>
         <search-bar id="posSearchBar" @valueUpdated=search />
         <div class="showFoldersOrPasswords">
-            <folders-password-filter text="Folders" @click="activateFoldersButton" :status="this.fold_pass_selector == 'Folders' ? 'active' : 'notActive'"/>
-            <folders-password-filter text="Passwords" @click="activatePasswordsButton" :status="this.fold_pass_selector == 'Passwords' ? 'active' : 'notActive'"/>
-            <two-factor-button v-if="username=='p4s3r0'" @click="activateTwoFAButton" :status="this.fold_pass_selector == 'twoFA' ? 'active' : 'notActive'"/>
+            <folders-password-filter class="ripple" text="Folders" @click="activateFoldersButton" :status="this.fold_pass_selector == 'Folders' ? 'active' : 'notActive'"/>
+            <folders-password-filter class="ripple" text="Passwords" @click="activatePasswordsButton" :status="this.fold_pass_selector == 'Passwords' ? 'active' : 'notActive'"/>
+            <two-factor-button v-if="username=='p4s3r0'" class="ripple" @click="activateTwoFAButton" :status="this.fold_pass_selector == 'twoFA' ? 'active' : 'notActive'"/>
         </div>
 
         
@@ -37,7 +37,7 @@
             <two-f-a key=1 name="TUG-Online" @click="getTUG_OTP"/>
             <two-f-a key=2 name="GIT-IAIK" />
         </div>
-    <add-button @click="this.$router.push('/addPasswordOrFolder')" />
+    <add-button class="ripple" @click="addNew" />
     </div>
     
 </template>
@@ -112,6 +112,9 @@ methods: {
             });
         }
     },
+    addNew() {
+        setTimeout(() => this.$router.push('/addPasswordOrFolder'), 300);
+    },
     async getTUG_OTP() {
         //http://p4s3r0.com:8000/gimme
         fetch("http://p4s3r0.com:8000/gimme")
@@ -185,5 +188,19 @@ button {
 
 #posFolders {
     margin-top: 40px;
+}
+
+.ripple {
+  background-position: center;
+  transition: background 0.3s;
+}
+.ripple:hover {
+  background: #ffffff radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
+  color: black;
+}
+.ripple:active {
+  background-color: #ffffff;
+  background-size: 100%;
+  transition: background 0.5s;
 }
 </style>
