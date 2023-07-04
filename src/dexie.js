@@ -2,10 +2,11 @@ import { Dexie } from 'dexie';
 import { store } from '@/store/store';
 
 const db = new Dexie("p4ssword_m4nager");
-db.version(2).stores({
+db.version(3).stores({
     curr_user: "++idx, username, password, email",
     folders: "++idx, folder, pass_amount, color, starred",
     passwords: "++idx, name, password, folder, note, username, starred",
+    two_fa: "++idx, username, name, secret",
     settings: "idx, fold_pass_select",
 });
 
@@ -89,6 +90,28 @@ export async function DBL_updateFolders(folders) {
     return await db.folders.toArray();
 }
 
+export async function DBL_update2FA(twofas) {
+    if (twofas == null) {
+        return await db.two_fa.toArray();
+    }
+
+    
+    await db.two_fa.clear();
+    for(let i = 0; i < twofas.length; i++)
+    {
+
+        const data = {
+            username: twofas[i].user,
+            name: twofas[i].name,
+            secret: twofas[i].secret,
+        }
+        await db.two_fa.add(data);
+    }
+    console.log("updatet")
+    return await db.two_fa.toArray();
+}
+
+
 export async function DBL_updatePasswords(passwords) {
     const current_passwords = await db.passwords.toArray();
     if (passwords == null || current_passwords.length == passwords.length) {
@@ -127,6 +150,11 @@ export async function DBL_deleteFolder(folder) {
         await db.passwords.update(current_passwords[i].idx, { folder: "NO FOLDER" });
     }
 }
+
+export async function DBL_deleteTwoFa(name) {
+    await db.two_fa.where("name").equals(name).delete()
+}
+
 
 export async function DBL_deletePassword(idx) {
     const pssw = await db.passwords.toArray();
@@ -171,6 +199,13 @@ export async function DBL_editFolder(folder_id, folder_name, folder_color, folde
     }
 }
 
+export async function DBL_edit2FA(old_name, new_name, new_secret) {
+    let curr = await db.two_fa.where("name").equals(old_name).toArray();
+    curr = curr[0]
+    await db.two_fa.update(curr.idx, {name: new_name, secret: new_secret})
+}
+
+
 
 
 export async function  DBL_editPassword(folder_before, password_id, name, username, password, folder, note, starred) {
@@ -207,11 +242,3 @@ export async function  DBL_editPassword(folder_before, password_id, name, userna
     }
 
 }
-    
-
-
-
-/* hi
-U2FsdGVkX182LTLtAAR4WzfY1O3Cw6DKs5sXRGTNpS8=
-U2FsdGVkX19U0p8pkKeCdo7AuqWD1fSD+tO0VbbGDU8=
-*/

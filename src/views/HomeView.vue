@@ -6,7 +6,7 @@
         <div class="showFoldersOrPasswords">
             <folders-password-filter class="ripple" text="Folders" @click="activateFoldersButton" :status="this.fold_pass_selector == 'Folders' ? 'active' : 'notActive'"/>
             <folders-password-filter class="ripple" text="Passwords" @click="activatePasswordsButton" :status="this.fold_pass_selector == 'Passwords' ? 'active' : 'notActive'"/>
-            <two-factor-button v-if="username=='p4s3r0'" class="ripple" @click="activateTwoFAButton" :status="this.fold_pass_selector == 'twoFA' ? 'active' : 'notActive'"/>
+            <two-factor-button class="ripple" @click="activateTwoFAButton" :status="this.fold_pass_selector == 'twoFA' ? 'active' : 'notActive'"/>
         </div>
 
         
@@ -34,8 +34,10 @@
 
 
         <div v-else id="posFolders">
-            <two-f-a key=1 name="TUG-Online" @click="getTUG_OTP"/>
-            <two-f-a key=2 name="GIT-IAIK" />
+            <two-f-a v-for="t in this.twoFactors"    
+                                            :key="t.key"
+                                            :name="t.name"
+                                            :secret="t.secret" />
         </div>
     <add-button class="ripple" @click="addNew" />
     </div>
@@ -53,7 +55,7 @@ import TwoFactorButton from '@/components/TwoFactorButton.vue';
 import TwoFA from '@/components/TwoFA.vue';
 
 import { store, checkUserValid } from '@/store/store'
-import { DB_getAllFolders, DB_getAllPasswords } from '@/supabase';
+import { DB_getAllFolders, DB_getAllPasswords, DB_getAll2FA } from '@/supabase';
 import { DBL_refreshUserLogin, DBL_logoutUser, settings_getFolderOrPassword, settings_updateFolderOrPassword } from '@/dexie';
 import { rankFoldersBySearch, rankPasswordsBySearch, rankPasswordsAlphabetically, rankFolderAlphabetically } from '@/scripts/search';
 
@@ -74,7 +76,8 @@ data() {
         username: store.user.username,
         fold_pass_selector: "Folders",
         folders: [],
-        passwords: []
+        passwords: [],
+        twoFactors: []
     }
 },
 methods: {
@@ -88,6 +91,8 @@ methods: {
     },
     activateTwoFAButton() {
         this.fold_pass_selector = "twoFA";
+        settings_updateFolderOrPassword("twoFA")
+
     },
     logout() {
         DBL_logoutUser().then( () => {
@@ -138,6 +143,9 @@ methods: {
                 DB_getAllPasswords(store.user.username).then( (res) => {
                     this.passwords = rankPasswordsAlphabetically(res);
                 });
+                DB_getAll2FA(store.user.username).then( (res) => {
+                    this.twoFactors = res;
+                });
             }
         })
     } else {
@@ -146,6 +154,9 @@ methods: {
         });
         DB_getAllPasswords(store.user.username).then( (res) => {
             this.passwords = rankPasswordsAlphabetically(res);
+        });
+        DB_getAll2FA(store.user.username).then( (res) => {
+                    this.twoFactors = res;
         });
     }
     settings_getFolderOrPassword().then( (res) => {

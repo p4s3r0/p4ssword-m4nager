@@ -5,17 +5,23 @@
             <h2>I'll protect it!</h2>
         </div>
 
-        <div v-else>
+        <div v-else-if="this.fold_pass_selector == 'Folders'">
             <h1>Add new Folder.</h1>
             <h2>Order is key!</h2>
         </div>
 
-        <div class="showFoldersOrPasswords">
-            <folders-password-filter class="ripple" text="Folder" @click="activateFoldersButton" :status="this.fold_pass_selector == 'Folders' ? 'active' : 'notActive'"/>
-            <folders-password-filter class="ripple" text="Password" @click="activatePasswordsButton" :status="this.fold_pass_selector == 'Folders' ? 'notActive' : 'active'"/>
+        <div v-else>
+            <h1>Add 2FA.</h1>
+            <h2>Experimental!</h2>
         </div>
 
-        <div v-if="this.fold_pass_selector == 'Passwords'">
+        <div class="showFoldersOrPasswords">
+            <folders-password-filter class="ripple" text="Folder" @click="activateFoldersButton" :status="this.fold_pass_selector == 'Folders' ? 'active' : 'notActive'"/>
+            <folders-password-filter class="ripple" text="Password" @click="activatePasswordsButton" :status="this.fold_pass_selector == 'Passwords' ? 'active' : 'notActive'"/>
+            <folders-password-filter class="ripple" text="2FA" @click="activate2FAButton" :status="this.fold_pass_selector == 'TwoFA' ? 'active' : 'notActive'"/>
+        </div>
+
+        <div class="containerInput" v-if="this.fold_pass_selector == 'Passwords'">
             <text-input @valueUpdated="updateName" id="posNameInput" placeholder="Name" />
             <text-input @valueUpdated="updateUsername" placeholder="Username" style="margin-bottom: 10px;" />
             <password-input @valueUpdated="updatePassword" />
@@ -23,7 +29,13 @@
             <text-input @valueUpdated="updateNote" id="posNoteInput" placeholder="Note" />
             <star-preferred :selected_init=false @valueUpdated="updateStarred" />
         </div>
-        <div v-else id="posFolderInput">
+
+        <div class="containerInput" v-else-if="this.fold_pass_selector == 'TwoFA'">
+            <text-input @valueUpdated="updateName" id="posNameInput" placeholder="Name" />
+            <text-input @valueUpdated="updateNote" id="posNoteInput" placeholder="Secret" />
+        </div>
+
+        <div class="containerInput" v-else id="posFolderInput">
             <text-input @valueUpdated="updateFolder" id="posUsernameInput" placeholder="Folder Name" />
             <selector @valueUpdated="updateColor"/>
             <big-button-register-signin text="Add Folder" @click="addFolder()"/>
@@ -43,7 +55,7 @@ import FoldersPasswordFilter from '@/components/FoldersPasswordFilter.vue';
 import Selector from '@/components/Selector.vue'
 import StarPreferred from '@/components/StarPreferred.vue';
 
-import { DB_addNewPassword, DB_addNewFolder } from '@/supabase';
+import { DB_addNewPassword, DB_addNewFolder, DB_add2FA } from '@/supabase';
 import { store, checkUserValid } from '@/store/store';
 import { DBL_refreshUserLogin } from '@/dexie';
 
@@ -84,6 +96,9 @@ methods: {
     activatePasswordsButton() {
         this.fold_pass_selector = "Passwords";
     },
+    activate2FAButton() {
+        this.fold_pass_selector = "TwoFA";
+    },
     updateFolder(folder) {
         this.folder = folder;
     },
@@ -106,12 +121,67 @@ methods: {
         if (this.fold_pass_selector == "Folders") {
             this.addFolder();
 
-        } else {
+        } else if (this.fold_pass_selector == "Passwords") {
             this.addPassword();
+        } else {
+            this.add2FA();
         }
     },
+    add2FA() {
+        if(this.name == "" || this.note == "") {
+            this.toast.error("Name and secret required!", {
+                position: "top-center",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });
+            return;
+        }
+    DB_add2FA(store.user.username, this.name, this.note).then((res) => {
+        if (res) {
+            this.toast.success("New 2FA Added!", {
+                position: "top-center",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });
+            this.$router.push('/home');
+        } else {
+            this.toast.error("Something went wrong!", {
+                position: "top-center",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });   
+        }
+    })
+    },
     addPassword() {
-        if(this.password == "") {
+        if(this.name == "") {
             this.toast.error("Name is required!", {
                 position: "top-center",
                 timeout: 3000,
@@ -247,19 +317,10 @@ font-weight: bold;
 text-decoration: underline;
 }
 
-#posNameInput {
-margin-top: 5vh;
-margin-bottom: 1vh;
-}
-
-#posNoteInput {
-margin-top: 10px;
-}
-
-
-#posFolderInput {
+.containerInput {
     margin-top: 5vh;
 }
+
 
 
 .ripple {

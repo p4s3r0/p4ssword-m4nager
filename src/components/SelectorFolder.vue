@@ -35,7 +35,7 @@ data() {
 <style scoped>
 #mainSelector {
     position: relative;
-    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 select {
