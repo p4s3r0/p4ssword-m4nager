@@ -12,7 +12,6 @@
             <option value="blueGreen">Blue Green</option>
             <option value="blue">Blue</option>
             <option value="violet">Violet</option>
-            
         </select>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 11.828L9.17199 14.657L7.75699 13.243L12 9L16.243 13.243L14.828 14.657L12 11.828Z" opacity="0.59" fill="white"/>
@@ -36,7 +35,6 @@ data() {
 <style scoped>
 #mainSelector {
     position: relative;
-    margin-top: 10px;
 }
 
 select {

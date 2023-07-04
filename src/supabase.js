@@ -7,7 +7,10 @@ import {DBL_loginUser,
         DBL_deleteFolder,
         DBL_deletePassword, 
         DBL_editFolder, 
-        DBL_editPassword 
+        DBL_editPassword,
+        DBL_update2FA,
+        DBL_deleteTwoFa,
+        DBL_edit2FA
         } from '@/dexie';
 
 import { store } from '@/store/store';
@@ -15,6 +18,8 @@ import { store } from '@/store/store';
 
 const URL = process.env.VUE_APP_URL
 const KEY = process.env.VUE_APP_KEY
+
+
 
 export const supabase = createClient(URL, KEY)
 
@@ -25,6 +30,7 @@ function HASH(val) {
 function ENCRYPT(val) {
     return CryptoJS.AES.encrypt(val, store.user.password).toString();
 }
+
 
 
 
@@ -76,6 +82,12 @@ export async function DB_getAllPasswords(username) {
     return ret;
 }
 
+export async function DB_getAll2FA(username) {
+    const { data } = await supabase.from('2fa').select().eq("user", username)
+    const ret = await DBL_update2FA(data);
+    return ret;
+}
+
 
 
 export async function DB_addNewFolder(username, folder, color, starred) {
@@ -89,6 +101,22 @@ export async function DB_addNewFolder(username, folder, color, starred) {
     await supabase.from('folders').insert(data);
     return true;
 }
+
+export async function DB_add2FA(user, name, secret) {
+    const data = {
+        user: user,
+        secret: secret,
+        authorized: false,
+        name: name
+    };
+    await supabase.from('2fa').insert(data);
+    return true;
+}
+
+export async function DB_toggle_authorize_OTP(user, name, to) {
+    await supabase.from("2fa").update({authorized: to}).eq("user", user).eq("name", name)
+}
+
 
 
 
@@ -149,6 +177,12 @@ export async function DB_deletePassword(id, folder) {
     return true;
 }
 
+export async function DB_delete2FA(name) {
+    await supabase.from("2fa").delete().eq("user", store.user.username).eq("name", name);
+    await DBL_deleteTwoFa(name);
+    return true;
+}
+
 
 
 export async function DB_editFolder(folder_id, folder_name, folder_color, folder_starred) {
@@ -158,6 +192,13 @@ export async function DB_editFolder(folder_id, folder_name, folder_color, folder
     await DBL_editFolder(folder_id, folder_name, folder_color, folder_starred);
     return true;
 }
+
+export async function DB_edit2FA(old_name, new_name, new_secret) {
+    await supabase.from("2fa").update({name: new_name, secret: new_secret}).eq("name", old_name).eq("user", store.user.username)
+    await DBL_edit2FA(old_name, new_name, new_secret);
+    return true;
+}
+
 
 
 

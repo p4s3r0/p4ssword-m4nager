@@ -20,6 +20,8 @@ export let store = {
         curr_password_folder: "",
         curr_password_note: "",
         curr_password_starred: false,
+        curr_2fa_name: "",
+        curr_2fa_secret: "",
     }
 }
 
