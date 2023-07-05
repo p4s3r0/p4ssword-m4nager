@@ -1,5 +1,7 @@
 import { createApp } from 'vue'
 import * as VueRouter from 'vue-router';
+import axios from 'axios';
+
 import VueCryptojs from 'vue-cryptojs'
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
@@ -71,4 +73,14 @@ const router = VueRouter.createRouter({
 const toast_options = {
     maxToasts: 1
 }
-createApp(App).use(router).use(VueCryptojs).use(Toast, toast_options).mount('#app')
+
+const URL = "https://2fa-api.p4s3r0.com/getotp"
+const axiosInstance = axios.create({
+    baseURL: URL
+})
+
+let app = createApp(App)
+
+app.config.globalProperties.$axios = axiosInstance;
+
+app.use(router).use(VueCryptojs).use(Toast, toast_options).mount('#app');
