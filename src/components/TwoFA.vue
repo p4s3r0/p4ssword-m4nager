@@ -25,10 +25,12 @@ props: ["name", "secret"],
 methods: {
     async copyOtp() {
         await DB_toggle_authorize_OTP(store.user.username, this.name, true);
-        const url = "https://2fa-api.p4s3r0.com/getotp"
-        fetch(url + "?user=" + store.user.username + "&name=" + this.name)
-        .then((data) => {
-            navigator.clipboard.writeText(data);
+        //const url = "https://2fa-api.p4s3r0.com/getotp"
+        //const url = "http://localhost:8000/getotp"
+
+        this.$axios.get("?user=" + store.user.username + "&name=" + this.name).then((otp_code) => {
+            console.log(otp_code)
+            navigator.clipboard.writeText(otp_code);
         })
         await DB_toggle_authorize_OTP(store.user.username, this.name, false);
     },
