@@ -18,6 +18,7 @@
 import { store, checkUserValid } from '@/store/store';
 import { DBL_refreshUserLogin } from '@/dexie';
 import { DB_toggle_authorize_OTP } from '@/supabase';
+import { AXIOS_BASE_URL } from '@/main.js'
 
 export default {
 name: 'App',
@@ -25,7 +26,7 @@ props: ["name", "secret"],
 methods: {
     async copyOtp() {
         await DB_toggle_authorize_OTP(store.user.username, this.name, true);
-        this.$axios.get("?user=" + store.user.username + "&name=" + this.name).then((otp_code) => {
+        this.$axios.get(AXIOS_BASE_URL + "?user=" + store.user.username + "&name=" + this.name).then((otp_code) => {
             navigator.clipboard.writeText(otp_code.data);
             DB_toggle_authorize_OTP(store.user.username, this.name, false);
         })
