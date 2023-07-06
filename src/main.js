@@ -73,13 +73,11 @@ const router = VueRouter.createRouter({
 const toast_options = {
     maxToasts: 1
 }
+
+
+const axiosInstance = axios.create()
 export const AXIOS_BASE_URL = process.env.VUE_APP_AXIOS_BASE_URL
 
-const axiosInstance = axios.create({
-    //baseURL: URL
-})
-
-console.log("interceptor version 6")
 let app = createApp(App)
 
 app.config.globalProperties.$axios = axiosInstance;
