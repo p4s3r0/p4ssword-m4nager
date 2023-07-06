@@ -19,6 +19,8 @@ import { store } from '@/store/store';
 const URL = process.env.VUE_APP_URL
 const KEY = process.env.VUE_APP_KEY
 
+const AES_KEY_CBC = process.env.VUE_APP_AES_KEY_CBC
+const AES_IV_CBC = process.env.VUE_APP_AES_IV_CBC
 
 
 export const supabase = createClient(URL, KEY)
@@ -32,6 +34,21 @@ function ENCRYPT(val) {
 }
 
 
+function ENCRYPT_CBC(val) {
+    const key = CryptoJS.enc.Utf8.parse(AES_KEY_CBC);
+    var iv = CryptoJS.enc.Utf8.parse(AES_IV_CBC)
+    var encrypted = CryptoJS.AES.encrypt(val, key, { iv: iv, mode: CryptoJS.mode.CBC});
+    return encrypted.toString();
+}
+
+function DECRYPT_CBC(val) {
+    var iv = CryptoJS.enc.Utf8.parse(AES_IV_CBC);
+    var key = AES_KEY_CBC
+    key = CryptoJS.enc.Utf8.parse(key);
+    var decrypted =  CryptoJS.AES.decrypt(val, key, { iv: iv, mode: CryptoJS.mode.CBC});
+    decrypted = decrypted.toString(CryptoJS.enc.Utf8);
+    return decrypted;
+}
 
 
 export async function DB_registerUser(email, username, password) {
@@ -83,6 +100,9 @@ export async function DB_getAllPasswords(username) {
 
 export async function DB_getAll2FA(username) {
     const { data } = await supabase.from('2fa').select().eq("user", username)
+    for(let i = 0; i < data.length; i++) {
+        data[i]["secret"] = DECRYPT_CBC(data[i]["secret"])
+    }
     const ret = await DBL_update2FA(data);
     return ret;
 }
@@ -104,7 +124,7 @@ export async function DB_addNewFolder(username, folder, color, starred) {
 export async function DB_add2FA(user, name, secret) {
     const data = {
         user: user,
-        secret: secret,
+        secret: ENCRYPT_CBC(secret),
         authorized: false,
         name: name
     };

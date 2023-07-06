@@ -76,7 +76,10 @@ const toast_options = {
 
 
 const axiosInstance = axios.create()
+
 export const AXIOS_BASE_URL = process.env.VUE_APP_AXIOS_BASE_URL
+
+
 
 let app = createApp(App)
 
