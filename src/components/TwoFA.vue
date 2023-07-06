@@ -25,7 +25,7 @@ props: ["name", "secret"],
 methods: {
     async copyOtp() {
         await DB_toggle_authorize_OTP(store.user.username, this.name, true);
-        this.$axios.get("https://2fa-api.p4s3r0.com/getotp?user=" + store.user.username + "&name=" + this.name).then((otp_code) => {
+        this.$axios.get("?user=" + store.user.username + "&name=" + this.name).then((otp_code) => {
             navigator.clipboard.writeText(otp_code.data);
             DB_toggle_authorize_OTP(store.user.username, this.name, false);
         })
