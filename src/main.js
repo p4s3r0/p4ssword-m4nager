@@ -75,11 +75,18 @@ const toast_options = {
 }
 
 const URL = process.env.VUE_APP_AXIOS_BASE_URL
-console.log("URL AXIOS", URL)
 const axiosInstance = axios.create({
     baseURL: URL
 })
 
+instance.interceptors.request.use(function(config) {
+    // change the url scheme from http to https
+    config.url = config.url.replace('http://', 'https://')
+
+    return config
+})
+
+console.log("interceptor version")
 let app = createApp(App)
 
 app.config.globalProperties.$axios = axiosInstance;
