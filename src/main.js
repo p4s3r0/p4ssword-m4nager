@@ -74,7 +74,7 @@ const toast_options = {
     maxToasts: 1
 }
 
-const URL = "https://2fa-api.p4s3r0.com/getotp"
+const URL = process.env.VUE_APP_BASE_URL
 const axiosInstance = axios.create({
     baseURL: URL
 })

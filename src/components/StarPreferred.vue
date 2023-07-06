@@ -18,7 +18,6 @@ data() {
       }
   }, methods: {
     changeSelection() {
-        console.log("asfd")
         this.selected = !this.selected;
         this.$emit('valueUpdated', this.selected);
     }

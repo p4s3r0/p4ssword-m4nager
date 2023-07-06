@@ -107,7 +107,6 @@ export async function DBL_update2FA(twofas) {
         }
         await db.two_fa.add(data);
     }
-    console.log("updatet")
     return await db.two_fa.toArray();
 }
 
