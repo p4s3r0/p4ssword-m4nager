@@ -79,14 +79,14 @@ const axiosInstance = axios.create({
     baseURL: URL
 })
 
-instance.interceptors.request.use(function(config) {
+axiosInstance.interceptors.request.use(function(config) {
     // change the url scheme from http to https
     config.url = config.url.replace('http://', 'https://')
 
     return config
 })
 
-console.log("interceptor version")
+console.log("interceptor version 2")
 let app = createApp(App)
 
 app.config.globalProperties.$axios = axiosInstance;
