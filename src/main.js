@@ -75,6 +75,7 @@ const toast_options = {
 }
 
 const URL = process.env.VUE_APP_AXIOS_BASE_URL
+console.log("URL AXIOS", URL)
 const axiosInstance = axios.create({
     baseURL: URL
 })
