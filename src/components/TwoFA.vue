@@ -25,23 +25,17 @@ props: ["name", "secret"],
 methods: {
     async copyOtp() {
         await DB_toggle_authorize_OTP(store.user.username, this.name, true);
-        //const url = "https://2fa-api.p4s3r0.com/getotp"
-        //const url = "http://localhost:8000/getotp"
-
         this.$axios.get("?user=" + store.user.username + "&name=" + this.name).then((otp_code) => {
-            console.log(otp_code)
-            navigator.clipboard.writeText(otp_code);
+            navigator.clipboard.writeText(otp_code.data);
+            DB_toggle_authorize_OTP(store.user.username, this.name, false);
         })
-        await DB_toggle_authorize_OTP(store.user.username, this.name, false);
     },
     openEdit2FAView() {
-        console.log("edit now")
         store.temp.curr_2fa_name = this.name;
         store.temp.curr_2fa_secret = this.secret;
         this.$router.push('/twoFA');
     }
 }, beforeMount() {
-    console.log(this.name)
     if(!checkUserValid()) {
         DBL_refreshUserLogin().then((res) => {
           if (!res) {

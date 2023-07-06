@@ -119,15 +119,6 @@ methods: {
     },
     addNew() {
         setTimeout(() => this.$router.push('/addPasswordOrFolder'), 300);
-    },
-    async getTUG_OTP() {
-        //http://p4s3r0.com:8000/gimme
-        fetch("http://p4s3r0.com:8000/gimme")
-        .then(res => res.json())
-        .then((data) => {
-            console.log(data);
-            navigator.clipboard.writeText(data);
-        })
     }
 }, beforeMount() {
     if (!checkUserValid()) {
