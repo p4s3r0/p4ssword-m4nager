@@ -28,18 +28,59 @@ import { store, checkUserValid } from '@/store/store';
 import CryptoJS from 'crypto-js';
 import { DBL_refreshUserLogin } from '@/dexie';
 import { DECRYPT } from '@/store/store';
+import { useToast } from "vue-toastification";
 
 export default {
 name: 'App',
 props: ["name", "enc_password", "username", "idx", "folder", "note", "starred"],
+setup() {
+      const toast = useToast();
+      return { toast }
+    },
 methods: {
     copyUsername() {
         const dec_username = DECRYPT(this.username);        
         navigator.clipboard.writeText(dec_username);
+        this.toast.info("Copied to Clipboard!", {
+            position: "top-center",
+            timeout: 1533,
+            closeOnClick: true,
+            pauseOnFocusLoss: false,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.6,
+            showCloseButtonOnHover: false,
+            hideProgressBar: false,
+            closeButton: "button",
+            icon: {
+                iconClass: "undefined",
+                iconChildren: "",
+                iconTag: "i"
+            },
+            rtl: false
+            });
     },
     copyPassword() {
         const dec_password = DECRYPT(this.enc_password);        
         navigator.clipboard.writeText(dec_password);
+        this.toast.info("Copied to Clipboard!", {
+            position: "top-center",
+            timeout: 1533,
+            closeOnClick: true,
+            pauseOnFocusLoss: false,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.6,
+            showCloseButtonOnHover: false,
+            hideProgressBar: true,
+            closeButton: "button",
+            icon: {
+                iconClass: "undefined",
+                iconChildren: "",
+                iconTag: "i"
+            },
+            rtl: false
+            });
     },
     openPasswordView(pssw) {
         const dec_password = CryptoJS.AES.decrypt(pssw, store.user.password).toString(this.$CryptoJS.enc.Utf8);  
