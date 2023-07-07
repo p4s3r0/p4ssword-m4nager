@@ -19,16 +19,56 @@ import { store, checkUserValid } from '@/store/store';
 import { DBL_refreshUserLogin } from '@/dexie';
 import { DB_toggle_authorize_OTP } from '@/supabase';
 import { AXIOS_BASE_URL } from '@/main.js'
+import { useToast } from "vue-toastification";
 
 export default {
 name: 'App',
 props: ["name", "secret"],
+setup() {
+      const toast = useToast();
+      return { toast }
+    },
 methods: {
     async copyOtp() {
         await DB_toggle_authorize_OTP(store.user.username, this.name, true);
         this.$axios.get(AXIOS_BASE_URL + "?user=" + store.user.username + "&name=" + this.name).then((otp_code) => {
+            if (otp_code.data.length !== 6) {
+                this.toast.error("Something went wrong", {
+                position: "top-center",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });
+                return;
+            }
             navigator.clipboard.writeText(otp_code.data);
             DB_toggle_authorize_OTP(store.user.username, this.name, false);
+            this.toast.info("Copied to Clipboard!", {
+                position: "top-center",
+                timeout: 1533,
+                closeOnClick: true,
+                pauseOnFocusLoss: false,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: {
+                    iconClass: "undefined",
+                    iconChildren: "",
+                    iconTag: "i"
+                },
+                rtl: false
+                });
         })
     },
     openEdit2FAView() {
