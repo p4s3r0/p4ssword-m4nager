@@ -43,6 +43,16 @@ export async function DBL_logoutUser() {
     if (passwords_exists) {
         await db.passwords.clear();
     }
+
+    const twoFa_exists = await db.two_fa.toArray(); 
+    if (twoFa_exists) {
+        await db.two_fa.clear();
+    }
+
+    const settings_exists = await db.settings.toArray(); 
+    if (settings_exists) {
+        await db.settings.clear();
+    }
 }
 
 
