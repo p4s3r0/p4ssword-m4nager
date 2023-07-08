@@ -116,10 +116,10 @@ export default {
             } else {
               DBL_getPasswordsByIdx(store.temp.curr_password_id).then( (res) => {
                 this.name = res.name;
-                this.username = res.username;
+                this.username =  CryptoJS.AES.decrypt(res.password, res.username).toString(CryptoJS.enc.Utf8);
                 this.password = CryptoJS.AES.decrypt(res.password, store.user.password).toString(CryptoJS.enc.Utf8);        
                 this.folder = res.folder;
-                this.note = res.note; 
+                this.note = CryptoJS.AES.decrypt(res.password, res.note).toString(CryptoJS.enc.Utf8); 
                 this.starred = res.starred;
               })
             }
