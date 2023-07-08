@@ -116,12 +116,13 @@ export default {
             } else {
               DBL_getPasswordsByIdx(store.temp.curr_password_id).then( (res) => {
                 this.name = res.name;
-                this.username =  CryptoJS.AES.decrypt(res.password, res.username).toString(CryptoJS.enc.Utf8);
-                this.password = CryptoJS.AES.decrypt(res.password, store.user.password).toString(CryptoJS.enc.Utf8);        
+                this.username =  DECRYPT(res.username);
+                this.password = DECRYPT(res.password);        
                 this.folder = res.folder;
-                this.note = CryptoJS.AES.decrypt(res.password, res.note).toString(CryptoJS.enc.Utf8); 
+                this.note = DECRYPT(res.note); 
                 this.starred = res.starred;
               })
+              console.log("Hello")
             }
           }
         })
@@ -131,10 +132,10 @@ export default {
       } else {
         DBL_getPasswordsByIdx(store.temp.curr_password_id).then( (res) => {
           this.name = res.name;
-          this.username = DECRYPT(res.username);
-          this.password = DECRYPT(res.password),       
+          this.username =  DECRYPT(res.username);
+          this.password = DECRYPT(res.password);        
           this.folder = res.folder;
-          this.note = DECRYPT(res.note);
+          this.note = DECRYPT(res.note); 
           this.starred = res.starred;
         })
       }
