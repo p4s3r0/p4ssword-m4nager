@@ -109,12 +109,14 @@ def add_User(username: str, email: str, password: str):
         )
         session.add(user)
         session.commit()
+    return True;
 
 
 def del_User(username: str):
     with Session(engine) as session:
         session.delete(session.get(User, username))
         session.commit()
+    return True
 
 
 
@@ -128,16 +130,17 @@ def get_ObjectTwoFa(user: str, name: str):
     return two_fa
 
 
-def add_twoFa(user: str, secret: str, authorized: bool, name:str):
+def add_twoFa(user: str, secret: str, name:str):
     with Session(engine) as session:
         twoFa = TwoFa(
             user=user,
             secret=secret,
-            authorized=authorized,
+            authorized=False,
             name=name
         )
         session.add(twoFa)
         session.commit()
+    return True
 
 
 def del_twoFa(user: str, name: str):
@@ -145,17 +148,21 @@ def del_twoFa(user: str, name: str):
         two_fa_id = get_ObjectTwoFa(user, name).id
         session.delete(session.get(TwoFa, two_fa_id))
         session.commit()
+    return True
         
 
 def update_twoFa(user: str, old_name: str, new_name: str, secret: str):
     with Session(engine) as session:
         session.query(TwoFa).filter(TwoFa.name == old_name and TwoFa.user == user).update({'name': new_name, 'secret': secret})
         session.commit()
+    return True
+
 
 def update_set_authorization(user: str, name: str, to: bool):
     with Session(engine) as session:
         session.query(TwoFa).filter(TwoFa.name == name and TwoFa.user == user).update({'authorized': to})
         session.commit()
+    return True
 
 
 
@@ -182,6 +189,7 @@ def add_password(name: str, starred: bool, password: str, folder: str, note: str
             )
             session.add(password)
             session.commit()
+    return True
 
 
 def del_password(user: str, name: str):
@@ -189,6 +197,7 @@ def del_password(user: str, name: str):
         password_id = get_ObjectPassword(user, name).id
         session.delete(session.get(Password, password_id))
         session.commit()
+    return True
 
 
 def update_Password(old_name: str, new_name: str, starred: str, password: str, folder: str, note: str, user: str, username: str):
@@ -202,6 +211,7 @@ def update_Password(old_name: str, new_name: str, starred: str, password: str, f
                                                                             'user': user,
                                                                             'username': username})
         session.commit()
+    return True
 
 
 
@@ -226,6 +236,7 @@ def add_folder(folder: str, starred: bool, user: str, pass_amount: int, color: s
         )
         session.add(folder)
         session.commit()
+    return True
 
 
 def del_folder(name: str, user: str):
@@ -233,6 +244,7 @@ def del_folder(name: str, user: str):
         folder_id = get_ObjectFolder(user, name).id
         session.delete(session.get(Folder, folder_id))
         session.commit()
+    return True
 
 
 def update_folder(old_folder: str, folder: str, starred: bool, user: str, pass_amount: int, color: str):
@@ -244,6 +256,7 @@ def update_folder(old_folder: str, folder: str, starred: bool, user: str, pass_a
                                                                             'color': color,
                                                                             'user': user })
         session.commit()
+    return True
 
 
 if __name__ == "__main__":
