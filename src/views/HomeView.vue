@@ -1,6 +1,6 @@
 <template>
     <div id="mainLogin">
-        <h1 id="posHello">Hello, {{ this.username }} 👋</h1>
+        <h1 id="posHello">Hello, {{ this.user.username }} 👋</h1>
         <lock-button class="ripple" @click="logout()"/>
         <search-bar id="posSearchBar" @valueUpdated=search />
         <div class="showFoldersOrPasswords">
@@ -54,10 +54,10 @@ import Password from '@/components/Password.vue';
 import TwoFactorButton from '@/components/TwoFactorButton.vue';
 import TwoFA from '@/components/TwoFA.vue';
 
-import { store, checkUserValid } from '@/store/store'
 import { DB_getAllFolders, DB_getAllPasswords, DB_getAll2FA } from '@/supabase';
-import { DBL_refreshUserLogin, DBL_logoutUser, settings_getFolderOrPassword, settings_updateFolderOrPassword } from '@/dexie';
+import { DBL_logoutUser, settings_getFolderOrPassword, settings_updateFolderOrPassword, getCurrentUser } from '@/dexie';
 import { rankFoldersBySearch, rankPasswordsBySearch, rankPasswordsAlphabetically, rankFolderAlphabetically } from '@/scripts/search';
+import { store } from '@/store/store'
 
 export default {
 name: 'App',
@@ -73,7 +73,7 @@ components: {
 },
 data() {
     return {
-        username: store.user.username,
+        user: {},
         fold_pass_selector: "Folders",
         folders: [],
         passwords: [],
@@ -121,37 +121,24 @@ methods: {
         setTimeout(() => this.$router.push('/addPasswordOrFolder'), 300);
     }
 }, beforeMount() {
-    if (!checkUserValid()) {
-        DBL_refreshUserLogin().then((res) => {
-            this.username = store.user.username
-            if (!res) {
-                DBL_logoutUser();
-                this.$router.push('/');
-            } else {
-                DB_getAllFolders(store.user.username).then( (res) => {
-                    this.folders = rankFolderAlphabetically(res);
-                });
-                DB_getAllPasswords(store.user.username).then( (res) => {
-                    this.passwords = rankPasswordsAlphabetically(res);
-                });
-                DB_getAll2FA(store.user.username).then( (res) => {
-                    this.twoFactors = res;
-                });
-            }
-        })
-    } else {
-        DB_getAllFolders(store.user.username).then( (res) => {
-            this.folders = rankFolderAlphabetically(res);
-        });
-        DB_getAllPasswords(store.user.username).then( (res) => {
-            this.passwords = rankPasswordsAlphabetically(res);
-        });
-        DB_getAll2FA(store.user.username).then( (res) => {
-                    this.twoFactors = res;
-        });
-    }
-    settings_getFolderOrPassword().then( (res) => {
-        this.fold_pass_selector = res;
+    getCurrentUser().then( (user) => {
+        if(user) {
+            this.user = user
+            DB_getAllFolders(user.username).then( (res) => {
+                this.folders = rankFolderAlphabetically(res);
+            });
+            DB_getAllPasswords(user.username).then( (res) => {
+                this.passwords = rankPasswordsAlphabetically(res);
+            });
+            DB_getAll2FA(user.username).then( (res) => {
+                this.twoFactors = res;
+            });
+            settings_getFolderOrPassword().then( (res) => {
+                this.fold_pass_selector = res;
+            })
+        } else {
+            this.$router.push('/');
+        }
     })
 }
 }

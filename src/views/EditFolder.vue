@@ -15,12 +15,10 @@ import EditTextInput from '@/components/EditTextInput.vue';
 import Selector from '@/components/Selector.vue';
 import StarPreferred from '@/components/StarPreferred.vue';
 
-import { DBL_refreshUserLogin } from '@/dexie';
 import { DB_editFolder } from '@/supabase';
-
-import { store, checkFolderValid, checkUserValid } from '@/store/store';
-
+import { store } from '@/store/store';
 import { useToast } from "vue-toastification";
+import { getCurrentUser } from '@/dexie';
 
 export default {
   name: 'App',
@@ -36,6 +34,7 @@ export default {
   },
   data() {
       return {
+        user: {},
         folder_name: store.temp.curr_folder_name,
         folder_color: store.temp.curr_folder_color,
         folder_starred: store.temp.curr_folder_starred,
@@ -89,22 +88,13 @@ export default {
     }
   }, 
   beforeMount() {
-    if(!checkUserValid()) {
-      DBL_refreshUserLogin().then((res) => {
-        if (!res) {
-          DBL_logoutUser();
-          this.$router.push('/');
+    getCurrentUser().then( (user) => {
+        if(user) {
+            this.user = user
         } else {
-          if(!checkFolderValid()) {
-            this.$router.push('/home');
-          }
+            this.$router.push('/');
         }
-      })
-    } else {
-      if(!checkFolderValid()) {
-        this.$router.push('/home');
-      }
-    }
+    })
   }
 }
 

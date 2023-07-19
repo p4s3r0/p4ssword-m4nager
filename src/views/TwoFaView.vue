@@ -22,8 +22,8 @@ import SmallButtonEdit from '@/components/SmallButtonEdit.vue'
 import AddButton from '@/components/AddButton.vue';
 import TextShower from '@/components/TextShower.vue';
 
-import { store, checkUserValid } from '@/store/store';
-import { DBL_refreshUserLogin } from '@/dexie';
+import { store } from '@/store/store';
+import { getCurrentUser } from '@/dexie';
 import { DB_delete2FA } from '@/supabase';
 
 import { useToast } from "vue-toastification";
@@ -42,6 +42,7 @@ export default {
   },
   data() {
       return {
+        user: {},
         name: store.temp.curr_2fa_name,
         secret: store.temp.curr_2fa_secret
       }
@@ -88,14 +89,13 @@ export default {
     }
   }, 
   beforeMount() {
-    if(!checkUserValid()) {
-        DBL_refreshUserLogin().then((res) => {
-          if (!res) {
-            DBL_logoutUser();
+    getCurrentUser().then( (user) => {
+        if(user) {
+            this.user = user
+        } else {
             this.$router.push('/');
-          }
-        })
-    }
+        }
+    })
   }
 }
 </script>

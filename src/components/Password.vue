@@ -24,11 +24,11 @@
 </template>
 
 <script>
-import { store, checkUserValid } from '@/store/store';
 import CryptoJS from 'crypto-js';
-import { DBL_refreshUserLogin } from '@/dexie';
+import { getCurrentUser } from '@/dexie';
 import { DECRYPT } from '@/store/store';
 import { useToast } from "vue-toastification";
+import { store } from '@/store/store'
 
 export default {
 name: 'App',
@@ -37,9 +37,14 @@ setup() {
       const toast = useToast();
       return { toast }
     },
+data() {
+    return {
+        user: {},
+    }
+},
 methods: {
-    copyUsername() {
-        const dec_username = DECRYPT(this.username);        
+    async copyUsername() {
+        const dec_username = await DECRYPT(this.username);      
         navigator.clipboard.writeText(dec_username);
         this.toast.info("Copied to Clipboard!", {
             position: "top-center",
@@ -60,8 +65,8 @@ methods: {
             rtl: false
             });
     },
-    copyPassword() {
-        const dec_password = DECRYPT(this.enc_password);        
+    async copyPassword() {
+        const dec_password = await DECRYPT(this.enc_password);   
         navigator.clipboard.writeText(dec_password);
         this.toast.info("Copied to Clipboard!", {
             position: "top-center",
@@ -83,7 +88,7 @@ methods: {
             });
     },
     openPasswordView(pssw) {
-        const dec_password = CryptoJS.AES.decrypt(pssw, store.user.password).toString(this.$CryptoJS.enc.Utf8);  
+        const dec_password = CryptoJS.AES.decrypt(pssw, this.user.password).toString(this.$CryptoJS.enc.Utf8);  
         store.temp.curr_password_id = this.idx;
         store.temp.curr_password_name = this.name;
         store.temp.curr_password_username = this.username;
@@ -94,14 +99,13 @@ methods: {
         this.$router.push('/password');
     }
 }, beforeMount() {
-    if(!checkUserValid()) {
-        DBL_refreshUserLogin().then((res) => {
-          if (!res) {
-            DBL_logoutUser();
+    getCurrentUser().then( (user) => {
+        if(user) {
+            this.user = user
+        } else {
             this.$router.push('/');
-          }
-        })
-    }
+        }
+    })
 }
 }
 </script>

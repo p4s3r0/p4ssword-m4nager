@@ -14,7 +14,12 @@ export default {
       }
     },
   methods: {
-  }
+  },
+  watch: { 
+        value: function(newVal, oldVal) { // watch it
+          this.my_value = newVal;
+        }
+      }
 }
 </script>
 

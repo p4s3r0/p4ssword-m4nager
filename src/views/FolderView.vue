@@ -28,8 +28,8 @@ import SmallButtonEdit from '@/components/SmallButtonEdit.vue'
 import AddButton from '@/components/AddButton.vue';
 
 import { DB_getPasswordsForSpecificFolder, DB_deleteFolder } from '@/supabase';
-import { store, checkUserValid, checkFolderValid } from '@/store/store';
-import { DBL_refreshUserLogin } from '@/dexie';
+import { store } from '@/store/store';
+import { getCurrentUser } from '@/dexie';
 
 import { useToast } from "vue-toastification";
 
@@ -48,13 +48,14 @@ export default {
   },
   data() {
       return {
+        user: {},
         folder: store.temp.curr_folder_name,
         passwords: []
       }
   },
   methods: {
     deleteFolder() {
-      DB_deleteFolder(store.user.username, store.temp.curr_folder_name).then( (res) => {
+      DB_deleteFolder(this.user.username, store.temp.curr_folder_name).then( (res) => {
         if(res) {
           this.toast.success("Folder Deleted!", {
                 position: "top-center",
@@ -94,28 +95,16 @@ export default {
     }
   }, 
   beforeMount() {
-    if(!checkUserValid()) {
-        DBL_refreshUserLogin().then((res) => {
-          if (!res) {
-            DBL_logoutUser();
-            this.$router.push('/');
-          } else {
-            if (!checkFolderValid()) {
-              this.$router.push('/home');
-            }
-            DB_getPasswordsForSpecificFolder(store.user.username, store.temp.curr_folder_name).then( (res) => {
+    getCurrentUser().then( (user) => {
+        if(user) {
+            this.user = user
+            DB_getPasswordsForSpecificFolder(user.username, store.temp.curr_folder_name).then( (res) => {
               this.passwords = res;
             })
-          }
-      })
-    } else {
-      if (!checkFolderValid()) {
-        this.$router.push('/home');
-      }
-      DB_getPasswordsForSpecificFolder(store.user.username, store.temp.curr_folder_name).then( (res) => {
-        this.passwords = res;
-      })
-    }
+        } else {
+            this.$router.push('/');
+        }
+    })
   }
 }
 

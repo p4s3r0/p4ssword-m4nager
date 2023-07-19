@@ -1,13 +1,8 @@
 import CryptoJS from 'crypto-js';
 
+import { getCurrentUser } from '@/dexie';
 
 export let store = {
-    user: {
-        loggedIn: false,
-        username: "",
-        password: "",
-        email: ""
-    }, 
     temp: {
         curr_folder_name: "",
         curr_folder_color: "",
@@ -25,30 +20,8 @@ export let store = {
     }
 }
 
+export async function DECRYPT(val) {
+    const current_user = await getCurrentUser();
 
-
-export function checkUserValid() {
-    return  store.user.loggedIn == true && 
-            store.user.username != ""   &&
-            store.user.password != ""   &&
-            store.user.email    != "";
-}
-
-
-export function checkFolderValid() {
-    return store.temp.curr_folder_name  != "" &&
-           store.temp.curr_folder_color != "" &&
-           store.temp.curr_folder_id    != 0;
-}
-
-
-
-export function checkPasswordValid() {
-    return store.temp.curr_password_id  != 0 &&
-           store.temp.curr_password_name != "" &&
-           store.temp.curr_password_folder != "";
-}
-
-export function DECRYPT(val) {
-    return CryptoJS.AES.decrypt(val, store.user.password).toString(CryptoJS.enc.Utf8);    
+    return CryptoJS.AES.decrypt(val, current_user.password).toString(CryptoJS.enc.Utf8);    
 }

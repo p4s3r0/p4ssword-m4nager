@@ -1,9 +1,8 @@
 <template>
     <div id="container">
-        <div id="back" @click=openEdit2FAView(this.name)>
-
-        </div>
         <p id="name"> {{ this.name }} </p>
+        <div id="back" @click=open2FAView(this.name)></div>
+
             <div id="posIcons">
                     <svg class="ripple" @click="copyOtp" id="lockIcon" width="30" height="30" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_20_65)">
@@ -15,11 +14,11 @@
 </template>
 
 <script>
-import { store, checkUserValid } from '@/store/store';
-import { DBL_refreshUserLogin } from '@/dexie';
+import { getCurrentUser } from '@/dexie';
 import { DB_toggle_authorize_OTP } from '@/supabase';
 import { AXIOS_BASE_URL } from '@/main.js'
 import { useToast } from "vue-toastification";
+import { store } from '@/store/store'
 
 export default {
 name: 'App',
@@ -28,10 +27,15 @@ setup() {
       const toast = useToast();
       return { toast }
     },
+data() {
+    return {
+        user: {},
+    }
+},
 methods: {
     async copyOtp() {
-        await DB_toggle_authorize_OTP(store.user.username, this.name, true);
-        this.$axios.get(AXIOS_BASE_URL + "?user=" + store.user.username + "&name=" + this.name).then((otp_code) => {
+        await DB_toggle_authorize_OTP(this.user.username, this.name, true);
+        this.$axios.get(AXIOS_BASE_URL + "?user=" + this.user.username + "&name=" + this.name).then((otp_code) => {
             if (otp_code.data.length !== 6) {
                 this.toast.error("Something went wrong", {
                 position: "top-center",
@@ -50,7 +54,7 @@ methods: {
                 return;
             }
             navigator.clipboard.writeText(otp_code.data);
-            DB_toggle_authorize_OTP(store.user.username, this.name, false);
+            DB_toggle_authorize_OTP(this.user.username, this.name, false);
             this.toast.info("Copied to Clipboard!", {
                 position: "top-center",
                 timeout: 1533,
@@ -71,20 +75,19 @@ methods: {
                 });
         })
     },
-    openEdit2FAView() {
+    open2FAView() {
         store.temp.curr_2fa_name = this.name;
         store.temp.curr_2fa_secret = this.secret;
         this.$router.push('/twoFA');
     }
 }, beforeMount() {
-    if(!checkUserValid()) {
-        DBL_refreshUserLogin().then((res) => {
-          if (!res) {
-            DBL_logoutUser();
+    getCurrentUser().then( (user) => {
+        if(user) {
+            this.user = user
+        } else {
             this.$router.push('/');
-          }
-        })
-    }
+        }
+    })
 }
 }
 </script>
