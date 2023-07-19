@@ -6,7 +6,7 @@
     <password-input @valueUpdated="updatePassword" />
     <p>Don't have an account? <a @click="this.$router.push('/register');">Register</a></p>
     <big-button-register-signin text="Sign in" @click="loginUser()"/>
-  <p id="Version">@3.4</p>
+  <p id="Version">@3.5</p>
 
   </div>
 </template>

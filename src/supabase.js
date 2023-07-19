@@ -145,10 +145,10 @@ export async function DB_addNewPassword(name, password, folder, note, user, user
     const current_user = await getCurrentUser();
     const pssw = {
         name: name,
-        username: ENCRYPT(username),
-        password: ENCRYPT(password),
+        username: await ENCRYPT(username),
+        password: await ENCRYPT(password),
         folder: folder,
-        note: ENCRYPT(note),
+        note: await ENCRYPT(note),
         user: user,
         starred: starred
     };
