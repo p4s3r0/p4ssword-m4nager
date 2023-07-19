@@ -18,10 +18,10 @@ import EditTextInput from '@/components/EditTextInput.vue';
 import SelectorFolder from '@/components/SelectorFolder.vue';
 import StarPreferred from '@/components/StarPreferred.vue';
 
-import { DBL_refreshUserLogin } from '@/dexie';
+import { getCurrentUser } from '@/dexie';
 import { DB_editPassword } from '@/supabase';
 
-import { store, checkUserValid, checkPasswordValid, DECRYPT } from '@/store/store';
+import { store, DECRYPT } from '@/store/store';
 
 import { useToast } from "vue-toastification";
 
@@ -41,10 +41,10 @@ export default {
       return {
         curr_password_id: store.temp.curr_password_id,
         curr_password_name: store.temp.curr_password_name,
-        curr_password_username: DECRYPT(store.temp.curr_password_username),
+        curr_password_username: "",
         curr_password_password: store.temp.curr_password_password,
         curr_password_folder: store.temp.curr_password_folder,
-        curr_password_note: DECRYPT(store.temp.curr_password_note),
+        curr_password_note: "",
         curr_password_starred: store.temp.curr_password_starred,
       }
   },
@@ -70,6 +70,7 @@ export default {
     },
     edit() {
       DB_editPassword(store.temp.curr_password_folder, this.curr_password_id, this.curr_password_name,this.curr_password_username, this.curr_password_password, this.curr_password_folder, this.curr_password_note, this.curr_password_starred).then( (res) => {
+
         if(res) {
           this.toast.success("Password edited!", {
                 position: "top-center",
@@ -106,22 +107,20 @@ export default {
     }
   }, 
   beforeMount() {
-    if(!checkUserValid()) {
-      DBL_refreshUserLogin().then((res) => {
-        if (!res) {
-          DBL_logoutUser();
-          this.$router.push('/');
+    getCurrentUser().then( (user) => {
+        if(user) {
+            this.user = user
+            DECRYPT(store.temp.curr_password_username).then( (res) => {
+              this.curr_password_username = res;
+            })
+
+            DECRYPT(store.temp.curr_password_note).then( (res) => {
+              this.curr_password_note = res;
+            })
         } else {
-          if(!checkPasswordValid()) {
-            this.$router.push('/home');
-          }
+            this.$router.push('/');
         }
-      })
-    } else {
-      if(!checkPasswordValid()) {
-        this.$router.push('/home');
-      }
-    }
+    })
   }
 }
 
@@ -137,6 +136,6 @@ h1 {
 }
 
 .smallSpacing {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 </style>

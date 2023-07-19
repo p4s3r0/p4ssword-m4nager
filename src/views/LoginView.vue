@@ -6,7 +6,7 @@
     <password-input @valueUpdated="updatePassword" />
     <p>Don't have an account? <a @click="this.$router.push('/register');">Register</a></p>
     <big-button-register-signin text="Sign in" @click="loginUser()"/>
-  <p id="Version">@3.3</p>
+  <p id="Version">@3.4</p>
 
   </div>
 </template>
@@ -16,8 +16,7 @@ import TextInput from '@/components/TextInput.vue'
 import PasswordInput from '@/components/PasswordInput.vue'
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue'
 import { DB_loginUser } from '@/supabase';
-import { store } from '@/store/store';
-import { del_dexie, DBL_isUserLoggedIn } from '@/dexie';
+import { del_dexie, getCurrentUser } from '@/dexie';
 
 import { useToast } from "vue-toastification";
 
@@ -35,7 +34,7 @@ export default {
   data() {
       return {
         username: "",
-        password: ""
+        password: "",
       }
   },
   methods: {
@@ -51,8 +50,6 @@ export default {
     loginUser() {
       DB_loginUser(this.username, this.password).then((res) => {
         if (res) {
-          store.user.loggedIn = true;
-          store.user.username = this.username;
           this.$router.push('/home');
         } else {
           this.toast.error("Incorrect Username or Password", {
@@ -73,12 +70,8 @@ export default {
       });
     }
   }, beforeMount() {
-    DBL_isUserLoggedIn().then((res) => {
-      if (res) {
-        store.user.loggedIn = true;
-        store.user.username = res.username;
-        store.user.password = res.password;
-        store.user.email = res.email;
+    getCurrentUser().then( (user) => {
+      if(user) {
         this.$router.push('/home');
       }
     })

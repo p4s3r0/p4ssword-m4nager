@@ -12,10 +12,10 @@
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue';
 import EditTextInput from '@/components/EditTextInput.vue';
 
-import { DBL_refreshUserLogin } from '@/dexie';
+import { getCurrentUser } from '@/dexie';
 import { DB_edit2FA } from '@/supabase';
 
-import { store, checkUserValid } from '@/store/store';
+import { store } from '@/store/store';
 
 import { useToast } from "vue-toastification";
 
@@ -31,6 +31,7 @@ export default {
   },
   data() {
       return {
+        user: {},
         fa_name: store.temp.curr_2fa_name,
         fa_secret: store.temp.curr_2fa_secret,
       }
@@ -80,14 +81,13 @@ export default {
     }
   }, 
   beforeMount() {
-    if(!checkUserValid()) {
-      DBL_refreshUserLogin().then((res) => {
-        if (!res) {
-          DBL_logoutUser();
-          this.$router.push('/');
+    getCurrentUser().then( (user) => {
+        if(user) {
+            this.user = user
+        } else {
+            this.$router.push('/');
         }
-      })
-    }
+    })
   }
 }
 

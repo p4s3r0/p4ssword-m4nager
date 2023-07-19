@@ -14,7 +14,6 @@
 
 
     <div id="textShower">
-      <star-preferred :selected_init=this.starred />
       <text-shower v-if="this.name != ''" :text=this.name />
       <text-shower v-if="this.username != ''" :text=this.username />
       <text-shower v-if="this.password != ''" is_pssw="true" :text=this.password />
@@ -32,11 +31,10 @@ import SmallButtonEdit from '@/components/SmallButtonEdit.vue'
 import AddButton from '@/components/AddButton.vue';
 import TextShower from '@/components/TextShower.vue';
 
-import { store, checkUserValid, checkPasswordValid, DECRYPT } from '@/store/store';
-import { DBL_refreshUserLogin, DBL_getPasswordsByIdx } from '@/dexie';
+import { store, DECRYPT } from '@/store/store';
+import { getCurrentUser, DBL_getPasswordsByIdx } from '@/dexie';
 import { DB_deletePassword } from '@/supabase';
 
-import CryptoJS from 'crypto-js';
 import { useToast } from "vue-toastification";
 
 export default {
@@ -104,42 +102,21 @@ export default {
     }
   }, 
   beforeMount() {
-    if(!checkUserValid()) {
-
-        DBL_refreshUserLogin().then((res) => {
-          if (!res) {
-            DBL_logoutUser();
-            this.$router.push('/');
-          } else {
-            if(!checkPasswordValid()) {
-              this.$router.push('/home');
-            } else {
-              DBL_getPasswordsByIdx(store.temp.curr_password_id).then( (res) => {
+    getCurrentUser().then( (user) => {
+        if(user) {
+            this.user = user
+            DBL_getPasswordsByIdx(store.temp.curr_password_id).then( (res) => {
                 this.name = res.name;
-                this.username =  DECRYPT(res.username);
-                this.password = DECRYPT(res.password);        
+                DECRYPT(res.username).then((res) => {this.username = res})
+                DECRYPT(res.password).then((res) => {this.password = res})
                 this.folder = res.folder;
-                this.note = DECRYPT(res.note); 
+                DECRYPT(res.note).then((res) => {this.note = res})
                 this.starred = res.starred;
               })
-              console.log("Hello")
-            }
-          }
-        })
-    } else {
-      if(!checkPasswordValid()) {
-        this.$router.push('/home');
-      } else {
-        DBL_getPasswordsByIdx(store.temp.curr_password_id).then( (res) => {
-          this.name = res.name;
-          this.username =  DECRYPT(res.username);
-          this.password = DECRYPT(res.password);        
-          this.folder = res.folder;
-          this.note = DECRYPT(res.note); 
-          this.starred = res.starred;
-        })
-      }
-    }
+        } else {
+            this.$router.push('/');
+        }
+    })
   }
 }
 </script>

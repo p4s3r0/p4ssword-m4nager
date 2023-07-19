@@ -1,16 +1,13 @@
 <template>
-  <transition
-  mode="out-in"
-  enter-active-class="animate__animated animate__fadeIn"
-  leave-active-class="animate__animated animate__fadeOut"
-  >
-    <router-view />
-  </transition>
+  <router-view v-slot="{ Component, route }">
+    <transition name="fade">
+      <component :is="Component" :key="route.path" />
+    </transition>
+  </router-view>
 </template>
 
+
 <script>
-
-
 export default {
   name: 'App',
   components: {

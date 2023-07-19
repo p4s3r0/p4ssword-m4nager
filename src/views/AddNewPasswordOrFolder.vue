@@ -56,8 +56,7 @@ import Selector from '@/components/Selector.vue'
 import StarPreferred from '@/components/StarPreferred.vue';
 
 import { DB_addNewPassword, DB_addNewFolder, DB_add2FA } from '@/supabase';
-import { store, checkUserValid } from '@/store/store';
-import { DBL_refreshUserLogin } from '@/dexie';
+import { getCurrentUser } from '@/dexie';
 
 import { useToast } from "vue-toastification";
 
@@ -85,7 +84,8 @@ data() {
         note: "",
         color: "black",
         fold_pass_selector: "Folders",
-        starred: false
+        starred: false,
+        user: {}
     }
 },
 methods: {
@@ -120,7 +120,6 @@ methods: {
     add() {
         if (this.fold_pass_selector == "Folders") {
             this.addFolder();
-
         } else if (this.fold_pass_selector == "Passwords") {
             this.addPassword();
         } else {
@@ -145,7 +144,7 @@ methods: {
             });
             return;
         }
-    DB_add2FA(store.user.username, this.name, this.note).then((res) => {
+    DB_add2FA(this.user.username, this.name, this.note).then((res) => {
         if (res) {
             this.toast.success("New 2FA Added!", {
                 position: "top-center",
@@ -198,7 +197,7 @@ methods: {
             });
             return;
         }
-    DB_addNewPassword(this.name, this.password, this.folder, this.note, store.user.username, this.username, this.starred).then( (res) => {
+    DB_addNewPassword(this.name, this.password, this.folder, this.note, this.user.username, this.username, this.starred).then( (res) => {
         if (res) {
             this.toast.success("New Password Added!", {
                 position: "top-center",
@@ -243,7 +242,7 @@ methods: {
     addFolder() {
         if(this.folder == "")
             return;
-      DB_addNewFolder(store.user.username, this.folder, this.color, this.starred).then( (res) => {
+      DB_addNewFolder(this.user.username, this.folder, this.color, this.starred).then( (res) => {
         if (res) {
             this.toast.success("New Folder Added!", {
                 position: "top-center",
@@ -280,14 +279,13 @@ methods: {
     }
 }, 
 beforeMount() {
-    if(!checkUserValid()) {
-      DBL_refreshUserLogin().then((res) => {
-        if (!res) {
-          DBL_logoutUser();
-          this.$router.push('/');
+    getCurrentUser().then( (user) => {
+        if(user) {
+            this.user = user
+        } else {
+            this.$router.push('/');
         }
-      })
-    }
+    })
 }
 }
 </script>

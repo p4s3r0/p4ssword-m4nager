@@ -10,6 +10,7 @@ db.version(3).stores({
     settings: "idx, fold_pass_select",
 });
 
+
 export function del_dexie() {
     db.delete()
     console.log("deleted db")
@@ -56,7 +57,7 @@ export async function DBL_logoutUser() {
 }
 
 
-export async function DBL_isUserLoggedIn() {
+export async function getCurrentUser() {
     const user_exists = await db.curr_user.toArray(); 
     if (!user_exists) {
         return false;
@@ -65,19 +66,6 @@ export async function DBL_isUserLoggedIn() {
     return user_exists[0];
 }
 
-export async function DBL_refreshUserLogin() {
-    const user_exists = await db.curr_user.toArray(); 
-    if (!user_exists) {
-        return false;
-    }
-    const user = user_exists[0]; 
-
-    store.user.username = user.username;
-    store.user.password = user.password;
-    store.user.email = user.email;
-    store.user.loggedIn = true;
-    return true;
-}
 
 export async function DBL_updateFolders(folders) {
     if (folders == null) {
