@@ -39,6 +39,7 @@ export async function loginUser(username, password) {
         return false
     } 
 
+        console.log("got", res.data)
     const user = JSON.parse(res.data);
     
     await DBL_loginUser(user.username, user.password, user.email, user.api_key);

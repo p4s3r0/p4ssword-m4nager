@@ -83,3 +83,4 @@ let app = createApp(App)
 
 
 app.use(router).use(VueCryptojs).use(Toast, toast_options).mount('#app');
+
