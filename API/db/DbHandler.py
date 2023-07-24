@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 import os
 from sqlalchemy import create_engine
 from sqlalchemy import select
+import uuid
 
 # load environment variables
 load_dotenv()
@@ -34,6 +35,7 @@ class User(Base):
     username: Mapped[str] = mapped_column(String(255), primary_key=True)
     email: Mapped[str] = mapped_column(String(255))
     password: Mapped[str] = mapped_column(String(255))
+    api_key: Mapped[str] = mapped_column(String(255))
 
     def __repr__(self) -> str:
         return f"Users[{self.username!r}] = {{ username={self.username}, email={self.email}, password={self.password} }}"
@@ -105,11 +107,19 @@ class Folder(Base):
 
 # USERS -----------------------------------------------------------------------
 def add_User(username: str, email: str, password: str):
+    with engine.connect() as conn:
+        # len for connector does not exist
+        username_taken = len(conn.execute(select(User).where(User.username == username)))
+
+    if username_taken:
+        return "[ERROR]-UsernameTaken"
+
     with Session(engine) as session:
         user = User(
             username=username,
             email=email,
-            password=password
+            password=password,
+            api_key=str(uuid.uuid4())
         )
         session.add(user)
         session.commit()
@@ -132,7 +142,6 @@ def get_ObjectTwoFa(user: str, name: str):
         for row in conn.execute(stmt):
             two_fa = row
     return two_fa
-
 
 def add_twoFa(user: str, secret: str, name:str):
     with Session(engine) as session:

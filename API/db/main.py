@@ -29,14 +29,18 @@ def HASH(val):
 
 
 
-# /add_user?nonce=a&digest=a&username=a&email=b&password=c
+# /add_user?username=a&email=b&password=c
 @app.get("/add_user")
 def add_user(username: str = "", email: str = "", password: str = ""):
     if username == "" or email == "" or password == "":
         return f"[ERROR] Invalid Params"
 
-    if DbHandler.add_User(username, email, password):
+    ret = DbHandler.add_User(username, email, password)
+
+    if ret == True:
         return f"OK"
+    elif ret == "[ERROR]-UsernameTaken":
+        return ret
     else: 
         return f"[ERROR] Something went wrong"
     
