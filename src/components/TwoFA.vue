@@ -19,6 +19,7 @@ import { DB_toggle_authorize_OTP } from '@/supabase';
 import { AXIOS_BASE_URL } from '@/main.js'
 import { useToast } from "vue-toastification";
 import { store } from '@/store/store'
+import { toasts_config_error } from '@/toasts'
 
 export default {
 name: 'App',
@@ -37,20 +38,7 @@ methods: {
         await DB_toggle_authorize_OTP(this.user.username, this.name, true);
         this.$axios.get(AXIOS_BASE_URL + "?user=" + this.user.username + "&name=" + this.name).then((otp_code) => {
             if (otp_code.data.length !== 6) {
-                this.toast.error("Something went wrong", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });
+                this.toast.error("Something went wrong", toasts_config_error);
                 return;
             }
             navigator.clipboard.writeText(otp_code.data);
