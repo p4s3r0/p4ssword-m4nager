@@ -108,11 +108,9 @@ class Folder(Base):
 # USERS -----------------------------------------------------------------------
 def add_User(username: str, email: str, password: str):
     with engine.connect() as conn:
-        # len for connector does not exist
-        username_taken = len(conn.execute(select(User).where(User.username == username)))
-
-    if username_taken:
-        return "[ERROR]-UsernameTaken"
+        query = select(User).where(User.username == username)
+        for row in conn.execute(query):
+            return "[ERROR]-UsernameTaken"
 
     with Session(engine) as session:
         user = User(
