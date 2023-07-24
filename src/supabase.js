@@ -54,6 +54,8 @@ function DECRYPT_CBC(val) {
 
 
 export async function DB_registerUser(email, username, password) {
+    
+
     const { data } = await supabase.from('users').select().eq("username", username)
     if (data.length !== 0) {
         return false;
