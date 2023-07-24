@@ -2,8 +2,8 @@ import { Dexie } from 'dexie';
 import { store } from '@/store/store';
 
 const db = new Dexie("p4ssword_m4nager");
-db.version(3).stores({
-    curr_user: "++idx, username, password, email",
+db.version(4).stores({
+    curr_user: "++idx, username, password, email, api_key",
     folders: "++idx, folder, pass_amount, color, starred",
     passwords: "++idx, name, password, folder, note, username, starred",
     two_fa: "++idx, username, name, secret",
@@ -16,7 +16,7 @@ export function del_dexie() {
     console.log("deleted db")
 }
 
-export async function DBL_loginUser(username_, password_, email_) {
+export async function DBL_loginUser(username_, password_, email_, api_key_) {
     const user_exists = await db.curr_user.toArray(); 
     if (user_exists) {
         await db.curr_user.clear();
@@ -24,7 +24,8 @@ export async function DBL_loginUser(username_, password_, email_) {
     const data = {
         username: username_, 
         password: password_, 
-        email: email_
+        email: email_,
+        api_key: api_key_
     }
     await db.curr_user.add(data);
 }

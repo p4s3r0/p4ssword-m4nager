@@ -131,6 +131,16 @@ def del_User(username: str):
     return True
 
 
+def login_User(username: str, password: str):
+    with engine.connect() as conn:
+        query = select(User).where(User.username == username).where(User.password == password)
+        for row in conn.execute(query):
+            ret = {
+                "email": row.email,
+                "api_key": row.api_key
+            }
+            return ret
+        return "[ERROR]-LoginUserDoesNotExist"
 
 # TWO_FA -------------------------------------------------------------------------
 def get_ObjectTwoFa(user: str, name: str):
