@@ -29,13 +29,11 @@ def HASH(val):
 
 
 
+# /add_user?nonce=a&digest=a&username=a&email=b&password=c
 @app.get("/add_user")
-def add_user(nonce: str = "", digest: str = "", username: str = "", email: str = "", password: str = ""):
-    if username == "" or email == "" or password == "" or nonce == "" or digest == "":
+def add_user(username: str = "", email: str = "", password: str = ""):
+    if username == "" or email == "" or password == "":
         return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
 
     if DbHandler.add_User(username, email, password):
         return f"OK"
@@ -45,12 +43,9 @@ def add_user(nonce: str = "", digest: str = "", username: str = "", email: str =
 
 
 @app.get("/del_user")
-def del_user(nonce: str = "", digest: str = "", username: str = ""):
-    if username == "" or  nonce == "" or digest == "":
+def del_user(username: str = ""):
+    if username == "":
         return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
 
     if DbHandler.del_User(username):
         return f"OK"
@@ -60,12 +55,9 @@ def del_user(nonce: str = "", digest: str = "", username: str = ""):
 
 
 @app.get("/add_twoFa")
-def add_twoFa(nonce: str = "", digest: str = "", user: str = "", secret: str = "", name: str = ""):
-    if nonce == "" or digest == "" or user == "" or secret == "" or name == "":
+def add_twoFa(user: str = "", secret: str = "", name: str = ""):
+    if user == "" or secret == "" or name == "":
         return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
 
     if DbHandler.add_twoFa(user, secret, name):
         return f"OK"
@@ -75,12 +67,9 @@ def add_twoFa(nonce: str = "", digest: str = "", user: str = "", secret: str = "
 
 
 @app.get("/del_twoFa")
-def del_twoFa(nonce: str = "", digest: str = "", user: str = "", name: str = ""):
-    if nonce == "" or digest == "" or user == "" or name == "":
+def del_twoFa(user: str = "", name: str = ""):
+    if user == "" or name == "":
         return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
 
     if DbHandler.del_twoFa(user, name):
         return f"OK"
@@ -90,13 +79,10 @@ def del_twoFa(nonce: str = "", digest: str = "", user: str = "", name: str = "")
 
 
 @app.get("/update_twoFa")
-def update_twoFa(nonce: str = "", digest: str = "", user: str = "", old_name: str = "", new_name: str = "", secret: str = ""):
-    if nonce == "" or digest == "" or user == "" or old_name == "" or new_name == "" or secret == "":
+def update_twoFa(user: str = "", old_name: str = "", new_name: str = "", secret: str = ""):
+    if user == "" or old_name == "" or new_name == "" or secret == "":
         return f"[ERROR] Invalid Params"
     
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
-
     if DbHandler.update_twoFa(user, old_name, new_name, secret):
         return f"OK"
     else: 
@@ -105,13 +91,10 @@ def update_twoFa(nonce: str = "", digest: str = "", user: str = "", old_name: st
 
 
 @app.get("/update_twoFa_authorization")
-def update_twoFa_authorization(nonce: str = "", digest: str = "", user: str = "", name: str = "", to: bool = False):
-    if nonce == "" or digest == "" or user == "" or name == "" or to == "":
+def update_twoFa_authorization(user: str = "", name: str = "", to: bool = False):
+    if user == "" or name == "" or to == "":
         return f"[ERROR] Invalid Params"
     
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
-
     if DbHandler.update_set_authorization(user, name, to):
         return f"OK"
     else: 
@@ -120,12 +103,9 @@ def update_twoFa_authorization(nonce: str = "", digest: str = "", user: str = ""
 
 
 @app.get("/add_password")
-def add_password(nonce: str = "", digest: str = "", name: str = "", starred: bool = False, password: str = "", folder: str = "", note: str = "", user: str = "", username: str = ""):
-    if nonce == "" or digest == "" or name == "" or starred == "" or password == "" or folder == "" or note == "" or username == "":
+def add_password(name: str = "", starred: bool = False, password: str = "", folder: str = "", note: str = "", user: str = "", username: str = ""):
+    if name == "" or starred == "" or password == "" or folder == "" or note == "" or username == "":
         return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
 
     if DbHandler.add_password(name, starred, password, folder, note, user, username):
         return f"OK"
@@ -135,13 +115,10 @@ def add_password(nonce: str = "", digest: str = "", name: str = "", starred: boo
 
 
 @app.get("/del_password")
-def del_password(nonce: str = "", digest: str = "", user: str = "", name: str = ""):
-    if nonce == "" or digest == "" or user == "" or name == "":
+def del_password(user: str = "", name: str = ""):
+    if user == "" or name == "":
         return f"[ERROR] Invalid Params"
     
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
-
     if DbHandler.del_password(user, name):
         return f"OK"
     else: 
@@ -150,12 +127,9 @@ def del_password(nonce: str = "", digest: str = "", user: str = "", name: str = 
 
 
 @app.get("/update_password")
-def update_password(nonce: str = "", digest: str = "", user: str = "", old_name: str = "", new_name: str = "", starred: str = "", password: str = "", folder: str = "", note: str = "", username: str = ""):
-    if nonce == "" or digest == "" or user == "" or old_name == "" or new_name == "" or starred == "" or password == "" or folder == "" or note == "" or user == "" or username == "":
+def update_password(user: str = "", old_name: str = "", new_name: str = "", starred: str = "", password: str = "", folder: str = "", note: str = "", username: str = ""):
+    if user == "" or old_name == "" or new_name == "" or starred == "" or password == "" or folder == "" or note == "" or user == "" or username == "":
         return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
 
     if DbHandler.update_Password(old_name, new_name, starred, password, folder, note, user, username):
         return f"OK"
@@ -165,12 +139,9 @@ def update_password(nonce: str = "", digest: str = "", user: str = "", old_name:
 
 
 @app.get("/add_folder")
-def add_folder(nonce: str = "", digest: str = "", folder: str = "", starred: bool = False, user: str = "", pass_amount: int = 0, color: str = ""):
-    if nonce == "" or digest == "" or folder == "" or user == "" or color == "":
+def add_folder(folder: str = "", starred: bool = False, user: str = "", pass_amount: int = 0, color: str = ""):
+    if folder == "" or user == "" or color == "":
         return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
 
     if DbHandler.add_folder(folder, starred, user, pass_amount, color):
         return f"OK"
@@ -180,12 +151,9 @@ def add_folder(nonce: str = "", digest: str = "", folder: str = "", starred: boo
 
 
 @app.get("/del_folder")
-def del_folder(nonce: str = "", digest: str = "", name: str = "", user: str = ""):
-    if nonce == "" or digest == "" or name == "" or user == "":
+def del_folder(name: str = "", user: str = ""):
+    if name == "" or user == "":
         return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
 
     if DbHandler.del_folder(name, user):
         return f"OK"
@@ -195,12 +163,9 @@ def del_folder(nonce: str = "", digest: str = "", name: str = "", user: str = ""
 
 
 @app.get("/update_folder")
-def update_folder(nonce: str = "", digest: str = "",old_folder: str = "", folder: str = "", starred: bool = False, user: str = "", pass_amount: int = 0, color: str = ""):
-    if nonce == "" or digest == "" or old_folder == "" or folder == "" or user == "" or color == "":
+def update_folder(old_folder: str = "", folder: str = "", starred: bool = False, user: str = "", pass_amount: int = 0, color: str = ""):
+    if old_folder == "" or folder == "" or user == "" or color == "":
         return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
 
     if DbHandler.update_folder(old_folder, folder, starred, user, pass_amount, color):
         return f"OK"
