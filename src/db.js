@@ -66,5 +66,5 @@ export async function DB_addNewPassword(name, password, folder, note, user, user
         starred: starred
     }})
 
-    console.log(res.data)
+    return true
 }
