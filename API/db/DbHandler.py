@@ -12,13 +12,17 @@ from sqlalchemy import select
 # load environment variables
 load_dotenv()
 SQL_DATABASE_CLIENT = os.getenv("SQL_DATABASE_CLIENT")
-SQL_TABLE_NAME = os.getenv("SQL_TABLE_NAME")
+SQL_USER = os.getenv("SQL_USER")
 SQL_PASSWORD = os.getenv("SQL_PASSWORD")
 SQL_URL = os.getenv("SQL_URL")
 SQL_PORT = os.getenv("SQL_PORT")
-SQL_DATABASE = os.getenv("SQL_DATABASE")
+SQL_DB_NAME = os.getenv("SQL_DB_NAME")
 # connect to database
-engine = create_engine(f"{SQL_DATABASE_CLIENT}://{SQL_TABLE_NAME}:{SQL_PASSWORD}@{SQL_URL}:{SQL_PORT}/{SQL_DATABASE}", echo=True)
+engine = create_engine(f"{SQL_DATABASE_CLIENT}://{SQL_USER}:{SQL_PASSWORD}@{SQL_URL}:{SQL_PORT}/{SQL_DB_NAME}", echo=True)
+
+
+
+print(f"{SQL_DATABASE_CLIENT}://{SQL_USER}:{SQL_PASSWORD}@{SQL_URL}:{SQL_PORT}/{SQL_DB_NAME}")
 
 class Base(DeclarativeBase):
     pass
@@ -261,4 +265,5 @@ def update_folder(old_folder: str, folder: str, starred: bool, user: str, pass_a
 
 if __name__ == "__main__":
     print("[ERROR] Running Library as main")
-    exit()
+    #exit()
+    add_User("a", "b", "c")
