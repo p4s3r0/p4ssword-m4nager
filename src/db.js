@@ -38,11 +38,8 @@ export async function loginUser(username, password) {
     if (res.data == "[ERROR]-LoginUserDoesNotExist") {
         return false
     } 
-
-        console.log("got", res.data)
-    const user = JSON.parse(res.data);
+    const user = res.data
     
-    await DBL_loginUser(user.username, user.password, user.email, user.api_key);
-
+    await DBL_loginUser(username, password, user.email, user.api_key);
     return true;
 }
