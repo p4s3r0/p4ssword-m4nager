@@ -15,8 +15,9 @@
 import TextInput from '@/components/TextInput.vue'
 import PasswordInput from '@/components/PasswordInput.vue'
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue'
-import { DB_loginUser } from '@/supabase';
+import { loginUser } from '@/db';
 import { del_dexie, getCurrentUser } from '@/dexie';
+import { toasts_config_error } from '@/toasts';
 
 import { useToast } from "vue-toastification";
 
@@ -48,24 +49,11 @@ export default {
       del_dexie();
     },
     loginUser() {
-      DB_loginUser(this.username, this.password).then((res) => {
+      loginUser(this.username, this.password).then((res) => {
         if (res) {
           this.$router.push('/home');
         } else {
-          this.toast.error("Incorrect Username or Password", {
-            position: "top-center",
-            timeout: 3000,
-            closeOnClick: true,
-            pauseOnFocusLoss: true,
-            pauseOnHover: true,
-            draggable: true,
-            draggablePercent: 0.6,
-            showCloseButtonOnHover: false,
-            hideProgressBar: true,
-            closeButton: "button",
-            icon: true,
-            rtl: false
-          });
+          this.toast.error("Incorrect Username or Password", toasts_config_error);
         }
       });
     }

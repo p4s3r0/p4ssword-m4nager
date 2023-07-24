@@ -58,6 +58,15 @@ def del_user(username: str = ""):
     
 
 
+@app.get("/login_user")
+def login_user(username: str = "", password: str = ""):
+    if username == "" or password == "":
+        return f"[ERROR] Invalid Params"
+    return DbHandler.login_User(username, password)
+
+
+
+
 @app.get("/add_twoFa")
 def add_twoFa(user: str = "", secret: str = "", name: str = ""):
     if user == "" or secret == "" or name == "":

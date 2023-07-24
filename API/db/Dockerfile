@@ -7,7 +7,7 @@ RUN pip install -r /requirements.txt
 COPY main.py /app/main.py
 COPY DbHandler.py /app/DbHandler.py
 COPY run.sh /app/run.sh
-COPY .env /app/.env
+COPY .env.server /app/.env
 WORKDIR /app
 RUN chmod +x /app/run.sh
 CMD /app/run.sh
