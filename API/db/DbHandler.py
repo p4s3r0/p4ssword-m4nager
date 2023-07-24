@@ -104,6 +104,14 @@ class Folder(Base):
 ###############################################################################
 
 
+def checkApiKey(key, user):
+    with engine.connect() as conn:
+        query = select(User).where(User.api_key == key).where(User.username == user)
+        for row in conn.execute(query):
+            return True
+        return False
+
+
 
 # USERS -----------------------------------------------------------------------
 def add_User(username: str, email: str, password: str):
@@ -208,9 +216,12 @@ def add_password(name: str, starred: bool, password: str, folder: str, note: str
                 user=user,
                 username=username
             )
+
             session.add(password)
             session.commit()
     return True
+
+
 
 
 def del_password(user: str, name: str):

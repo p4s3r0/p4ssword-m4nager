@@ -2,14 +2,21 @@ import { AXIOS_BASE_URL } from '@/main.js'
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
 
-import { DBL_loginUser } from './dexie';
+import { DBL_loginUser, getCurrentUser } from './dexie';
+
+
 
 function HASH(val) {
     return CryptoJS.SHA3(val).toString(CryptoJS.enc.Hex)
 }
 
+async function ENCRYPT(val) {
+    const curr_user = await getCurrentUser();
+    return CryptoJS.AES.encrypt(val, curr_user.password).toString();
+}
 
-export async function registerUser(username, email, password) {
+
+export async function DB_registerUser(username, email, password) {
     const q = AXIOS_BASE_URL +  "add_user?" + 
                                 "username=" + username + 
                                 "&email=" + email + 
@@ -28,7 +35,7 @@ export async function registerUser(username, email, password) {
 
 
 // http://localhost:8000/login_user?username=a&password=b
-export async function loginUser(username, password) {
+export async function DB_loginUser(username, password) {
     const q = AXIOS_BASE_URL +  "login_user?" + 
                                 "username=" + username + 
                                 "&password=" + HASH(password)
@@ -42,4 +49,22 @@ export async function loginUser(username, password) {
     
     await DBL_loginUser(username, password, user.email, user.api_key);
     return true;
+}
+
+
+export async function DB_addNewPassword(name, password, folder, note, user, username, starred) {
+    const api_key = (await getCurrentUser()).api_key
+
+    const res = await axios.get(AXIOS_BASE_URL + "add_password", { params: {
+        api_key: api_key,
+        name: name,
+        password: (await ENCRYPT(password)),
+        folder: folder,
+        note: (await ENCRYPT(note)),
+        user: user,
+        username: (await ENCRYPT(username)),
+        starred: starred
+    }})
+
+    console.log(res.data)
 }

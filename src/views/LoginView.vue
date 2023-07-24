@@ -15,7 +15,7 @@
 import TextInput from '@/components/TextInput.vue'
 import PasswordInput from '@/components/PasswordInput.vue'
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue'
-import { loginUser } from '@/db';
+import { DB_loginUser } from '@/db';
 import { del_dexie, getCurrentUser } from '@/dexie';
 import { toasts_config_error } from '@/toasts';
 
@@ -49,7 +49,7 @@ export default {
       del_dexie();
     },
     loginUser() {
-      loginUser(this.username, this.password).then((res) => {
+      DB_loginUser(this.username, this.password).then((res) => {
         if (res) {
           this.$router.push('/home');
         } else {

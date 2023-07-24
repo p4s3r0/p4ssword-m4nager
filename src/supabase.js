@@ -53,25 +53,6 @@ function DECRYPT_CBC(val) {
 }
 
 
-export async function DB_registerUser(email, username, password) {
-    
-
-    const { data } = await supabase.from('users').select().eq("username", username)
-    if (data.length !== 0) {
-        return false;
-    }
-
-    const data_user = {
-        email: email,
-        username: username,
-        password: HASH(password),
-    }
-    await supabase.from('users').insert(data_user);
-    return true;
-}
-
-
-
 export async function DB_loginUser(username, password) {
     const { data } = await supabase.from('users').select().eq("username", username)
     if (data.length < 1) {
