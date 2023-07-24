@@ -29,6 +29,8 @@ def HASH(val):
 
 
 
+
+
 # /add_user?username=a&email=b&password=c
 @app.get("/add_user")
 def add_user(username: str = "", email: str = "", password: str = ""):
@@ -44,19 +46,6 @@ def add_user(username: str = "", email: str = "", password: str = ""):
     else: 
         return f"[ERROR] Something went wrong"
     
-
-
-@app.get("/del_user")
-def del_user(username: str = ""):
-    if username == "":
-        return f"[ERROR] Invalid Params"
-
-    if DbHandler.del_User(username):
-        return f"OK"
-    else: 
-        return f"[ERROR] Something went wrong"
-    
-
 
 @app.get("/login_user")
 def login_user(username: str = "", password: str = ""):
@@ -116,9 +105,12 @@ def update_twoFa_authorization(user: str = "", name: str = "", to: bool = False)
 
 
 @app.get("/add_password")
-def add_password(name: str = "", starred: bool = False, password: str = "", folder: str = "", note: str = "", user: str = "", username: str = ""):
-    if name == "" or starred == "" or password == "" or folder == "" or note == "" or username == "":
+def add_password(api_key: str = "", name: str = "", starred: bool = False, password: str = "", folder: str = "", note: str = "", user: str = "", username: str = ""):
+    if api_key == "" or name == "" or folder == "" or username == "":
         return f"[ERROR] Invalid Params"
+
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key", api_key, user
 
     if DbHandler.add_password(name, starred, password, folder, note, user, username):
         return f"OK"

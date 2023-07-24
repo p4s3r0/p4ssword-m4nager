@@ -14,7 +14,7 @@
 import TextInput from '@/components/TextInput.vue'
 import PasswordInput from '@/components/PasswordInput.vue'
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue'
-import { registerUser } from '@/db.js'
+import { DB_registerUser } from '@/db.js'
 
 import { useToast } from "vue-toastification";
 import { toasts_config_success, toasts_config_error } from "@/toasts"
@@ -48,7 +48,7 @@ export default {
       this.password = password;
     },
     clickRegisterUser() {
-      registerUser(this.email, this.username, this.password).then( (res) => {
+      DB_registerUser(this.email, this.username, this.password).then( (res) => {
         if(res == "OK") {
           this.toast.success("User Registered!", toasts_config_success);
           this.$router.push("/");
