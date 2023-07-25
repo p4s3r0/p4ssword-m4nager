@@ -17,6 +17,7 @@ export let store = {
         curr_password_starred: false,
         curr_2fa_name: "",
         curr_2fa_secret: "",
+        curr_2fa_id: 0,
     }
 }
 
