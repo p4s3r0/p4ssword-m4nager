@@ -11,22 +11,22 @@
 
         
         <div v-if="this.fold_pass_selector == 'Folders'" id="posFolders">
-                <folder v-for="f in this.folders" @click="openFolder(f.idx, f.folder, f.color, f.starred)"
+                <folder v-for="f in this.folders" @click="openFolder(f.id, f.folder, f.color, f.starred)"
                                                 :key=f.key 
                                                 :name=f.folder
                                                 :pass_amount=f.pass_amount 
                                                 :color=f.color
-                                                :idx=f.idx 
+                                                :id=f.id 
                                                 :starred=f.starred />
         </div>
 
         <div v-else-if="this.fold_pass_selector=='Passwords'" id="posFolders">
-            <password v-for="p in this.passwords"
+            <password v-for="p in this.passwords" @click="openPasswordView(p.name, p.password, p.username, p.id, p.folder, p.note, p.starred)"
                                                 :key=p.key 
                                                 :name=p.name
                                                 :enc_password=p.password
                                                 :username=p.username 
-                                                :idx=p.idx 
+                                                :id=p.id 
                                                 :folder=p.folder 
                                                 :note=p.note 
                                                 :starred=p.starred />
@@ -54,10 +54,12 @@ import Password from '@/components/Password.vue';
 import TwoFactorButton from '@/components/TwoFactorButton.vue';
 import TwoFA from '@/components/TwoFA.vue';
 
-import { DB_getAllFolders, DB_getAllPasswords, DB_getAll2FA } from '@/supabase';
+import { DB_getAllFolders, DB_getAll2FA } from '@/supabase';
 import { DBL_logoutUser, settings_getFolderOrPassword, settings_updateFolderOrPassword, getCurrentUser } from '@/dexie';
 import { rankFoldersBySearch, rankPasswordsBySearch, rankPasswordsAlphabetically, rankFolderAlphabetically } from '@/scripts/search';
-import { store } from '@/store/store'
+import { store, DECRYPT } from '@/store/store'
+
+import { DB_getAllPasswords } from '@/db'
 
 export default {
 name: 'App',
@@ -119,6 +121,16 @@ methods: {
     },
     addNew() {
         setTimeout(() => this.$router.push('/addPasswordOrFolder'), 300);
+    },
+    async openPasswordView(name, password, username, id, folder, note, starred) {
+        store.temp.curr_password_id = id;
+        store.temp.curr_password_name = name;
+        store.temp.curr_password_username = await DECRYPT(username);
+        store.temp.curr_password_password = await DECRYPT(password);
+        store.temp.curr_password_folder = folder;
+        store.temp.curr_password_note = await DECRYPT(note);
+        store.temp.curr_password_starred = starred;
+        this.$router.push('/password');
     }
 }, beforeMount() {
     getCurrentUser().then( (user) => {

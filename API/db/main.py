@@ -120,14 +120,30 @@ def add_password(api_key: str = "", name: str = "", starred: bool = False, passw
 
 
 @app.get("/del_password")
-def del_password(user: str = "", name: str = ""):
-    if user == "" or name == "":
+def del_password(api_key: str = "", user: str = "", name: str = ""):
+    if user == "" or name == "" or api_key == "":
         return f"[ERROR] Invalid Params"
     
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key", api_key, user
+
     if DbHandler.del_password(user, name):
         return f"OK"
     else: 
         return f"[ERROR] Something went wrong"
+
+
+
+@app.get("/get_passwords")
+def get_passwords(api_key: str = "", user: str = ""):
+    if user == "" or api_key == "":
+        return f"[ERROR] Invalid Params"
+    
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key", api_key, user
+
+    return DbHandler.get_Passwords(user)
+
     
 
 

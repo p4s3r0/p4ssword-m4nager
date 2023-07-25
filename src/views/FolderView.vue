@@ -11,7 +11,7 @@
                                           :name=p.name
                                           :enc_password=p.password
                                           :username=p.username
-                                          :idx=p.idx 
+                                          :id=p.id 
                                           :folder=p.folder
                                           :note=p.note 
                                           :starred=p.starred />
