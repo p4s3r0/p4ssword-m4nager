@@ -21,8 +21,6 @@ export let store = {
 }
 
 export async function DECRYPT(val) {
-    console.log("HERE", val)
     const current_user = await getCurrentUser();
-
     return CryptoJS.AES.decrypt(val, current_user.password).toString(CryptoJS.enc.Utf8);    
 }

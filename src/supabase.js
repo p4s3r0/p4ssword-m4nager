@@ -53,36 +53,6 @@ function DECRYPT_CBC(val) {
 }
 
 
-export async function DB_loginUser(username, password) {
-    const { data } = await supabase.from('users').select().eq("username", username)
-    if (data.length < 1) {
-        return false;
-    }
-
-    const user = data[0];
-
-    if (user.password != HASH(password)) {
-        return false;
-    }
-
-    await DBL_loginUser(username, password, user["email"]);
-    return true;
-}
-
-
-
-export async function DB_getAllFolders(username) {
-    const { data } = await supabase.from('folders').select().eq("user", username)
-    const ret = await DBL_updateFolders(data);
-    return ret;
-}
-
-export async function DB_getAllPasswords(username) {
-    console.log("SUPABASE CARE")
-    const { data } = await supabase.from('passwords').select().eq("user", username)
-    const ret = await DBL_updatePasswords(data);
-    return ret;
-}
 
 export async function DB_getAll2FA(username) {
     const { data } = await supabase.from('2fa').select().eq("user", username)
@@ -94,18 +64,6 @@ export async function DB_getAll2FA(username) {
 }
 
 
-
-export async function DB_addNewFolder(username, folder, color, starred) {
-    const data = {
-        folder: folder,
-        user: username,
-        color: color,
-        pass_amount: 0,
-        starred: starred
-    };
-    await supabase.from('folders').insert(data);
-    return true;
-}
 
 export async function DB_add2FA(user, name, secret) {
     const data = {
@@ -123,67 +81,6 @@ export async function DB_toggle_authorize_OTP(user, name, to) {
 }
 
 
-
-
-export async function DB_addNewPassword(name, password, folder, note, user, username, starred) {
-    const current_user = await getCurrentUser();
-    const pssw = {
-        name: name,
-        username: await ENCRYPT(username),
-        password: await ENCRYPT(password),
-        folder: folder,
-        note: await ENCRYPT(note),
-        user: user,
-        starred: starred
-    };
-    await supabase.from('passwords').insert(pssw);
-
-    let { data } = await supabase.from('folders').select().eq("user", current_user.username).eq("folder", folder)
-    if (data.length == 0) {
-        return true;
-    }
-    data = data[0] // only one folder with same name
-    await supabase.from("folders").update({pass_amount: data.pass_amount + 1}).eq("folder", folder)
-    return true;
-}
-
-
-
-export async function DB_getPasswordsForSpecificFolder(username, folder) {
-    const data = await DB_getAllPasswords(username)
-    let ret = [];
-    for(let i = 0; i < data.length; i++) {
-        if (data[i].folder == folder) {
-            ret.push(data[i]);
-        }
-    }
-    return ret
-}
-
-
-export async function DB_deleteFolder(username, folder) {
-    await supabase.from("passwords").update({folder: "NO FOLDER"}).eq("user", username).eq("folder", folder)
-    await supabase.from("folders").delete().eq("user", username).eq("folder", folder);
-
-    await DBL_deleteFolder(folder);
-    return true;
-}
-
-
-
-export async function DB_deletePassword(id, folder) {
-    const current_user = await getCurrentUser();
-
-    let { data } = await supabase.from('folders').select().eq("user", current_user.username).eq("folder", folder)
-    await supabase.from("passwords").delete().eq("id", id)
-    await DBL_deletePassword(id);
-    if (data.length == 0) {
-        return true;
-    }
-    data = data[0] // only one folder with same name
-    await supabase.from("folders").update({pass_amount: data.pass_amount - 1}).eq("folder", folder)
-    return true;
-}
 
 export async function DB_delete2FA(name) {
     const current_user = await getCurrentUser();
@@ -214,36 +111,3 @@ export async function DB_edit2FA(old_name, new_name, new_secret) {
 }
 
 
-
-
-export async function DB_editPassword(folder_before, password_id, name, username, password, folder, note, starred) {
-    const current_user = await getCurrentUser();
-
-
-    await supabase.from("passwords").update(
-                                            { 
-                                                name: name, 
-                                                username: await ENCRYPT(username),
-                                                password: await ENCRYPT(password),
-                                                folder: folder,
-                                                note: await ENCRYPT(note),
-                                                starred: starred
-                                            }).eq("id", password_id)
-
-    if (folder_before != "NO FOLDER") {
-        const folder_bef = await supabase.from('folders').select().eq("user", current_user.username).eq("folder", folder_before)
-        await supabase.from("folders").update({pass_amount: folder_bef.data[0].pass_amount - 1}).eq("folder", folder_before).eq("user", current_user.username)
-    }
-    
-    if (folder != "NO FOLDER") {
-        const folder_aft = await supabase.from('folders').select().eq("user", current_user.username).eq("folder", folder)
-        await supabase.from("folders").update({pass_amount: folder_aft.data[0].pass_amount + 1}).eq("folder", folder).eq("user", current_user.username)
-    }
-
-    const username_dec = await ENCRYPT(username);
-    const password_dec = await ENCRYPT(password);
-    const note_dec = await ENCRYPT(note);
-    await DBL_editPassword(folder_before, password_id, name, username_dec, password_dec, folder, note_dec, starred);
-
-    return true;
-}

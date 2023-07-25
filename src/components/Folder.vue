@@ -11,7 +11,7 @@
 
 export default {
 name: 'App',
-props: ["name", "pass_amount", "color", "starred"],
+props: ["name", "pass_amount", "color", "starred", "id"],
 }
 </script>
 

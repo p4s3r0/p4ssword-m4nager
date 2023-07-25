@@ -120,14 +120,14 @@ def add_password(api_key: str = "", name: str = "", starred: bool = False, passw
 
 
 @app.get("/del_password")
-def del_password(api_key: str = "", user: str = "", name: str = ""):
-    if user == "" or name == "" or api_key == "":
+def del_password(api_key: str = "", user: str = "", id: int = -1):
+    if user == "" or id == -1 or api_key == "":
         return f"[ERROR] Invalid Params"
     
     if not DbHandler.checkApiKey(api_key, user):
         return f"Not authorized with this API key", api_key, user
 
-    if DbHandler.del_password(user, name):
+    if DbHandler.del_password(user, id):
         return f"OK"
     else: 
         return f"[ERROR] Something went wrong"
@@ -148,11 +148,14 @@ def get_passwords(api_key: str = "", user: str = ""):
 
 
 @app.get("/update_password")
-def update_password(user: str = "", old_name: str = "", new_name: str = "", starred: str = "", password: str = "", folder: str = "", note: str = "", username: str = ""):
-    if user == "" or old_name == "" or new_name == "" or starred == "" or password == "" or folder == "" or note == "" or user == "" or username == "":
+def update_password(api_key: str = "", id: int = -1, user: str = "", name: str = "", starred: bool = False, password: str = "", folder: str = "", note: str = "", username: str = ""):
+    if api_key == "" or id == -1 or user == "" or name == "" or folder == "" or username == "":
         return f"[ERROR] Invalid Params"
 
-    if DbHandler.update_Password(old_name, new_name, starred, password, folder, note, user, username):
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key", api_key, user
+
+    if DbHandler.update_Password(id, name, starred, password, folder, note, user, username):
         return f"OK"
     else: 
         return f"[ERROR] Something went wrong"
@@ -160,9 +163,12 @@ def update_password(user: str = "", old_name: str = "", new_name: str = "", star
 
 
 @app.get("/add_folder")
-def add_folder(folder: str = "", starred: bool = False, user: str = "", pass_amount: int = 0, color: str = ""):
+def add_folder(api_key: str = "", folder: str = "", starred: bool = False, user: str = "", pass_amount: int = 0, color: str = ""):
     if folder == "" or user == "" or color == "":
         return f"[ERROR] Invalid Params"
+
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key", api_key, user
 
     if DbHandler.add_folder(folder, starred, user, pass_amount, color):
         return f"OK"
@@ -172,11 +178,14 @@ def add_folder(folder: str = "", starred: bool = False, user: str = "", pass_amo
 
 
 @app.get("/del_folder")
-def del_folder(name: str = "", user: str = ""):
-    if name == "" or user == "":
+def del_folder(api_key: str = "", user: str = "", id: int = -1,):
+    if api_key == "" or user == "" or id == -1:
         return f"[ERROR] Invalid Params"
 
-    if DbHandler.del_folder(name, user):
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key", api_key, user
+
+    if DbHandler.del_Folder(user, id):
         return f"OK"
     else: 
         return f"[ERROR] Something went wrong"
@@ -184,17 +193,42 @@ def del_folder(name: str = "", user: str = ""):
 
 
 @app.get("/update_folder")
-def update_folder(old_folder: str = "", folder: str = "", starred: bool = False, user: str = "", pass_amount: int = 0, color: str = ""):
-    if old_folder == "" or folder == "" or user == "" or color == "":
+def update_folder(api_key: str = "", user: str = "", id: int = -1, folder: str = "", starred: bool = False, color: str = ""):
+    if api_key == "" or user == "" or id == -1 or folder == "":
         return f"[ERROR] Invalid Params"
 
-    if DbHandler.update_folder(old_folder, folder, starred, user, pass_amount, color):
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key", api_key, user
+    
+    if DbHandler.update_Folder(id, folder, starred, user, color):
         return f"OK"
     else: 
         return f"[ERROR] Something went wrong"
 
 
 
+
+@app.get("/get_folders")
+def get_folders(api_key: str = "", user: str = ""):
+    if user == "" or api_key == "":
+        return f"[ERROR] Invalid Params"
+    
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key", api_key, user
+
+    return DbHandler.get_Folders(user)
+
+
+
+@app.get("/get_folders_passwords")
+def get_folders_passwords(api_key: str = "", user: str = "", folder: str = ""):
+    if user == "" or api_key == "" or folder == "":
+        return f"[ERROR] Invalid Params"
+    
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key", api_key, user
+
+    return DbHandler.get_FoldersPasswords(user, folder)
 
 def main():
     print("[INFO] Starting Main Script")
