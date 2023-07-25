@@ -27,11 +27,12 @@ import SmallButtonDelete from '@/components/SmallButtonDelete.vue'
 import SmallButtonEdit from '@/components/SmallButtonEdit.vue'
 import AddButton from '@/components/AddButton.vue';
 
-import { DB_getPasswordsForSpecificFolder, DB_deleteFolder } from '@/supabase';
 import { store } from '@/store/store';
 import { getCurrentUser } from '@/dexie';
+import { DB_deleteFolder, DB_getPasswordsForSpecificFolder } from '@/db'
 
 import { useToast } from "vue-toastification";
+import { toasts_config_error, toasts_config_success } from '@/toasts';
 
 
 export default {
@@ -50,43 +51,18 @@ export default {
       return {
         user: {},
         folder: store.temp.curr_folder_name,
+        folder_id: store.temp.curr_folder_id,
         passwords: []
       }
   },
   methods: {
     deleteFolder() {
-      DB_deleteFolder(this.user.username, store.temp.curr_folder_name).then( (res) => {
+      DB_deleteFolder(this.folder_id).then( (res) => {
         if(res) {
-          this.toast.success("Folder Deleted!", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });
+          this.toast.success("Folder Deleted!", toasts_config_success);
           this.$router.push('/home');
         } else {
-          this.toast.error("Something went Wrong!", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });
+          this.toast.error("Something went Wrong!", toasts_config_error);
         }
       })
     },
@@ -98,7 +74,7 @@ export default {
     getCurrentUser().then( (user) => {
         if(user) {
             this.user = user
-            DB_getPasswordsForSpecificFolder(user.username, store.temp.curr_folder_name).then( (res) => {
+            DB_getPasswordsForSpecificFolder(store.temp.curr_folder_name).then( (res) => {
               this.passwords = res;
             })
         } else {

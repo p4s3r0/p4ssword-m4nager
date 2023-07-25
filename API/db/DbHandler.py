@@ -223,10 +223,18 @@ def add_password(name: str, starred: bool, password: str, folder: str, note: str
 
 
 
-def del_password(user: str, name: str):
+def del_password(user: str, id: int):
+    stmt = select(Password).where(Password.user == user and Password.id == id)
+    password = None
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            password = row
+
+    if password == None:
+        return False
+
     with Session(engine) as session:
-        password_id = get_ObjectPassword(user, name).id
-        session.delete(session.get(Password, password_id))
+        session.delete(session.get(Password, password.id))
         session.commit()
     return True
 
@@ -250,10 +258,11 @@ def get_Passwords(user: str):
     return password
 
 
-def update_Password(old_name: str, new_name: str, starred: str, password: str, folder: str, note: str, user: str, username: str):
+
+def update_Password(id: int, name: str, starred: str, password: str, folder: str, note: str, user: str, username: str):
     with Session(engine) as session:
-        session.query(Password).filter(Password.name == old_name and Password.user == user).update({  
-                                                                            'name': new_name, 
+        session.query(Password).filter(Password.id == id and Password.user == user).update({  
+                                                                            'name': name, 
                                                                             'starred': starred,
                                                                             'password': password,
                                                                             'folder': folder,
@@ -289,24 +298,74 @@ def add_folder(folder: str, starred: bool, user: str, pass_amount: int, color: s
     return True
 
 
-def del_folder(name: str, user: str):
+def del_Folder(user: str, id: int):
+    stmt = select(Folder).where(Folder.user == user and Folder.id == id)
+    folder = None
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            folder = row
+
+    if folder == None:
+        return False
+
+    stmt = select(Password).where(Password.user == user and Password.folder == folder.folder)
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            update_Password(row.id, row.name, row.starred, row.password, "NO FOLDER", row.note, row.user, row.username)
+
     with Session(engine) as session:
-        folder_id = get_ObjectFolder(user, name).id
-        session.delete(session.get(Folder, folder_id))
+        session.delete(session.get(Folder, folder.id))
         session.commit()
     return True
 
 
-def update_folder(old_folder: str, folder: str, starred: bool, user: str, pass_amount: int, color: str):
+
+def update_Folder(id: int, folder: str, starred: str, user: str, color: str):
     with Session(engine) as session:
-        session.query(Folder).filter(Folder.folder == old_folder and Folder.user == user).update({  
+        session.query(Folder).filter(Folder.id == id and Folder.user == user).update({  
                                                                             'folder': folder, 
                                                                             'starred': starred,
-                                                                            'pass_amount': pass_amount,
                                                                             'color': color,
                                                                             'user': user })
         session.commit()
     return True
+
+
+
+def get_Folders(user: str):
+    stmt = select(Folder).where(Folder.user == user)
+    folders = []
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            folders.append({
+                "id": row.id,
+                "folder": row.folder,
+                "user": row.user,
+                "starred": row.starred,
+                "pass_amount": row.pass_amount,
+                "color": row.color
+            })
+    return folders
+
+
+
+def get_FoldersPasswords(user: str, folder: str):
+    stmt = select(Password).where(Password.user == user).where(Password.folder == folder)
+    passwords = []
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            passwords.append({
+                "id": row.id,
+                "name": row.name,
+                "starred": row.starred,
+                "password": row.password,
+                "folder": row.folder,
+                "note": row.note,
+                "user": row.user,
+                "username": row.username
+            })
+    return passwords
+
 
 
 if __name__ == "__main__":

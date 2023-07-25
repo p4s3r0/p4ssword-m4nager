@@ -55,13 +55,13 @@ import FoldersPasswordFilter from '@/components/FoldersPasswordFilter.vue';
 import Selector from '@/components/Selector.vue'
 import StarPreferred from '@/components/StarPreferred.vue';
 
-import { DB_addNewFolder, DB_add2FA } from '@/supabase';
+import { DB_add2FA } from '@/supabase';
 import { getCurrentUser } from '@/dexie';
 
 import { useToast } from "vue-toastification";
 import { toasts_config_error, toasts_config_success } from '@/toasts';
 
-import { DB_addNewPassword } from '@/db'
+import { DB_addNewPassword, DB_addNewFolder } from '@/db';
 
 export default {
 name: 'App',
