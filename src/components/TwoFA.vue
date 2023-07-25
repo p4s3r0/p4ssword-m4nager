@@ -20,7 +20,6 @@ import { store } from '@/store/store'
 import { toasts_config_error, toasts_config_info } from '@/toasts'
 import { DB_getOtpCode } from '@/db'
 
-import { Clipboard } from "v-clipboard"
 
 
 export default {
@@ -43,9 +42,7 @@ methods: {
                 this.toast.error("Something went wrong", toasts_config_error);
                 return;
             }
-            Clipboard.copy(otp_code.data)
 
-            //const data = otp_code.data
             navigator.clipboard.writeText("data");
             this.toast.info("Copied to Clipboard!", toasts_config_info);
         })
