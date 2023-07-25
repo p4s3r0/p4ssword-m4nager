@@ -21,7 +21,7 @@
         </div>
 
         <div v-else-if="this.fold_pass_selector=='Passwords'" id="posFolders">
-            <password v-for="p in this.passwords" @click="openPasswordView(p.name, p.password, p.username, p.id, p.folder, p.note, p.starred)"
+            <password v-for="p in this.passwords"
                                                 :key=p.key 
                                                 :name=p.name
                                                 :enc_password=p.password
@@ -122,16 +122,6 @@ methods: {
     addNew() {
         setTimeout(() => this.$router.push('/addPasswordOrFolder'), 300);
     },
-    async openPasswordView(name, password, username, id, folder, note, starred) {
-        store.temp.curr_password_id = id;
-        store.temp.curr_password_name = name;
-        store.temp.curr_password_username = await DECRYPT(username);
-        store.temp.curr_password_password = await DECRYPT(password);
-        store.temp.curr_password_folder = folder;
-        store.temp.curr_password_note = await DECRYPT(note);
-        store.temp.curr_password_starred = starred;
-        this.$router.push('/password');
-    }
 }, beforeMount() {
     getCurrentUser().then( (user) => {
         if(user) {
