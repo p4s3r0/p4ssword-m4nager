@@ -41,7 +41,11 @@
                                             :id="t.id" />
         </div>
     <add-button class="ripple" @click="addNew" />
+
+    <outdated-modal v-if="this.showOutdatedWarning" />
     </div>
+
+
     
 </template>
   
@@ -55,11 +59,13 @@ import Password from '@/components/Password.vue';
 import TwoFactorButton from '@/components/TwoFactorButton.vue';
 import TwoFA from '@/components/TwoFA.vue';
 
+import OutdatedModal from '@/modals/OutdatedModal.vue'
+
 import { DBL_logoutUser, settings_getFolderOrPassword, settings_updateFolderOrPassword, getCurrentUser } from '@/dexie';
 import { rankFoldersBySearch, rankPasswordsBySearch, rankPasswordsAlphabetically, rankFolderAlphabetically } from '@/scripts/search';
-import { store, DECRYPT } from '@/store/store'
+import { store } from '@/store/store'
 
-import { DB_getAllPasswords, DB_getAllFolders, DB_getAll2FA } from '@/db'
+import { DB_getAllPasswords, DB_getAllFolders, DB_getAll2FA, DB_getAppVersion } from '@/db'
 
 export default {
 name: 'App',
@@ -67,11 +73,12 @@ components: {
     SearchBar,
     FoldersPasswordFilter,
     AddButton,
+    OutdatedModal,
     Folder,
     LockButton,
     Password,
     TwoFactorButton,
-    TwoFA
+    TwoFA,
 },
 data() {
     return {
@@ -79,7 +86,8 @@ data() {
         fold_pass_selector: "Folders",
         folders: [],
         passwords: [],
-        twoFactors: []
+        twoFactors: [],
+        showOutdatedWarning: false,
     }
 },
 methods: {
@@ -123,6 +131,16 @@ methods: {
         setTimeout(() => this.$router.push('/addPasswordOrFolder'), 300);
     },
 }, beforeMount() {
+    DB_getAppVersion().then((version) => {
+        console.log(version.data, this.APP_VERSION)
+        if (version.data != this.APP_VERSION) {
+            this.showOutdatedWarning = true;
+        } else {
+            this.showOutdatedWarning = false;
+            console.log("App is on Current Version")
+        }
+    })
+
     getCurrentUser().then( (user) => {
         if(user) {
             this.user = user

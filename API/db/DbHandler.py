@@ -97,6 +97,12 @@ class Folder(Base):
                                 user={self.user}, 
                                 pass_amount={self.pass_amount},
                                 color={self.color} }}"""
+    
+# Global
+class Global(Base):
+    __tablename__ = "global"
+
+    version: Mapped[str] = mapped_column(String(255), primary_key=True)
 
 ###############################################################################
 # MUTATIONS
@@ -412,7 +418,16 @@ def get_FoldersPasswords(user: str, folder: str):
 
 
 
+def getAppVersion():
+    stmt = select(Global)
+    version = None
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            version = row.version
+    return version
+
+
+
 if __name__ == "__main__":
     print("[ERROR] Running Library as main")
-    #exit()
-    add_User("a", "b", "c")
+    exit()
