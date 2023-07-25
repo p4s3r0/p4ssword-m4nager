@@ -15,10 +15,9 @@
 
 <script>
 import { getCurrentUser } from '@/dexie';
-import { AXIOS_BASE_URL } from '@/main.js'
 import { useToast } from "vue-toastification";
 import { store } from '@/store/store'
-import { toasts_config_error } from '@/toasts'
+import { toasts_config_error, toasts_config_info } from '@/toasts'
 import { DB_getOtpCode } from '@/db'
 
 export default {
@@ -42,25 +41,7 @@ methods: {
                 return;
             }
             navigator.clipboard.writeText(otp_code.data);
-            DB_toggle_authorize_OTP(this.user.username, this.name, false);
-            this.toast.info("Copied to Clipboard!", {
-                position: "top-center",
-                timeout: 1533,
-                closeOnClick: true,
-                pauseOnFocusLoss: false,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: {
-                    iconClass: "undefined",
-                    iconChildren: "",
-                    iconTag: "i"
-                },
-                rtl: false
-                });
+            this.toast.info("Copied to Clipboard!", toasts_config_info);
         })
     },
     open2FAView() {
