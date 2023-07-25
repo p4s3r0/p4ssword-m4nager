@@ -288,5 +288,5 @@ export async function DB_getOtpCode(id) {
         id: id,
     }})
 
-    return res.data;
+    return res;
 }
