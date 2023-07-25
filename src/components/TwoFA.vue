@@ -40,7 +40,7 @@ methods: {
                 this.toast.error("Something went wrong", toasts_config_error);
                 return;
             }
-            navigator.clipboard.writeText(otp_code.data);
+            navigator.clipboard.writeText(otp_code);
             this.toast.info("Copied to Clipboard!", toasts_config_info);
         })
     },
