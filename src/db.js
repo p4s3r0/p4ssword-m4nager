@@ -15,6 +15,11 @@ import {DBL_loginUser,
     getCurrentUser
     } from '@/dexie';
 
+
+const AES_KEY_CBC = process.env.VUE_APP_AES_KEY_CBC
+const AES_IV_CBC = process.env.VUE_APP_AES_IV_CBC
+
+
 function HASH(val) {
     return CryptoJS.SHA3(val).toString(CryptoJS.enc.Hex)
 }
@@ -23,6 +28,23 @@ async function ENCRYPT(val) {
     const curr_user = await getCurrentUser();
     return CryptoJS.AES.encrypt(val, curr_user.password).toString();
 }
+
+function ENCRYPT_CBC(val) {
+    const key = CryptoJS.enc.Utf8.parse(AES_KEY_CBC);
+    var iv = CryptoJS.enc.Utf8.parse(AES_IV_CBC)
+    var encrypted = CryptoJS.AES.encrypt(val, key, { iv: iv, mode: CryptoJS.mode.CBC});
+    return encrypted.toString();
+}
+
+function DECRYPT_CBC(val) {
+    var iv = CryptoJS.enc.Utf8.parse(AES_IV_CBC);
+    var key = AES_KEY_CBC
+    key = CryptoJS.enc.Utf8.parse(key);
+    var decrypted =  CryptoJS.AES.decrypt(val, key, { iv: iv, mode: CryptoJS.mode.CBC});
+    decrypted = decrypted.toString(CryptoJS.enc.Utf8);
+    return decrypted;
+}
+
 
 
 export async function DB_registerUser(username, email, password) {
@@ -179,7 +201,6 @@ export async function DB_getPasswordsForSpecificFolder(folder_name) {
 export async function DB_editFolder(id, folder, starred, color) {
     const user = await getCurrentUser()
     
-    console.log(starred)
     const res = await axios.get(AXIOS_BASE_URL + "update_folder", { params: {
         api_key: user.api_key,
         user: user.username,
@@ -189,6 +210,83 @@ export async function DB_editFolder(id, folder, starred, color) {
         color: color
     }})
 
-    await DBL_updateFolders(res.data);
-    return res.data
+    return true;
+}
+
+
+export async function DB_add2FA(name, secret) {
+    const user = await getCurrentUser()
+
+    const res = await axios.get(AXIOS_BASE_URL + "add_2fa", { params: {
+        api_key: user.api_key,
+        user: user.username,
+        name: name,
+        secret: ENCRYPT_CBC(secret)
+    }})
+
+    return true;
+}
+
+
+
+export async function DB_edit2FA(id, name, secret) {
+    const user = await getCurrentUser()
+    
+    const res = await axios.get(AXIOS_BASE_URL + "update_2fa", { params: {
+        api_key: user.api_key,
+        user: user.username,
+        id: id,
+        name: name,
+        secret: ENCRYPT_CBC(secret)
+    }})
+
+    return true;
+}
+
+
+export async function DB_getAll2FA() {
+    const user = await getCurrentUser()
+
+    const res = await axios.get(AXIOS_BASE_URL + "get_2fa", { params: {
+        api_key: user.api_key,
+        user: user.username,
+    }})
+
+    let ret = []
+    for(let i = 0; i < res.data.length; i++) {
+        ret.push({
+            id: res.data[i].id,
+            name: res.data[i].name,
+            secret: DECRYPT_CBC(res.data[i].secret),
+        })
+    }
+    return ret;
+}
+
+
+
+export async function DB_delete2FA(id) {
+    const user = await getCurrentUser()
+    
+    const res = await axios.get(AXIOS_BASE_URL + "del_2fa", { params: {
+        api_key: user.api_key,
+        user: user.username,
+        id: id,
+    }})
+
+    return true;
+}
+
+
+
+export async function DB_getOtpCode(id) {
+    const user = await getCurrentUser()
+    
+    const res = await axios.get(AXIOS_BASE_URL + "get_otp", { params: {
+        api_key: user.api_key,
+        user: user.username,
+        id: id,
+    }})
+
+    return res.data;
 }

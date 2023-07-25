@@ -37,7 +37,8 @@
             <two-f-a v-for="t in this.twoFactors"    
                                             :key="t.key"
                                             :name="t.name"
-                                            :secret="t.secret" />
+                                            :secret="t.secret" 
+                                            :id="t.id" />
         </div>
     <add-button class="ripple" @click="addNew" />
     </div>
@@ -54,12 +55,11 @@ import Password from '@/components/Password.vue';
 import TwoFactorButton from '@/components/TwoFactorButton.vue';
 import TwoFA from '@/components/TwoFA.vue';
 
-import { DB_getAll2FA } from '@/supabase';
 import { DBL_logoutUser, settings_getFolderOrPassword, settings_updateFolderOrPassword, getCurrentUser } from '@/dexie';
 import { rankFoldersBySearch, rankPasswordsBySearch, rankPasswordsAlphabetically, rankFolderAlphabetically } from '@/scripts/search';
 import { store, DECRYPT } from '@/store/store'
 
-import { DB_getAllPasswords, DB_getAllFolders } from '@/db'
+import { DB_getAllPasswords, DB_getAllFolders, DB_getAll2FA } from '@/db'
 
 export default {
 name: 'App',
@@ -142,7 +142,7 @@ methods: {
             DB_getAllPasswords().then( (res) => {
                 this.passwords = rankPasswordsAlphabetically(res);
             });
-            DB_getAll2FA(user.username).then( (res) => {
+            DB_getAll2FA().then( (res) => {
                 this.twoFactors = res;
             });
             settings_getFolderOrPassword().then( (res) => {

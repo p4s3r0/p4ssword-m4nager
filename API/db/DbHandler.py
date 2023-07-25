@@ -48,11 +48,10 @@ class TwoFa(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     user: Mapped[str] = mapped_column(String(255), nullable=False)
     secret: Mapped[str] = mapped_column(String(255), nullable=False)
-    authorized: Mapped[bool] = mapped_column(Boolean)
     name: Mapped[str] = mapped_column(String(255), nullable=False)
 
     def __repr__(self) -> str:
-        return f"2fa[{self.id}] = {{ id={self.id}, user={self.user}, secret={self.secret}, authorized={self.authorized}, name={self.name} }}"
+        return f"2fa[{self.id}] = {{ id={self.id}, user={self.user}, secret={self.secret}, name={self.name} }}"
 
 
 # passwords
@@ -150,6 +149,8 @@ def login_User(username: str, password: str):
             return ret
         return "[ERROR]-LoginUserDoesNotExist"
 
+
+
 # TWO_FA -------------------------------------------------------------------------
 def get_ObjectTwoFa(user: str, name: str):
     stmt = select(TwoFa).where(TwoFa.name == name and TwoFa.user == user)
@@ -159,12 +160,13 @@ def get_ObjectTwoFa(user: str, name: str):
             two_fa = row
     return two_fa
 
+
+
 def add_twoFa(user: str, secret: str, name:str):
     with Session(engine) as session:
         twoFa = TwoFa(
             user=user,
             secret=secret,
-            authorized=False,
             name=name
         )
         session.add(twoFa)
@@ -172,27 +174,56 @@ def add_twoFa(user: str, secret: str, name:str):
     return True
 
 
-def del_twoFa(user: str, name: str):
+
+def del_twoFa(id: int, user: str):
+    stmt = select(TwoFa).where(TwoFa.user == user and TwoFa.id == id)
+    two_fa = None
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            two_fa = row
+
+    if two_fa == None:
+        return False
+
     with Session(engine) as session:
-        two_fa_id = get_ObjectTwoFa(user, name).id
-        session.delete(session.get(TwoFa, two_fa_id))
+        session.delete(session.get(TwoFa, two_fa.id))
         session.commit()
     return True
         
 
-def update_twoFa(user: str, old_name: str, new_name: str, secret: str):
+
+def get_twoFas(user: str):
+    stmt = select(TwoFa).where(TwoFa.user == user)
+    two_fas = []
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            two_fas.append({
+                "id": row.id,
+                "user": row.user,
+                "secret": row.secret,
+                "name": row.name,
+            })
+    return two_fas
+
+
+
+def update_twoFa(user: str, id: str, name: str, secret: str):
     with Session(engine) as session:
-        session.query(TwoFa).filter(TwoFa.name == old_name and TwoFa.user == user).update({'name': new_name, 'secret': secret})
+        session.query(TwoFa).filter(TwoFa.id == id and TwoFa.user == user).update({  
+                                                                            'name': name, 
+                                                                            'secret': secret})
         session.commit()
     return True
 
 
-def update_set_authorization(user: str, name: str, to: bool):
-    with Session(engine) as session:
-        session.query(TwoFa).filter(TwoFa.name == name and TwoFa.user == user).update({'authorized': to})
-        session.commit()
-    return True
 
+def getTwoFaSecret(user: str, id: int):
+    stmt = select(TwoFa).where(TwoFa.user == user).where(TwoFa.id == id)
+    two_fa_secret = ""
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            two_fa_secret = row.secret 
+    return two_fa_secret
 
 
 # PASSWORDS -------------------------------------------------------------------

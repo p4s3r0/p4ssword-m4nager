@@ -15,15 +15,15 @@
 
 <script>
 import { getCurrentUser } from '@/dexie';
-import { DB_toggle_authorize_OTP } from '@/supabase';
 import { AXIOS_BASE_URL } from '@/main.js'
 import { useToast } from "vue-toastification";
 import { store } from '@/store/store'
 import { toasts_config_error } from '@/toasts'
+import { DB_getOtpCode } from '@/db'
 
 export default {
 name: 'App',
-props: ["name", "secret"],
+props: ["name", "secret", "id"],
 setup() {
       const toast = useToast();
       return { toast }
@@ -35,9 +35,9 @@ data() {
 },
 methods: {
     async copyOtp() {
-        await DB_toggle_authorize_OTP(this.user.username, this.name, true);
-        this.$axios.get(AXIOS_BASE_URL + "?user=" + this.user.username + "&name=" + this.name).then((otp_code) => {
-            if (otp_code.data.length !== 6) {
+        DB_getOtpCode(this.id).then((otp_code) => {
+            console.log(otp_code)
+            if (otp_code.length !== 6) {
                 this.toast.error("Something went wrong", toasts_config_error);
                 return;
             }
@@ -66,6 +66,7 @@ methods: {
     open2FAView() {
         store.temp.curr_2fa_name = this.name;
         store.temp.curr_2fa_secret = this.secret;
+        store.temp.curr_2fa_id = this.id;
         this.$router.push('/twoFA');
     }
 }, beforeMount() {
