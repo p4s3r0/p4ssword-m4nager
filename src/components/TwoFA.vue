@@ -35,12 +35,12 @@ data() {
 methods: {
     async copyOtp() {
         DB_getOtpCode(this.id).then((otp_code) => {
-            console.log(otp_code)
-            if (otp_code.length !== 6) {
+            console.log(otp_code.data)
+            if (otp_code.data.length !== 6) {
                 this.toast.error("Something went wrong", toasts_config_error);
                 return;
             }
-            navigator.clipboard.writeText(otp_code);
+            navigator.clipboard.writeText(otp_code.data);
             this.toast.info("Copied to Clipboard!", toasts_config_info);
         })
     },
