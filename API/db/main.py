@@ -301,6 +301,12 @@ def get_otp(api_key: str = "", user: str = "", id: int = -1):
 
 
 
+@app.get("/get_app_version")
+def get_app_version():
+    return DbHandler.getAppVersion()
+
+
+
 
 def main():
     print("[INFO] Starting Main Script")

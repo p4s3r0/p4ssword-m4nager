@@ -77,10 +77,8 @@ const toast_options = {
 
 export const AXIOS_BASE_URL = process.env.VUE_APP_AXIOS_BASE_URL
 
-
-
 let app = createApp(App)
-
 
 app.use(router).use(VueCryptojs).use(Toast, toast_options).mount('#app');
 
+app.config.globalProperties.APP_VERSION = "@" + "4.1"

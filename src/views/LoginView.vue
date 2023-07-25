@@ -6,7 +6,7 @@
     <password-input @valueUpdated="updatePassword" />
     <p>Don't have an account? <a @click="this.$router.push('/register');">Register</a></p>
     <big-button-register-signin text="Sign in" @click="loginUser()"/>
-  <p id="Version">@3.5</p>
+  <p id="Version">{{ this.APP_VERSION }} </p>
 
   </div>
 </template>
@@ -20,6 +20,7 @@ import { del_dexie, getCurrentUser } from '@/dexie';
 import { toasts_config_error } from '@/toasts';
 
 import { useToast } from "vue-toastification";
+
 
 export default {
   name: 'App',
