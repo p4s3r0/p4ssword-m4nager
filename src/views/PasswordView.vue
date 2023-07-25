@@ -52,12 +52,12 @@ export default {
   },
   data() {
       return {
-        name: "",
-        username: "",
-        password: "",
-        folder: "",
-        note: "",
-        starred: true,
+        name: store.temp.curr_password_name,
+        username: store.temp.curr_password_username,
+        password: store.temp.curr_password_password,
+        folder: store.temp.curr_password_folder,
+        note: store.temp.curr_password_note,
+        starred: store.temp.curr_password_starred,
       }
   },
   methods: {
@@ -105,14 +105,14 @@ export default {
     getCurrentUser().then( (user) => {
         if(user) {
             this.user = user
-            DBL_getPasswordsByIdx(store.temp.curr_password_id).then( (res) => {
-                this.name = res.name;
-                DECRYPT(res.username).then((res) => {this.username = res})
-                DECRYPT(res.password).then((res) => {this.password = res})
-                this.folder = res.folder;
-                DECRYPT(res.note).then((res) => {this.note = res})
-                this.starred = res.starred;
-              })
+            // DBL_getPasswordsByIdx(store.temp.curr_password_id).then( (res) => {
+            //     this.name = res.name;
+            //     DECRYPT(res.username).then((res) => {this.username = res})
+            //     DECRYPT(res.password).then((res) => {this.password = res})
+            //     this.folder = res.folder;
+            //     DECRYPT(res.note).then((res) => {this.note = res})
+            //     this.starred = res.starred;
+            //   })
         } else {
             this.$router.push('/');
         }

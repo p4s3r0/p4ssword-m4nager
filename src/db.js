@@ -55,7 +55,7 @@ export async function DB_loginUser(username, password) {
 export async function DB_addNewPassword(name, password, folder, note, user, username, starred) {
     const api_key = (await getCurrentUser()).api_key
 
-    const res = await axios.get(AXIOS_BASE_URL + "add_password", { params: {
+    await axios.get(AXIOS_BASE_URL + "add_password", { params: {
         api_key: api_key,
         name: name,
         password: (await ENCRYPT(password)),
@@ -67,4 +67,15 @@ export async function DB_addNewPassword(name, password, folder, note, user, user
     }})
 
     return true
+}
+
+
+export async function DB_getAllPasswords(user) {
+    const api_key = (await getCurrentUser()).api_key
+
+    const res = await axios.get(AXIOS_BASE_URL + "get_passwords", { params: {
+        api_key: api_key,
+        user: user,
+    }})
+    return res.data;
 }

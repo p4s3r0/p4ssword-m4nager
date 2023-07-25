@@ -78,6 +78,7 @@ export async function DB_getAllFolders(username) {
 }
 
 export async function DB_getAllPasswords(username) {
+    console.log("SUPABASE CARE")
     const { data } = await supabase.from('passwords').select().eq("user", username)
     const ret = await DBL_updatePasswords(data);
     return ret;

@@ -223,13 +223,31 @@ def add_password(name: str, starred: bool, password: str, folder: str, note: str
 
 
 
-
 def del_password(user: str, name: str):
     with Session(engine) as session:
         password_id = get_ObjectPassword(user, name).id
         session.delete(session.get(Password, password_id))
         session.commit()
     return True
+
+
+
+def get_Passwords(user: str):
+    stmt = select(Password).where(Password.user == user)
+    password = []
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            password.append({
+                "id": row.id,
+                "name": row.name,
+                "starred": row.starred,
+                "password": row.password,
+                "folder": row.folder,
+                "note": row.note,
+                "user": row.user,
+                "username": row.username
+            })
+    return password
 
 
 def update_Password(old_name: str, new_name: str, starred: str, password: str, folder: str, note: str, user: str, username: str):
