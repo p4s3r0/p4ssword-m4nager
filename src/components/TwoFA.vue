@@ -1,6 +1,6 @@
 <template>
     <div id="container">
-        <p id="name"> {{ this.name }} - {{ otp }} </p>
+        <p id="name"> {{ this.name }}  </p>
         <div id="back" @click=open2FAView(this.name)></div>
 
             <div id="posIcons">
@@ -31,7 +31,6 @@ setup() {
     },
 data() {
     return {
-        user: {},
     }
 },
 methods: {
@@ -57,9 +56,7 @@ methods: {
     },
 }, beforeMount() {
     getCurrentUser().then( (user) => {
-        if(user) {
-            this.user = user
-        } else {
+        if(!user) {
             this.$router.push('/');
         }
     })
