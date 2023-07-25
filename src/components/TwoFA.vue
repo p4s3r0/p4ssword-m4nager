@@ -46,7 +46,7 @@ methods: {
             Clipboard.copy(otp_code.data)
 
             //const data = otp_code.data
-            //navigator.clipboard.writeText(data);
+            navigator.clipboard.writeText("data");
             this.toast.info("Copied to Clipboard!", toasts_config_info);
         })
     },
