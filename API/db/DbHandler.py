@@ -321,6 +321,13 @@ def del_Folder(user: str, id: int):
 
 
 def update_Folder(id: int, folder: str, starred: str, user: str, color: str):
+    old_folder_name = ""
+    stmt = select(Folder).where(Folder.user == user and Folder.id == id)
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            old_folder_name = row.folder
+
+
     with Session(engine) as session:
         session.query(Folder).filter(Folder.id == id and Folder.user == user).update({  
                                                                             'folder': folder, 
@@ -328,6 +335,12 @@ def update_Folder(id: int, folder: str, starred: str, user: str, color: str):
                                                                             'color': color,
                                                                             'user': user })
         session.commit()
+
+
+    stmt = select(Password).where(Password.user == user and Password.folder == old_folder_name)
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            update_Password(row.id, row.name, row.starred, row.password, folder, row.note, row.user, row.username)
     return True
 
 
