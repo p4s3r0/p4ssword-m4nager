@@ -41,8 +41,8 @@
                                             :id="t.id" />
         </div>
     <add-button class="ripple" @click="addNew" />
+    <outdated-modal v-if="this.showOutdatedWarning" :new_app_version="this.new_app_version" @closeModal="this.showOutdatedWarning = false"/>
 
-    <outdated-modal v-if="this.showOutdatedWarning" />
     </div>
 
 
@@ -88,6 +88,7 @@ data() {
         passwords: [],
         twoFactors: [],
         showOutdatedWarning: false,
+        new_app_version: ""
     }
 },
 methods: {
@@ -132,9 +133,9 @@ methods: {
     },
 }, beforeMount() {
     DB_getAppVersion().then((version) => {
-        console.log(version.data, this.APP_VERSION)
         if (version.data != this.APP_VERSION) {
             this.showOutdatedWarning = true;
+            this.new_app_version = version.data
         } else {
             this.showOutdatedWarning = false;
             console.log("App is on Current Version")
