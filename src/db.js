@@ -133,13 +133,13 @@ export async function DB_deletePassword(id) {
         user: user.username,
         id: id
     }})
-    await DBL_deletePassword(id)
     return res.data;
 }
 
 
 export async function DB_editPassword(id, name, username, password, folder, note, starred) {
     const user = (await getCurrentUser())
+    console.log("id", id)
 
     const res = await axios.get(AXIOS_BASE_URL + "update_password", { params: {
         api_key: user.api_key,
@@ -152,7 +152,6 @@ export async function DB_editPassword(id, name, username, password, folder, note
         username: (await ENCRYPT(username)),
         starred: starred
     }})
-    await DBL_editPassword(id, name, username, password, folder, note, starred)
     return res.data
 }
 
