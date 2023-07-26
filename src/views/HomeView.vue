@@ -65,7 +65,7 @@ import { DBL_logoutUser, settings_getFolderOrPassword, settings_updateFolderOrPa
 import { rankFoldersBySearch, rankPasswordsBySearch, rankPasswordsAlphabetically, rankFolderAlphabetically } from '@/scripts/search';
 import { store } from '@/store/store'
 
-import { DB_getAllPasswords, DB_getAllFolders, DB_getAll2FA, DB_getAppVersion } from '@/db'
+import { DB_getAllPasswords, DB_getAllFolders, DB_getAll2FA, DB_getAppVersion, DB_logoutUser } from '@/db'
 
 export default {
 name: 'App',
@@ -109,6 +109,7 @@ methods: {
         DBL_logoutUser().then( () => {
             this.$router.push('/');
         })
+        DB_logoutUser()
     },
     openFolder(folder_id, folder_name, folder_color, folder_starred) {
         store.temp.curr_folder_id = folder_id;        
