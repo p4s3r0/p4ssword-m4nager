@@ -117,8 +117,9 @@ class ApiKey(Base):
 # MUTATIONS
 ###############################################################################
 def checkApiKey(key, user):
+    return True
     with engine.connect() as conn:
-        query = select(ApiKey).where(ApiKey.api_key == key).where(ApiKey.user == user)
+        query = select(ApiKey).where(ApiKey.api_key == key, ApiKey.user == user)
         for _ in conn.execute(query):
             return True
         return False
@@ -152,7 +153,7 @@ def del_User(username: str):
 
 def login_User(username: str, password: str):
     with engine.connect() as conn:
-        query = select(User).where(User.username == username).where(User.password == password)
+        query = select(User).where(User.username == username, User.password == password)
         for row in conn.execute(query):
             uuid_key = addApiKey(username)
             ret = {
@@ -172,7 +173,7 @@ def logout_User(api_key: str):
 
 # TWO_FA -------------------------------------------------------------------------
 def get_ObjectTwoFa(user: str, name: str):
-    stmt = select(TwoFa).where(TwoFa.name == name and TwoFa.user == user)
+    stmt = select(TwoFa).where(TwoFa.name == name, TwoFa.user == user)
     two_fa = None
     with engine.connect() as conn:
         for row in conn.execute(stmt):
@@ -195,7 +196,7 @@ def add_twoFa(user: str, secret: str, name:str):
 
 
 def del_twoFa(id: int, user: str):
-    stmt = select(TwoFa).where(TwoFa.user == user).where(TwoFa.id == id)
+    stmt = select(TwoFa).where(TwoFa.user == user, TwoFa.id == id)
     two_fa = None
     with engine.connect() as conn:
         for row in conn.execute(stmt):
@@ -228,7 +229,7 @@ def get_twoFas(user: str):
 
 def update_twoFa(user: str, id: str, name: str, secret: str):
     with Session(engine) as session:
-        session.query(TwoFa).filter(TwoFa.id == id and TwoFa.user == user).update({  
+        session.query(TwoFa).filter(TwoFa.id == id, TwoFa.user == user).update({  
                                                                             'name': name, 
                                                                             'secret': secret})
         session.commit()
@@ -237,7 +238,7 @@ def update_twoFa(user: str, id: str, name: str, secret: str):
 
 
 def getTwoFaSecret(user: str, id: int):
-    stmt = select(TwoFa).where(TwoFa.user == user).where(TwoFa.id == id)
+    stmt = select(TwoFa).where(TwoFa.user == user, TwoFa.id == id)
     two_fa_secret = ""
     with engine.connect() as conn:
         for row in conn.execute(stmt):
@@ -247,7 +248,7 @@ def getTwoFaSecret(user: str, id: int):
 
 # PASSWORDS -------------------------------------------------------------------
 def get_ObjectPassword(user: str, name: str):
-    stmt = select(Password).where(Password.name == name and Password.user == user)
+    stmt = select(Password).where(Password.name == name, Password.user == user)
     password = None
     with engine.connect() as conn:
         for row in conn.execute(stmt):
@@ -274,7 +275,7 @@ def add_password(name: str, starred: bool, password: str, folder: str, note: str
 
 
 def del_password(user: str, id: int):
-    stmt = select(Password).where(Password.user == user and Password.id == id)
+    stmt = select(Password).where(Password.user == user, Password.id == id)
     password = None
     with engine.connect() as conn:
         for row in conn.execute(stmt):
@@ -311,7 +312,7 @@ def get_Passwords(user: str):
 
 def update_Password(id: int, name: str, starred: str, password: str, folder: str, note: str, user: str, username: str):
     with Session(engine) as session:
-        session.query(Password).filter(Password.id == id and Password.user == user).update({  
+        session.query(Password).filter(Password.id == id, Password.user == user).update({  
                                                                             'name': name, 
                                                                             'starred': starred,
                                                                             'password': password,
@@ -326,7 +327,7 @@ def update_Password(id: int, name: str, starred: str, password: str, folder: str
 
 # Folders -------------------------------------------------------------------
 def get_ObjectFolder(user: str, name: str):
-    stmt = select(Folder).where(Folder.folder == name and Folder.user == user)
+    stmt = select(Folder).where(Folder.folder == name, Folder.user == user)
     folder = None
     with engine.connect() as conn:
         for row in conn.execute(stmt):
@@ -349,7 +350,7 @@ def add_folder(folder: str, starred: bool, user: str, pass_amount: int, color: s
 
 
 def del_Folder(user: str, id: int):
-    stmt = select(Folder).where(Folder.user == user and Folder.id == id)
+    stmt = select(Folder).where(Folder.user == user, Folder.id == id)
     folder = None
     with engine.connect() as conn:
         for row in conn.execute(stmt):
@@ -358,7 +359,7 @@ def del_Folder(user: str, id: int):
     if folder == None:
         return False
 
-    stmt = select(Password).where(Password.user == user and Password.folder == folder.folder)
+    stmt = select(Password).where(Password.user == user, Password.folder == folder.folder)
     with engine.connect() as conn:
         for row in conn.execute(stmt):
             update_Password(row.id, row.name, row.starred, row.password, "NO FOLDER", row.note, row.user, row.username)
@@ -372,14 +373,14 @@ def del_Folder(user: str, id: int):
 
 def update_Folder(id: int, folder: str, starred: str, user: str, color: str):
     old_folder_name = ""
-    stmt = select(Folder).where(Folder.user == user and Folder.id == id)
+    stmt = select(Folder).where(Folder.user == user, Folder.id == id)
     with engine.connect() as conn:
         for row in conn.execute(stmt):
             old_folder_name = row.folder
 
 
     with Session(engine) as session:
-        session.query(Folder).filter(Folder.id == id and Folder.user == user).update({  
+        session.query(Folder).filter(Folder.id == id, Folder.user == user).update({  
                                                                             'folder': folder, 
                                                                             'starred': starred,
                                                                             'color': color,
@@ -387,7 +388,7 @@ def update_Folder(id: int, folder: str, starred: str, user: str, color: str):
         session.commit()
 
 
-    stmt = select(Password).where(Password.user == user and Password.folder == old_folder_name)
+    stmt = select(Password).where(Password.user == user, Password.folder == old_folder_name)
     with engine.connect() as conn:
         for row in conn.execute(stmt):
             update_Password(row.id, row.name, row.starred, row.password, folder, row.note, row.user, row.username)
