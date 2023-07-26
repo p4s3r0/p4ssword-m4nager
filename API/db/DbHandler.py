@@ -35,7 +35,6 @@ class User(Base):
     username: Mapped[str] = mapped_column(String(255), primary_key=True)
     email: Mapped[str] = mapped_column(String(255))
     password: Mapped[str] = mapped_column(String(255))
-    api_key: Mapped[str] = mapped_column(String(255))
 
     def __repr__(self) -> str:
         return f"Users[{self.username!r}] = {{ username={self.username}, email={self.email}, password={self.password} }}"
@@ -104,15 +103,23 @@ class Global(Base):
 
     version: Mapped[str] = mapped_column(String(255), primary_key=True)
 
+
+# api_keys
+class ApiKey(Base):
+    __tablename__ = "api_keys"
+
+    api_key: Mapped[str] = mapped_column(String(255), primary_key=True)
+    user: Mapped[str] = mapped_column(String(255))
+
+
+
 ###############################################################################
 # MUTATIONS
 ###############################################################################
-
-
 def checkApiKey(key, user):
     with engine.connect() as conn:
-        query = select(User).where(User.api_key == key).where(User.username == user)
-        for row in conn.execute(query):
+        query = select(ApiKey).where(ApiKey.api_key == key).where(ApiKey.user == user)
+        for _ in conn.execute(query):
             return True
         return False
 
@@ -122,7 +129,7 @@ def checkApiKey(key, user):
 def add_User(username: str, email: str, password: str):
     with engine.connect() as conn:
         query = select(User).where(User.username == username)
-        for row in conn.execute(query):
+        for _ in conn.execute(query):
             return "[ERROR]-UsernameTaken"
 
     with Session(engine) as session:
@@ -130,7 +137,6 @@ def add_User(username: str, email: str, password: str):
             username=username,
             email=email,
             password=password,
-            api_key=str(uuid.uuid4())
         )
         session.add(user)
         session.commit()
@@ -148,13 +154,20 @@ def login_User(username: str, password: str):
     with engine.connect() as conn:
         query = select(User).where(User.username == username).where(User.password == password)
         for row in conn.execute(query):
+            uuid_key = addApiKey(username)
             ret = {
                 "email": row.email,
-                "api_key": row.api_key
+                "api_key": uuid_key
             }
             return ret
         return "[ERROR]-LoginUserDoesNotExist"
 
+
+def logout_User(api_key: str):
+    with Session(engine) as session:
+        session.delete(session.get(ApiKey, api_key))
+        session.commit()
+    return True
 
 
 # TWO_FA -------------------------------------------------------------------------
@@ -182,7 +195,7 @@ def add_twoFa(user: str, secret: str, name:str):
 
 
 def del_twoFa(id: int, user: str):
-    stmt = select(TwoFa).where(TwoFa.user == user and TwoFa.id == id)
+    stmt = select(TwoFa).where(TwoFa.user == user).where(TwoFa.id == id)
     two_fa = None
     with engine.connect() as conn:
         for row in conn.execute(stmt):
@@ -400,10 +413,13 @@ def get_Folders(user: str):
 
 
 def get_FoldersPasswords(user: str, folder: str):
-    stmt = select(Password).where(Password.user == user).where(Password.folder == folder)
-    passwords = []
-    with engine.connect() as conn:
-        for row in conn.execute(stmt):
+    with Session(engine) as session:
+        rows = session.query(Password).filter(Password.user == user, Password.folder == folder)
+    # stmt = select(Password).where(Password.user == user & Password.folder == folder)
+    # passwords = []
+    # with engine.connect() as conn:
+        passwords = []
+        for row in rows:
             passwords.append({
                 "id": row.id,
                 "name": row.name,
@@ -414,7 +430,21 @@ def get_FoldersPasswords(user: str, folder: str):
                 "user": row.user,
                 "username": row.username
             })
-    return passwords
+        return passwords
+
+
+
+# api_keys
+def addApiKey(user):
+    uuid_value = str(uuid.uuid4())
+    with Session(engine) as session:
+        api_key = ApiKey(
+            user=user,
+            api_key=uuid_value
+        )
+        session.add(api_key)
+        session.commit()
+    return uuid_value
 
 
 

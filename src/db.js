@@ -83,6 +83,17 @@ export async function DB_loginUser(username, password) {
 }
 
 
+export async function DB_logoutUser() {
+    const api_key = (await getCurrentUser()).api_key
+
+    await axios.get(AXIOS_BASE_URL + "logout_user", { params: {
+        api_key: api_key,
+    }})
+
+    return true;
+}
+
+
 export async function DB_addNewPassword(name, password, folder, note, user, username, starred) {
     const api_key = (await getCurrentUser()).api_key
 
