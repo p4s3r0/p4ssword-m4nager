@@ -69,7 +69,7 @@ export async function getCurrentUser() {
 
 
 export async function DBL_updateFolders(folders) {
-    if (folders == null) {
+    if (folders == null || folders == undefined) {
         return await db.folders.toArray();
     }
 
@@ -90,7 +90,7 @@ export async function DBL_updateFolders(folders) {
 }
 
 export async function DBL_update2FA(twofas) {
-    if (twofas == null) {
+    if (twofas == null || twofas == undefined) {
         return await db.two_fa.toArray();
     }
 
@@ -111,8 +111,7 @@ export async function DBL_update2FA(twofas) {
 
 
 export async function DBL_updatePasswords(passwords) {
-    const current_passwords = await db.passwords.toArray();
-    if (passwords == null || current_passwords.length == passwords.length) {
+    if (passwords == null || passwords == undefined) {
         return await db.passwords.toArray();
     }
 
@@ -139,16 +138,16 @@ export async function DBL_getFolders() {
     return current_folders;
 }
 
-
-
-export async function DBL_deleteTwoFa(name) {
-    await db.two_fa.where("name").equals(name).delete()
+export async function DBL_getPasswords() {
+    const current_passwords = await db.passwords.toArray();
+    return current_passwords;
 }
 
-
-export async function DBL_deletePassword(idx) {
-    await db.passwords.where("idx").equals(idx).delete()
+export async function DBL_get2Fa() {
+    const current_2fa = await db.two_fa.toArray();
+    return current_2fa;
 }
+
 
 export async function settings_getFolderOrPassword() {
     const settings = await db.settings.toArray();
@@ -157,6 +156,7 @@ export async function settings_getFolderOrPassword() {
     }
     return settings[0].fold_pass_select;
 }
+
 
 export async function settings_updateFolderOrPassword(value) {
     let settings = await db.settings.toArray();
@@ -171,40 +171,14 @@ export async function settings_updateFolderOrPassword(value) {
     await db.settings.update(0, {fold_pass_select: value});
 }
 
+export async function DBL_getFoldersPasswords(folder_name) {
+    const passwords = await db.passwords.toArray();
 
-export async function DBL_getPasswordsByIdx(idx) {
-    const data = await db.passwords.where("idx").equals(idx).toArray();
-    return data[0];
-}
-
-
-export async function DBL_editFolder(folder_id, folder_name, folder_color, folder_starred) {
-    await db.folders.update(folder_id, {folder: folder_name, color: folder_color, starred: folder_starred})
-    const current_passwords = await db.passwords.toArray();
-    for (let i = 0; i < current_passwords.length; i++) {
-        if (current_passwords[i].folder == store.temp.curr_folder_name) {
-            await db.passwords.update(current_passwords[i].idx, {folder: folder_name})
+    let ret = []
+    for (let i = 0; i < passwords.length; i++) {
+        if (passwords[i].folder == folder_name){
+            ret.push(passwords[i]);
         }
     }
-}
-
-export async function DBL_edit2FA(old_name, new_name, new_secret) {
-    let curr = await db.two_fa.where("name").equals(old_name).toArray();
-    curr = curr[0]
-    await db.two_fa.update(curr.idx, {name: new_name, secret: new_secret})
-}
-
-
-
-
-export async function  DBL_editPassword(id, name, username, password, folder, note, starred) {
-    await db.passwords.update(id, 
-                                {
-                                    name: name, 
-                                    username: username,
-                                    password: password,
-                                    folder: folder,
-                                    note: note,
-                                    starred: starred
-                                })
+    return ret;
 }
