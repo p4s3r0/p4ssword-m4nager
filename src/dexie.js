@@ -134,9 +134,9 @@ export async function DBL_getFolders(passwords) {
     if (passwords == undefined) {
         passwords = await db.passwords.toArray();
     }
-    
+
     for(let i = 0; i < current_folders.length; i++) {
-        const amount = passwords.filter(pass => pass.folder === current_folders[i].folder).length
+        const amount = passwords != undefined && passwords.length > 0 ? passwords.filter(pass => pass.folder === current_folders[i].folder).length : 0;
         current_folders[i].pass_amount = amount;
     }
     return current_folders;
