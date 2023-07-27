@@ -2,9 +2,9 @@ import { Dexie } from 'dexie';
 import { store } from '@/store/store';
 
 const db = new Dexie("p4ssword_m4nager");
-db.version(5).stores({
+db.version(6).stores({
     curr_user: "++idx, username, password, email, api_key",
-    folders: "++idx, folder, color, starred",
+    folders: "++idx, folder, color, starred, pass_amount",
     passwords: "++idx, name, password, folder, note, username, starred",
     two_fa: "++idx, username, name, secret",
     settings: "idx, fold_pass_select",
@@ -73,7 +73,6 @@ export async function DBL_updateFolders(folders) {
         return await db.folders.toArray();
     }
 
-    
     await db.folders.clear();
     for(let i = 0; i < folders.length; i++)
     {
@@ -81,11 +80,11 @@ export async function DBL_updateFolders(folders) {
             folder: folders[i].folder,
             color: folders[i].color,
             idx: folders[i].id,
-            starred: folders[i].starred
+            starred: folders[i].starred,
+            pass_amount: folders[i].pass_amount
         }
         await db.folders.add(data);
     }
-    return await db.folders.toArray();
 }
 
 export async function DBL_update2FA(twofas) {
@@ -105,7 +104,6 @@ export async function DBL_update2FA(twofas) {
         }
         await db.two_fa.add(data);
     }
-    return await db.two_fa.toArray();
 }
 
 
@@ -128,12 +126,15 @@ export async function DBL_updatePasswords(passwords) {
         }
         await db.passwords.add(data);
     }
-    const ret = await db.passwords.toArray();
-    return ret;
 }
 
-export async function DBL_getFolders() {
+export async function DBL_getFolders(passwords) {
     const current_folders = await db.folders.toArray();
+
+    for(let i = 0; i < current_folders.length; i++) {
+        const amount = passwords.filter(pass => pass.folder === current_folders[i].folder).length
+        current_folders[i].pass_amount = amount;
+    }
     return current_folders;
 }
 
@@ -185,6 +186,7 @@ export async function DBL_getFoldersPasswords(folder_name) {
 
 export async function DBL_getPassAmount(folder_name) {
     const passwords = await db.passwords.toArray();
+    console.log(passwords.length)
     const amount = passwords.filter(pass => pass.folder === folder_name).length
     return amount
 }

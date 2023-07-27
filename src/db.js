@@ -173,17 +173,23 @@ export async function DB_addNewFolder(username, folder, color, starred) {
 }
 
 
-export async function DB_getAllFolders() {
+export async function DB_getAllFolders(passwords) {
     const user = await getCurrentUser()
 
     if (!navigator.onLine) {
-        return DBL_getFolders();
+        return DBL_getFolders(passwords);
     } 
 
     const res = await axios.get(AXIOS_BASE_URL + "get_folders", { params: {
         api_key: user.api_key,
         user: user.username,
     }})
+
+    for (let i = 0; i < res.data.length; i++) {
+        const amount = passwords.filter(pass => pass.folder === res.data[i].folder).length
+        res.data[i].pass_amount = amount;
+    }
+
     await DBL_updateFolders(res.data)
     return res.data;
 }
