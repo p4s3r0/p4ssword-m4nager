@@ -8,15 +8,17 @@
       <edit-text-input placeholder="Note" :value="this.curr_password_note" @valueUpdated="updatePasswordNote"/>
       <star-preferred :selected_init=this.curr_password_starred @valueUpdated="updateStarred" />
 
-      <big-button-register-signin text="Apply Edit" @click="edit"/>
+      <halve-button-apply @click="edit"/>
+      <halve-button-cancel @click="this.$router.push('/home');" />
     </div>
   </template>
   
 <script>
-import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue';
+import HalveButtonApply from '@/components/HalveButtonApply.vue';
 import EditTextInput from '@/components/EditTextInput.vue';
 import SelectorFolder from '@/components/SelectorFolder.vue';
 import StarPreferred from '@/components/StarPreferred.vue';
+import HalveButtonCancel from '@/components/HalveButtonCancel.vue'
 
 import { getCurrentUser } from '@/dexie';
 import { DB_editPassword } from '@/db';
@@ -25,6 +27,7 @@ import { store } from '@/store/store';
 
 import { useToast } from "vue-toastification";
 import { toasts_config_error, toasts_config_success} from '@/toasts'
+import HalveButtonCancelVue from '@/components/HalveButtonCancel.vue';
 
 export default {
   name: 'App',
@@ -33,10 +36,11 @@ export default {
       return { toast }
     },
   components: {
-    BigButtonRegisterSignin,
     EditTextInput,
     SelectorFolder,
-    StarPreferred
+    StarPreferred,
+    HalveButtonApply,
+    HalveButtonCancel
   },
   data() {
       return {

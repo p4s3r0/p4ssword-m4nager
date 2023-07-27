@@ -17,7 +17,7 @@
                                           :note=p.note 
                                           :starred=p.starred />
 
-    <add-button @click="this.$router.push('/addPasswordOrFolder')" />
+    <home-button @click="this.$router.push('/home')" />
     
   </div>
 </template>
@@ -27,6 +27,7 @@ import Password from '@/components/Password.vue'
 import SmallButtonDelete from '@/components/SmallButtonDelete.vue'
 import SmallButtonEdit from '@/components/SmallButtonEdit.vue'
 import AddButton from '@/components/AddButton.vue';
+import HomeButton from '@/components/HomeButton.vue';
 
 import { store } from '@/store/store';
 import { getCurrentUser } from '@/dexie';
@@ -47,6 +48,7 @@ export default {
     SmallButtonDelete,
     SmallButtonEdit,
     AddButton,
+    HomeButton
   },
   data() {
       return {
@@ -58,6 +60,11 @@ export default {
   },
   methods: {
     deleteFolder() {
+      if (!navigator.onLine) {
+        this.toast.error("No internet Connection!", toasts_config_error);
+        return;
+      }
+
       DB_deleteFolder(this.folder_id).then( (res) => {
         if(res) {
           this.toast.success("Folder Deleted!", toasts_config_success);
@@ -68,6 +75,10 @@ export default {
       })
     },
     editFolder() {
+      if (!navigator.onLine) {
+        this.toast.error("No internet Connection!", toasts_config_error);
+        return;
+      }
       this.$router.push('/editFolder');
     },
   }, 
