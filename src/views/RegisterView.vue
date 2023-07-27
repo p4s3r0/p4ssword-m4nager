@@ -48,6 +48,10 @@ export default {
       this.password = password;
     },
     clickRegisterUser() {
+      if (!navigator.onLine) {
+        this.toast.error("No internet Connection!", toasts_config_error);
+        return;
+      }
       DB_registerUser(this.email, this.username, this.password).then( (res) => {
         if(res == "OK") {
           this.toast.success("User Registered!", toasts_config_success);

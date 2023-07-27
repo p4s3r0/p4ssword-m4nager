@@ -12,15 +12,15 @@
       <text-shower v-if="this.secret != ''" :text=this.secret />
     </div>
 
-    <add-button @click="this.$router.push('/addPasswordOrFolder')" />
+    <home-button @click="this.$router.push('/home')" />
   </div>
 </template>
 
 <script>
 import SmallButtonDelete from '@/components/SmallButtonDelete.vue'
 import SmallButtonEdit from '@/components/SmallButtonEdit.vue'
-import AddButton from '@/components/AddButton.vue';
 import TextShower from '@/components/TextShower.vue';
+import HomeButton from '@/components/HomeButton.vue';
 
 import { store } from '@/store/store';
 import { getCurrentUser } from '@/dexie';
@@ -38,8 +38,8 @@ export default {
   components: {
     SmallButtonDelete,
     SmallButtonEdit,
-    AddButton,
     TextShower,
+    HomeButton
   },
   data() {
       return {

@@ -20,7 +20,7 @@
       <text-shower v-if="this.folder != 'NO FOLDER'" :text=this.folder />
       <text-shower v-if="this.note != ''" :text=this.note />
     </div>
-    <add-button @click="this.$router.push('/addPasswordOrFolder')" />
+    <home-button @click="this.$router.push('/home')" />
   </div>
 </template>
 
@@ -28,8 +28,8 @@
 import Password from '@/components/Password.vue'
 import SmallButtonDelete from '@/components/SmallButtonDelete.vue'
 import SmallButtonEdit from '@/components/SmallButtonEdit.vue'
-import AddButton from '@/components/AddButton.vue';
 import TextShower from '@/components/TextShower.vue';
+import HomeButton from '@/components/HomeButton.vue';
 
 import { store } from '@/store/store';
 import { getCurrentUser } from '@/dexie';
@@ -48,8 +48,8 @@ export default {
     Password,
     SmallButtonDelete,
     SmallButtonEdit,
-    AddButton,
     TextShower,
+    HomeButton
   },
   data() {
       return {
@@ -64,6 +64,11 @@ export default {
   },
   methods: {
     deletePassword() {
+      if (!navigator.onLine) {
+        this.toast.error("No internet Connection!", toasts_config_error);
+        return;
+      }
+
       DB_deletePassword(this.id).then((res) => {
         if (res) {
           this.toast.success("Password Deleted!", toasts_config_success);
@@ -74,6 +79,10 @@ export default {
       })
     },
     editPassword() {
+      if (!navigator.onLine) {
+        this.toast.error("No internet Connection!", toasts_config_error);
+        return;
+      }
       this.$router.push('/editPassword');
     }
   }, 

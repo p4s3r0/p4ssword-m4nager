@@ -5,15 +5,17 @@
       <selector :value="this.folder_color" @valueUpdated="updateFolderColor"/>
       <star-preferred :selected_init=this.folder_starred @valueUpdated="updateStarred" />
 
-      <big-button-register-signin text="Apply Edit" @click="edit"/>
+      <halve-button-apply @click="edit"/>
+      <halve-button-cancel @click="this.$router.push('/home')"/>
     </div>
   </template>
   
 <script>
-import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue';
 import EditTextInput from '@/components/EditTextInput.vue';
 import Selector from '@/components/Selector.vue';
 import StarPreferred from '@/components/StarPreferred.vue';
+import HalveButtonApply from '@/components/HalveButtonApply.vue';
+import HalveButtonCancel from '@/components/HalveButtonCancel.vue';
 
 import { DB_editFolder } from '@/db';
 import { store } from '@/store/store';
@@ -29,10 +31,11 @@ export default {
       return { toast }
     },
   components: {
-    BigButtonRegisterSignin,
+    HalveButtonApply,
     EditTextInput,
     Selector,
-    StarPreferred
+    StarPreferred,
+    HalveButtonCancel
   },
   data() {
       return {

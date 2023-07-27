@@ -35,6 +35,11 @@ data() {
 },
 methods: {
     async copyOtp() {
+        if (!navigator.onLine) {
+            this.toast.error("No internet Connection!", toasts_config_error);
+            return;
+        }
+
         const otp_code = await DB_getOtpCode(this.id)
         if (otp_code.data.length !== 6) {
             this.toast.error("Something went wrong", toasts_config_error);

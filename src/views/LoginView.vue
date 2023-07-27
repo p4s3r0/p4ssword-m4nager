@@ -50,6 +50,10 @@ export default {
       del_dexie();
     },
     loginUser() {
+      if (!navigator.onLine) {
+        this.toast.error("No internet Connection!", toasts_config_error);
+        return;
+      }
       DB_loginUser(this.username, this.password).then((res) => {
         if (res) {
           this.$router.push('/home');

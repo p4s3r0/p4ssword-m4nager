@@ -67,6 +67,9 @@ import { store } from '@/store/store'
 
 import { DB_getAllPasswords, DB_getAllFolders, DB_getAll2FA, DB_getAppVersion, DB_logoutUser } from '@/db'
 
+import { useToast } from "vue-toastification";
+import { toasts_config_error, toasts_config_success } from '@/toasts';
+
 export default {
 name: 'App',
 components: {
@@ -79,6 +82,10 @@ components: {
     Password,
     TwoFactorButton,
     TwoFA,
+},
+setup() {
+      const toast = useToast();
+      return { toast }
 },
 data() {
     return {
@@ -130,6 +137,10 @@ methods: {
         }
     },
     addNew() {
+        if (!navigator.onLine) {
+            this.toast.error("No internet Connection!", toasts_config_error);
+            return;
+        }
         setTimeout(() => this.$router.push('/addPasswordOrFolder'), 300);
     },
 }, beforeMount() {
