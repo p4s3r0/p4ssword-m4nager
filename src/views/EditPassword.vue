@@ -8,22 +8,26 @@
       <edit-text-input placeholder="Note" :value="this.curr_password_note" @valueUpdated="updatePasswordNote"/>
       <star-preferred :selected_init=this.curr_password_starred @valueUpdated="updateStarred" />
 
-      <big-button-register-signin text="Apply Edit" @click="edit"/>
+      <halve-button-apply @click="edit"/>
+      <halve-button-cancel @click="this.$router.push('/home');" />
     </div>
   </template>
   
 <script>
-import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue';
+import HalveButtonApply from '@/components/HalveButtonApply.vue';
 import EditTextInput from '@/components/EditTextInput.vue';
 import SelectorFolder from '@/components/SelectorFolder.vue';
 import StarPreferred from '@/components/StarPreferred.vue';
+import HalveButtonCancel from '@/components/HalveButtonCancel.vue'
 
 import { getCurrentUser } from '@/dexie';
-import { DB_editPassword } from '@/supabase';
+import { DB_editPassword } from '@/db';
 
-import { store, DECRYPT } from '@/store/store';
+import { store } from '@/store/store';
 
 import { useToast } from "vue-toastification";
+import { toasts_config_error, toasts_config_success} from '@/toasts'
+import HalveButtonCancelVue from '@/components/HalveButtonCancel.vue';
 
 export default {
   name: 'App',
@@ -32,19 +36,20 @@ export default {
       return { toast }
     },
   components: {
-    BigButtonRegisterSignin,
     EditTextInput,
     SelectorFolder,
-    StarPreferred
+    StarPreferred,
+    HalveButtonApply,
+    HalveButtonCancel
   },
   data() {
       return {
         curr_password_id: store.temp.curr_password_id,
         curr_password_name: store.temp.curr_password_name,
-        curr_password_username: "",
+        curr_password_username: store.temp.curr_password_username,
         curr_password_password: store.temp.curr_password_password,
         curr_password_folder: store.temp.curr_password_folder,
-        curr_password_note: "",
+        curr_password_note: store.temp.curr_password_note,
         curr_password_starred: store.temp.curr_password_starred,
       }
   },
@@ -69,39 +74,14 @@ export default {
 
     },
     edit() {
-      DB_editPassword(store.temp.curr_password_folder, this.curr_password_id, this.curr_password_name,this.curr_password_username, this.curr_password_password, this.curr_password_folder, this.curr_password_note, this.curr_password_starred).then( (res) => {
-
-        if(res) {
-          this.toast.success("Password edited!", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });
+      //id, name, username, password, folder, note, starred
+      DB_editPassword(this.curr_password_id, this.curr_password_name, this.curr_password_username, this.curr_password_password, this.curr_password_folder,
+                      this.curr_password_note, this.curr_password_starred).then( (res) => {
+        if(res == "OK") {
+          this.toast.success("Password edited!", toasts_config_success);
           this.$router.push('/home');
         } else {
-          this.toast.error("Something went Wrong!", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });
+          this.toast.error("Something went Wrong!", toasts_config_error);
         }
       })
     }
@@ -110,13 +90,6 @@ export default {
     getCurrentUser().then( (user) => {
         if(user) {
             this.user = user
-            DECRYPT(store.temp.curr_password_username).then( (res) => {
-              this.curr_password_username = res;
-            })
-
-            DECRYPT(store.temp.curr_password_note).then( (res) => {
-              this.curr_password_note = res;
-            })
         } else {
             this.$router.push('/');
         }

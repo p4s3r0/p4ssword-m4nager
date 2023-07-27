@@ -11,13 +11,13 @@
 
         
         <div v-if="this.fold_pass_selector == 'Folders'" id="posFolders">
-                <folder v-for="f in this.folders" @click="openFolder(f.idx, f.folder, f.color, f.starred)"
+                <folder v-for="f in this.folders" @click="openFolder(f.id, f.folder, f.color, f.starred)"
                                                 :key=f.key 
                                                 :name=f.folder
-                                                :pass_amount=f.pass_amount 
                                                 :color=f.color
-                                                :idx=f.idx 
-                                                :starred=f.starred />
+                                                :id=f.id 
+                                                :starred=f.starred 
+                                                :pass_amount="f.pass_amount "/>
         </div>
 
         <div v-else-if="this.fold_pass_selector=='Passwords'" id="posFolders">
@@ -26,7 +26,7 @@
                                                 :name=p.name
                                                 :enc_password=p.password
                                                 :username=p.username 
-                                                :idx=p.idx 
+                                                :id=p.id 
                                                 :folder=p.folder 
                                                 :note=p.note 
                                                 :starred=p.starred />
@@ -37,10 +37,15 @@
             <two-f-a v-for="t in this.twoFactors"    
                                             :key="t.key"
                                             :name="t.name"
-                                            :secret="t.secret" />
+                                            :secret="t.secret" 
+                                            :id="t.id" />
         </div>
     <add-button class="ripple" @click="addNew" />
+    <outdated-modal v-if="this.showOutdatedWarning" :new_app_version="this.new_app_version" @closeModal="this.showOutdatedWarning = false"/>
+
     </div>
+
+
     
 </template>
   
@@ -54,10 +59,16 @@ import Password from '@/components/Password.vue';
 import TwoFactorButton from '@/components/TwoFactorButton.vue';
 import TwoFA from '@/components/TwoFA.vue';
 
-import { DB_getAllFolders, DB_getAllPasswords, DB_getAll2FA } from '@/supabase';
+import OutdatedModal from '@/modals/OutdatedModal.vue'
+
 import { DBL_logoutUser, settings_getFolderOrPassword, settings_updateFolderOrPassword, getCurrentUser } from '@/dexie';
 import { rankFoldersBySearch, rankPasswordsBySearch, rankPasswordsAlphabetically, rankFolderAlphabetically } from '@/scripts/search';
 import { store } from '@/store/store'
+
+import { DB_getAllPasswords, DB_getAllFolders, DB_getAll2FA, DB_getAppVersion, DB_logoutUser } from '@/db'
+
+import { useToast } from "vue-toastification";
+import { toasts_config_error, toasts_config_success } from '@/toasts';
 
 export default {
 name: 'App',
@@ -65,11 +76,16 @@ components: {
     SearchBar,
     FoldersPasswordFilter,
     AddButton,
+    OutdatedModal,
     Folder,
     LockButton,
     Password,
     TwoFactorButton,
-    TwoFA
+    TwoFA,
+},
+setup() {
+      const toast = useToast();
+      return { toast }
 },
 data() {
     return {
@@ -77,7 +93,9 @@ data() {
         fold_pass_selector: "Folders",
         folders: [],
         passwords: [],
-        twoFactors: []
+        twoFactors: [],
+        showOutdatedWarning: false,
+        new_app_version: ""
     }
 },
 methods: {
@@ -98,6 +116,7 @@ methods: {
         DBL_logoutUser().then( () => {
             this.$router.push('/');
         })
+        DB_logoutUser()
     },
     openFolder(folder_id, folder_name, folder_color, folder_starred) {
         store.temp.curr_folder_id = folder_id;        
@@ -118,19 +137,35 @@ methods: {
         }
     },
     addNew() {
+        if (!navigator.onLine) {
+            this.toast.error("No internet Connection!", toasts_config_error);
+            return;
+        }
         setTimeout(() => this.$router.push('/addPasswordOrFolder'), 300);
-    }
+    },
 }, beforeMount() {
+    DB_getAppVersion().then((version) => {
+        if (version.data != this.APP_VERSION) {
+            this.showOutdatedWarning = true;
+            this.new_app_version = version.data
+        } else {
+            this.showOutdatedWarning = false;
+            console.log("App is on Current Version")
+        }
+    })
+
     getCurrentUser().then( (user) => {
         if(user) {
             this.user = user
-            DB_getAllFolders(user.username).then( (res) => {
-                this.folders = rankFolderAlphabetically(res);
-            });
-            DB_getAllPasswords(user.username).then( (res) => {
+            DB_getAllPasswords().then( (res) => {
                 this.passwords = rankPasswordsAlphabetically(res);
+                // folders are loaded after passwords, to make sure the 
+                //count is correct of the passwords inside the folder
+                DB_getAllFolders(this.passwords).then( (res_fold) => {
+                    this.folders = rankFolderAlphabetically(res_fold);
+                });
             });
-            DB_getAll2FA(user.username).then( (res) => {
+            DB_getAll2FA().then( (res) => {
                 this.twoFactors = res;
             });
             settings_getFolderOrPassword().then( (res) => {

@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
 import * as VueRouter from 'vue-router';
-import axios from 'axios';
 
 import VueCryptojs from 'vue-cryptojs'
 import Toast from "vue-toastification";
@@ -75,14 +74,11 @@ const toast_options = {
 }
 
 
-const axiosInstance = axios.create()
 
 export const AXIOS_BASE_URL = process.env.VUE_APP_AXIOS_BASE_URL
 
-
-
 let app = createApp(App)
 
-app.config.globalProperties.$axios = axiosInstance;
-
 app.use(router).use(VueCryptojs).use(Toast, toast_options).mount('#app');
+
+app.config.globalProperties.APP_VERSION = "@" + "5.1"

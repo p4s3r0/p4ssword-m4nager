@@ -2,9 +2,9 @@ import { Dexie } from 'dexie';
 import { store } from '@/store/store';
 
 const db = new Dexie("p4ssword_m4nager");
-db.version(3).stores({
-    curr_user: "++idx, username, password, email",
-    folders: "++idx, folder, pass_amount, color, starred",
+db.version(6).stores({
+    curr_user: "++idx, username, password, email, api_key",
+    folders: "++idx, folder, color, starred, pass_amount",
     passwords: "++idx, name, password, folder, note, username, starred",
     two_fa: "++idx, username, name, secret",
     settings: "idx, fold_pass_select",
@@ -16,7 +16,7 @@ export function del_dexie() {
     console.log("deleted db")
 }
 
-export async function DBL_loginUser(username_, password_, email_) {
+export async function DBL_loginUser(username_, password_, email_, api_key_) {
     const user_exists = await db.curr_user.toArray(); 
     if (user_exists) {
         await db.curr_user.clear();
@@ -24,7 +24,8 @@ export async function DBL_loginUser(username_, password_, email_) {
     const data = {
         username: username_, 
         password: password_, 
-        email: email_
+        email: email_,
+        api_key: api_key_
     }
     await db.curr_user.add(data);
 }
@@ -68,28 +69,26 @@ export async function getCurrentUser() {
 
 
 export async function DBL_updateFolders(folders) {
-    if (folders == null) {
+    if (folders == null || folders == undefined) {
         return await db.folders.toArray();
     }
 
-    
     await db.folders.clear();
     for(let i = 0; i < folders.length; i++)
     {
         const data = {
             folder: folders[i].folder,
-            pass_amount: folders[i].pass_amount,
             color: folders[i].color,
             idx: folders[i].id,
-            starred: folders[i].starred
+            starred: folders[i].starred,
+            pass_amount: folders[i].pass_amount
         }
         await db.folders.add(data);
     }
-    return await db.folders.toArray();
 }
 
 export async function DBL_update2FA(twofas) {
-    if (twofas == null) {
+    if (twofas == null || twofas == undefined) {
         return await db.two_fa.toArray();
     }
 
@@ -105,13 +104,11 @@ export async function DBL_update2FA(twofas) {
         }
         await db.two_fa.add(data);
     }
-    return await db.two_fa.toArray();
 }
 
 
 export async function DBL_updatePasswords(passwords) {
-    const current_passwords = await db.passwords.toArray();
-    if (passwords == null || current_passwords.length == passwords.length) {
+    if (passwords == null || passwords == undefined) {
         return await db.passwords.toArray();
     }
 
@@ -129,34 +126,32 @@ export async function DBL_updatePasswords(passwords) {
         }
         await db.passwords.add(data);
     }
-    const ret = await db.passwords.toArray();
-    return ret;
 }
 
-export async function DBL_getFolders() {
+export async function DBL_getFolders(passwords) {
     const current_folders = await db.folders.toArray();
+
+    if (passwords == undefined) {
+        passwords = await db.passwords.toArray();
+    }
+
+    for(let i = 0; i < current_folders.length; i++) {
+        const amount = passwords != undefined && passwords.length > 0 ? passwords.filter(pass => pass.folder === current_folders[i].folder).length : 0;
+        current_folders[i].pass_amount = amount;
+    }
     return current_folders;
 }
 
-
-export async function DBL_deleteFolder(folder) {
-    await db.folders.where("folder").equals(folder).delete()
-    
-    const current_passwords = await db.passwords.where("folder").equals(folder).toArray();
-    for (let i = 0; i < current_passwords.length; i++) {
-        await db.passwords.update(current_passwords[i].idx, { folder: "NO FOLDER" });
-    }
+export async function DBL_getPasswords() {
+    const current_passwords = await db.passwords.toArray();
+    return current_passwords;
 }
 
-export async function DBL_deleteTwoFa(name) {
-    await db.two_fa.where("name").equals(name).delete()
+export async function DBL_get2Fa() {
+    const current_2fa = await db.two_fa.toArray();
+    return current_2fa;
 }
 
-
-export async function DBL_deletePassword(idx) {
-    const pssw = await db.passwords.toArray();
-    await db.passwords.where("idx").equals(idx).delete()
-}
 
 export async function settings_getFolderOrPassword() {
     const settings = await db.settings.toArray();
@@ -165,6 +160,7 @@ export async function settings_getFolderOrPassword() {
     }
     return settings[0].fold_pass_select;
 }
+
 
 export async function settings_updateFolderOrPassword(value) {
     let settings = await db.settings.toArray();
@@ -179,63 +175,22 @@ export async function settings_updateFolderOrPassword(value) {
     await db.settings.update(0, {fold_pass_select: value});
 }
 
+export async function DBL_getFoldersPasswords(folder_name) {
+    const passwords = await db.passwords.toArray();
 
-export async function DBL_getPasswordsByIdx(idx) {
-    const data = await db.passwords.where("idx").equals(idx).toArray();
-    return data[0];
-}
-
-
-export async function DBL_editFolder(folder_id, folder_name, folder_color, folder_starred) {
-    await db.folders.update(folder_id, {folder: folder_name, color: folder_color, starred: folder_starred})
-    const current_passwords = await db.passwords.toArray();
-    for (let i = 0; i < current_passwords.length; i++) {
-        if (current_passwords[i].folder == store.temp.curr_folder_name) {
-            await db.passwords.update(current_passwords[i].idx, {folder: folder_name})
+    let ret = []
+    for (let i = 0; i < passwords.length; i++) {
+        if (passwords[i].folder == folder_name){
+            ret.push(passwords[i]);
         }
     }
-}
-
-export async function DBL_edit2FA(old_name, new_name, new_secret) {
-    let curr = await db.two_fa.where("name").equals(old_name).toArray();
-    curr = curr[0]
-    await db.two_fa.update(curr.idx, {name: new_name, secret: new_secret})
+    return ret;
 }
 
 
-
-
-export async function  DBL_editPassword(folder_before, password_id, name, username, password, folder, note, starred) {
-    await db.passwords.update(password_id, 
-                                {
-                                    name: name, 
-                                    username: username,
-                                    password: password,
-                                    folder: folder,
-                                    note: note,
-                                    starred: starred
-                                })
-
-
-    if (folder_before != "NO FOLDER") {
-        const folder_old = await db.folders.where("folder").equals(folder_before).toArray();
-        const folder_old_idx = folder_old[0].idx
-        
-        await db.folders.update(folder_old_idx, 
-            {
-                pass_amount: folder_old.pass_amount - 1
-            });
-
-    }
-
-    if (folder != "NO FOLDER") {
-        const folder_new = await db.folders.where("folder").equals(folder).toArray();
-        const folder_new_idx = folder_new[0].idx
-    
-        await db.folders.update(folder_new_idx, 
-            {
-                pass_amount: folder_new.pass_amount + 1
-            });
-    }
-
+export async function DBL_getPassAmount(folder_name) {
+    const passwords = await db.passwords.toArray();
+    console.log(passwords.length)
+    const amount = passwords.filter(pass => pass.folder === folder_name).length
+    return amount
 }

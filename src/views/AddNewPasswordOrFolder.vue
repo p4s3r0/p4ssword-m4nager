@@ -55,10 +55,12 @@ import FoldersPasswordFilter from '@/components/FoldersPasswordFilter.vue';
 import Selector from '@/components/Selector.vue'
 import StarPreferred from '@/components/StarPreferred.vue';
 
-import { DB_addNewPassword, DB_addNewFolder, DB_add2FA } from '@/supabase';
 import { getCurrentUser } from '@/dexie';
 
 import { useToast } from "vue-toastification";
+import { toasts_config_error, toasts_config_success } from '@/toasts';
+
+import { DB_addNewPassword, DB_addNewFolder, DB_add2FA } from '@/db';
 
 export default {
 name: 'App',
@@ -128,107 +130,29 @@ methods: {
     },
     add2FA() {
         if(this.name == "" || this.note == "") {
-            this.toast.error("Name and secret required!", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });
+            this.toast.error("Name and secret required!", toasts_config_error);
             return;
         }
-    DB_add2FA(this.user.username, this.name, this.note).then((res) => {
+    DB_add2FA(this.name, this.note).then((res) => {
         if (res) {
-            this.toast.success("New 2FA Added!", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });
+            this.toast.success("New 2FA Added!", toasts_config_success);
             this.$router.push('/home');
         } else {
-            this.toast.error("Something went wrong!", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });   
+            this.toast.error("Something went wrong!", toasts_config_error);   
         }
     })
     },
     addPassword() {
         if(this.name == "") {
-            this.toast.error("Name is required!", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });
+            this.toast.error("Name is required!", toasts_config_error);
             return;
         }
     DB_addNewPassword(this.name, this.password, this.folder, this.note, this.user.username, this.username, this.starred).then( (res) => {
         if (res) {
-            this.toast.success("New Password Added!", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });
+            this.toast.success("New Password Added!", toasts_config_success);
             this.$router.push('/home');
         } else {
-            this.toast.error("Something went wrong!", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });   
+            this.toast.error("Something went wrong!", toasts_config_error);   
         }
     });
     },
@@ -244,36 +168,10 @@ methods: {
             return;
       DB_addNewFolder(this.user.username, this.folder, this.color, this.starred).then( (res) => {
         if (res) {
-            this.toast.success("New Folder Added!", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });
+            this.toast.success("New Folder Added!", toasts_config_success);
             this.$router.push('/home');
         } else {
-            this.toast.error("Something went wrong!", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });
+            this.toast.error("Something went wrong!", toasts_config_error);
         }
       });
     }

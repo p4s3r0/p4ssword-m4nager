@@ -17,11 +17,11 @@ export let store = {
         curr_password_starred: false,
         curr_2fa_name: "",
         curr_2fa_secret: "",
+        curr_2fa_id: 0,
     }
 }
 
 export async function DECRYPT(val) {
     const current_user = await getCurrentUser();
-
     return CryptoJS.AES.decrypt(val, current_user.password).toString(CryptoJS.enc.Utf8);    
 }

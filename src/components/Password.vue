@@ -3,8 +3,7 @@
         <svg v-if="this.starred" viewBox="0 0 24 24" class="starred icon flat-color"><path id="primary" d="M22,9.81a1,1,0,0,0-.83-.69l-5.7-.78L12.88,3.53a1,1,0,0,0-1.76,0L8.57,8.34l-5.7.78a1,1,0,0,0-.82.69,1,1,0,0,0,.28,1l4.09,3.73-1,5.24A1,1,0,0,0,6.88,20.9L12,18.38l5.12,2.52a1,1,0,0,0,.44.1,1,1,0,0,0,1-1.18l-1-5.24,4.09-3.73A1,1,0,0,0,22,9.81Z" ></path></svg>
 
         <p id="passwordName">{{ this.name }} </p>
-        <div id="back" @click=openPasswordView(this.enc_password)>
-
+        <div id="back" @click="openPasswordView(this.name, this.enc_password, this.username, this.id, this.folder, this.note, this.starred)">
         </div>
         <div id="posIcons">
                 <svg class="ripple" @click="copyUsername" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,15 +23,15 @@
 </template>
 
 <script>
-import CryptoJS from 'crypto-js';
 import { getCurrentUser } from '@/dexie';
 import { DECRYPT } from '@/store/store';
 import { useToast } from "vue-toastification";
+import { toasts_config_info } from '@/toasts'
 import { store } from '@/store/store'
 
 export default {
 name: 'App',
-props: ["name", "enc_password", "username", "idx", "folder", "note", "starred"],
+props: ["name", "enc_password", "username", "id", "folder", "note", "starred"],
 setup() {
       const toast = useToast();
       return { toast }
@@ -44,60 +43,26 @@ data() {
 },
 methods: {
     async copyUsername() {
-        const dec_username = await DECRYPT(this.username);      
+        const dec_username = await DECRYPT(this.username);
         navigator.clipboard.writeText(dec_username);
-        this.toast.info("Copied to Clipboard!", {
-            position: "top-center",
-            timeout: 1533,
-            closeOnClick: true,
-            pauseOnFocusLoss: false,
-            pauseOnHover: true,
-            draggable: true,
-            draggablePercent: 0.6,
-            showCloseButtonOnHover: false,
-            hideProgressBar: false,
-            closeButton: "button",
-            icon: {
-                iconClass: "undefined",
-                iconChildren: "",
-                iconTag: "i"
-            },
-            rtl: false
-            });
+        this.toast.info("Copied to Clipboard!", toasts_config_info);
     },
     async copyPassword() {
         const dec_password = await DECRYPT(this.enc_password);   
         navigator.clipboard.writeText(dec_password);
-        this.toast.info("Copied to Clipboard!", {
-            position: "top-center",
-            timeout: 1533,
-            closeOnClick: true,
-            pauseOnFocusLoss: false,
-            pauseOnHover: true,
-            draggable: true,
-            draggablePercent: 0.6,
-            showCloseButtonOnHover: false,
-            hideProgressBar: true,
-            closeButton: "button",
-            icon: {
-                iconClass: "undefined",
-                iconChildren: "",
-                iconTag: "i"
-            },
-            rtl: false
-            });
+        this.toast.info("Copied to Clipboard!", toasts_config_info);
     },
-    openPasswordView(pssw) {
-        const dec_password = CryptoJS.AES.decrypt(pssw, this.user.password).toString(this.$CryptoJS.enc.Utf8);  
-        store.temp.curr_password_id = this.idx;
-        store.temp.curr_password_name = this.name;
-        store.temp.curr_password_username = this.username;
-        store.temp.curr_password_password = dec_password;
-        store.temp.curr_password_folder = this.folder;
-        store.temp.curr_password_note = this.note;
-        store.temp.curr_password_starred = this.starred;
+    async openPasswordView(name, password, username, id, folder, note, starred) {
+        store.temp.curr_password_id = id;
+        store.temp.curr_password_name = name;
+        store.temp.curr_password_username = await DECRYPT(username);
+        store.temp.curr_password_password = await DECRYPT(password);
+        store.temp.curr_password_folder = folder;
+        store.temp.curr_password_note = await DECRYPT(note);
+        store.temp.curr_password_starred = starred;
         this.$router.push('/password');
     }
+    
 }, beforeMount() {
     getCurrentUser().then( (user) => {
         if(user) {
@@ -133,7 +98,6 @@ methods: {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
 }
 
 #posIcons {

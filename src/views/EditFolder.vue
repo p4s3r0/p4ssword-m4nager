@@ -5,20 +5,24 @@
       <selector :value="this.folder_color" @valueUpdated="updateFolderColor"/>
       <star-preferred :selected_init=this.folder_starred @valueUpdated="updateStarred" />
 
-      <big-button-register-signin text="Apply Edit" @click="edit"/>
+      <halve-button-apply @click="edit"/>
+      <halve-button-cancel @click="this.$router.push('/home')"/>
     </div>
   </template>
   
 <script>
-import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue';
 import EditTextInput from '@/components/EditTextInput.vue';
 import Selector from '@/components/Selector.vue';
 import StarPreferred from '@/components/StarPreferred.vue';
+import HalveButtonApply from '@/components/HalveButtonApply.vue';
+import HalveButtonCancel from '@/components/HalveButtonCancel.vue';
 
-import { DB_editFolder } from '@/supabase';
+import { DB_editFolder } from '@/db';
 import { store } from '@/store/store';
 import { useToast } from "vue-toastification";
 import { getCurrentUser } from '@/dexie';
+
+import { toasts_config_error, toasts_config_success } from '@/toasts'; 
 
 export default {
   name: 'App',
@@ -27,10 +31,11 @@ export default {
       return { toast }
     },
   components: {
-    BigButtonRegisterSignin,
+    HalveButtonApply,
     EditTextInput,
     Selector,
-    StarPreferred
+    StarPreferred,
+    HalveButtonCancel
   },
   data() {
       return {
@@ -38,6 +43,7 @@ export default {
         folder_name: store.temp.curr_folder_name,
         folder_color: store.temp.curr_folder_color,
         folder_starred: store.temp.curr_folder_starred,
+        folder_id: store.temp.curr_folder_id,
       }
   },
   methods: {
@@ -51,38 +57,12 @@ export default {
       this.folder_starred = starred;
     },
     edit() {
-      DB_editFolder(store.temp.curr_folder_id, this.folder_name, this.folder_color, this.folder_starred).then( (res) => {
+      DB_editFolder(this.folder_id, this.folder_name, this.folder_starred, this.folder_color).then( (res) => {
         if (res) {
-          this.toast.success("Folder edited!", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });
+          this.toast.success("Folder edited!", toasts_config_success);
           this.$router.push('/home');
         } else {
-          this.toast.error("Something went Wrong!", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });
+          this.toast.error("Something went Wrong!", toasts_config_error);
         }
       })
     }

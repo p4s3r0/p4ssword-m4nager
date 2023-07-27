@@ -8,17 +8,22 @@ from dotenv import load_dotenv
 import os
 from sqlalchemy import create_engine
 from sqlalchemy import select
+import uuid
 
 # load environment variables
 load_dotenv()
 SQL_DATABASE_CLIENT = os.getenv("SQL_DATABASE_CLIENT")
-SQL_TABLE_NAME = os.getenv("SQL_TABLE_NAME")
+SQL_USER = os.getenv("SQL_USER")
 SQL_PASSWORD = os.getenv("SQL_PASSWORD")
 SQL_URL = os.getenv("SQL_URL")
 SQL_PORT = os.getenv("SQL_PORT")
-SQL_DATABASE = os.getenv("SQL_DATABASE")
+SQL_DB_NAME = os.getenv("SQL_DB_NAME")
 # connect to database
-engine = create_engine(f"{SQL_DATABASE_CLIENT}://{SQL_TABLE_NAME}:{SQL_PASSWORD}@{SQL_URL}:{SQL_PORT}/{SQL_DATABASE}", echo=True)
+engine = create_engine(f"{SQL_DATABASE_CLIENT}://{SQL_USER}:{SQL_PASSWORD}@{SQL_URL}:{SQL_PORT}/{SQL_DB_NAME}", echo=True)
+
+
+
+print(f"{SQL_DATABASE_CLIENT}://{SQL_USER}:{SQL_PASSWORD}@{SQL_URL}:{SQL_PORT}/{SQL_DB_NAME}")
 
 class Base(DeclarativeBase):
     pass
@@ -42,11 +47,10 @@ class TwoFa(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     user: Mapped[str] = mapped_column(String(255), nullable=False)
     secret: Mapped[str] = mapped_column(String(255), nullable=False)
-    authorized: Mapped[bool] = mapped_column(Boolean)
     name: Mapped[str] = mapped_column(String(255), nullable=False)
 
     def __repr__(self) -> str:
-        return f"2fa[{self.id}] = {{ id={self.id}, user={self.user}, secret={self.secret}, authorized={self.authorized}, name={self.name} }}"
+        return f"2fa[{self.id}] = {{ id={self.id}, user={self.user}, secret={self.secret}, name={self.name} }}"
 
 
 # passwords
@@ -81,7 +85,6 @@ class Folder(Base):
     folder: Mapped[str] = mapped_column(String(255), nullable=False)
     starred: Mapped[bool] = mapped_column(Boolean, nullable=True)
     user: Mapped[str] = mapped_column(String(255), nullable=False)
-    pass_amount: Mapped[int] = mapped_column(nullable=True)
     color: Mapped[str] = mapped_column(String(255), nullable=False)
 
     def __repr__(self) -> str:
@@ -90,22 +93,48 @@ class Folder(Base):
                                 folder={self.folder}, 
                                 starred={self.starred}, 
                                 user={self.user}, 
-                                pass_amount={self.pass_amount},
                                 color={self.color} }}"""
+    
+# Global
+class Global(Base):
+    __tablename__ = "global"
+
+    version: Mapped[str] = mapped_column(String(255), primary_key=True)
+
+
+# api_keys
+class ApiKey(Base):
+    __tablename__ = "api_keys"
+
+    api_key: Mapped[str] = mapped_column(String(255), primary_key=True)
+    user: Mapped[str] = mapped_column(String(255))
+
+
 
 ###############################################################################
 # MUTATIONS
 ###############################################################################
+def checkApiKey(key, user):
+    with engine.connect() as conn:
+        query = select(ApiKey).where(ApiKey.api_key == key, ApiKey.user == user)
+        for _ in conn.execute(query):
+            return True
+        return False
 
 
 
 # USERS -----------------------------------------------------------------------
 def add_User(username: str, email: str, password: str):
+    with engine.connect() as conn:
+        query = select(User).where(User.username == username)
+        for _ in conn.execute(query):
+            return "[ERROR]-UsernameTaken"
+
     with Session(engine) as session:
         user = User(
             username=username,
             email=email,
-            password=password
+            password=password,
         )
         session.add(user)
         session.commit()
@@ -119,10 +148,29 @@ def del_User(username: str):
     return True
 
 
+def login_User(username: str, password: str):
+    with engine.connect() as conn:
+        query = select(User).where(User.username == username, User.password == password)
+        for row in conn.execute(query):
+            uuid_key = addApiKey(username)
+            ret = {
+                "email": row.email,
+                "api_key": uuid_key
+            }
+            return ret
+        return "[ERROR]-LoginUserDoesNotExist"
+
+
+def logout_User(api_key: str):
+    with Session(engine) as session:
+        session.delete(session.get(ApiKey, api_key))
+        session.commit()
+    return True
+
 
 # TWO_FA -------------------------------------------------------------------------
 def get_ObjectTwoFa(user: str, name: str):
-    stmt = select(TwoFa).where(TwoFa.name == name and TwoFa.user == user)
+    stmt = select(TwoFa).where(TwoFa.name == name, TwoFa.user == user)
     two_fa = None
     with engine.connect() as conn:
         for row in conn.execute(stmt):
@@ -130,12 +178,12 @@ def get_ObjectTwoFa(user: str, name: str):
     return two_fa
 
 
+
 def add_twoFa(user: str, secret: str, name:str):
     with Session(engine) as session:
         twoFa = TwoFa(
             user=user,
             secret=secret,
-            authorized=False,
             name=name
         )
         session.add(twoFa)
@@ -143,32 +191,61 @@ def add_twoFa(user: str, secret: str, name:str):
     return True
 
 
-def del_twoFa(user: str, name: str):
+
+def del_twoFa(id: int, user: str):
+    stmt = select(TwoFa).where(TwoFa.user == user, TwoFa.id == id)
+    two_fa = None
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            two_fa = row
+
+    if two_fa == None:
+        return False
+
     with Session(engine) as session:
-        two_fa_id = get_ObjectTwoFa(user, name).id
-        session.delete(session.get(TwoFa, two_fa_id))
+        session.delete(session.get(TwoFa, two_fa.id))
         session.commit()
     return True
         
 
-def update_twoFa(user: str, old_name: str, new_name: str, secret: str):
+
+def get_twoFas(user: str):
+    stmt = select(TwoFa).where(TwoFa.user == user)
+    two_fas = []
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            two_fas.append({
+                "id": row.id,
+                "user": row.user,
+                "secret": row.secret,
+                "name": row.name,
+            })
+    return two_fas
+
+
+
+def update_twoFa(user: str, id: str, name: str, secret: str):
     with Session(engine) as session:
-        session.query(TwoFa).filter(TwoFa.name == old_name and TwoFa.user == user).update({'name': new_name, 'secret': secret})
+        session.query(TwoFa).filter(TwoFa.id == id, TwoFa.user == user).update({  
+                                                                            'name': name, 
+                                                                            'secret': secret})
         session.commit()
     return True
 
 
-def update_set_authorization(user: str, name: str, to: bool):
-    with Session(engine) as session:
-        session.query(TwoFa).filter(TwoFa.name == name and TwoFa.user == user).update({'authorized': to})
-        session.commit()
-    return True
 
+def getTwoFaSecret(user: str, id: int):
+    stmt = select(TwoFa).where(TwoFa.user == user, TwoFa.id == id)
+    two_fa_secret = ""
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            two_fa_secret = row.secret 
+    return two_fa_secret
 
 
 # PASSWORDS -------------------------------------------------------------------
 def get_ObjectPassword(user: str, name: str):
-    stmt = select(Password).where(Password.name == name and Password.user == user)
+    stmt = select(Password).where(Password.name == name, Password.user == user)
     password = None
     with engine.connect() as conn:
         for row in conn.execute(stmt):
@@ -187,23 +264,53 @@ def add_password(name: str, starred: bool, password: str, folder: str, note: str
                 user=user,
                 username=username
             )
+
             session.add(password)
             session.commit()
     return True
 
 
-def del_password(user: str, name: str):
+
+def del_password(user: str, id: int):
+    stmt = select(Password).where(Password.user == user, Password.id == id)
+    password = None
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            password = row
+
+    if password == None:
+        return False
+
     with Session(engine) as session:
-        password_id = get_ObjectPassword(user, name).id
-        session.delete(session.get(Password, password_id))
+        session.delete(session.get(Password, password.id))
         session.commit()
     return True
 
 
-def update_Password(old_name: str, new_name: str, starred: str, password: str, folder: str, note: str, user: str, username: str):
+
+def get_Passwords(user: str):
+    stmt = select(Password).where(Password.user == user)
+    password = []
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            password.append({
+                "id": row.id,
+                "name": row.name,
+                "starred": row.starred,
+                "password": row.password,
+                "folder": row.folder,
+                "note": row.note,
+                "user": row.user,
+                "username": row.username
+            })
+    return password
+
+
+
+def update_Password(id: int, name: str, starred: str, password: str, folder: str, note: str, user: str, username: str):
     with Session(engine) as session:
-        session.query(Password).filter(Password.name == old_name and Password.user == user).update({  
-                                                                            'name': new_name, 
+        session.query(Password).filter(Password.id == id, Password.user == user).update({  
+                                                                            'name': name, 
                                                                             'starred': starred,
                                                                             'password': password,
                                                                             'folder': folder,
@@ -217,7 +324,7 @@ def update_Password(old_name: str, new_name: str, starred: str, password: str, f
 
 # Folders -------------------------------------------------------------------
 def get_ObjectFolder(user: str, name: str):
-    stmt = select(Folder).where(Folder.folder == name and Folder.user == user)
+    stmt = select(Folder).where(Folder.folder == name, Folder.user == user)
     folder = None
     with engine.connect() as conn:
         for row in conn.execute(stmt):
@@ -225,13 +332,12 @@ def get_ObjectFolder(user: str, name: str):
     return folder
 
 
-def add_folder(folder: str, starred: bool, user: str, pass_amount: int, color: str):
+def add_folder(folder: str, starred: bool, user: str, color: str):
     with Session(engine) as session:
         folder = Folder(
             folder=folder,
             starred=starred,
             user=user,
-            pass_amount=pass_amount,
             color=color,
         )
         session.add(folder)
@@ -239,24 +345,113 @@ def add_folder(folder: str, starred: bool, user: str, pass_amount: int, color: s
     return True
 
 
-def del_folder(name: str, user: str):
+def del_Folder(user: str, id: int):
+    stmt = select(Folder).where(Folder.user == user, Folder.id == id)
+    folder = None
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            folder = row
+
+    if folder == None:
+        return False
+
+    stmt = select(Password).where(Password.user == user, Password.folder == folder.folder)
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            update_Password(row.id, row.name, row.starred, row.password, "NO FOLDER", row.note, row.user, row.username)
+
     with Session(engine) as session:
-        folder_id = get_ObjectFolder(user, name).id
-        session.delete(session.get(Folder, folder_id))
+        session.delete(session.get(Folder, folder.id))
         session.commit()
     return True
 
 
-def update_folder(old_folder: str, folder: str, starred: bool, user: str, pass_amount: int, color: str):
+
+def update_Folder(id: int, folder: str, starred: str, user: str, color: str):
+    old_folder_name = ""
+    stmt = select(Folder).where(Folder.user == user, Folder.id == id)
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            old_folder_name = row.folder
+
+
     with Session(engine) as session:
-        session.query(Folder).filter(Folder.folder == old_folder and Folder.user == user).update({  
+        session.query(Folder).filter(Folder.id == id, Folder.user == user).update({  
                                                                             'folder': folder, 
                                                                             'starred': starred,
-                                                                            'pass_amount': pass_amount,
                                                                             'color': color,
                                                                             'user': user })
         session.commit()
+
+
+    stmt = select(Password).where(Password.user == user, Password.folder == old_folder_name)
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            update_Password(row.id, row.name, row.starred, row.password, folder, row.note, row.user, row.username)
     return True
+
+
+
+def get_Folders(user: str):
+    stmt = select(Folder).where(Folder.user == user)
+    folders = []
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            folders.append({
+                "id": row.id,
+                "folder": row.folder,
+                "user": row.user,
+                "starred": row.starred,
+                "color": row.color
+            })
+    return folders
+
+
+
+def get_FoldersPasswords(user: str, folder: str):
+    with Session(engine) as session:
+        rows = session.query(Password).filter(Password.user == user, Password.folder == folder)
+    # stmt = select(Password).where(Password.user == user & Password.folder == folder)
+    # passwords = []
+    # with engine.connect() as conn:
+        passwords = []
+        for row in rows:
+            passwords.append({
+                "id": row.id,
+                "name": row.name,
+                "starred": row.starred,
+                "password": row.password,
+                "folder": row.folder,
+                "note": row.note,
+                "user": row.user,
+                "username": row.username
+            })
+        return passwords
+
+
+
+# api_keys
+def addApiKey(user):
+    uuid_value = str(uuid.uuid4())
+    with Session(engine) as session:
+        api_key = ApiKey(
+            user=user,
+            api_key=uuid_value
+        )
+        session.add(api_key)
+        session.commit()
+    return uuid_value
+
+
+
+def getAppVersion():
+    stmt = select(Global)
+    version = None
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            version = row.version
+    return version
+
 
 
 if __name__ == "__main__":

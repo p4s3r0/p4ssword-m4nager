@@ -2,6 +2,11 @@ import DbHandler
 from dotenv import load_dotenv
 import os
 
+import base64 
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import unpad
+import subprocess
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -20,112 +25,57 @@ app.add_middleware(
 
 load_dotenv()
 
-SECRET_PASSWORD = os.getenv("SECRET_PASSWORD")
-
 def HASH(val):
     keccak_hash = keccak.new(digest_bits=512)
     keccak_hash.update(bytes(val, 'utf-8'))
     return keccak_hash.hexdigest()
 
+def decrypt(enc):
+    key = os.getenv("P4SSWORD_M4NAGER_KEY")
+    iv =  os.getenv("P4SSWORD_M4NAGER_IV").encode('utf-8')
+    enc = base64.b64decode(enc)
+    cipher = AES.new(key.encode('utf-8'), AES.MODE_CBC, iv)
+    return unpad(cipher.decrypt(enc),16).decode()
 
 
+# USER ########################################################################
 @app.get("/add_user")
-def add_user(nonce: str = "", digest: str = "", username: str = "", email: str = "", password: str = ""):
-    if username == "" or email == "" or password == "" or nonce == "" or digest == "":
+def add_user(username: str = "", email: str = "", password: str = ""):
+    if username == "" or email == "" or password == "":
         return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
 
-    if DbHandler.add_User(username, email, password):
+    ret = DbHandler.add_User(username, email, password)
+
+    if ret == True:
         return f"OK"
+    elif ret == "[ERROR]-UsernameTaken":
+        return ret
     else: 
         return f"[ERROR] Something went wrong"
     
 
-
-@app.get("/del_user")
-def del_user(nonce: str = "", digest: str = "", username: str = ""):
-    if username == "" or  nonce == "" or digest == "":
+@app.get("/login_user")
+def login_user(username: str = "", password: str = ""):
+    if username == "" or password == "":
         return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
-
-    if DbHandler.del_User(username):
-        return f"OK"
-    else: 
-        return f"[ERROR] Something went wrong"
-    
+    return DbHandler.login_User(username, password)
 
 
-@app.get("/add_twoFa")
-def add_twoFa(nonce: str = "", digest: str = "", user: str = "", secret: str = "", name: str = ""):
-    if nonce == "" or digest == "" or user == "" or secret == "" or name == "":
-        return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
-
-    if DbHandler.add_twoFa(user, secret, name):
-        return f"OK"
-    else: 
-        return f"[ERROR] Something went wrong"
+@app.get("/logout_user")
+def logout_user(api_key: str = ""):
+    return DbHandler.logout_User(api_key)
 
 
 
-@app.get("/del_twoFa")
-def del_twoFa(nonce: str = "", digest: str = "", user: str = "", name: str = ""):
-    if nonce == "" or digest == "" or user == "" or name == "":
-        return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
 
-    if DbHandler.del_twoFa(user, name):
-        return f"OK"
-    else: 
-        return f"[ERROR] Something went wrong"
-    
-
-
-@app.get("/update_twoFa")
-def update_twoFa(nonce: str = "", digest: str = "", user: str = "", old_name: str = "", new_name: str = "", secret: str = ""):
-    if nonce == "" or digest == "" or user == "" or old_name == "" or new_name == "" or secret == "":
-        return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
-
-    if DbHandler.update_twoFa(user, old_name, new_name, secret):
-        return f"OK"
-    else: 
-        return f"[ERROR] Something went wrong"
-    
-
-
-@app.get("/update_twoFa_authorization")
-def update_twoFa_authorization(nonce: str = "", digest: str = "", user: str = "", name: str = "", to: bool = False):
-    if nonce == "" or digest == "" or user == "" or name == "" or to == "":
-        return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
-
-    if DbHandler.update_set_authorization(user, name, to):
-        return f"OK"
-    else: 
-        return f"[ERROR] Something went wrong"
-
-
-
+# PASSWORD ####################################################################
 @app.get("/add_password")
-def add_password(nonce: str = "", digest: str = "", name: str = "", starred: bool = False, password: str = "", folder: str = "", note: str = "", user: str = "", username: str = ""):
-    if nonce == "" or digest == "" or name == "" or starred == "" or password == "" or folder == "" or note == "" or username == "":
+def add_password(api_key: str = "", name: str = "", starred: bool = False, password: str = "", folder: str = "", note: str = "", user: str = "", username: str = ""):
+    if api_key == "" or name == "" or folder == "" or username == "":
         return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
+
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key"
 
     if DbHandler.add_password(name, starred, password, folder, note, user, username):
         return f"OK"
@@ -133,99 +83,186 @@ def add_password(nonce: str = "", digest: str = "", name: str = "", starred: boo
         return f"[ERROR] Something went wrong"
     
 
-
 @app.get("/del_password")
-def del_password(nonce: str = "", digest: str = "", user: str = "", name: str = ""):
-    if nonce == "" or digest == "" or user == "" or name == "":
+def del_password(api_key: str = "", user: str = "", id: int = -1):
+    if user == "" or id == -1 or api_key == "":
         return f"[ERROR] Invalid Params"
     
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key"
 
-    if DbHandler.del_password(user, name):
+    if DbHandler.del_password(user, id):
         return f"OK"
     else: 
         return f"[ERROR] Something went wrong"
+
+
+@app.get("/get_passwords")
+def get_passwords(api_key: str = "", user: str = ""):
+    if user == "" or api_key == "":
+        return f"[ERROR] Invalid Params"
     
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key"
+
+    return DbHandler.get_Passwords(user)
 
 
 @app.get("/update_password")
-def update_password(nonce: str = "", digest: str = "", user: str = "", old_name: str = "", new_name: str = "", starred: str = "", password: str = "", folder: str = "", note: str = "", username: str = ""):
-    if nonce == "" or digest == "" or user == "" or old_name == "" or new_name == "" or starred == "" or password == "" or folder == "" or note == "" or user == "" or username == "":
+def update_password(api_key: str = "", id: int = -1, user: str = "", name: str = "", starred: bool = False, password: str = "", folder: str = "", note: str = "", username: str = ""):
+    if api_key == "" or id == -1 or user == "" or name == "" or folder == "" or username == "":
         return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
 
-    if DbHandler.update_Password(old_name, new_name, starred, password, folder, note, user, username):
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key"
+
+    if DbHandler.update_Password(id, name, starred, password, folder, note, user, username):
         return f"OK"
     else: 
         return f"[ERROR] Something went wrong"
     
 
 
+
+# FOLDER ######################################################################
 @app.get("/add_folder")
-def add_folder(nonce: str = "", digest: str = "", folder: str = "", starred: bool = False, user: str = "", pass_amount: int = 0, color: str = ""):
-    if nonce == "" or digest == "" or folder == "" or user == "" or color == "":
+def add_folder(api_key: str = "", folder: str = "", starred: bool = False, user: str = "", color: str = ""):
+    if folder == "" or user == "" or color == "":
         return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
 
-    if DbHandler.add_folder(folder, starred, user, pass_amount, color):
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key"
+
+    if DbHandler.add_folder(folder, starred, user, color):
         return f"OK"
     else: 
         return f"[ERROR] Something went wrong"
-
 
 
 @app.get("/del_folder")
-def del_folder(nonce: str = "", digest: str = "", name: str = "", user: str = ""):
-    if nonce == "" or digest == "" or name == "" or user == "":
+def del_folder(api_key: str = "", user: str = "", id: int = -1,):
+    if api_key == "" or user == "" or id == -1:
         return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
 
-    if DbHandler.del_folder(name, user):
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key"
+
+    if DbHandler.del_Folder(user, id):
         return f"OK"
     else: 
         return f"[ERROR] Something went wrong"
     
-
 
 @app.get("/update_folder")
-def update_folder(nonce: str = "", digest: str = "",old_folder: str = "", folder: str = "", starred: bool = False, user: str = "", pass_amount: int = 0, color: str = ""):
-    if nonce == "" or digest == "" or old_folder == "" or folder == "" or user == "" or color == "":
+def update_folder(api_key: str = "", user: str = "", id: int = -1, folder: str = "", starred: bool = False, color: str = ""):
+    if api_key == "" or user == "" or id == -1 or folder == "":
         return f"[ERROR] Invalid Params"
-    
-    if HASH(f"{nonce}{SECRET_PASSWORD}") != digest:
-        return f"[ERROR] Invalid Authorization Digest"
 
-    if DbHandler.update_folder(old_folder, folder, starred, user, pass_amount, color):
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key"
+    
+    if DbHandler.update_Folder(id, folder, starred, user, color):
         return f"OK"
     else: 
         return f"[ERROR] Something went wrong"
 
+
+@app.get("/get_folders")
+def get_folders(api_key: str = "", user: str = ""):
+    if user == "" or api_key == "":
+        return f"[ERROR] Invalid Params"
+    
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key"
+
+    return DbHandler.get_Folders(user)
+
+
+@app.get("/get_folders_passwords")
+def get_folders_passwords(api_key: str = "", user: str = "", folder: str = ""):
+    if user == "" or api_key == "" or folder == "":
+        return f"[ERROR] Invalid Params"
+    
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key"
+
+    return DbHandler.get_FoldersPasswords(user, folder)
+
+
+
+
+# 2 FA ########################################################################
+@app.get("/add_2fa")
+def add_2fa(api_key: str = "", user: str = "", name: str = "", secret: str = ""):
+    if user == "" or api_key == "" or name == "" or secret == "":
+        return f"[ERROR] Invalid Params"
+    
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key"
+
+    return DbHandler.add_twoFa(user, secret, name)
+
+
+@app.get("/del_2fa")
+def del_2fa(api_key: str = "", user: str = "", id: int = -1):
+    if user == "" or api_key == "" or id == -1:
+        return f"[ERROR] Invalid Params"
+    
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key"
+
+    return DbHandler.del_twoFa(id, user)
+
+
+@app.get("/get_2fa")
+def get_2fa(api_key: str = "", user: str = ""):
+    if user == "" or api_key == "":
+        return f"[ERROR] Invalid Params"
+    
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key"
+
+    return DbHandler.get_twoFas(user)
+
+
+@app.get("/update_2fa")
+def update_2fa(api_key: str = "", id: int = -1, user: str = "", name: str = "", secret: str = ""):
+    if user == "" or api_key == "" or name == "" or secret == "" or id == -1:
+        return f"[ERROR] Invalid Params"
+    
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key"
+
+    return DbHandler.update_twoFa(user, id, name, secret)
+
+
+@app.get("/get_otp")
+def get_otp(api_key: str = "", user: str = "", id: int = -1):
+    if api_key == "" or user == "" or id == -1:
+        return f"[ERROR] Invalid Params"
+    
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key"
+    
+    secret = decrypt(DbHandler.getTwoFaSecret(user, id))
+
+    if not secret:
+        return f"[ERROR] Something went Wrong!"
+    
+    otp_code = subprocess.check_output(f'oathtool -b --totp=sha256 "{secret}" -s 60', shell=True).decode('utf-8').replace('\n', '')
+    return otp_code
+
+
+
+# GLOBAL ######################################################################
+@app.get("/get_app_version")
+def get_app_version():
+    return DbHandler.getAppVersion()
 
 
 
 def main():
     print("[INFO] Starting Main Script")
-    # DbHandler.add_User("hey2", "email2", "pssw2")
-    # DbHandler.del_User("hey2")
-    # DbHandler.add_twoFa("test_user", "secret2", False, "name2")
-    # DbHandler.del_twoFa("test_user2", "name2")
-    # DbHandler.update_twoFa("test_user", "name2", "name_ok", "secret_ok")
-    # DbHandler.update_set_authorization("test_user", "name_ok", True)
-    # DbHandler.update_set_authorization("test_user", "name_ok", False)
-    # DbHandler.add_password("test_name", False, "pssw", "folder", "note", "p4s3r0", "username")
-    # DbHandler.del_password("p4s3r0", "test_name")
-    # DbHandler.update_Password("test_name", "updated_name", True, "updated_pssw", "updated_fodler", "updated_note", "p4s3r0", "updated_username")
-    # DbHandler.add_folder("folder_name", False, "root", 0, "black")
-    # DbHandler.del_folder("updated_name", "root")
-    # DbHandler.update_folder("folder_name", "updated_name", True, "upd_user", 2, "white")
-    print("[INFO] Ending Main Script")
 
 if __name__ == "__main__":
     main()

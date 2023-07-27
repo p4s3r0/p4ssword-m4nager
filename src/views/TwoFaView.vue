@@ -12,21 +12,22 @@
       <text-shower v-if="this.secret != ''" :text=this.secret />
     </div>
 
-    <add-button @click="this.$router.push('/addPasswordOrFolder')" />
+    <home-button @click="this.$router.push('/home')" />
   </div>
 </template>
 
 <script>
 import SmallButtonDelete from '@/components/SmallButtonDelete.vue'
 import SmallButtonEdit from '@/components/SmallButtonEdit.vue'
-import AddButton from '@/components/AddButton.vue';
 import TextShower from '@/components/TextShower.vue';
+import HomeButton from '@/components/HomeButton.vue';
 
 import { store } from '@/store/store';
 import { getCurrentUser } from '@/dexie';
-import { DB_delete2FA } from '@/supabase';
+import { DB_delete2FA } from '@/db';
 
 import { useToast } from "vue-toastification";
+import { toasts_config_error, toasts_config_success} from '@/toasts'
 
 export default {
   name: 'App',
@@ -37,50 +38,25 @@ export default {
   components: {
     SmallButtonDelete,
     SmallButtonEdit,
-    AddButton,
     TextShower,
+    HomeButton
   },
   data() {
       return {
         user: {},
         name: store.temp.curr_2fa_name,
-        secret: store.temp.curr_2fa_secret
+        secret: store.temp.curr_2fa_secret,
+        id: store.temp.curr_2fa_id
       }
   },
   methods: {
     delete2FA() {
-      DB_delete2FA(store.temp.curr_2fa_name).then((res) => {
+      DB_delete2FA(this.id).then((res) => {
         if (res) {
-          this.toast.success("Password Deleted!", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });
+          this.toast.success("Password Deleted!", toasts_config_success);
             this.$router.push('/home');
           } else {
-            this.toast.error("Something went Wrong!", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });
+            this.toast.error("Something went Wrong!", toasts_config_error);
           }
       })
     },

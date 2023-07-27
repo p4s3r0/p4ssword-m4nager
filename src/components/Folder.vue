@@ -8,10 +8,11 @@
 </template>
 
 <script>
+import { DBL_getPassAmount } from '@/dexie';
 
 export default {
 name: 'App',
-props: ["name", "pass_amount", "color", "starred"],
+props: ["name", "color", "starred", "id", "pass_amount"],
 }
 </script>
 

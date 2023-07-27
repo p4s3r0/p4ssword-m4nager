@@ -14,9 +14,10 @@
 import TextInput from '@/components/TextInput.vue'
 import PasswordInput from '@/components/PasswordInput.vue'
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue'
-import { DB_registerUser } from '@/supabase.js'
+import { DB_registerUser } from '@/db.js'
 
 import { useToast } from "vue-toastification";
+import { toasts_config_success, toasts_config_error } from "@/toasts"
 
 export default {
   name: 'App',
@@ -47,38 +48,18 @@ export default {
       this.password = password;
     },
     clickRegisterUser() {
+      if (!navigator.onLine) {
+        this.toast.error("No internet Connection!", toasts_config_error);
+        return;
+      }
       DB_registerUser(this.email, this.username, this.password).then( (res) => {
-        if(res) {
-          this.toast.success("User Registered!", {
-            position: "top-center",
-            timeout: 3000,
-            closeOnClick: true,
-            pauseOnFocusLoss: true,
-            pauseOnHover: true,
-            draggable: true,
-            draggablePercent: 0.6,
-            showCloseButtonOnHover: false,
-            hideProgressBar: true,
-            closeButton: "button",
-            icon: true,
-            rtl: false
-          });
+        if(res == "OK") {
+          this.toast.success("User Registered!", toasts_config_success);
           this.$router.push("/");
+        } else if(res == "[ERROR]-UsernameTaken"){
+          this.toast.error("Username already taken!", toasts_config_error);
         } else {
-          this.toast.error("Username already taken!", {
-            position: "top-center",
-            timeout: 3000,
-            closeOnClick: true,
-            pauseOnFocusLoss: true,
-            pauseOnHover: true,
-            draggable: true,
-            draggablePercent: 0.6,
-            showCloseButtonOnHover: false,
-            hideProgressBar: true,
-            closeButton: "button",
-            icon: true,
-            rtl: false
-          });
+          this.toast.error("Something weird went wrong!", toasts_config_error);
         }
       })
     }
@@ -106,7 +87,6 @@ a {
 
 #posUsernameInput {
   margin-top: 10vh;
-  margin-bottom: 1vh;
 }
 
 #posEmailInput {

@@ -20,7 +20,7 @@
       <text-shower v-if="this.folder != 'NO FOLDER'" :text=this.folder />
       <text-shower v-if="this.note != ''" :text=this.note />
     </div>
-    <add-button @click="this.$router.push('/addPasswordOrFolder')" />
+    <home-button @click="this.$router.push('/home')" />
   </div>
 </template>
 
@@ -28,14 +28,15 @@
 import Password from '@/components/Password.vue'
 import SmallButtonDelete from '@/components/SmallButtonDelete.vue'
 import SmallButtonEdit from '@/components/SmallButtonEdit.vue'
-import AddButton from '@/components/AddButton.vue';
 import TextShower from '@/components/TextShower.vue';
+import HomeButton from '@/components/HomeButton.vue';
 
-import { store, DECRYPT } from '@/store/store';
-import { getCurrentUser, DBL_getPasswordsByIdx } from '@/dexie';
-import { DB_deletePassword } from '@/supabase';
+import { store } from '@/store/store';
+import { getCurrentUser } from '@/dexie';
+import { DB_deletePassword } from '@/db';
 
 import { useToast } from "vue-toastification";
+import { toasts_config_error, toasts_config_success } from '@/toasts';
 
 export default {
   name: 'App',
@@ -47,57 +48,41 @@ export default {
     Password,
     SmallButtonDelete,
     SmallButtonEdit,
-    AddButton,
     TextShower,
+    HomeButton
   },
   data() {
       return {
-        name: "",
-        username: "",
-        password: "",
-        folder: "",
-        note: "",
-        starred: true,
+        id: store.temp.curr_password_id,
+        name: store.temp.curr_password_name,
+        username: store.temp.curr_password_username,
+        password: store.temp.curr_password_password,
+        folder: store.temp.curr_password_folder,
+        note: store.temp.curr_password_note,
+        starred: store.temp.curr_password_starred,
       }
   },
   methods: {
     deletePassword() {
-      DB_deletePassword(store.temp.curr_password_id, this.folder).then((res) => {
+      if (!navigator.onLine) {
+        this.toast.error("No internet Connection!", toasts_config_error);
+        return;
+      }
+
+      DB_deletePassword(this.id).then((res) => {
         if (res) {
-          this.toast.success("Password Deleted!", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });
+          this.toast.success("Password Deleted!", toasts_config_success);
             this.$router.push('/home');
           } else {
-            this.toast.error("Something went Wrong!", {
-                position: "top-center",
-                timeout: 3000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.6,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-            });
+            this.toast.error("Something went Wrong!", toasts_config_error);
           }
       })
     },
     editPassword() {
+      if (!navigator.onLine) {
+        this.toast.error("No internet Connection!", toasts_config_error);
+        return;
+      }
       this.$router.push('/editPassword');
     }
   }, 
@@ -105,14 +90,6 @@ export default {
     getCurrentUser().then( (user) => {
         if(user) {
             this.user = user
-            DBL_getPasswordsByIdx(store.temp.curr_password_id).then( (res) => {
-                this.name = res.name;
-                DECRYPT(res.username).then((res) => {this.username = res})
-                DECRYPT(res.password).then((res) => {this.password = res})
-                this.folder = res.folder;
-                DECRYPT(res.note).then((res) => {this.note = res})
-                this.starred = res.starred;
-              })
         } else {
             this.$router.push('/');
         }
