@@ -8,10 +8,21 @@
 </template>
 
 <script>
+import { DBL_getPassAmount } from '@/dexie';
 
 export default {
 name: 'App',
-props: ["name", "pass_amount", "color", "starred", "id"],
+props: ["name", "color", "starred", "id"],
+data() {
+    return {
+        pass_amount: 0,
+    }
+},
+beforeMount() {
+    DBL_getPassAmount(this.name).then( (ret) => {
+        this.pass_amount = ret;
+    })
+}
 }
 </script>
 

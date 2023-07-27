@@ -14,7 +14,6 @@
                 <folder v-for="f in this.folders" @click="openFolder(f.id, f.folder, f.color, f.starred)"
                                                 :key=f.key 
                                                 :name=f.folder
-                                                :pass_amount=f.pass_amount 
                                                 :color=f.color
                                                 :id=f.id 
                                                 :starred=f.starred />
@@ -143,15 +142,16 @@ methods: {
         }
     })
 
-
     getCurrentUser().then( (user) => {
         if(user) {
             this.user = user
-            DB_getAllFolders().then( (res) => {
-                this.folders = rankFolderAlphabetically(res);
-            });
             DB_getAllPasswords().then( (res) => {
                 this.passwords = rankPasswordsAlphabetically(res);
+                // folders are loaded after passwords, to make sure the 
+                //count is correct of the passwords inside the folder
+                DB_getAllFolders().then( (res) => {
+                    this.folders = rankFolderAlphabetically(res);
+                });
             });
             DB_getAll2FA().then( (res) => {
                 this.twoFactors = res;

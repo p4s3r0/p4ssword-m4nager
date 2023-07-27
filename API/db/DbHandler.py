@@ -85,7 +85,6 @@ class Folder(Base):
     folder: Mapped[str] = mapped_column(String(255), nullable=False)
     starred: Mapped[bool] = mapped_column(Boolean, nullable=True)
     user: Mapped[str] = mapped_column(String(255), nullable=False)
-    pass_amount: Mapped[int] = mapped_column(nullable=True)
     color: Mapped[str] = mapped_column(String(255), nullable=False)
 
     def __repr__(self) -> str:
@@ -94,7 +93,6 @@ class Folder(Base):
                                 folder={self.folder}, 
                                 starred={self.starred}, 
                                 user={self.user}, 
-                                pass_amount={self.pass_amount},
                                 color={self.color} }}"""
     
 # Global
@@ -117,7 +115,6 @@ class ApiKey(Base):
 # MUTATIONS
 ###############################################################################
 def checkApiKey(key, user):
-    return True
     with engine.connect() as conn:
         query = select(ApiKey).where(ApiKey.api_key == key, ApiKey.user == user)
         for _ in conn.execute(query):
@@ -335,13 +332,12 @@ def get_ObjectFolder(user: str, name: str):
     return folder
 
 
-def add_folder(folder: str, starred: bool, user: str, pass_amount: int, color: str):
+def add_folder(folder: str, starred: bool, user: str, color: str):
     with Session(engine) as session:
         folder = Folder(
             folder=folder,
             starred=starred,
             user=user,
-            pass_amount=pass_amount,
             color=color,
         )
         session.add(folder)
@@ -406,7 +402,6 @@ def get_Folders(user: str):
                 "folder": row.folder,
                 "user": row.user,
                 "starred": row.starred,
-                "pass_amount": row.pass_amount,
                 "color": row.color
             })
     return folders

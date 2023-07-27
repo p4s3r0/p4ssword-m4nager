@@ -126,14 +126,14 @@ def update_password(api_key: str = "", id: int = -1, user: str = "", name: str =
 
 # FOLDER ######################################################################
 @app.get("/add_folder")
-def add_folder(api_key: str = "", folder: str = "", starred: bool = False, user: str = "", pass_amount: int = 0, color: str = ""):
+def add_folder(api_key: str = "", folder: str = "", starred: bool = False, user: str = "", color: str = ""):
     if folder == "" or user == "" or color == "":
         return f"[ERROR] Invalid Params"
 
     if not DbHandler.checkApiKey(api_key, user):
         return f"Not authorized with this API key"
 
-    if DbHandler.add_folder(folder, starred, user, pass_amount, color):
+    if DbHandler.add_folder(folder, starred, user, color):
         return f"OK"
     else: 
         return f"[ERROR] Something went wrong"

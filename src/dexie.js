@@ -2,9 +2,9 @@ import { Dexie } from 'dexie';
 import { store } from '@/store/store';
 
 const db = new Dexie("p4ssword_m4nager");
-db.version(4).stores({
+db.version(5).stores({
     curr_user: "++idx, username, password, email, api_key",
-    folders: "++idx, folder, pass_amount, color, starred",
+    folders: "++idx, folder, color, starred",
     passwords: "++idx, name, password, folder, note, username, starred",
     two_fa: "++idx, username, name, secret",
     settings: "idx, fold_pass_select",
@@ -79,7 +79,6 @@ export async function DBL_updateFolders(folders) {
     {
         const data = {
             folder: folders[i].folder,
-            pass_amount: folders[i].pass_amount,
             color: folders[i].color,
             idx: folders[i].id,
             starred: folders[i].starred
@@ -181,4 +180,11 @@ export async function DBL_getFoldersPasswords(folder_name) {
         }
     }
     return ret;
+}
+
+
+export async function DBL_getPassAmount(folder_name) {
+    const passwords = await db.passwords.toArray();
+    const amount = passwords.filter(pass => pass.folder === folder_name).length
+    return amount
 }
