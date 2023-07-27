@@ -143,6 +143,7 @@ methods: {
         }
     })
 
+
     getCurrentUser().then( (user) => {
         if(user) {
             this.user = user

@@ -7,7 +7,7 @@
 
     </div>
 
-    <password v-for="p in this.passwords" @click="openPasswordView(p.name, p.password, p.username, p.id, p.folder, p.note, p.starred)"
+    <password v-for="p in this.passwords"
                                           :key=p.key
                                           :name=p.name
                                           :enc_password=p.password
@@ -28,7 +28,7 @@ import SmallButtonDelete from '@/components/SmallButtonDelete.vue'
 import SmallButtonEdit from '@/components/SmallButtonEdit.vue'
 import AddButton from '@/components/AddButton.vue';
 
-import { store, DECRYPT } from '@/store/store';
+import { store } from '@/store/store';
 import { getCurrentUser } from '@/dexie';
 import { DB_deleteFolder, DB_getPasswordsForSpecificFolder } from '@/db'
 
@@ -69,16 +69,6 @@ export default {
     },
     editFolder() {
       this.$router.push('/editFolder');
-    },
-    async openPasswordView(name, password, username, id, folder, note, starred) {
-        store.temp.curr_password_id = id;
-        store.temp.curr_password_name = name;
-        store.temp.curr_password_username = await DECRYPT(username);
-        store.temp.curr_password_password = await DECRYPT(password);
-        store.temp.curr_password_folder = folder;
-        store.temp.curr_password_note = await DECRYPT(note);
-        store.temp.curr_password_starred = starred;
-        this.$router.push('/password');
     },
   }, 
 

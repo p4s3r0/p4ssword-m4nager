@@ -4,14 +4,12 @@ import axios from 'axios';
 
 import {DBL_loginUser, 
     DBL_updateFolders, 
-    DBL_updatePasswords, 
-    DBL_deleteFolder,
-    DBL_deletePassword, 
-    DBL_editFolder, 
-    DBL_editPassword,
+    DBL_getFolders,
+    DBL_updatePasswords,
+    DBL_getPasswords, 
     DBL_update2FA,
-    DBL_deleteTwoFa,
-    DBL_edit2FA,
+    DBL_get2Fa,
+    DBL_getFoldersPasswords,
     getCurrentUser
     } from '@/dexie';
 
@@ -115,6 +113,10 @@ export async function DB_addNewPassword(name, password, folder, note, user, user
 export async function DB_getAllPasswords() {
     const user = await getCurrentUser()
 
+    if (!navigator.onLine) {
+        return DBL_getPasswords();
+    }
+
     const res = await axios.get(AXIOS_BASE_URL + "get_passwords", { params: {
         api_key: user.api_key,
         user: user.username,
@@ -174,6 +176,10 @@ export async function DB_addNewFolder(username, folder, color, starred) {
 export async function DB_getAllFolders() {
     const user = await getCurrentUser()
 
+    if (!navigator.onLine) {
+        return DBL_getFolders();
+    } 
+
     const res = await axios.get(AXIOS_BASE_URL + "get_folders", { params: {
         api_key: user.api_key,
         user: user.username,
@@ -197,6 +203,10 @@ export async function DB_deleteFolder(folder_id) {
 
 export async function DB_getPasswordsForSpecificFolder(folder_name) {
     const user = await getCurrentUser()
+
+    if (!navigator.onLine) {
+        return DBL_getFoldersPasswords(folder_name);
+    }
 
     const res = await axios.get(AXIOS_BASE_URL + "get_folders_passwords", { params: {
         api_key: user.api_key,
@@ -257,6 +267,10 @@ export async function DB_edit2FA(id, name, secret) {
 export async function DB_getAll2FA() {
     const user = await getCurrentUser()
 
+    if (!navigator.onLine) {
+        return DBL_get2Fa();
+    }
+
     const res = await axios.get(AXIOS_BASE_URL + "get_2fa", { params: {
         api_key: user.api_key,
         user: user.username,
@@ -270,6 +284,7 @@ export async function DB_getAll2FA() {
             secret: DECRYPT_CBC(res.data[i].secret),
         })
     }
+    DBL_update2FA(ret)
     return ret;
 }
 
