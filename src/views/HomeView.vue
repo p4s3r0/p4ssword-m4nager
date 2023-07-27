@@ -16,7 +16,8 @@
                                                 :name=f.folder
                                                 :color=f.color
                                                 :id=f.id 
-                                                :starred=f.starred />
+                                                :starred=f.starred 
+                                                :pass_amount="f.pass_amount "/>
         </div>
 
         <div v-else-if="this.fold_pass_selector=='Passwords'" id="posFolders">
@@ -149,8 +150,8 @@ methods: {
                 this.passwords = rankPasswordsAlphabetically(res);
                 // folders are loaded after passwords, to make sure the 
                 //count is correct of the passwords inside the folder
-                DB_getAllFolders().then( (res) => {
-                    this.folders = rankFolderAlphabetically(res);
+                DB_getAllFolders(this.passwords).then( (res_fold) => {
+                    this.folders = rankFolderAlphabetically(res_fold);
                 });
             });
             DB_getAll2FA().then( (res) => {
