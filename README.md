@@ -10,12 +10,28 @@ This project is a Password Manager designed to work on every Platform (Windows, 
 - Adding 2FA Credentials to generate OTP Codes.
 - Global Accessible Data
 - Offline Modus
+- Copy Username/Password/OTP-Code Directly into Clipboard without exposing it
 
 ## 🔱 Install as PWA
 
 To be able to install the `P4ssword M4nager`, simply head to [p4ss.p4s3r0.com](p4ss.p4s3r0.com) and a installation prompt should be shown. If no installation hint appears, click `More` (3 dots on the right top) and press on `Install App`. For further instructions get help [here](https://support.google.com/chrome/answer/9658361?hl=en&co=GENIE.Platform%3DDesktop&sjid=2917438543024608580-EU)
 
 ## 📷 Screenshots
+| Login | Register |
+|----------|------------|
+|![](images/login.png)|![](images/register.png)|
+
+| Home Folders | Home Passwords | Home 2FA | 
+|----------|------------|------------|
+|![](images/homeFolder.png)|![](images/homePassword.png)| ![](images/homeTwofa.png)|
+
+| Add Folders | Add Passwords | Add 2FA | 
+|----------|------------|------------|
+|![](images/addFolder.png)|![](images/addPassword.png)| ![](images/addTwofa.png)|
+
+| Folder Inspection | Password Inspection | 
+|----------|------------|
+|![](images/FolderPassword.png)|![](images/passwordView.png)|
 
 ## 🃏 API Connection
 The API calls are protected with Session like API keys. Everytime a User logs in, a new API-Key is generated and mapped to the current device. Once the user logs out, The API-Key is deleted and no further communicatino is authorized with the old API-Key. 
