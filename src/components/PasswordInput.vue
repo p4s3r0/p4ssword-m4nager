@@ -43,7 +43,7 @@ export default {
 #container {
   position: relative;
   margin-bottom: 5px;
-  margin-top: -5px;
+  margin-top: -3.5px;
 }
 
 
