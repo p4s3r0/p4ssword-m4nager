@@ -32,6 +32,7 @@ import HomeButton from '@/components/HomeButton.vue';
 import { store } from '@/store/store';
 import { getCurrentUser } from '@/dexie';
 import { DB_deleteFolder, DB_getPasswordsForSpecificFolder } from '@/db'
+import { rankPasswordsAlphabetically } from '@/scripts/search'
 
 import { useToast } from "vue-toastification";
 import { toasts_config_error, toasts_config_success } from '@/toasts';
@@ -88,7 +89,7 @@ export default {
         if(user) {
             this.user = user
             DB_getPasswordsForSpecificFolder(store.temp.curr_folder_name).then( (res) => {
-              this.passwords = res;
+              this.passwords = rankPasswordsAlphabetically(res);
             })
         } else {
             this.$router.push('/');
