@@ -14,7 +14,7 @@ This project is a Password Manager designed to work on every Platform (Windows, 
 
 ## 🔱 Install as PWA
 
-To be able to install the `P4ssword M4nager`, simply head to [p4ss.p4s3r0.com](p4ss.p4s3r0.com) and a installation prompt should be shown. If no installation hint appears, click `More` (3 dots on the right top) and press on `Install App`. For further instructions get help [here](https://support.google.com/chrome/answer/9658361?hl=en&co=GENIE.Platform%3DDesktop&sjid=2917438543024608580-EU)
+To be able to install the `P4ssword M4nager`, simply head to [p4ss.p4s3r0.com](https://p4ss.p4s3r0.com) and a installation prompt should be shown. If no installation hint appears, click `More` (3 dots on the right top) and press on `Install App`. For further instructions get help [here](https://support.google.com/chrome/answer/9658361?hl=en&co=GENIE.Platform%3DDesktop&sjid=2917438543024608580-EU)
 
 ## 📷 Screenshots
 | Login | Register |
