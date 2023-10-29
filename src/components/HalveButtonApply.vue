@@ -26,6 +26,8 @@ export default {
 
 p {
   position: absolute;
+  width: 100%;
+  text-align: center;
   transform: translate(-50%, 50%);
   left: 50%;
   color: black;
