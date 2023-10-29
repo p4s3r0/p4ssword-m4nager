@@ -2,10 +2,12 @@
   <div id="mainLogin">
     <h1>Let's Register you.</h1>
     <h2>Welcome stranger. <br>Lemme keep your passwords</h2>
-    <text-input id="posUsernameInput" placeholder="Email" @valueUpdated="updateEmail"/>
-    <text-input id="posEmailInput" placeholder="Username" @valueUpdated="updateUsername"/>
-    <password-input @valueUpdated="updatePassword"/>
-    <p>Already have an account? <a @click="this.$router.push('/');">Login</a></p>
+    <div class="userInput">
+      <text-input id="posUsernameInput" placeholder="Email" @valueUpdated="updateEmail"/>
+      <text-input id="posEmailInput" placeholder="Username" @valueUpdated="updateUsername"/>
+      <password-input @valueUpdated="updatePassword"/>
+    </div>
+      <p>Already have an account? <a @click="this.$router.push('/');">Login</a></p>
     <big-button-register-signin text="Register" @click="clickRegisterUser()"/>
   </div>
 </template>
@@ -68,14 +70,15 @@ export default {
 </script>
 
 <style scoped>
-#mainLogin {
-  padding-left: 8vw;
+
+h1, h2 {
+  padding-left: 8%;
 }
 
 p {
   position: absolute;
   bottom: 105px;
-  width: 80vw;
+  width: 95%;
   text-align: center;
 }
 
@@ -83,6 +86,14 @@ a {
   font-weight: bold;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.userInput {
+  position: absolute;
+  width: 90%;
+  max-width: 800px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 #posUsernameInput {

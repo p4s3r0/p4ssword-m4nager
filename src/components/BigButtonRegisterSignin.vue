@@ -18,7 +18,9 @@ export default {
 #mainBigButtonRegisterSigning {
   position: absolute;
   bottom: 30px;
-  width: 80vw;
+  width: 80%;
+  margin-left: 50%;
+  transform: translateX(-53%);
   height: 70px;
   background-color: white;
   border-radius: 16px; 

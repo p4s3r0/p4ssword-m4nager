@@ -75,10 +75,10 @@ const toast_options = {
 
 
 
-export const AXIOS_BASE_URL = process.env.VUE_APP_AXIOS_BASE_URL
+export const AXIOS_BASE_URL = "https://api-p4ssword-m4nager.p4s3r0.com/"//process.env.VUE_APP_AXIOS_BASE_URL
 
 let app = createApp(App)
 
 app.use(router).use(VueCryptojs).use(Toast, toast_options).mount('#app');
 
-app.config.globalProperties.APP_VERSION = "@" + "4.0"
+app.config.globalProperties.APP_VERSION = "@" + "4.1"

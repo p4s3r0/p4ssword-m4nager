@@ -1,6 +1,6 @@
 <template>
-    <div id="mainLogin">
-        <div v-if="this.fold_pass_selector == 'Passwords'">
+    <div id="mainAddNewPassword">
+        <div v-if="this.fold_pass_selector == 'Passwords'" id="title">
             <h1>Add new Password.</h1>
             <h2>I'll protect it!</h2>
         </div>
@@ -35,10 +35,9 @@
             <text-input @valueUpdated="updateNote" id="posNoteInput" placeholder="Secret" />
         </div>
 
-        <div class="containerInput" v-else id="posFolderInput">
-            <text-input @valueUpdated="updateFolder" id="posUsernameInput" placeholder="Folder Name" />
+        <div class="containerInput" v-else >
+            <text-input @valueUpdated="updateFolder" placeholder="Folder Name" />
             <selector @valueUpdated="updateColor"/>
-            <big-button-register-signin text="Add Folder" @click="addFolder()"/>
             <star-preferred :selected_init=false @valueUpdated="updateStarred" />
         </div>
 
@@ -189,13 +188,16 @@ beforeMount() {
 </script>
 
 <style scoped>
-#mainLogin {
-    padding-left: 8vw;
+h1 {
+    margin-left: 8%;
 }
 
+h2 {
+    margin-left: 8%;
+}
 .showFoldersOrPasswords {
     margin-left: 50%;
-    transform: translateX(-60%);
+    transform: translateX(-50%);
     display: flex;
     margin-top: 6vh;
     width: 70%;
@@ -214,6 +216,12 @@ text-decoration: underline;
 }
 
 .containerInput {
+    position: absolute;
+    left: 0px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 800px;
     margin-top: 5vh;
 }
 

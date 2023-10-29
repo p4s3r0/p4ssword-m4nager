@@ -16,17 +16,17 @@ export default {
 
 <style scoped>
 #mainBigButtonRegisterSigning {
-  width: 30vw;
-  height: 30px;
+width: 30vw;
   background-color: white;
   border-radius: 16px; 
   cursor: pointer;
+  margin-right: 10px;
 }
 
 p {
   text-align: center;
   color: black;
-  top: 10px;
-  transform: translateY(-50%);
+  line-height: 0.3em;
+  transform: translateY(30%);
 }
 </style>

@@ -1,9 +1,11 @@
 <template>
   <div id="mainLogin">
-    <h1 @click="deleteLocalDb()">Let's sign you in.</h1>
+    <h1>Let's sign you in.</h1>
     <h2>Welcome back. <br>You've been missed!</h2>
-    <text-input id="posUsernameInput" placeholder="Username" @valueUpdated="updateUsername" />
-    <password-input @valueUpdated="updatePassword" />
+    <div class="userInput">
+      <text-input id="posUsernameInput" placeholder="Username" @valueUpdated="updateUsername" />
+      <password-input @valueUpdated="updatePassword" />
+    </div>
     <p>Don't have an account? <a @click="this.$router.push('/register');">Register</a></p>
     <big-button-register-signin text="Sign in" @click="loginUser()"/>
   <p id="Version">{{ this.APP_VERSION }} </p>
@@ -73,14 +75,24 @@ export default {
 </script>
 
 <style scoped>
-#mainLogin {
-  padding-left: 8vw;
+
+h1, h2 {
+  margin-left: 8%;
 }
+
+.userInput {
+  position: absolute;
+  width: 90%;
+  max-width: 800px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 
 p {
   position: absolute;
   bottom: 105px;
-  width: 80vw;
+  width: 95%;
   text-align: center;
 }
 

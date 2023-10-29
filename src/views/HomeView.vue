@@ -189,7 +189,7 @@ methods: {
 }
 #posSearchBar {
     margin-top: 6vh;
-    margin-left: 10vw;
+    margin-left: 10%;
 } 
 
 .showFoldersOrPasswords {
@@ -212,6 +212,11 @@ button {
 
 #posFolders {
     margin-top: 40px;
+    width: 90%;
+    max-width: 1000px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .ripple {

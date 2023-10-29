@@ -30,10 +30,10 @@ export default {
 }
 input {
   font-size: 1em;
-  width: 60vw;
+  width: calc(80vw - 50px);
   height: 70px;
   border-radius: 16px;
-  padding-left: 12vw;
+  padding-left: 50px;
   background-color: #46464650;
   border: solid 0px black;
   color: white;

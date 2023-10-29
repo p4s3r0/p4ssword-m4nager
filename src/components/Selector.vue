@@ -35,14 +35,16 @@ data() {
 <style scoped>
 #mainSelector {
     position: relative;
+    width: 100%;
 }
 
 select {
     font-size: 1em;
-    width: 90%;
+    max-width: 1000px;
+    width: 100%;
     height: 7vh;
     border-radius: 16px;
-    padding-left: 9vw;
+    padding-left: 50px;
     background-color: #46464650;
     border: solid 0px black;
     color: rgba(255, 255, 255, 0.35);
@@ -58,8 +60,8 @@ select:focus {
 
 svg {
     position: absolute;
-    top: 2vh;
-    right: 17.5%;
+    top: 2.6vh;
+    right: 25px;
     transform: rotate(180deg);
     pointer-events: none;
 }

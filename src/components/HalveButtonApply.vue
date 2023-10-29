@@ -15,9 +15,9 @@ export default {
 
 <style scoped>
 #mainBigButtonRegisterSigning {
-  position: absolute;
+  position: relative;
   bottom: 30px;
-  width: 37.5vw;
+  width: 35%;
   height: 70px;
   background-color: white;
   border-radius: 16px; 

@@ -1,9 +1,10 @@
 <template>
-    <div id="mainEditFolder">
+    <div>
       <h1>Edit 2FA</h1>
-      <edit-text-input placeholder="Name" :value="this.fa_name" @valueUpdated="update2FAName"/>
-      <edit-text-input placeholder="Secret" :value="this.fa_secret" @valueUpdated="update2FASecret"/>
-
+      <div id="userInput">
+        <edit-text-input placeholder="Name" :value="this.fa_name" @valueUpdated="update2FAName"/>
+        <edit-text-input placeholder="Secret" :value="this.fa_secret" @valueUpdated="update2FASecret"/>
+      </div>
       <big-button-register-signin text="Apply Edit" @click="edit"/>
     </div>
   </template>
@@ -70,11 +71,17 @@ export default {
 </script>
 
 <style scoped>
-#mainEditFolder {
-  margin-left: 8vw;
-}
-
 h1 {
   margin-bottom: 20vh;
+  margin-left: 8%;
+}
+
+#userInput {
+  width: 80%;
+  left: 10%;
+  right: 10%;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  max-width: 800px;
 }
 </style>

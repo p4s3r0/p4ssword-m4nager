@@ -15,14 +15,14 @@ export default {
 
 <style scoped>
 #mainBigButtonRegisterSigning {
-  position: absolute;
-  right: 10vw;
+  position: relative;
   bottom: 30px;
   width: 37.5vw;
   height: 70px;
   background-color: red;
   border-radius: 16px; 
   cursor: pointer;
+  margin-left: 10px;
 }
 
 p {

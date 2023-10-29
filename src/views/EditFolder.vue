@@ -1,13 +1,17 @@
 <template>
-    <div id="mainEditFolder">
+  <div>
       <h1>Edit Folder</h1>
-      <edit-text-input placeholder="Folder Name" :value="this.folder_name" @valueUpdated="updateFolderName"/>
-      <selector :value="this.folder_color" @valueUpdated="updateFolderColor"/>
-      <star-preferred :selected_init=this.folder_starred @valueUpdated="updateStarred" />
+      <div id="userInput">
+        <edit-text-input placeholder="Folder Name" :value="this.folder_name" @valueUpdated="updateFolderName"/>
+        <selector :value="this.folder_color" @valueUpdated="updateFolderColor"/>
+        <star-preferred :selected_init=this.folder_starred @valueUpdated="updateStarred" />
+      </div>
+      <div id="botButtons">
+        <halve-button-apply @click="edit"/>
+        <halve-button-cancel @click="this.$router.push('/home')"/>
+      </div>
+  </div>
 
-      <halve-button-apply @click="edit"/>
-      <halve-button-cancel @click="this.$router.push('/home')"/>
-    </div>
   </template>
   
 <script>
@@ -81,11 +85,27 @@ export default {
 </script>
 
 <style scoped>
-#mainEditFolder {
-  margin-left: 8vw;
+#userInput {
+  width: 80%;
+  left: 10%;
+  right: 10%;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  max-width: 800px;
 }
 
 h1 {
   margin-bottom: 20vh;
+  margin-left: 8%;
+}
+
+#botButtons {
+  position: absolute;
+  bottom: 10px;
+  width: 90%;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
 }
 </style>

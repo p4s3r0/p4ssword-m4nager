@@ -27,15 +27,15 @@ data() {
 
 <style scoped>
 #mainStarPreferred {
-    position: relative;
+    position: absolute;
+    left: 50%;
 }
 
 svg {
     height: 35px;
     width: 35px;
     transform: translateX(-50%);
-    margin-left: calc(50% - 20px);
-    margin-top: 5px;
+    margin-top: 25px;
 }
 
 .selected {

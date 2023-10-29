@@ -4,18 +4,19 @@
     <div id="delEdit">
       <small-button-delete text="Delete" @click=deleteFolder() />
       <small-button-edit text="Edit" @click=editFolder() />
-
     </div>
 
-    <password v-for="p in this.passwords"
-                                          :key=p.key
-                                          :name=p.name
-                                          :enc_password=p.password
-                                          :username=p.username
-                                          :id=p.id 
-                                          :folder=p.folder
-                                          :note=p.note 
-                                          :starred=p.starred />
+    <div id="posPasswords">
+      <password v-for="p in this.passwords"
+                                            :key=p.key
+                                            :name=p.name
+                                            :enc_password=p.password
+                                            :username=p.username
+                                            :id=p.id 
+                                            :folder=p.folder
+                                            :note=p.note 
+                                            :starred=p.starred />
+      </div>
 
     <home-button @click="this.$router.push('/home')" />
     
@@ -112,13 +113,21 @@ export default {
 
 #delEdit {
   display: flex;
-  margin-left: 40%;
-  margin-bottom: 5vh;
-  transform: translate(-40%);
+  margin-left: 50%;
+  max-width: 800px;
+  transform: translate(-50%);
 }
 
 h1 {
-  margin-left: 8vw;
-  margin-bottom: 3vh;
+  margin-left: 8%;
+}
+
+#posPasswords {
+    margin-top: 40px;
+    width: 90%;
+    max-width: 1000px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 </style>

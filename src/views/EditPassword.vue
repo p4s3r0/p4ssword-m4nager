@@ -1,15 +1,18 @@
 <template>
     <div id="mainEditPassword">
       <h1>Edit Password</h1>
-      <edit-text-input class="smallSpacing" placeholder="Site Name" :value="this.curr_password_name" @valueUpdated="updatePasswordName"/>
-      <edit-text-input class="smallSpacing" placeholder="Username" :value="this.curr_password_username" @valueUpdated="updatePasswordUsername"/>
-      <edit-text-input placeholder="Password" :value="this.curr_password_password" @valueUpdated="updatePasswordPassword"/>
-      <selector-folder :init_value=this.curr_password_folder class="smallSpacing" :value="this.curr_password_folder" @valueUpdated="updatePasswordFolder"/>
-      <edit-text-input placeholder="Note" :value="this.curr_password_note" @valueUpdated="updatePasswordNote"/>
-      <star-preferred :selected_init=this.curr_password_starred @valueUpdated="updateStarred" />
-
-      <halve-button-apply @click="edit"/>
-      <halve-button-cancel @click="this.$router.push('/home');" />
+      <div id="userInput">
+        <edit-text-input class="smallSpacing" placeholder="Site Name" :value="this.curr_password_name" @valueUpdated="updatePasswordName"/>
+        <edit-text-input class="smallSpacing" placeholder="Username" :value="this.curr_password_username" @valueUpdated="updatePasswordUsername"/>
+        <edit-text-input placeholder="Password" :value="this.curr_password_password" @valueUpdated="updatePasswordPassword"/>
+        <selector-folder :init_value=this.curr_password_folder class="smallSpacing" :value="this.curr_password_folder" @valueUpdated="updatePasswordFolder"/>
+        <edit-text-input placeholder="Note" :value="this.curr_password_note" @valueUpdated="updatePasswordNote"/>
+        <star-preferred :selected_init=this.curr_password_starred @valueUpdated="updateStarred" />
+      </div>
+      <div id="botButtons">
+        <halve-button-apply @click="edit"/>
+        <halve-button-cancel @click="this.$router.push('/home');" />
+      </div>
     </div>
   </template>
   
@@ -100,15 +103,29 @@ export default {
 </script>
 
 <style scoped>
-#mainEditPassword {
-  margin-left: 8vw;
+#userInput {
+  width: 80%;
+  left: 10%;
+  right: 10%;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  max-width: 800px;
 }
 
 h1 {
   margin-bottom: 10vh;
+  margin-left: 8%;
 }
 
-.smallSpacing {
-  margin-bottom: 5px;
+
+
+#botButtons {
+  position: absolute;
+  bottom: 10px;
+  width: 90%;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
 }
 </style>

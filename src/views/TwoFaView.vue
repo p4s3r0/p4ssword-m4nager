@@ -90,17 +90,23 @@ export default {
 #delEdit {
   display: flex;
   margin-left: 50%;
+  max-width: 800px;
   margin-bottom: 5vh;
   transform: translate(-50%);
 }
 
 h1 {
-  margin-left: 8vw;
+  margin-left: 8%;
   margin-bottom: 3vh;
 }
 
 #textShower {
-  margin-left: 10%;
+  margin-top: 10px;
+  width: 90%;
+  max-width: 800px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 svg {
@@ -118,5 +124,8 @@ svg {
 .notSelected {
     fill: #ffffff;
 }
+
+
+
 
 </style>
