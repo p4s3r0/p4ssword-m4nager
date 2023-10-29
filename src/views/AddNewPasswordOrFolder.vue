@@ -23,7 +23,7 @@
 
         <div class="containerInput" v-if="this.fold_pass_selector == 'Passwords'">
             <text-input @valueUpdated="updateName" id="posNameInput" placeholder="Name" />
-            <text-input @valueUpdated="updateUsername" placeholder="Username" style="margin-bottom: 10px;" />
+            <text-input @valueUpdated="updateUsername" placeholder="Username" style="margin-bottom: 13px;" />
             <password-input @valueUpdated="updatePassword" />
             <selector-folder @valueUpdated="updateFolder" />
             <text-input @valueUpdated="updateNote" id="posNoteInput" placeholder="Note" />
