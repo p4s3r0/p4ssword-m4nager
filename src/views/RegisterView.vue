@@ -101,6 +101,6 @@ a {
 }
 
 #posEmailInput {
-  margin-bottom: 1vh;
+  margin-bottom: 13px;
 }
 </style>

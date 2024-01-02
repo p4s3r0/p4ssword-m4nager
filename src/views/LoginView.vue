@@ -104,7 +104,7 @@ a {
 
 #posUsernameInput {
   margin-top: 10vh;
-  margin-bottom: 1vh;
+  margin-bottom: 13px;
 }
 
 #Version {
