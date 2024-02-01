@@ -6,47 +6,48 @@
         <div class="showFoldersOrPasswords">
             <folders-password-filter class="ripple" text="Folders" @click="activateFoldersButton" :status="this.fold_pass_selector == 'Folders' ? 'active' : 'notActive'"/>
             <folders-password-filter class="ripple" text="Passwords" @click="activatePasswordsButton" :status="this.fold_pass_selector == 'Passwords' ? 'active' : 'notActive'"/>
-            <two-factor-button class="ripple" @click="activateTwoFAButton" :status="this.fold_pass_selector == 'twoFA' ? 'active' : 'notActive'"/>
+            <two-factor-button class="ripple" @click="activateTwoFAButton" :status="this.fold_pass_selector == 'twoFA' ? 'active' : 'notActive'"/>            
         </div>
-
         
-        <div v-if="this.fold_pass_selector == 'Folders'" id="posFolders">
-                <folder v-for="f in this.folders" @click="openFolder(f.id, f.folder, f.color, f.starred)"
-                                                :key=f.key 
-                                                :name=f.folder
-                                                :color=f.color
-                                                :id=f.id 
-                                                :starred=f.starred 
-                                                :pass_amount="f.pass_amount "/>
+        
+        <div id="wrapperl">
+            <div v-if="this.fold_pass_selector == 'Folders'" id="posFolders">
+                    <folder v-for="f in this.folders" @click="openFolder(f.id, f.folder, f.color, f.starred)"
+                                                    :key=f.key 
+                                                    :name=f.folder
+                                                    :color=f.color
+                                                    :id=f.id 
+                                                    :starred=f.starred 
+                                                    :pass_amount="f.pass_amount "/>
+            </div>
+
+            <div v-else-if="this.fold_pass_selector=='Passwords'" id="posFolders">
+                <password v-for="p in this.passwords"
+                                                    :key=p.key 
+                                                    :name=p.name
+                                                    :enc_password=p.password
+                                                    :username=p.username 
+                                                    :id=p.id 
+                                                    :folder=p.folder 
+                                                    :note=p.note 
+                                                    :starred=p.starred />
+            </div>
+
+
+            <div v-else id="posFolders">
+                <two-f-a v-for="t in this.twoFactors"    
+                                                :key="t.key"
+                                                :name="t.name"
+                                                :secret="t.secret" 
+                                                :id="t.id" />
+            </div>
         </div>
-
-        <div v-else-if="this.fold_pass_selector=='Passwords'" id="posFolders">
-            <password v-for="p in this.passwords"
-                                                :key=p.key 
-                                                :name=p.name
-                                                :enc_password=p.password
-                                                :username=p.username 
-                                                :id=p.id 
-                                                :folder=p.folder 
-                                                :note=p.note 
-                                                :starred=p.starred />
-        </div>
-
-
-        <div v-else id="posFolders">
-            <two-f-a v-for="t in this.twoFactors"    
-                                            :key="t.key"
-                                            :name="t.name"
-                                            :secret="t.secret" 
-                                            :id="t.id" />
-        </div>
-    <add-button class="ripple" @click="addNew" />
-    <outdated-modal v-if="this.showOutdatedWarning" :new_app_version="this.new_app_version" @closeModal="this.showOutdatedWarning = false"/>
-
-    </div>
-
-
     
+    <!-- <add-button class="ripple" @click="addNew" /> -->
+    <add-button class="ripple" @click="addNew" />
+
+    <outdated-modal v-if="this.showOutdatedWarning" :new_app_version="this.new_app_version" @closeModal="this.showOutdatedWarning = false"/>
+    </div>   
 </template>
   
 <script>
@@ -181,30 +182,37 @@ methods: {
 
 <style scoped>
 #mainLogin {
-    margin-bottom: 15vh;
+}
+#wrapperl {
+    max-width: 700px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
 }
 #posHello {
-    margin-top: 5vh;
+    position: relative;
+    margin-top: -10px;
     margin-left: 5%;
 }
 #posSearchBar {
     margin-top: 6vh;
-    margin-left: 10%;
 } 
+
+
 
 .showFoldersOrPasswords {
     margin-left: 50%;
     transform: translateX(-50%);
     display: flex;
-    margin-top: 6vh;
-    width: 70%;
+    width: 90%;
+    max-width: 800px;
 }
 
 button {
     width: 32vw;
     height: 4vh;
     margin-left: 5vw;
-    background-color: #46464650;
+    background-color: #D9D9D90b;
     border-radius: 5px;
     border: none;
     color: white;
@@ -214,9 +222,6 @@ button {
     margin-top: 40px;
     width: 90%;
     max-width: 1000px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 .ripple {

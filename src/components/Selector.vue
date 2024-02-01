@@ -45,7 +45,7 @@ select {
     height: 7vh;
     border-radius: 16px;
     padding-left: 50px;
-    background-color: #46464650;
+    background-color: #D9D9D90b;
     border: solid 0px black;
     color: rgba(255, 255, 255, 0.35);
     -webkit-appearance: none;

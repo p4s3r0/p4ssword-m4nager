@@ -72,7 +72,7 @@ data() {
     padding-top: 15px;
     padding-bottom: 5px;
     border-radius: 16px;
-    background-color: #46464650;
+    background-color: #D9D9D90b;
     color: white;
     margin-bottom: 5px;
     overflow-wrap: break-word;

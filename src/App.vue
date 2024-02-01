@@ -17,7 +17,7 @@ export default {
 
 <style>
 html {
-  background-color: #131517;
+  background-color: #0E0E0E;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

@@ -1,12 +1,14 @@
 <template>
-  <div id="mainLogin">
+  <div id="containerLoginView">
     <h1>Let's sign you in.</h1>
     <h2>Welcome back. <br>You've been missed!</h2>
     <div class="userInput">
       <text-input id="posUsernameInput" placeholder="Username" @valueUpdated="updateUsername" />
       <password-input @valueUpdated="updatePassword" />
     </div>
-    <p>Don't have an account? <a @click="this.$router.push('/register');">Register</a></p>
+    <div id="centercenter">
+      <p>Don't have an account? <a @click="this.$router.push('/register');">Register</a></p>
+    </div>
     <big-button-register-signin text="Sign in" @click="loginUser()"/>
   <p id="Version">{{ this.APP_VERSION }} </p>
 
@@ -89,17 +91,19 @@ h1, h2 {
 }
 
 
-p {
-  position: absolute;
-  bottom: 105px;
-  width: 95%;
-  text-align: center;
-}
-
 a {
   font-weight: bold;
   text-decoration: underline;
   cursor: pointer;
+}
+
+#centercenter {
+  position: absolute;
+  bottom: 105px;
+  width: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
 }
 
 #posUsernameInput {

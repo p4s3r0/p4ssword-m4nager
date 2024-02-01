@@ -20,11 +20,12 @@ export default {
   bottom: 30px;
   width: 80%;
   margin-left: 50%;
-  transform: translateX(-53%);
+  transform: translateX(-54%);
   height: 70px;
   background-color: white;
   border-radius: 16px; 
   cursor: pointer;
+  max-width: 300px;
 }
 
 p {

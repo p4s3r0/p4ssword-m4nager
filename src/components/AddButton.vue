@@ -1,10 +1,8 @@
 <template>
     <div class="ripple" id="mainAddButton">
-        <svg width="18" height="18" viewBox="0 0 10 10" fill="none">
-        <path d="M4.79545 10.0057V0.630681H6.38636V10.0057H4.79545ZM0.903409 6.11364V4.52273H10.2784V6.11364H0.903409Z" fill="black"/>
-</svg>
-
+      <p>Add New</p>
     </div>
+
 </template>
 
 <script>
@@ -17,21 +15,22 @@ components: {
 
 <style scoped>
 #mainAddButton {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
+    margin-top: 10px;
+    border-radius: 10px;
+    margin-left: 50%;
+    margin-bottom: 30px;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 300px;
     height: 60px;
-    border-radius: 16px;
-    background-color: white;
+    background-color: #D9D9D90b;
     cursor: pointer;
-    box-shadow: rgb(38, 57, 77) 0px 20px 20px -10px;
-    border: 1px black solid;
+    color: white;
 }
 
-svg {
+p {
     position: absolute;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -130%);
     left: 50%;
     top: 50%;
 }

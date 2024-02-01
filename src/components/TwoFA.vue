@@ -1,15 +1,25 @@
 <template>
-    <div id="container">
+    <div id="container" class="ripple2">
+        <svg id="icon" width="25" height="25" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.4316 9.16096L14.9138 8.6788C16.5115 7.08106 16.5115 4.49061 14.9138 2.89286C13.3161 1.29512 10.7256 1.29512 9.12787 2.89287L7.19923 4.82151C5.60149 6.41925 5.60149 9.0097 7.19923 10.6074C7.49684 10.9051 7.8289 11.1472 8.18256 11.334" stroke="yellow" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M3.37514 8.64568L2.89299 9.12784C1.29524 10.7256 1.29524 13.316 2.89299 14.9138C4.49073 16.5115 7.08118 16.5115 8.67892 14.9138L10.6076 12.9851C12.2053 11.3874 12.2053 8.79694 10.6076 7.1992C10.195 6.7866 9.71618 6.48055 9.20537 6.28105" stroke="yellow" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+
         <p id="name"> {{ this.name }}  </p>
         <div id="back" @click=open2FAView(this.name)></div>
 
             <div id="posIcons">
-                    <svg class="ripple" @click="copyOtp()" id="lockIcon" width="30" height="30" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_20_65)">
-                        <path d="M5.75 9.58333V19.1667H18.2083V9.58333H5.75ZM17.25 7.66666H19.1667C19.4208 7.66666 19.6646 7.76763 19.8443 7.94735C20.024 8.12707 20.125 8.37083 20.125 8.62499V20.125C20.125 20.3792 20.024 20.6229 19.8443 20.8026C19.6646 20.9824 19.4208 21.0833 19.1667 21.0833H3.83333C3.57917 21.0833 3.33541 20.9824 3.15569 20.8026C2.97597 20.6229 2.875 20.3792 2.875 20.125V8.62499C2.875 8.37083 2.97597 8.12707 3.15569 7.94735C3.33541 7.76763 3.57917 7.66666 3.83333 7.66666H5.75V6.70833C5.75 5.18333 6.3558 3.7208 7.43414 2.64246C8.51247 1.56413 9.97501 0.958328 11.5 0.958328C13.025 0.958328 14.4875 1.56413 15.5659 2.64246C16.6442 3.7208 17.25 5.18333 17.25 6.70833V7.66666ZM15.3333 7.66666V6.70833C15.3333 5.69166 14.9295 4.71664 14.2106 3.99775C13.4917 3.27886 12.5167 2.87499 11.5 2.87499C10.4833 2.87499 9.50831 3.27886 8.78942 3.99775C8.07053 4.71664 7.66667 5.69166 7.66667 6.70833V7.66666H15.3333ZM6.70833 10.5417H8.625V12.4583H6.70833V10.5417ZM6.70833 13.4167H8.625V15.3333H6.70833V13.4167ZM6.70833 16.2917H8.625V18.2083H6.70833V16.2917Z" fill="black" />
-                        </g>
-                    </svg>
+                <svg class="ripple" @click="copyOtp()" id="lockIcon" width="25" height="25" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1" y="1" width="16" height="16" rx="4" stroke="white" stroke-width="1" stroke-linejoin="round"/>
+                    <path d="M10.6 8.59998C10.6 7.49541 11.4954 6.59998 12.6 6.59998H17V10.6H12.6C11.4954 10.6 10.6 9.70455 10.6 8.59998V8.59998Z" stroke="white" stroke-width="1" stroke-linejoin="round"/>
+                    <circle cx="12.75" cy="8.65002" r="0.75" fill="white"/>
+                    <path d="M4.79999 4.69995H7.79999" stroke="white" stroke-width="1" stroke-linecap="round"/>
+                </svg>
             </div>
+
+
+
+            
     </div>
 </template>
 
@@ -77,21 +87,20 @@ watch: {
 <style scoped>
 #container {
     position: relative;
-    width: 90%;
-    margin-left: 5%;
-    height: 70px;
-    margin-bottom: 10px;
-    background-color: white;
-    border-radius: 16px; 
+    border-top: #ffffff10 1px solid;
+    border-bottom: #ffffff10 1px solid;
+    width: 110%;
+    height: 90px;
     display: flex;
-    color: black;
-    font-size: 1.2em;
     cursor: pointer;
+    color: white;
+    border-radius: 10px;
 }
 
 #name {
     position: absolute;
-    left: 50%;
+    left: 110px;
+    top: 15px;
     transform: translateX(-50%);
     font-size: 1.2em;
 }
@@ -99,10 +108,16 @@ watch: {
 #posIcons {
     position: absolute;
     right: 10px;
-    top: 35px;
+    top: 45px;
 }
 #lockIcon {
-    transform: translateY(-53%);
+    transform: translateY(-43%);
+}
+
+#icon {
+    position: absolute;
+    top: 45px;
+    left: 7px;
 }
 
 #back {
@@ -137,10 +152,23 @@ svg {
   transition: background 0.5s;
 }
 .ripple:hover {
-  background: #ffffff radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
+  background: #ffffff90 radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
 }
 .ripple:active {
-  background-color: #ffffff;
+  background-color: #ffffff90;
+  background-size: 100%;
+  transition: background 0s;
+}
+
+.ripple2 {
+  background-position: center;
+  transition: background 1s;
+}
+.ripple2:hover {
+  background: #1E1E1E radial-gradient(circle, transparent 1%, #545454a0 1%) center/15000%;
+}
+.ripple2:active {
+  background-color: #1E1E1E;
   background-size: 100%;
   transition: background 0s;
 }

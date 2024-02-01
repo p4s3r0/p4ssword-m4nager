@@ -200,7 +200,9 @@ h2 {
     transform: translateX(-50%);
     display: flex;
     margin-top: 6vh;
-    width: 70%;
+    max-width: 800px;
+    width: 90%;
+
 }
 
 p {
