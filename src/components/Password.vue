@@ -83,8 +83,8 @@ methods: {
 
 <style scoped>
 #mainPassword {
-    border-top: #ffffff10 1px solid;
-    border-bottom: #ffffff10 1px solid;
+    border-top: #ffffff20 1px solid;
+    border-bottom: #ffffff20 1px solid;
     position: relative;
     width: 110%;
     height: 70px;

@@ -87,8 +87,8 @@ watch: {
 <style scoped>
 #container {
     position: relative;
-    border-top: #ffffff10 1px solid;
-    border-bottom: #ffffff10 1px solid;
+    border-top: #ffffff20 1px solid;
+    border-bottom: #ffffff20 1px solid;
     width: 110%;
     height: 90px;
     display: flex;

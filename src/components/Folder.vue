@@ -18,7 +18,7 @@ props: ["name", "color", "starred", "id", "pass_amount"],
 <style scoped>
 #mainFolder {
     position: relative;
-    border-top: #ffffff10 1px solid;
+    border-top: #ffffff20 1px solid;
     width: 110%;
     height: 90px;
     display: flex;
