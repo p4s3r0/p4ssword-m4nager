@@ -162,31 +162,63 @@ svg {
     fill: #fbff0010; 
 }
 
-.ripple {
-  background-position: center;
-  transition: background 0.5s;
-}
-.ripple:hover {
-  background: #ffffff90 radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
-}
-.ripple:active {
-  background-color: #ffffff90;
-  background-size: 100%;
-  transition: background 0s;
+@media (max-width : 700px) {
+    .ripple {
+        background-position: center;
+        transition: background 0.5s;
+    }
+    .ripple:hover {
+        background: #0E0E0E radial-gradient(circle, transparent 1%, #0E0E0E 1%) center/15000%;
+    }
+    .ripple:active {
+        background-color: white;
+        background-size: 100%;
+        transition: background 1s;
+    }
+
+    .ripple2 {
+        background-position: center;
+        transition: background 1s;
+    }
+    .ripple2:active {
+        background-color: #1E1E1E;
+        background-size: 100%;
+        transition: background 0s;
+    }
 }
 
-.ripple2 {
-  background-position: center;
-  transition: background 1s;
+
+
+@media (min-width : 700px) {
+    .ripple {
+        background-position: center;
+        transition: background 0.5s;
+    }
+    .ripple:hover {
+        background: #ffffff90 radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
+    }
+    .ripple:active {
+        background-color: #ffffff90;
+        background-size: 100%;
+        transition: background 0s;
+    }
+
+    .ripple2 {
+        background-position: center;
+        transition: background 1s;
+    }
+    .ripple2:hover {
+    }
+    .ripple2:active {
+        background-color: #1E1E1E;
+        background-size: 100%;
+        transition: background 0s;
+    }
 }
-.ripple2:hover {
-  background: #1E1E1E radial-gradient(circle, transparent 1%, #545454a0 1%) center/15000%;
-}
-.ripple2:active {
-  background-color: #1E1E1E;
-  background-size: 100%;
-  transition: background 0s;
-}
+
+
+
+
 
 </style>
   

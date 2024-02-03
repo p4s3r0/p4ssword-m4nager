@@ -1,10 +1,14 @@
 <template>
   <div id="mainLogin">
     <h1>{{ this.folder }}</h1>
-    <div id="delEdit">
-      <small-button-delete text="Delete" @click=deleteFolder() />
-      <small-button-edit text="Edit" @click=editFolder() />
+    <div id="posDelEdit">
+      <div id="delEdit">
+        <small-button-delete text="Delete" @click=deleteFolder() />
+        <small-button-edit text="Edit" @click=editFolder() />
+      </div>
     </div>
+
+    <div id="wrapperl">
 
     <div id="posPasswords">
       <password v-for="p in this.passwords"
@@ -17,6 +21,7 @@
                                             :note=p.note 
                                             :starred=p.starred />
       </div>
+    </div>
 
     <home-button @click="this.$router.push('/home')" />
     
@@ -102,6 +107,13 @@ export default {
 </script>
 
 <style scoped>
+#wrapperl {
+    max-width: 700px;
+    margin-left: 45%;
+    transform: translateX(-50%);
+    width: 100%;
+}
+
 #posNameInput {
   margin-top: 10vh;
   margin-bottom: 1vh;
@@ -113,9 +125,17 @@ export default {
 
 #delEdit {
   display: flex;
-  margin-left: 50%;
-  max-width: 800px;
-  transform: translate(-50%);
+  justify-content: center;
+  align-items: center;
+  max-width: 700px;
+  width: 100%;
+  transform: translateX(-50%);
+  margin-left: 48%;
+}
+
+#posDelEdit {
+  position: relative;
+
 }
 
 h1 {

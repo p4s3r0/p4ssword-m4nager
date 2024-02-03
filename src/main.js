@@ -81,4 +81,4 @@ let app = createApp(App)
 
 app.use(router).use(VueCryptojs).use(Toast, toast_options).mount('#app');
 
-app.config.globalProperties.APP_VERSION = "@" + "4.3"
+app.config.globalProperties.APP_VERSION = "@" + "4.4"
