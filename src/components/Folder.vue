@@ -19,12 +19,15 @@ props: ["name", "color", "starred", "id", "pass_amount"],
 #mainFolder {
     position: relative;
     border-top: #ffffff20 1px solid;
+    border-bottom: #ffffff20 1px solid;
     width: 110%;
     height: 90px;
     display: flex;
     cursor: pointer;
     color: white;
     border-radius: 10px;
+    margin-bottom: -1px;
+
 }
 
 

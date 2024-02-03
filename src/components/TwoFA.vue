@@ -95,6 +95,7 @@ watch: {
     cursor: pointer;
     color: white;
     border-radius: 10px;
+    margin-bottom: -1px;
 }
 
 #name {
