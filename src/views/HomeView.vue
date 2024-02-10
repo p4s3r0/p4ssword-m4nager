@@ -6,10 +6,10 @@
         <div class="showFoldersOrPasswords">
             <folders-password-filter class="ripple" text="Folders" @click="activateFoldersButton" :status="this.fold_pass_selector == 'Folders' ? 'active' : 'notActive'"/>
             <folders-password-filter class="ripple" text="Passwords" @click="activatePasswordsButton" :status="this.fold_pass_selector == 'Passwords' ? 'active' : 'notActive'"/>
-            <two-factor-button class="ripple" @click="activateTwoFAButton" :status="this.fold_pass_selector == 'twoFA' ? 'active' : 'notActive'"/>            
+            <folders-password-filter class="ripple" text="2FA" @click="activateTwoFAButton" :status="this.fold_pass_selector == 'twoFA' ? 'active' : 'notActive'"/>
         </div>
         
-        
+
         <div id="wrapperl">
             <div v-if="this.fold_pass_selector == 'Folders'" id="posFolders">
                     <folder v-for="f in this.folders" @click="openFolder(f.id, f.folder, f.color, f.starred)"
@@ -43,7 +43,6 @@
             </div>
         </div>
     
-    <!-- <add-button class="ripple" @click="addNew" /> -->
     <add-button class="ripple" @click="addNew" />
 
     <outdated-modal v-if="this.showOutdatedWarning" :new_app_version="this.new_app_version" @closeModal="this.showOutdatedWarning = false"/>
@@ -57,7 +56,6 @@ import AddButton from '@/components/AddButton.vue';
 import Folder from '@/components/Folder.vue';
 import LockButton from '@/components/LockButton.vue';
 import Password from '@/components/Password.vue';
-import TwoFactorButton from '@/components/TwoFactorButton.vue';
 import TwoFA from '@/components/TwoFA.vue';
 
 import OutdatedModal from '@/modals/OutdatedModal.vue'
@@ -81,7 +79,6 @@ components: {
     Folder,
     LockButton,
     Password,
-    TwoFactorButton,
     TwoFA,
 },
 setup() {
@@ -229,8 +226,8 @@ button {
   transition: background 0.3s;
 }
 .ripple:hover {
-  background: #ffffff radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
-  color: black;
+  /*background: #ffffff radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
+  color: black;*/
 }
 .ripple:active {
   background-color: #ffffff;

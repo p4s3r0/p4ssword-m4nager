@@ -194,6 +194,7 @@ svg {
         transition: background 1s;
     }
     .ripple2:hover {
+        background: #1E1E1E radial-gradient(circle, transparent 1%, #545454a0 1%) center/15000%;
     }
     .ripple2:active {
         background-color: #1E1E1E;

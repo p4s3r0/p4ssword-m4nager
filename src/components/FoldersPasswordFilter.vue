@@ -25,10 +25,15 @@ export default {
     cursor: pointer;
 }
 
+
 .active {
-    background-color: white;
+    background: white;
     border: solid 1px white;
     color: black
+}
+
+.notActive:hover {
+    background: #2E2E2E radial-gradient(circle, transparent 1%, #545454a0 1%) center/15000%;
 }
 
 .notActive {
