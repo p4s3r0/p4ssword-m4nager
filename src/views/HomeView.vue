@@ -148,7 +148,6 @@ methods: {
             this.new_app_version = version.data
         } else {
             this.showOutdatedWarning = false;
-            console.log("App is on Current Version")
         }
     })
 
