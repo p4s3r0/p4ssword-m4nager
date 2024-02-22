@@ -67,7 +67,6 @@ methods: {
     async plscopy() {
         const val = await this.copyOtp()
         navigator.clipboard.writeText(val);
-        console.log("sd")
     },
 }, beforeMount() {
     getCurrentUser().then( (user) => {

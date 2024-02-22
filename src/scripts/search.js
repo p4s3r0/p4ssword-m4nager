@@ -60,11 +60,13 @@ export async function rankPasswordsBySearch(search) {
     }
 
     ranking.sort((a,b) => b.score - a.score); 
+    let ret = [];
     for (let i = 0; i < ranking.length; i++) {
-        ranking[i] = ranking[i].data;
+        ret.push(ranking[i].data);
+        ret[i]["id"] = ranking[i].data.idx
     }
 
-    return ranking;  
+    return ret;  
 }
 
 
