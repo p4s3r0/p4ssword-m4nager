@@ -5,7 +5,7 @@ module.exports = defineConfig({
     manifestOptions: {
       "name": "p4ssword-m4nager",
       "short_name": "P4M",
-      "theme_color": "#4d55ba",
+      "theme_color": "#0E0E0E",
       "icons": [
         {
           "src": "./icons/android-chrome-192x192.png",
