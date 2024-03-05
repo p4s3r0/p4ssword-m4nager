@@ -75,7 +75,9 @@ const toast_options = {
 
 
 
-export const AXIOS_BASE_URL = "https://api-p4ssword-m4nager.p4s3r0.com/"//process.env.VUE_APP_AXIOS_BASE_URL
+export const AXIOS_BASE_URL="api-p4ssword-m4nager.p4s3r0.it"
+
+console.log(AXIOS_BASE_URL);
 
 let app = createApp(App)
 
