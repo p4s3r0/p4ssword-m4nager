@@ -10,8 +10,6 @@
       <p>Don't have an account? <a @click="this.$router.push('/register');">Register</a></p>
     </div>
     <big-button-register-signin text="Sign in" @click="loginUser()"/>
-  <p id="Version">{{ this.APP_VERSION }} </p>
-
   </div>
 </template>
 

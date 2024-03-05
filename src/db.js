@@ -320,8 +320,3 @@ export async function DB_getOtpCode(id) {
 
     return res;
 }
-
-export async function DB_getAppVersion() {    
-    const res = await axios.get(AXIOS_BASE_URL + "get_app_version")
-    return res;
-}
