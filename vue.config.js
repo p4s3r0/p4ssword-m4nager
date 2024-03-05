@@ -4,7 +4,7 @@ module.exports = defineConfig({
   pwa: {
     manifestOptions: {
       "name": "p4ssword-m4nager",
-      "short_name": "p4s-m4n",
+      "short_name": "P4M",
       "theme_color": "#4d55ba",
       "icons": [
         {
