@@ -6,6 +6,9 @@ module.exports = defineConfig({
       "name": "p4ssword-m4nager",
       "short_name": "P4M",
       "theme_color": "#0E0E0E",
+      "msTileColor": '#0E0E0E',
+      "appleMobileWebAppCapable": 'yes',
+      "appleMobileWebAppStatusBarStyle": 'black',
       "icons": [
         {
           "src": "./icons/android-chrome-192x192.png",
@@ -35,8 +38,5 @@ module.exports = defineConfig({
       "background_color": "#3e3e3e",
       "description": "A simple Password Manager"
     },
-    msTileColor: '#0E0E0E',
-    appleMobileWebAppCapable: 'yes',
-    appleMobileWebAppStatusBarStyle: 'black',
   }
 })
