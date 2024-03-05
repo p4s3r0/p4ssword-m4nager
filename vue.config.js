@@ -39,9 +39,5 @@ module.exports = defineConfig({
       "background_color": "#3e3e3e",
       "description": "A simple Password Manager"
     },
-    workboxPluginMode: 'InjectManifest',
-    workboxOptions: {
-      swSrc: 'dev/sw.js',
-    }
   }
 })
