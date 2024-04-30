@@ -56,7 +56,7 @@ methods: {
             return;
         }
         navigator.clipboard.writeText(otp_code.data);
-        this.toast.info("Copied to Clipboard!", toasts_config_info);
+        this.toast.info("Copied to Clipboard! [" + otp_code.data + "]", toasts_config_info);
     },
     open2FAView() {
         store.temp.curr_2fa_name = this.name;

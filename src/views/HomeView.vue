@@ -11,14 +11,17 @@
         
 
         <div id="wrapperl">
+            <div class="loader" v-if="this.loading">
+
+            </div>
             <div v-if="this.fold_pass_selector == 'Folders'" id="posFolders">
-                    <folder v-for="f in this.folders" @click="openFolder(f.id, f.folder, f.color, f.starred)"
-                                                    :key=f.key 
-                                                    :name=f.folder
-                                                    :color=f.color
-                                                    :id=f.id 
-                                                    :starred=f.starred 
-                                                    :pass_amount="f.pass_amount "/>
+                        <folder v-for="f in this.folders" @click="openFolder(f.id, f.folder, f.color, f.starred)"
+                                                        :key=f.key 
+                                                        :name=f.folder
+                                                        :color=f.color
+                                                        :id=f.id 
+                                                        :starred=f.starred 
+                                                        :pass_amount="f.pass_amount "/>
             </div>
 
             <div v-else-if="this.fold_pass_selector=='Passwords'" id="posFolders">
@@ -89,7 +92,8 @@ data() {
         folders: [],
         passwords: [],
         twoFactors: [],
-        new_app_version: ""
+        new_app_version: "",
+        loading: true,
     }
 },
 methods: {
@@ -147,6 +151,7 @@ methods: {
                 //count is correct of the passwords inside the folder
                 DB_getAllFolders(this.passwords).then( (res_fold) => {
                     this.folders = rankFolderAlphabetically(res_fold);
+                    this.loading = false;
                 });
             });
             DB_getAll2FA().then( (res) => {
@@ -219,5 +224,37 @@ button {
   background-color: #ffffff;
   background-size: 100%;
   transition: background 0.5s;
+}
+
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease-out;
+}
+
+
+/* HTML: <div class="loader"></div> */
+.loader {
+    margin-left: 50%;
+    margin-top: 100px;
+    transform: translateX(-50%);
+    width: 20%;
+    aspect-ratio: 1;
+    --_g: no-repeat radial-gradient(farthest-side,#fff 90%,#fff0);
+    background: var(--_g), var(--_g), var(--_g), var(--_g);
+    background-size: 40% 40%;
+    animation: l46 1s infinite;
+}
+@keyframes l46 {
+  0%  {background-position: 0 0      ,100% 0,100% 100%,0 100%}
+  40%,
+  50% {background-position: 100% 100%,100% 0,0    0   ,0 100%}
+  90%,
+  100%{background-position: 100% 100%,0 100%,0    0   ,100% 0}
 }
 </style>

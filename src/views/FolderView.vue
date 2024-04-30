@@ -130,7 +130,7 @@ export default {
   max-width: 700px;
   width: 100%;
   transform: translateX(-50%);
-  margin-left: 48%;
+  margin-left: 50%;
 }
 
 #posDelEdit {
@@ -149,5 +149,11 @@ h1 {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+}
+
+@media (min-width : 700px) {
+  #wrapperl {
+    margin-left: 48.5%;
+}
 }
 </style>
