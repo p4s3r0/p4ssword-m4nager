@@ -1,4 +1,5 @@
 <template>
+    <div>
     <div id="mainAddNewPassword">
         <div v-if="this.fold_pass_selector == 'Passwords'" id="title">
             <h1>Add new Password.</h1>
@@ -22,27 +23,32 @@
         </div>
 
         <div class="containerInput" v-if="this.fold_pass_selector == 'Passwords'">
+            <button id="genPasswordButton" @click="this.showGeneratePasswordModal=true">Generate Secure Password</button>
             <text-input @valueUpdated="updateName" id="posNameInput" placeholder="Name" />
             <text-input @valueUpdated="updateUsername" placeholder="Username" style="margin-bottom: 13px;" />
             <password-input @valueUpdated="updatePassword" />
             <selector-folder @valueUpdated="updateFolder" />
             <text-input @valueUpdated="updateNote" id="posNoteInput" placeholder="Note" />
             <star-preferred :selected_init=false @valueUpdated="updateStarred" />
+            <button class="AddButton" @click="add()">Add</button>
         </div>
 
         <div class="containerInput" v-else-if="this.fold_pass_selector == 'TwoFA'">
             <text-input @valueUpdated="updateName" id="posNameInput" placeholder="Name" />
             <text-input @valueUpdated="updateNote" id="posNoteInput" placeholder="Secret" />
+            <star-preferred :selected_init=false @valueUpdated="updateStarred" />
+            <button class="AddButton" @click="add()">Add</button>
         </div>
 
         <div class="containerInput" v-else >
             <text-input @valueUpdated="updateFolder" placeholder="Folder Name" />
             <selector @valueUpdated="updateColor"/>
             <star-preferred :selected_init=false @valueUpdated="updateStarred" />
+            <button class="AddButton" @click="add()">Add</button>
         </div>
-
-        <big-button-register-signin class="ripple" text="Add" @click="add()"/>
     </div>
+    <generatePasswordModal v-if="this.showGeneratePasswordModal" @closeModal="this.showGeneratePasswordModal = false"/>
+</div>
 </template>
   
 <script>
@@ -53,6 +59,7 @@ import SelectorFolder from '@/components/SelectorFolder.vue'
 import FoldersPasswordFilter from '@/components/FoldersPasswordFilter.vue';
 import Selector from '@/components/Selector.vue'
 import StarPreferred from '@/components/StarPreferred.vue';
+import GeneratePasswordModal from '@/modals/GeneratePasswordModal.vue';
 
 import { getCurrentUser } from '@/dexie';
 
@@ -74,7 +81,8 @@ components: {
     SelectorFolder,
     FoldersPasswordFilter,
     Selector,
-    StarPreferred
+    StarPreferred,
+    GeneratePasswordModal
 },
 data() {
     return {
@@ -86,7 +94,8 @@ data() {
         color: "black",
         fold_pass_selector: "Folders",
         starred: false,
-        user: {}
+        user: {},
+        showGeneratePasswordModal: false
     }
 },
 methods: {
@@ -228,6 +237,28 @@ text-decoration: underline;
 }
 
 
+#genPasswordButton {
+    background-color: white;
+    color: black;
+    width: 100%;
+    border-radius: 16px;
+    height: 7vh;
+    cursor: pointer;
+    margin-bottom: 5px;
+    border: none;
+}
+
+.AddButton {
+    margin-top: 100px;
+    margin-bottom: 10px;
+    width: 80%;
+    margin-left: 10%;
+    height: 70px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
 
 .ripple {
   background-position: center;
@@ -242,4 +273,5 @@ text-decoration: underline;
   background-size: 100%;
   transition: background 0.5s;
 }
+
 </style>

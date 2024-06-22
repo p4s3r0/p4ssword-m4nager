@@ -35,7 +35,14 @@
 </template>
 
 <script>
+import { useToast } from "vue-toastification";
+import { toasts_config_info } from '@/toasts';
+
 export default {
+    setup() {
+      const toast = useToast();
+      return { toast }
+    },
 props: ["text", "is_pssw"],
 data() {
     return {
@@ -52,6 +59,7 @@ data() {
         }
     }, 
     copyContent() {
+        this.toast.info("Copied to Clipboard!", toasts_config_info);
         navigator.clipboard.writeText(this.text);
     }
   }, beforeMount() {
