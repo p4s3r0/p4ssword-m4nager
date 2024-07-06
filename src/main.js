@@ -22,6 +22,10 @@ import Edit2FA from '@/views/Edit2FA.vue';
 import './registerServiceWorker'
 
 
+import data from '../package.json';
+export const APP_VERSION =  data.version;
+
+console.log(data.version)
 const routes = [{
     path: "/",
     name: "login",

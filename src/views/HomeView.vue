@@ -72,6 +72,7 @@ import UploadFileModal from '@/modals/UploadFileModal.vue';
 import MenuModal from '@/modals/MenuModal.vue';
 
 
+
 import { DBL_logoutUser, settings_getFolderOrPassword, settings_updateFolderOrPassword, getCurrentUser, DBL_getPasswords } from '@/dexie';
 import { rankFoldersBySearch, rankPasswordsBySearch, rankPasswordsAlphabetically, rankFolderAlphabetically } from '@/scripts/search';
 import { store, DECRYPT } from '@/store/store'

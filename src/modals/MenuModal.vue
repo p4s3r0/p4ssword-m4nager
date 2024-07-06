@@ -2,6 +2,7 @@
     <div id="blurredBackground">
         <div id="menuModalContainer">
             <h1>Profile</h1>
+            <p>version@{{ this.APP_VERSION }}</p>
             <div id="closeButton" @click="this.$emit('closeModal')">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
                     <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
@@ -16,6 +17,8 @@
 
 <script>
 import MenuButtonSelection from '@/components/MenuButtonSelection.vue'
+import { APP_VERSION } from '@/main'
+
 export default {
 name: 'menuModal',
 components: {
@@ -23,6 +26,7 @@ components: {
 },
 data() {
     return {
+        APP_VERSION: APP_VERSION
     }
 }, 
 methods: {
@@ -61,5 +65,10 @@ methods: {
     cursor: pointer;
 }
 
+
+p {
+    color: rgba(255, 255, 255, 0.259);
+    margin-left: 10px;
+}
 
 </style>
