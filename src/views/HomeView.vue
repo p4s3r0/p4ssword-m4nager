@@ -1,11 +1,11 @@
 <template>
     <div id="mainLogin">
         <h1 id="posHello">Hello, {{ this.user.username }} 👋</h1>
-        <div id="rightTopButton">
-            <download-button class="ripple" @click="download()"/>
-            <upload-button class="ripple" @click="this.showUploadFileModal=true" />
-            <lock-button class="ripple" @click="logout()"/>
-        </div>
+        <button id="menuButton" class="ripple" @click="this.showMenuModal=true">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="white">
+                <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/>
+            </svg>
+        </button>
         <search-bar id="posSearchBar" @valueUpdated=search />
         <div class="showFoldersOrPasswords">
             <folders-password-filter class="ripple" text="Folders" @click="activateFoldersButton" :status="this.fold_pass_selector == 'Folders' ? 'active' : 'notActive'"/>
@@ -52,6 +52,11 @@
     
     <add-button class="ripple" @click="addNew" />
     <upload-file-modal v-if="this.showUploadFileModal" @closeModal="this.showUploadFileModal=false"/>
+    <menu-modal v-if="this.showMenuModal"
+                @closeModal="this.showMenuModal=false"
+                @logoutClick="logout()"
+                @downloadClick="download()"
+                @uploadClick="this.showMenuModal=false;this.showUploadFileModal=true"/>
     </div>   
 </template>
   
@@ -60,13 +65,11 @@ import SearchBar from '@/components/SearchBar.vue';
 import FoldersPasswordFilter from '@/components/FoldersPasswordFilter.vue';
 import AddButton from '@/components/AddButton.vue';
 import Folder from '@/components/Folder.vue';
-import LockButton from '@/components/LockButton.vue';
 import Password from '@/components/Password.vue';
 import TwoFA from '@/components/TwoFA.vue';
-import DownloadButton from '@/components/DownloadButton.vue';
-import UploadButton from '@/components/UploadButton.vue';
 
 import UploadFileModal from '@/modals/UploadFileModal.vue';
+import MenuModal from '@/modals/MenuModal.vue';
 
 
 import { DBL_logoutUser, settings_getFolderOrPassword, settings_updateFolderOrPassword, getCurrentUser, DBL_getPasswords } from '@/dexie';
@@ -85,12 +88,10 @@ components: {
     FoldersPasswordFilter,
     AddButton,
     Folder,
-    LockButton,
     Password,
     TwoFA,
-    DownloadButton,
-    UploadButton,
-    UploadFileModal
+    UploadFileModal,
+    MenuModal
 },
 setup() {
       const toast = useToast();
@@ -105,7 +106,8 @@ data() {
         twoFactors: [],
         new_app_version: "",
         loading: true,
-        showUploadFileModal: false
+        showUploadFileModal: false,
+        showMenuModal: false
     }
 },
 methods: {
@@ -228,6 +230,15 @@ methods: {
 } 
 
 
+#menuButton {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    background-color: var(--background-color);
+    border: none;
+    cursor: pointer;
+}
+
 
 .showFoldersOrPasswords {
     margin-left: 50%;
@@ -237,15 +248,7 @@ methods: {
     max-width: 800px;
 }
 
-button {
-    width: 32vw;
-    height: 4vh;
-    margin-left: 5vw;
-    background-color: #D9D9D90b;
-    border-radius: 5px;
-    border: none;
-    color: white;
-}
+
 
 #posFolders {
     margin-top: 40px;
@@ -258,18 +261,6 @@ button {
     display: flex;
     align-items: bottom;
     justify-content: right;
-}
-
-
-.ripple {
-  background-position: center;
-  transition: background 0.3s;
-}
-
-.ripple:active {
-  background-color: #ffffff;
-  background-size: 100%;
-  transition: background 0.5s;
 }
 
 

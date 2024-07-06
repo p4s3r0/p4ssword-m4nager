@@ -36,20 +36,5 @@ svg {
     scale: 1.3;
 }
 
-
-.ripple {
-  background-position: center;
-  transition: background 0.3s;
-}
-.ripple:hover {
-  background: #ffffff radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
-  color: black;
-}
-.ripple:active {
-  background-color: #ffffff;
-  background-size: 100%;
-  transition: background 0.5s;
-}
-
 </style>
   

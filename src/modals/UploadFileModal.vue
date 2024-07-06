@@ -1,11 +1,14 @@
 <template>
-    <div id="modalUploadFile">
-        <h1>Upload Password</h1>
-        <input type="file" @change="gotFile"/>
-        <TextInput @valueUpdated="updateValue"/>
-        <div id="buttonsBottom">
-                <button id="leftButton" class="ripple" @click="this.$emit('closeModal')">Close</button>
-                <button @click="uploadNewPasswords()">Upload</button>
+    <div id="blurredBackground">
+
+        <div id="modalUploadFile">
+            <h1>Upload Password</h1>
+            <input type="file" @change="gotFile"/>
+            <TextInput @valueUpdated="updateValue"/>
+            <div id="buttonsBottom">
+                    <button id="leftButton" class="ripple" @click="this.$emit('closeModal')">Close</button>
+                    <button @click="uploadNewPasswords()">Upload</button>
+            </div>
         </div>
     </div>
 </template>
@@ -71,6 +74,15 @@ beforeMount() {
     width: 80%;
     max-width: 800px;
     padding: 20px;
+}
+
+#blurredBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
 }
 
 #buttonsBottom {
