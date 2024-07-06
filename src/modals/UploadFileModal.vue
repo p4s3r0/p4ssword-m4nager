@@ -1,0 +1,101 @@
+<template>
+    <div id="modalUploadFile">
+        <h1>Upload Password</h1>
+        <input type="file" @change="gotFile"/>
+        <TextInput @valueUpdated="updateValue"/>
+        <div id="buttonsBottom">
+                <button id="leftButton" class="ripple" @click="this.$emit('closeModal')">Close</button>
+                <button @click="uploadNewPasswords()">Upload</button>
+        </div>
+    </div>
+</template>
+
+<script>
+import TextInput from '@/components/TextInput.vue';
+
+import { DB_addNewPassword } from '@/db.js';
+import { getCurrentUser } from '@/dexie';
+
+export default {
+name: 'uploadFile',
+components: {
+    TextInput,
+},
+data() {
+    return {
+        fileContent: null,
+        key: "toor"
+    }
+}, 
+methods: {
+    updateValue(val) {
+        this.key = val
+    },
+    gotFile(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    this.fileContent = JSON.parse(e.target.result);
+                } catch (error) {
+                    console.error("Error parsing JSON:", error);
+                    this.fileContent = "Error parsing JSON file.";
+                }
+            };
+            reader.readAsText(file);
+        }
+    },
+    async uploadNewPasswords() {
+        for(let i = 0; i < this.fileContent.data.length; i++) {
+            const pssw = this.fileContent.data[i];
+            const user = await getCurrentUser(); 
+            await DB_addNewPassword(pssw.name, pssw.password, pssw.folder, pssw.note, user.username, pssw.username, pssw.starred, this.key);
+        }
+    }
+},  
+beforeMount() {
+},
+}
+</script>
+
+<style scoped>
+#modalUploadFile {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #0E0E0E;
+    border: 1px white solid;
+    border-radius: 16px;
+    width: 80%;
+    max-width: 800px;
+    padding: 20px;
+}
+
+#buttonsBottom {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#leftButton {
+    margin-right: 10px;
+}
+
+button {
+    width: 150px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+input {
+    margin-bottom: 20px;
+}
+
+</style>

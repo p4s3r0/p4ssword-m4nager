@@ -1,7 +1,11 @@
 <template>
     <div id="mainLogin">
         <h1 id="posHello">Hello, {{ this.user.username }} 👋</h1>
-        <lock-button class="ripple" @click="logout()"/>
+        <div id="rightTopButton">
+            <download-button class="ripple" @click="download()"/>
+            <upload-button class="ripple" @click="this.showUploadFileModal=true" />
+            <lock-button class="ripple" @click="logout()"/>
+        </div>
         <search-bar id="posSearchBar" @valueUpdated=search />
         <div class="showFoldersOrPasswords">
             <folders-password-filter class="ripple" text="Folders" @click="activateFoldersButton" :status="this.fold_pass_selector == 'Folders' ? 'active' : 'notActive'"/>
@@ -47,7 +51,7 @@
         </div>
     
     <add-button class="ripple" @click="addNew" />
-
+    <upload-file-modal v-if="this.showUploadFileModal" @closeModal="this.showUploadFileModal=false"/>
     </div>   
 </template>
   
@@ -59,11 +63,15 @@ import Folder from '@/components/Folder.vue';
 import LockButton from '@/components/LockButton.vue';
 import Password from '@/components/Password.vue';
 import TwoFA from '@/components/TwoFA.vue';
+import DownloadButton from '@/components/DownloadButton.vue';
+import UploadButton from '@/components/UploadButton.vue';
+
+import UploadFileModal from '@/modals/UploadFileModal.vue';
 
 
-import { DBL_logoutUser, settings_getFolderOrPassword, settings_updateFolderOrPassword, getCurrentUser } from '@/dexie';
+import { DBL_logoutUser, settings_getFolderOrPassword, settings_updateFolderOrPassword, getCurrentUser, DBL_getPasswords } from '@/dexie';
 import { rankFoldersBySearch, rankPasswordsBySearch, rankPasswordsAlphabetically, rankFolderAlphabetically } from '@/scripts/search';
-import { store } from '@/store/store'
+import { store, DECRYPT } from '@/store/store'
 
 import { DB_getAllPasswords, DB_getAllFolders, DB_getAll2FA, DB_logoutUser } from '@/db'
 
@@ -80,6 +88,9 @@ components: {
     LockButton,
     Password,
     TwoFA,
+    DownloadButton,
+    UploadButton,
+    UploadFileModal
 },
 setup() {
       const toast = useToast();
@@ -94,6 +105,7 @@ data() {
         twoFactors: [],
         new_app_version: "",
         loading: true,
+        showUploadFileModal: false
     }
 },
 methods: {
@@ -141,6 +153,35 @@ methods: {
         }
         setTimeout(() => this.$router.push('/addPasswordOrFolder'), 300);
     },
+    async download() {
+        const passwords = await DBL_getPasswords();
+
+        let str = '{\n\t"data": ['
+        for(let i = 0; i < passwords.length; i++) {
+            str += '\n{\n'
+            str = str + '\t"name": "' + (passwords[i].name).replace('"', '\"') + '",\n';
+            str = str + '\t"username": "' + (await DECRYPT(passwords[i].username)).replace('"', '\"') + '",\n';
+            str = str + '\t"password": "' + (await DECRYPT(passwords[i].password)).replace('"', '\"') + '",\n';
+            str = str + '\t"folder": "' + (passwords[i].folder).replace('"', '\"') + '",\n';
+            str = str + '\t"note": "' + (await DECRYPT(passwords[i].note)).replace('"', '\"') + '",\n';
+            str = str + '\t"idx": "' + passwords[i].idx + '",\n';
+            str = str + '\t"starred": "' + passwords[i].starred + '"\n';
+            str += "},"
+        }
+        str += "\n]}"
+
+
+        const blob = new Blob([str], { type: 'text/plain' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = "passwords.json";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    },
+    async upload() {
+
+    }
 }, beforeMount() {
     getCurrentUser().then( (user) => {
         if(user) {
@@ -212,14 +253,19 @@ button {
     max-width: 1000px;
 }
 
+
+#rightTopButton {
+    display: flex;
+    align-items: bottom;
+    justify-content: right;
+}
+
+
 .ripple {
   background-position: center;
   transition: background 0.3s;
 }
-.ripple:hover {
-  /*background: #ffffff radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
-  color: black;*/
-}
+
 .ripple:active {
   background-color: #ffffff;
   background-size: 100%;

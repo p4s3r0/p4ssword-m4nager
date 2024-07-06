@@ -22,9 +22,13 @@ function HASH(val) {
     return CryptoJS.SHA3(val).toString(CryptoJS.enc.Hex)
 }
 
-async function ENCRYPT(val) {
+async function ENCRYPT(val, key=null) {
     const curr_user = await getCurrentUser();
-    return CryptoJS.AES.encrypt(val, curr_user.password).toString();
+    if(key == null)
+        return CryptoJS.AES.encrypt(val, curr_user.password).toString();
+    else
+        return CryptoJS.AES.encrypt(val, key).toString();
+
 }
 
 function ENCRYPT_CBC(val) {
@@ -92,22 +96,36 @@ export async function DB_logoutUser() {
 }
 
 
-export async function DB_addNewPassword(name, password, folder, note, user, username, starred) {
+export async function DB_addNewPassword(name, password, folder, note, user, username, starred, key=null) {
     const api_key = (await getCurrentUser()).api_key
 
+
+    console.log("AXIOS:")
+    console.log("api_key: ", api_key)
+    console.log("name: ", name)
+    console.log("password: ", (await ENCRYPT(password, key)))
+    console.log("folder: ", folder)
+    console.log("note: ", (await ENCRYPT(note, key)))
+    console.log("user: ", user)
+    console.log("username: ", (await ENCRYPT(username, key)))
+    console.log("starred: ", starred)
     await axios.get(AXIOS_BASE_URL + "add_password", { params: {
         api_key: api_key,
         name: name,
-        password: (await ENCRYPT(password)),
+        password: (await ENCRYPT(password, key)),
         folder: folder,
-        note: (await ENCRYPT(note)),
+        note: (await ENCRYPT(note, key)),
         user: user,
-        username: (await ENCRYPT(username)),
+        username: (await ENCRYPT(username, key)),
         starred: starred
     }})
 
     return true
 }
+
+
+
+
 
 
 export async function DB_getAllPasswords() {

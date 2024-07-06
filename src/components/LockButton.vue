@@ -1,12 +1,6 @@
 <template>
     <div id="mainAddButton">
-        <svg stroke-width="2" width="25" height="35" viewBox="0 0 35 45" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="1.05768" y="17.3943" width="32.7885" height="26.2308" rx="1" stroke="white" stroke-width="2" stroke-linejoin="round"/>
-            <rect x="14.378" y="27.6406" width="5.32812" height="5.32812" rx="2.66406" stroke="white" stroke-width="2" stroke-linejoin="round"/>
-            <path d="M9.25478 9.19711C9.25478 4.66997 12.9248 1 17.4519 1V1C21.979 1 25.649 4.66997 25.649 9.19711V17.3942H17.4519H9.25478V9.19711Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
-        </svg>
-
-
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" width="24px" viewBox="0 -960 960 960"  fill="#e8eaed"><path d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm0-80h480v-400H240v400Zm240-120q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80ZM240-160v-400 400Z"/></svg>
     </div>
 </template>
 
@@ -20,20 +14,17 @@ components: {
 
 <style scoped>
 #mainAddButton {
-    position: absolute;
-    top: 37px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-    border-radius: 16px;
+    bottom: 0;
+    padding-top: 10px;
+    padding-left: 10px;
+    width: 45px;
+    height: 45px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
 svg {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 50%;
+    zoom: 1.5;
 }
 
 </style>
