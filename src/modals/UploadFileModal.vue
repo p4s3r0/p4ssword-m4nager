@@ -58,6 +58,7 @@ methods: {
     }
 },  
 beforeMount() {
+    document.body.style.overflow = "hidden"
 },
 }
 </script>

@@ -67,8 +67,8 @@ data() {
         }
     }
 }, beforeMount() {
-    
     this.generatePassword();
+    document.body.style.overflow = "hidden"
 },
 methods: {
     generatePassword() {
