@@ -12,6 +12,7 @@
 
     <div id="posPasswords">
       <password v-for="p in this.passwords"
+                                            @openPasswordModal="this.showViewPasswordModal = true"
                                             :key=p.key
                                             :name=p.name
                                             :enc_password=p.password
@@ -25,6 +26,13 @@
 
     <home-button @click="this.$router.push('/home')" />
     
+    <view-password-modal
+            v-if="this.showViewPasswordModal"
+            @closeModal="
+                this.showViewPasswordModal = false;
+                resetScrolling();
+            "
+        />
   </div>
 </template>
 
@@ -34,6 +42,8 @@ import SmallButtonDelete from '@/components/SmallButtonDelete.vue'
 import SmallButtonEdit from '@/components/SmallButtonEdit.vue'
 import AddButton from '@/components/AddButton.vue';
 import HomeButton from '@/components/HomeButton.vue';
+
+import ViewPasswordModal from "@/modals/ViewPasswordModal.vue";
 
 import { store } from '@/store/store';
 import { getCurrentUser } from '@/dexie';
@@ -55,14 +65,16 @@ export default {
     SmallButtonDelete,
     SmallButtonEdit,
     AddButton,
-    HomeButton
+    HomeButton,
+    ViewPasswordModal
   },
   data() {
       return {
         user: {},
         folder: store.temp.curr_folder_name,
         folder_id: store.temp.curr_folder_id,
-        passwords: []
+        passwords: [],
+        showViewPasswordModal: false,
       }
   },
   methods: {
@@ -87,6 +99,9 @@ export default {
         return;
       }
       this.$router.push('/editFolder');
+    },
+    resetScrolling() {
+      document.body.style.overflow = "";
     },
   }, 
 

@@ -1,6 +1,6 @@
 <template>
     <div class="ripple" id="mainAddButton">
-      <p>Add New</p>
+      <p>{{ this.text }}</p>
     </div>
 
 </template>
@@ -8,6 +8,12 @@
 <script>
 export default {
 name: 'App',
+props: {
+    text: {
+        type: String,
+        default: "Add New"
+    }
+},
 components: {
 }
 }

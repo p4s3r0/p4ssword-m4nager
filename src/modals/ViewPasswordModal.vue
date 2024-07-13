@@ -20,9 +20,12 @@
 
             <div id="textShower">
                 <attribute-value-shower v-if="this.username != ''" title="Username" :value="this.username" />
-                <attribute-value-shower v-if="this.password != ''" title="Password" :value="this.password" />
+                <attribute-value-shower v-if="this.password != ''" :is_pssw="true" title="Password" :value="this.password" />
                 <attribute-value-shower v-if="this.folder != 'NO FOLDER'" title="Folder" :value="this.folder" />
                 <attribute-value-shower v-if="this.note != ''" title="Note" :value="this.note" />
+            </div>
+            <div id="editButtonContainer">
+                <button class="editButton" @click="this.$router.push('/editPassword');">Edit</button>
             </div>
         </div>
     </div>
@@ -67,6 +70,7 @@ export default {
     padding: 20px;
     padding-top: 0px;
     overflow: scroll;
+    max-height: 80vh;
 }
 
 #blurredBackground {
@@ -101,6 +105,23 @@ h1 {
 
 #textShower {
     margin-top: 30px;
+}
+
+#editButtonContainer {
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+}
+
+.editButton {
+    height: 50px;
+    width: 60%;
+    background-color: #D9D9D90b;
+    color: white;
+    border: 0px;
+    border-radius: 10px;
+    margin-top: 10px;
+    cursor: pointer;
 }
 
 @media (max-width: 700px) {
