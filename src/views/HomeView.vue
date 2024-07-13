@@ -114,7 +114,12 @@
             </div>
 
             <div v-else id="posFolders">
-                <two-f-a v-for="t in this.twoFactors" :key="t.key" :name="t.name" :secret="t.secret" :id="t.id" />
+                <two-f-a v-for="t in this.twoFactors" 
+                    @open2FA="this.showTwoFaModal=true"
+                    :key="t.key" 
+                    :name="t.name" 
+                    :secret="t.secret" 
+                    :id="t.id" />
             </div>
         </div>
 
@@ -146,6 +151,12 @@
                 resetScrolling();
             "
         />
+
+        <two-f-a-modal v-if="this.showTwoFaModal"
+            @closeModal="
+                this.showTwoFaModal = false;
+                resetScrolling();
+            "/>
     </div>
 </template>
 
@@ -158,6 +169,7 @@ import TwoFA from "@/components/TwoFA.vue";
 import UploadFileModal from "@/modals/UploadFileModal.vue";
 import MenuModal from "@/modals/MenuModal.vue";
 import ViewPasswordModal from "@/modals/ViewPasswordModal.vue";
+import TwoFAModal from "@/modals/TwoFAModal.vue";
 
 import {
     DBL_logoutUser,
@@ -189,6 +201,7 @@ export default {
         UploadFileModal,
         MenuModal,
         ViewPasswordModal,
+        TwoFAModal
     },
     setup() {
         const toast = useToast();
@@ -206,6 +219,7 @@ export default {
             showUploadFileModal: false,
             showMenuModal: false,
             showViewPasswordModal: false,
+            showTwoFaModal: false
         };
     },
     methods: {

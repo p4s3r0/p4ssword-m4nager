@@ -1,7 +1,0 @@
-services:
-  p4ss:
-    build: .
-    ports:
-      - "8080:80"
-    env_file:
-      - .env

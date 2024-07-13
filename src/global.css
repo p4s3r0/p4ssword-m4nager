@@ -8,11 +8,11 @@
     transition: background 0.3s;
 }
 .ripple:hover {
-    background: #ffffff0a radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
+    background: #ffffff84 radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
     color: black;
 }
 .ripple:active {
-    background-color: #ffffff0a;
+    background-color: #ffffff84;
     background-size: 100%;
     transition: background 0.5s;
 }
@@ -30,3 +30,19 @@
     background-size: 100%;
     transition: background 0s;
   }
+
+
+
+.ripple3 {
+  background-position: center;
+  transition: background 0.3s;
+}
+.ripple3:hover {
+  background: #ffffff84 radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
+  color: black;
+}
+.ripple3:active {
+  background-color: #ffffff84;
+  background-size: 100%;
+  transition: background 0.5s;
+}

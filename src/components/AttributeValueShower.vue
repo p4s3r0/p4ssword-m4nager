@@ -1,5 +1,5 @@
 <template>
-    <div v-if="this.is_pssw == true" class="passwordBox ripple">
+    <div v-if="this.is_pssw == true" class="passwordBox ripple2">
         <div class="titleBox" @click="switchPasswordVisability()">
             <p id="title">{{ this.title }}</p>
             <input id="pssw" :type="this.display_type" placeholder="" v-model="this.value" />
@@ -90,6 +90,7 @@ export default {
     padding-top: 1px;
     border-radius: 16px;
     cursor: pointer;
+    margin-bottom: 5px;
 }
 
 

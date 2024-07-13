@@ -6,7 +6,7 @@
         </svg>
 
         <p id="name"> {{ this.name }}  </p>
-        <div id="back" @click=open2FAView(this.name)></div>
+        <div id="back" @click=open2FAView()></div>
 
             <div id="posIcons">
                 <svg class="ripple" @click="copyOtp()" id="lockIcon" width="25" height="25" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,7 +62,7 @@ methods: {
         store.temp.curr_2fa_name = this.name;
         store.temp.curr_2fa_secret = this.secret;
         store.temp.curr_2fa_id = this.id;
-        this.$router.push('/twoFA');
+        this.$emit("open2FA")
     },
     async plscopy() {
         const val = await this.copyOtp()

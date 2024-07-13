@@ -35,7 +35,7 @@
             </div>
             <div id="buttonsBottom">
                 <button id="leftButton" class="ripple" @click="this.$emit('closeModal')">Close</button>
-                <button @click="generatePassword()">Generate</button>
+                <button class="ripple" @click="generatePassword()">Generate</button>
             </div>
         </div>
     </div>

@@ -13,10 +13,8 @@ import Register from '@/views/RegisterView.vue'
 import Home from '@/views/HomeView.vue'
 import FolderView from '@/views/FolderView.vue'
 import AddPasswordOrFolder from '@/views/AddNewPasswordOrFolder.vue'
-import PasswordView from '@/views/PasswordView.vue'
 import EditFolder from '@/views/EditFolder.vue'
 import EditPassword from '@/views/EditPassword.vue'
-import TwoFa from '@/views/TwoFaView.vue'
 import Edit2FA from '@/views/Edit2FA.vue';
 
 import './registerServiceWorker'
@@ -47,10 +45,6 @@ const routes = [{
     name: "addPasswordOrFolder",
     component: AddPasswordOrFolder,
 }, {
-    path: "/password",
-    name: "password",
-    component: PasswordView,
-}, {
     path: "/editFolder",
     name: "editFolder",
     component: EditFolder,
@@ -58,10 +52,6 @@ const routes = [{
     path: "/editPassword",
     name: "editPassword",
     component: EditPassword,
-}, {
-    path: "/twoFA",
-    name: "twoFA",
-    component: TwoFa,
 }, {
     path: "/edit2FA",
     name: "edit2FA",

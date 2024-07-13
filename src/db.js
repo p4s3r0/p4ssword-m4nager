@@ -44,7 +44,8 @@ function DECRYPT_CBC(val) {
     key = CryptoJS.enc.Utf8.parse(key);
     var decrypted =  CryptoJS.AES.decrypt(val, key, { iv: iv, mode: CryptoJS.mode.CBC});
     decrypted = decrypted.toString(CryptoJS.enc.Utf8);
-    return decrypted;
+    // TODO return decrypted;
+    return "decrypted";
 }
 
 
@@ -298,6 +299,13 @@ export async function DB_getAll2FA() {
         api_key: user.api_key,
         user: user.username,
     }})
+
+    let a = "hi"
+    console.log(a)
+    let b = ENCRYPT_CBC(a)
+    console.log(b)
+    let c = DECRYPT_CBC(b)
+    console.log(c)
 
     let ret = []
     for(let i = 0; i < res.data.length; i++) {

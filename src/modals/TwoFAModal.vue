@@ -1,6 +1,6 @@
 <template>
     <div id="blurredBackground">
-        <div id="viewPasswordModalContainer">
+        <div id="viewTwoFAModalContainer">
             <div id="title">
                 <h1>{{ this.name }}</h1>
             </div>
@@ -19,13 +19,10 @@
             </div>
 
             <div id="textShower">
-                <attribute-value-shower v-if="this.username != ''" title="Username" :value="this.username" />
-                <attribute-value-shower v-if="this.password != ''" :is_pssw="true" title="Password" :value="this.password" />
-                <attribute-value-shower v-if="this.folder != 'NO FOLDER'" title="Folder" :value="this.folder" />
-                <attribute-value-shower v-if="this.note != ''" title="Note" :value="this.note" />
+                <attribute-value-shower v-if="this.secret != ''" title="Secret" :value="this.secret" />
             </div>
             <div id="editButtonContainer">
-                <button class="editButton" @click="this.$router.push('/editPassword');">Edit</button>
+                <button class="editButton" @click="this.$router.push('/edit2FA');">Edit</button>
             </div>
         </div>
     </div>
@@ -37,19 +34,14 @@ import AttributeValueShower from "@/components/AttributeValueShower.vue";
 import { store } from "@/store/store";
 
 export default {
-    name: "menuModal",
+    name: "twoFaModal",
     components: {
         AttributeValueShower,
     },
     data() {
         return {
-            id: store.temp.curr_password_id,
-            name: store.temp.curr_password_name,
-            username: store.temp.curr_password_username,
-            password: store.temp.curr_password_password,
-            folder: store.temp.curr_password_folder,
-            note: store.temp.curr_password_note,
-            starred: store.temp.curr_password_starred,
+            name: store.temp.curr_2fa_name,
+            secret: store.temp.curr_2fa_secret,
         };
     },
     methods: {},
@@ -60,7 +52,7 @@ export default {
 </script>
 
 <style scoped>
-#viewPasswordModalContainer {
+#viewTwoFAModalContainer {
     position: relative;
     background-color: var(--background-color);
     border: 1px white solid;
