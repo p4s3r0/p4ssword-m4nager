@@ -44,8 +44,7 @@ function DECRYPT_CBC(val) {
     key = CryptoJS.enc.Utf8.parse(key);
     var decrypted =  CryptoJS.AES.decrypt(val, key, { iv: iv, mode: CryptoJS.mode.CBC});
     decrypted = decrypted.toString(CryptoJS.enc.Utf8);
-    // TODO return decrypted;
-    return "decrypted";
+    return decrypted;
 }
 
 
