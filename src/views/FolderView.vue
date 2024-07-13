@@ -26,13 +26,16 @@
 
     <home-button @click="this.$router.push('/home')" />
     
-    <view-password-modal
-            v-if="this.showViewPasswordModal"
-            @closeModal="
-                this.showViewPasswordModal = false;
-                resetScrolling();
-            "
-        />
+
+    <Transition name="bounce" mode="out-in">
+      <view-password-modal
+              v-if="this.showViewPasswordModal"
+              @closeModal="
+                  this.showViewPasswordModal = false;
+                  resetScrolling();
+              "
+          />
+    </Transition>
   </div>
 </template>
 

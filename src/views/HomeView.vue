@@ -122,41 +122,50 @@
                     :id="t.id" />
             </div>
         </div>
+        <Transition name="bounce" mode="out-in">
+            <upload-file-modal
+                v-if="this.showUploadFileModal"
+                @closeModal="
+                    this.showUploadFileModal = false;
+                    resetScrolling();
+                "
+            />
+        </Transition>
 
-        <upload-file-modal
-            v-if="this.showUploadFileModal"
-            @closeModal="
-                this.showUploadFileModal = false;
-                resetScrolling();
-            "
-        />
-        <menu-modal
-            v-if="this.showMenuModal"
-            @closeModal="
-                this.showMenuModal = false;
-                resetScrolling();
-            "
-            @logoutClick="logout()"
-            @downloadClick="download()"
-            @uploadClick="
-                this.showMenuModal = false;
-                this.showUploadFileModal = true;
-            "
-        />
+        <Transition name="bounce" mode="out-in">
+            <menu-modal
+                v-if="this.showMenuModal"
+                @closeModal="
+                    this.showMenuModal = false;
+                    resetScrolling();
+                "
+                @logoutClick="logout()"
+                @downloadClick="download()"
+                @uploadClick="
+                    this.showMenuModal = false;
+                    this.showUploadFileModal = true;
+                "
+            />
+        </Transition>
 
-        <view-password-modal
-            v-if="this.showViewPasswordModal"
-            @closeModal="
-                this.showViewPasswordModal = false;
-                resetScrolling();
-            "
-        />
+        <Transition name="bounce" mode="out-in">
+            <view-password-modal
+                v-if="this.showViewPasswordModal"
+                @closeModal="
+                    this.showViewPasswordModal = false;
+                    resetScrolling();
+                "
+            />
+        </Transition>
 
-        <two-f-a-modal v-if="this.showTwoFaModal"
-            @closeModal="
-                this.showTwoFaModal = false;
-                resetScrolling();
-            "/>
+        <Transition name="bounce" mode="out-in">
+            <two-f-a-modal v-if="this.showTwoFaModal"
+                @closeModal="
+                    this.showTwoFaModal = false;
+                    resetScrolling();
+                "/>
+        </Transition>
+
     </div>
 </template>
 
@@ -323,8 +332,6 @@ export default {
 </script>
 
 <style scoped>
-#mainLogin {
-}
 #wrapperl {
     max-width: 700px;
     margin-left: 50%;
@@ -386,15 +393,7 @@ export default {
     margin-left: 20px;
 }
 
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-}
 
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.5s ease-out;
-}
 
 /* HTML: <div class="loader"></div> */
 .loader {
@@ -433,4 +432,5 @@ export default {
             100% 0;
     }
 }
+
 </style>
