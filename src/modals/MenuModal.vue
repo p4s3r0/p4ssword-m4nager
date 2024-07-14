@@ -1,7 +1,7 @@
 <template>
     <div id="blurredBackground">
         <div id="menuModalContainer">
-            <h1>Profile</h1>
+            <h1 id="modalTitle">Profile</h1>
             <p>version@{{ this.APP_VERSION }}</p>
             <div id="closeButton" @click="this.$emit('closeModal')">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -74,4 +74,7 @@ p {
     margin-left: 10px;
 }
 
+#modalTitle {
+    border-bottom: 1px white solid;
+}
 </style>

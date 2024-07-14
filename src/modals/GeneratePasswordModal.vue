@@ -1,44 +1,47 @@
 <template>
-    <div id="GeneratePasswordModalContainer">
-        <div>
-            <div id="passwordShower">
-                <TextShower :text="this.password"/>
-            </div>
-
-            <div id="containsCheckBoxes">
-                <h2>Password should contain</h2>
-
-                <label class="container">Lowercase a-z
-                    <input type="checkbox" checked="checked" v-model="settings.lowercase">
-                    <span class="checkmark"></span>
-                </label>
-
-                <label class="container">Uppercase A-Z
-                    <input type="checkbox" checked="checked" v-model="settings.uppercase">
-                    <span class="checkmark"></span>
-                </label>
-
-                <label class="container">Numbers 0-9
-                    <input type="checkbox" checked="checked" v-model="settings.numbers">
-                    <span class="checkmark"></span>
-                </label>
-
-                <label class="container">Symbols #-?
-                    <input type="checkbox" checked="checked" v-model="settings.symbols">
-                    <span class="checkmark"></span>
-                </label>
-
-                <div class="slidecontainer">Password Length: {{ this.settings.length }}
-                    <input type="range" min="4" max="100" value="10" class="slider" id="myRange" v-model="settings.length">
+    <div id="blurredBackground">
+        <div id="GeneratePasswordModalContainer">
+            <div>
+                <div id="passwordShower">
+                    <TextShower :text="this.password"/>
                 </div>
 
-            </div>
-            <div id="buttonsBottom">
-                <button id="leftButton" class="ripple" @click="this.$emit('closeModal')">Close</button>
-                <button class="ripple" @click="generatePassword()">Generate</button>
+                <div id="containsCheckBoxes">
+                    <h2>Password should contain</h2>
+
+                    <label class="container">Lowercase a-z
+                        <input type="checkbox" checked="checked" v-model="settings.lowercase">
+                        <span class="checkmark"></span>
+                    </label>
+
+                    <label class="container">Uppercase A-Z
+                        <input type="checkbox" checked="checked" v-model="settings.uppercase">
+                        <span class="checkmark"></span>
+                    </label>
+
+                    <label class="container">Numbers 0-9
+                        <input type="checkbox" checked="checked" v-model="settings.numbers">
+                        <span class="checkmark"></span>
+                    </label>
+
+                    <label class="container">Symbols #-?
+                        <input type="checkbox" checked="checked" v-model="settings.symbols">
+                        <span class="checkmark"></span>
+                    </label>
+
+                    <div class="slidecontainer">Password Length: {{ this.settings.length }}
+                        <input type="range" min="4" max="100" value="10" class="slider" id="myRange" v-model="settings.length">
+                    </div>
+
+                </div>
+                <div id="buttonsBottom">
+                    <button id="leftButton" class="ripple" @click="this.$emit('closeModal')">Close</button>
+                    <button class="ripple" @click="generatePassword()">Generate</button>
+                </div>
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -89,16 +92,33 @@ methods: {
 
 <style scoped>
 #GeneratePasswordModalContainer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #0E0E0E;
+    position: relative;
+    background-color: var(--background-color);
     border: 1px white solid;
     border-radius: 16px;
     width: 80%;
-    max-width: 800px;
+    max-width: 500px;
+    padding: 20px;
+    padding-top: 0px;
+    overflow: scroll;
+    max-height: 80vh;
 }
+
+
+#blurredBackground {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+}
+
 
 
 #buttonsBottom {

@@ -1,5 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
 :root {
-    --background-color: #0E0E0E;
+  --background-color: #0E0E0E;
+  --border-radius: 10px;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 
 
@@ -9,7 +17,6 @@
 }
 .ripple:hover {
     background: #ffffff84 radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
-    color: black;
 }
 .ripple:active {
     background-color: #ffffff84;
@@ -39,7 +46,6 @@
 }
 .ripple3:hover {
   background: #ffffff84 radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
-  color: black;
 }
 .ripple3:active {
   background-color: #ffffff84;
@@ -86,4 +92,15 @@
   100% {
     transform: scale(1);
   }
+}
+
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }

@@ -79,9 +79,6 @@ export default {
     backdrop-filter: blur(5px);
 }
 
-h1 {
-    font-size: 2em;
-}
 
 #closeButton {
     position: absolute;

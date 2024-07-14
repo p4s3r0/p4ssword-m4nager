@@ -67,7 +67,6 @@ export async function DB_registerUser(username, email, password) {
 
 
 
-// http://localhost:8000/login_user?username=a&password=b
 export async function DB_loginUser(username, password) {
     const q = AXIOS_BASE_URL +  "login_user?" + 
                                 "username=" + username + 
@@ -96,26 +95,17 @@ export async function DB_logoutUser() {
 }
 
 
-export async function DB_addNewPassword(name, password, folder, note, user, username, starred, key=null) {
-    const api_key = (await getCurrentUser()).api_key
+export async function DB_addNewPassword(name, password, folder, note, user_DELETE_ME, username, starred, key=null) {
+    const user = await getCurrentUser()
+    const api_key = user.api_key
 
-
-    console.log("AXIOS:")
-    console.log("api_key: ", api_key)
-    console.log("name: ", name)
-    console.log("password: ", (await ENCRYPT(password, key)))
-    console.log("folder: ", folder)
-    console.log("note: ", (await ENCRYPT(note, key)))
-    console.log("user: ", user)
-    console.log("username: ", (await ENCRYPT(username, key)))
-    console.log("starred: ", starred)
     await axios.get(AXIOS_BASE_URL + "add_password", { params: {
         api_key: api_key,
         name: name,
         password: (await ENCRYPT(password, key)),
         folder: folder,
         note: (await ENCRYPT(note, key)),
-        user: user,
+        user: user.username,
         username: (await ENCRYPT(username, key)),
         starred: starred
     }})
@@ -176,11 +166,11 @@ export async function DB_editPassword(id, name, username, password, folder, note
 
 
 export async function DB_addNewFolder(username, folder, color, starred) {
-    const api_key = (await getCurrentUser()).api_key
+    const user = await getCurrentUser()
 
     await axios.get(AXIOS_BASE_URL + "add_folder", { params: {
-        api_key: api_key,
-        user: username,
+        api_key: user.api_key,
+        user: user.username,
         folder: folder,
         color: color,
         starred: starred,
@@ -298,13 +288,6 @@ export async function DB_getAll2FA() {
         api_key: user.api_key,
         user: user.username,
     }})
-
-    let a = "hi"
-    console.log(a)
-    let b = ENCRYPT_CBC(a)
-    console.log(b)
-    let c = DECRYPT_CBC(b)
-    console.log(c)
 
     let ret = []
     for(let i = 0; i < res.data.length; i++) {

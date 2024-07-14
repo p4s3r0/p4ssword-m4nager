@@ -8,14 +8,8 @@
         <p id="name"> {{ this.name }}  </p>
         <div id="back" @click=open2FAView()></div>
 
-            <div id="posIcons">
-                <svg class="ripple" @click="copyOtp()" id="lockIcon" width="25" height="25" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="1" y="1" width="16" height="16" rx="4" stroke="white" stroke-width="1" stroke-linejoin="round"/>
-                    <path d="M10.6 8.59998C10.6 7.49541 11.4954 6.59998 12.6 6.59998H17V10.6H12.6C11.4954 10.6 10.6 9.70455 10.6 8.59998V8.59998Z" stroke="white" stroke-width="1" stroke-linejoin="round"/>
-                    <circle cx="12.75" cy="8.65002" r="0.75" fill="white"/>
-                    <path d="M4.79999 4.69995H7.79999" stroke="white" stroke-width="1" stroke-linecap="round"/>
-                </svg>
-            </div>
+            <symbol-icon icon="password" class="ripple" @click="copyOtp()" id="keyIcon"/>
+
 
 
 
@@ -30,6 +24,8 @@ import { store } from '@/store/store'
 import { toasts_config_error, toasts_config_info } from '@/toasts'
 import { DB_getOtpCode } from '@/db'
 
+import SymbolIcon from './SymbolIcon.vue';
+
 
 
 export default {
@@ -38,6 +34,9 @@ props: ["name", "secret", "id"],
 setup() {
       const toast = useToast();
       return { toast }
+    },
+    components: {
+        SymbolIcon
     },
 data() {
     return {
@@ -105,14 +104,18 @@ watch: {
     font-size: 1.2em;
 }
 
-#posIcons {
+#keyIcon {
     position: absolute;
-    right: 10px;
-    top: 45px;
+    right: 15px;
+    top: 46px;
+    transform: translateY(-50%);
+    margin-right: 0px;
+    cursor: pointer;
+    border-radius: 15px;
+    padding: 10px;
+
 }
-#lockIcon {
-    transform: translateY(-43%);
-}
+
 
 #icon {
     position: absolute;

@@ -127,7 +127,6 @@ h1 {
 }
 .editButton:hover {
     background-color: #d9d9d927;
-
 }
 
 @media (max-width: 700px) {

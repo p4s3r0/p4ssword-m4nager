@@ -10,14 +10,8 @@
         <div id="back" @click="openPasswordView(this.name, this.enc_password, this.username, this.id, this.folder, this.note, this.starred)">
         </div>
         <div id="posIcons">
-                <svg class="ripple" @click="copyUsername" width="25" height="25" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="7" cy="4" r="3" stroke="white" stroke-width="1" stroke-linecap="round"/>
-                    <path d="M13 14C13 16.7614 9.76142 17 7 17C4.23858 17 1 16.7614 1 14C1 11.2386 4.23858 9 7 9C9.76142 9 13 11.2386 13 14Z" stroke="white" stroke-width="1" stroke-linecap="round"/>
-                </svg>
-
-                <svg class="ripple" @click="copyPassword" id="lockIcon" width="25" height="25" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#e8eaed">
-                        <path d="M280-400q-33 0-56.5-23.5T200-480q0-33 23.5-56.5T280-560q33 0 56.5 23.5T360-480q0 33-23.5 56.5T280-400Zm0 160q-100 0-170-70T40-480q0-100 70-170t170-70q67 0 121.5 33t86.5 87h352l120 120-180 180-80-60-80 60-85-60h-47q-32 54-86.5 87T280-240Zm0-80q56 0 98.5-34t56.5-86h125l58 41 82-61 71 55 75-75-40-40H435q-14-52-56.5-86T280-640q-66 0-113 47t-47 113q0 66 47 113t113 47Z"/>
-                    </svg>
+                <symbol-icon icon="user" class="ripple symbol" @click="copyUsername"/>
+                <symbol-icon icon="password" class="ripple symbol" @click="copyPassword"/>
 
         </div>
     </div>
@@ -31,12 +25,17 @@ import { useToast } from "vue-toastification";
 import { toasts_config_info } from '@/toasts'
 import { store } from '@/store/store'
 
+import SymbolIcon from './SymbolIcon.vue';
+
 export default {
 name: 'App',
 props: ["name", "enc_password", "username", "id", "folder", "note", "starred"],
 setup() {
       const toast = useToast();
       return { toast }
+    },
+    components: {
+        SymbolIcon
     },
 data() {
     return {
@@ -116,24 +115,14 @@ methods: {
 
 #posIcons {
     position: absolute;
-    right: 10px;
-    top: 48px;
-}
-#lockIcon {
-    transform: translateY(-50%);
-}
-
-#back {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+    display: flex;
+    align-items: center;
+    right: 15px;
+    top: 24px;
 }
 
-svg {
-    transform: translateY(-50%);
-    margin-right: 0px;
+
+.symbol {
     cursor: pointer;
     top: 35px;
     border-radius: 15px;
@@ -156,6 +145,15 @@ svg {
     transform: translate(-50%, -50%);
     width: 30px;
     fill: #fbff0010; 
+}
+
+
+#back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
 }
 
 @media (max-width : 700px) {
