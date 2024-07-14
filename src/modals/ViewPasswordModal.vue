@@ -24,6 +24,11 @@
                 <attribute-value-shower v-if="this.folder != 'NO FOLDER'" title="Folder" :value="this.folder" />
                 <attribute-value-shower v-if="this.note != ''" title="Note" :value="this.note" />
             </div>
+
+            <button class="deleteButton ripple" @click="deletePassword">
+                <symbol-icon icon="trash"/>
+            </button>
+
             <div id="editButtonContainer">
                 <button class="editButton" @click="this.$router.push('/editPassword');">Edit</button>
             </div>
@@ -33,6 +38,11 @@
 
 <script>
 import AttributeValueShower from "@/components/AttributeValueShower.vue";
+import SymbolIcon from "@/components/SymbolIcon.vue";
+
+import { DB_deletePassword } from "@/db";
+
+
 
 import { store } from "@/store/store";
 
@@ -40,6 +50,7 @@ export default {
     name: "menuModal",
     components: {
         AttributeValueShower,
+        SymbolIcon
     },
     data() {
         return {
@@ -52,7 +63,11 @@ export default {
             starred: store.temp.curr_password_starred,
         };
     },
-    methods: {},
+    methods: {
+        deletePassword() {
+            DB_deletePassword(this.id).then(this.$emit("closeModal"))
+        }
+    },
     beforeMount() {
         document.body.style.overflow = "hidden";
     },
@@ -114,7 +129,7 @@ h1 {
 }
 
 .editButton {
-    height: 50px;
+    height: 56px;
     width: 60%;
     background-color: #D9D9D90b;
     color: white;
@@ -126,6 +141,23 @@ h1 {
 
 }
 .editButton:hover {
+    background-color: #d9d9d927;
+}
+
+.deleteButton {
+    position: absolute;
+    margin-top: 10px;
+    background-color: var(--background-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    width: 56px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.deleteButton:hover {
     background-color: #d9d9d927;
 }
 

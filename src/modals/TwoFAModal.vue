@@ -21,6 +21,10 @@
             <div id="textShower">
                 <attribute-value-shower v-if="this.secret != ''" title="Secret" :value="this.secret" />
             </div>
+            <button class="deleteButton ripple" @click="delete2FA">
+                <symbol-icon icon="trash"/>
+            </button>
+
             <div id="editButtonContainer">
                 <button class="editButton" @click="this.$router.push('/edit2FA');">Edit</button>
             </div>
@@ -30,13 +34,16 @@
 
 <script>
 import AttributeValueShower from "@/components/AttributeValueShower.vue";
+import SymbolIcon from "@/components/SymbolIcon.vue";
 
 import { store } from "@/store/store";
+import { DB_delete2FA } from "@/db";
 
 export default {
     name: "twoFaModal",
     components: {
         AttributeValueShower,
+        SymbolIcon
     },
     data() {
         return {
@@ -44,7 +51,11 @@ export default {
             secret: store.temp.curr_2fa_secret,
         };
     },
-    methods: {},
+    methods: {
+        delete2FA() {
+            DB_delete2FA(store.temp.curr_2fa_id).then(this.$emit("closeModal"));
+        }
+    },
     beforeMount() {
         document.body.style.overflow = "hidden";
     },
@@ -117,6 +128,21 @@ export default {
 .editButton:hover {
     background-color: #d9d9d927;
 
+}
+
+
+.deleteButton {
+    position: absolute;
+    margin-top: 10px;
+    background-color: var(--background-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    width: 56px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @media (max-width: 700px) {
