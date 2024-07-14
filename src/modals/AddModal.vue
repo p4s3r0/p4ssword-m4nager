@@ -236,6 +236,8 @@ beforeMount() {
 }
 
 .AddButton{
+    border-radius: var(--border-radius);
+    border: none;
     cursor: pointer;
     width: 100%;
     height: 56px;

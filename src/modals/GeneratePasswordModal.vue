@@ -98,7 +98,6 @@ methods: {
     border-radius: 16px;
     width: 80%;
     max-width: 500px;
-    padding: 20px;
     padding-top: 0px;
     overflow: scroll;
     max-height: 80vh;

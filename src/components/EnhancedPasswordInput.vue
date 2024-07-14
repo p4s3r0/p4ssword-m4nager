@@ -87,6 +87,9 @@ i {
   right: 0;
 }
 button {
+  border-radius: var(--border-radius);
+  border: none;
+  cursor: pointer;
   width: 100%;
   height: 100%;
 }

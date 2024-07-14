@@ -9,7 +9,7 @@
         <search-bar id="posSearchBar" @valueUpdated="search" />
         <div class="showFoldersOrPasswords">
             <symbol-icon icon="add" 
-                            class="selectorIcon"
+                            class="selectorIcon leftIcon"
                             @click="this.showAddModal = true;" />
 
             <div style="display: flex">
@@ -249,6 +249,7 @@ export default {
         }
     },
     beforeMount() {
+        document.body.style.overflow = "";
         getCurrentUser().then((user) => {
             if (user) {
                 this.user = user;
@@ -350,6 +351,10 @@ export default {
     background: var(--_g), var(--_g), var(--_g), var(--_g);
     background-size: 40% 40%;
     animation: l46 1s infinite;
+}
+
+.leftIcon {
+    margin-left: 15px;
 }
 @keyframes l46 {
     0% {
