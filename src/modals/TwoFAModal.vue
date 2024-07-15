@@ -68,7 +68,7 @@ export default {
     background-color: var(--background-color);
     border: 1px white solid;
     border-radius: 16px;
-    width: 60%;
+    width: 80%;
     max-width: 500px;
     padding: 20px;
     padding-top: 0px;
