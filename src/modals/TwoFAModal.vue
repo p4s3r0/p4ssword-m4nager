@@ -114,7 +114,7 @@ export default {
 }
 
 .editButton {
-    height: 50px;
+    height: 56px;
     width: 60%;
     background-color: #D9D9D90b;
     color: white;
@@ -143,6 +143,9 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.deleteButton:hover {
+    background-color: #d9d9d927;
 }
 
 @media (max-width: 700px) {
