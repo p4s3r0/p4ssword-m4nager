@@ -4,7 +4,7 @@
     <div id="posDelEdit">
       <div id="delEdit">
         <small-button-delete text="Delete" @click=deleteFolder() />
-        <small-button-edit text="Edit" @click=editFolder() />
+        <small-button-edit text="Edit" @click="this.showEditModal=true" />
       </div>
     </div>
 
@@ -36,6 +36,15 @@
               "
           />
     </Transition>
+    <Transition name="bounce" mode="out-in">
+      <edit-folder-modal v-if="this.showEditModal"
+              @closeModal="
+                  this.showEditModal = false;
+                  resetScrolling();
+              "/>
+    </Transition>
+
+
   </div>
 </template>
 
@@ -47,6 +56,7 @@ import AddButton from '@/components/AddButton.vue';
 import HomeButton from '@/components/HomeButton.vue';
 
 import ViewPasswordModal from "@/modals/ViewPasswordModal.vue";
+import EditFolderModal from "@/modals/EditFolderModal"
 
 import { store } from '@/store/store';
 import { getCurrentUser } from '@/dexie';
@@ -69,7 +79,8 @@ export default {
     SmallButtonEdit,
     AddButton,
     HomeButton,
-    ViewPasswordModal
+    ViewPasswordModal,
+    EditFolderModal
   },
   data() {
       return {
@@ -78,6 +89,7 @@ export default {
         folder_id: store.temp.curr_folder_id,
         passwords: [],
         showViewPasswordModal: false,
+        showEditModal: false
       }
   },
   methods: {
@@ -95,13 +107,6 @@ export default {
           this.toast.error("Something went Wrong!", toasts_config_error);
         }
       })
-    },
-    editFolder() {
-      if (!navigator.onLine) {
-        this.toast.error("No internet Connection!", toasts_config_error);
-        return;
-      }
-      this.$router.push('/editFolder');
     },
     resetScrolling() {
       document.body.style.overflow = "";

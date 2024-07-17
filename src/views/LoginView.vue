@@ -64,12 +64,6 @@ export default {
         }
       });
     }
-  }, beforeMount() {
-    getCurrentUser().then( (user) => {
-      if(user) {
-        this.$router.push('/home');
-      }
-    })
   }
 }
 </script>

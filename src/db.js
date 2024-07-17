@@ -245,7 +245,7 @@ export async function DB_editFolder(id, folder, starred, color) {
         color: color
     }})
 
-    return true;
+    return "OK";
 }
 
 

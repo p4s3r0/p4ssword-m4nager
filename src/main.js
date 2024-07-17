@@ -12,13 +12,14 @@ import Login from '@/views/LoginView.vue'
 import Register from '@/views/RegisterView.vue'
 import Home from '@/views/HomeView.vue'
 import FolderView from '@/views/FolderView.vue'
-import AddPasswordOrFolder from '@/views/AddNewPasswordOrFolder.vue'
 import EditFolder from '@/views/EditFolder.vue'
-import EditPassword from '@/views/EditPassword.vue'
-import Edit2FA from '@/views/Edit2FA.vue';
 
 import './registerServiceWorker'
 
+import { useToast } from "vue-toastification";
+const toast = useToast()
+
+import { getCurrentUser } from "@/dexie.js"
 
 import data from '../package.json';
 export const APP_VERSION =  data.version;
@@ -40,22 +41,10 @@ const routes = [{
     path: "/folder",
     name: "folder",
     component: FolderView,
-}, {
-    path: "/addPasswordOrFolder",
-    name: "addPasswordOrFolder",
-    component: AddPasswordOrFolder,
-}, {
+},{
     path: "/editFolder",
     name: "editFolder",
     component: EditFolder,
-}, {
-    path: "/editPassword",
-    name: "editPassword",
-    component: EditPassword,
-}, {
-    path: "/edit2FA",
-    name: "edit2FA",
-    component: Edit2FA,
 }];
 
 const router = VueRouter.createRouter({
@@ -64,8 +53,25 @@ const router = VueRouter.createRouter({
 });
 
 
+// Authentication Guard on route change
+router.beforeEach((to, from, next) => {
+    getCurrentUser().then((user) => {
+        if(to.name !== "login" && !user) {
+        toast.error("Login Before Proceeding")
+        next({name: "login"});
+      } 
+      else if(to.name === "login" && user) {
+        toast.info("Cached Login with user `" + user.username + "`")
+        next({name: "home"})
+      } else {
+        next()
+      }
+    })
+  })
+
+
 const toast_options = {
-    maxToasts: 1
+    maxToasts: 3
 }
 
 

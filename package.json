@@ -1,6 +1,6 @@
 {
   "name": "p4ssword-m4nager",
-  "version": "2.2.6",
+  "version": "2.3.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
