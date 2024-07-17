@@ -1,5 +1,8 @@
 <template>
     <div id="mainSelector">
+        <p v-if="this.title !== 'NO TITLE'">
+            {{this.title}}
+        </p>
         <select v-model="this.my_value" @change="$emit('valueUpdated', this.my_value)">
             <option>NO FOLDER</option>
             <option v-for="f in this.folders" :key="f.key">{{ f.folder }} </option>
@@ -15,10 +18,19 @@ import { DBL_getFolders } from '@/dexie';
 
 export default {
 name: 'App',
-props: ["init_value"],
+props: {
+    init_value: {
+        type: String,
+        default: "NO FOLDER"
+    },
+    title: {
+        type: String,
+        default: "NO TITLE"
+    }
+},
 data() {
       return {
-        my_value: "NO FOLDER",
+        my_value: this.init_value,
         folders: [],
       }
   }, beforeMount() {
@@ -52,15 +64,17 @@ select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-}
+    transition: border 0.5s;
 
+}
 select:focus {
     outline: none;
+    border: 1px white solid;
 }
 
 svg {
     position: absolute;
-    top: 17px;
+    bottom: 17px;
     right: 25px;
     transform: rotate(180deg);
     pointer-events: none;
@@ -68,6 +82,13 @@ svg {
 
 option { 
     background-color: #242424;
+}
+
+p {
+    margin-top: 0px;
+    font-size: 0.8em;
+    margin-bottom: 0px;
+    color: #ffffff50;
 }
 
 </style>

@@ -51,10 +51,11 @@ select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    transition: border 0.5s;
 }
-
 select:focus {
     outline: none;
+    border: 1px white solid;
 }
 
 

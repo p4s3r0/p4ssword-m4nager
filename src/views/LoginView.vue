@@ -3,8 +3,8 @@
     <h1>Let's sign you in.</h1>
     <h2>Welcome back. <br>You've been missed!</h2>
     <div class="userInput">
-      <text-input id="posUsernameInput" placeholder="Username" @valueUpdated="updateUsername" />
-      <password-input @valueUpdated="updatePassword" />
+      <enhanced-text-input id="posUsernameInput" placeholder="Username" @valueUpdated="updateUsername" />
+      <enhanced-password-input-without-generate @valueUpdated="updatePassword"/>
     </div>
     <div id="centercenter">
       <p>Don't have an account? <a @click="this.$router.push('/register');">Register</a></p>
@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import TextInput from '@/components/TextInput.vue'
-import PasswordInput from '@/components/PasswordInput.vue'
+import EnhancedTextInput from '@/components/EnhancedTextInput.vue'
+import EnhancedPasswordInputWithoutGenerate from '@/components/EnhancedPasswordInputWithoutGenerate.vue'
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue'
 import { DB_loginUser } from '@/db';
 import { del_dexie, getCurrentUser } from '@/dexie';
@@ -31,8 +31,8 @@ export default {
       return { toast }
     },
   components: {
-    TextInput,
-    PasswordInput,
+    EnhancedTextInput,
+    EnhancedPasswordInputWithoutGenerate,
     BigButtonRegisterSignin,
   },
   data() {
@@ -83,6 +83,7 @@ h1, h2 {
 .userInput {
   position: absolute;
   width: 90%;
+  margin-top: 10vh;
   max-width: 800px;
   left: 50%;
   transform: translateX(-50%);
@@ -116,5 +117,12 @@ a {
   text-align: right;
   width: auto;
   color: rgba(255, 255, 255, 0.093);
+}
+
+@media (max-width : 700px) {
+  .userInput {
+    margin-top: 0;
+  }
+
 }
 </style>

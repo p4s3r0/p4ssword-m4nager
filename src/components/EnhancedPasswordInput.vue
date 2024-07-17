@@ -68,9 +68,11 @@ input {
   background-color: var(--background-color);
   color: white;
   width: 90%;
+  transition: border 0.5s;
 }
 input:focus {
-  outline:none;
+  outline: none;
+  border: 1px white solid;
 }
 
 

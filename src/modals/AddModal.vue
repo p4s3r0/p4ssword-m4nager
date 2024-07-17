@@ -40,7 +40,7 @@
                                 <star-preferred :selected_init=false @valueUpdated="updateStarred" />
                             </div>
                             <button class="AddButton" @click="add()">Add</button>
-                        </div>
+                    </div>
                 </div>
 
                 <div v-else-if="this.selection === 3" >
