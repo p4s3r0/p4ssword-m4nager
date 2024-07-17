@@ -23,12 +23,14 @@
                     <div id="textShower">
                         <attribute-value-shower v-if="this.secret != ''" title="Secret" :value="this.secret" />
                     </div>
-                    <button class="deleteButton ripple" @click="delete2FA">
-                        <symbol-icon icon="trash"/>
-                    </button>
-
-                    <div id="editButtonContainer">
-                        <button class="editButton" @click="this.edit_mode=true;">Edit</button>
+                    <div class="actionButtonContainer">
+                        <div class="ripple actionButton" @click="delete2FA">
+                            <symbol-icon icon="trash"/>
+                        </div>
+    
+                        <div class="ripple actionButton" @click="this.edit_mode=true">
+                            <symbol-icon icon="edit"/>
+                        </div>
                     </div>
                 </div>
                 <div v-else>
@@ -202,9 +204,14 @@ export default {
 }
 
 
-.deleteButton {
-    position: absolute;
-    margin-top: 10px;
+.actionButtonContainer {
+    height: 60px;
+    display: flex;
+    justify-content: left;
+    margin-top: 20px;
+}
+
+.actionButton {
     background-color: var(--background-color);
     border-radius: var(--border-radius);
     cursor: pointer;
@@ -214,10 +221,12 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 10px;
 }
-.deleteButton:hover {
+.actionButton:hover {
     background-color: #d9d9d927;
 }
+
 
 
 @media (max-width: 700px) {

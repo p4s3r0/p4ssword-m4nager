@@ -27,12 +27,14 @@
                         <attribute-value-shower v-if="this.note != ''" title="Note" :value="this.note" />
                     </div>
 
-                    <button class="deleteButton ripple" @click="deletePassword">
-                        <symbol-icon icon="trash"/>
-                    </button>
-
-                    <div id="editButtonContainer">
-                        <button class="editButton" @click="this.edit_mode=true">Edit</button>
+                    <div class="actionButtonContainer">
+                        <div class="ripple actionButton" @click="deletePassword">
+                            <symbol-icon icon="trash"/>
+                        </div>
+    
+                        <div class="ripple actionButton" @click="this.edit_mode=true">
+                            <symbol-icon icon="edit"/>
+                        </div>
                     </div>
                 </div>
                 <div v-else>
@@ -205,6 +207,7 @@ h1 {
 }
 
 #editButtonContainer {
+    margin-left: 60px;
     display: flex;
     justify-items: center;
     justify-content: center;
@@ -212,7 +215,7 @@ h1 {
 
 .editButton {
     height: 56px;
-    width: 60%;
+    width: 20%;
     background-color: #D9D9D90b;
     color: white;
     border: 0px;
@@ -226,22 +229,6 @@ h1 {
     background-color: #d9d9d927;
 }
 
-.deleteButton {
-    position: absolute;
-    margin-top: 10px;
-    background-color: var(--background-color);
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    width: 56px;
-    height: 56px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.deleteButton:hover {
-    background-color: #d9d9d927;
-}
 
 .starButtonContainer {
     margin-top: 15px;
@@ -260,8 +247,31 @@ h1 {
     border-radius: var(--border-radius);
     border: none;
     cursor: pointer;
-    width: 100%;
+    width: 80%;
     height: 56px;
+}
+
+.actionButtonContainer {
+    height: 60px;
+    display: flex;
+    justify-content: left;
+    margin-top: 20px;
+}
+
+.actionButton {
+    background-color: var(--background-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    width: 56px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+.actionButton:hover {
+    background-color: #d9d9d927;
 }
 
 @media (max-width: 700px) {
