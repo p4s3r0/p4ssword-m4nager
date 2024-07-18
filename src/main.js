@@ -13,6 +13,7 @@ import Register from '@/views/RegisterView.vue'
 import Home from '@/views/HomeView.vue'
 import FolderView from '@/views/FolderView.vue'
 import EditFolder from '@/views/EditFolder.vue'
+import Error404 from './views/Error404.vue';
 
 import './registerServiceWorker'
 
@@ -24,28 +25,32 @@ import { getCurrentUser } from "@/dexie.js"
 import data from '../package.json';
 export const APP_VERSION =  data.version;
 
-console.log(data.version)
 const routes = [{
-    path: "/",
-    name: "login",
-    component: Login,
+  name: "login",
+  path: "/",
+  component: Login,
 }, {
-    path: "/register",
-    name: "register",
-    component: Register,
+  name: "register",
+  path: "/register",
+  component: Register,
 }, {
-    path: "/home",
-    name: "home",
-    component: Home,
+  name: "home",
+  path: "/home",
+  component: Home,
 }, {
-    path: "/folder",
-    name: "folder",
-    component: FolderView,
+  name: "folder",
+  path: "/folder",
+  component: FolderView,
 },{
-    path: "/editFolder",
-    name: "editFolder",
-    component: EditFolder,
-}];
+  name: "editFolder",
+  path: "/editFolder",
+  component: EditFolder,
+},{
+  name: "404",
+  path: "/:pathMatch(.*)*",
+  component: Error404
+}
+];
 
 const router = VueRouter.createRouter({
     history: VueRouter.createWebHistory(),
@@ -78,6 +83,4 @@ const toast_options = {
 
 export const AXIOS_BASE_URL="https://api-p4ssword-m4nager.p4s3r0.it/"
 
-let app = createApp(App)
-
-app.use(router).use(VueCryptojs).use(Toast, toast_options).mount('#app');
+createApp(App).use(router).use(VueCryptojs).use(Toast, toast_options).mount('#app');
