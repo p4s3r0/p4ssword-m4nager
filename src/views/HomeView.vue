@@ -35,43 +35,49 @@
 
 
         <div id="wrapperl">
-            <div class="loader" v-if="this.loading"></div>
-            <div v-if="this.fold_pass_selector == 'Folders'" id="posFolders">
-                <folder
-                    v-for="f in this.folders"
-                    @click="openFolder(f.id, f.folder, f.color, f.starred)"
-                    :key="f.key"
-                    :name="f.folder"
-                    :color="f.color"
-                    :id="f.id"
-                    :starred="f.starred"
-                    :pass_amount="f.pass_amount"
-                />
-            </div>
+            <Transition name="fade" mode="out-in">
+                <div v-if="this.loading">
+                    <div class="loader"></div>
+                </div>
+                <div v-else>
+                    <div v-if="this.fold_pass_selector == 'Folders'" id="posFolders">
+                        <folder
+                            v-for="f in this.folders"
+                            @click="openFolder(f.id, f.folder, f.color, f.starred)"
+                            :key="f.key"
+                            :name="f.folder"
+                            :color="f.color"
+                            :id="f.id"
+                            :starred="f.starred"
+                            :pass_amount="f.pass_amount"
+                        />
+                    </div>
 
-            <div v-else-if="this.fold_pass_selector == 'Passwords'" id="posFolders">
-                <password
-                    v-for="p in this.passwords"
-                    @openPasswordModal="this.showViewPasswordModal = true"
-                    :key="p.key"
-                    :name="p.name"
-                    :enc_password="p.password"
-                    :username="p.username"
-                    :id="p.id"
-                    :folder="p.folder"
-                    :note="p.note"
-                    :starred="p.starred"
-                />
-            </div>
+                    <div v-else-if="this.fold_pass_selector == 'Passwords'" id="posFolders">
+                        <password
+                            v-for="p in this.passwords"
+                            @openPasswordModal="this.showViewPasswordModal = true"
+                            :key="p.key"
+                            :name="p.name"
+                            :enc_password="p.password"
+                            :username="p.username"
+                            :id="p.id"
+                            :folder="p.folder"
+                            :note="p.note"
+                            :starred="p.starred"
+                        />
+                    </div>
 
-            <div v-else id="posFolders">
-                <two-f-a v-for="t in this.twoFactors" 
-                    @open2FA="this.showTwoFaModal=true"
-                    :key="t.key" 
-                    :name="t.name" 
-                    :secret="t.secret" 
-                    :id="t.id" />
-            </div>
+                    <div v-else id="posFolders">
+                        <two-f-a v-for="t in this.twoFactors" 
+                            @open2FA="this.showTwoFaModal=true"
+                            :key="t.key" 
+                            :name="t.name" 
+                            :secret="t.secret" 
+                            :id="t.id" />
+                    </div>
+                </div>
+            </Transition>
         </div>
 
 
@@ -342,44 +348,37 @@ export default {
 
 /* HTML: <div class="loader"></div> */
 .loader {
-    margin-left: 50%;
-    margin-top: 100px;
-    transform: translateX(-50%);
-    width: 20%;
-    aspect-ratio: 1;
-    --_g: no-repeat radial-gradient(farthest-side, #fff 90%, #fff0);
-    background: var(--_g), var(--_g), var(--_g), var(--_g);
-    background-size: 40% 40%;
-    animation: l46 1s infinite;
+  width: 20px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 0 #fff4;
+  animation: l2 1.5s infinite linear;
+  position: relative;
+  margin-left: 48%;
+  margin-top: 200px;
 }
+.loader:before,
+.loader:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 #fff4;
+  animation: inherit;
+  animation-delay: -0.5s;
+}
+.loader:after {
+  animation-delay: -1s;
+}
+@keyframes l2 {
+    100% {box-shadow: 0 0 0 40px #fff0}
+}
+
+/* LOADER ENDE */
 
 .leftIcon {
     margin-left: 15px;
-}
-@keyframes l46 {
-    0% {
-        background-position:
-            0 0,
-            100% 0,
-            100% 100%,
-            0 100%;
-    }
-    40%,
-    50% {
-        background-position:
-            100% 100%,
-            100% 0,
-            0 0,
-            0 100%;
-    }
-    90%,
-    100% {
-        background-position:
-            100% 100%,
-            0 100%,
-            0 0,
-            100% 0;
-    }
 }
 
 </style>
