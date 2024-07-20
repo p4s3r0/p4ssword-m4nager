@@ -61,7 +61,7 @@ const router = VueRouter.createRouter({
 // Authentication Guard on route change
 router.beforeEach((to, from, next) => {
     getCurrentUser().then((user) => {
-        if(to.name !== "login" && !user) {
+        if((to.name !== "login" && to.name !== "register") && !user) {
         toast.error("Login Before Proceeding")
         next({name: "login"});
       } 

@@ -3,9 +3,9 @@
     <h1>Let's Register you.</h1>
     <h2>Welcome stranger. <br>Lemme keep your passwords</h2>
     <div class="userInput">
-      <text-input id="posUsernameInput" placeholder="Email" @valueUpdated="updateEmail"/>
-      <text-input id="posEmailInput" placeholder="Username" @valueUpdated="updateUsername"/>
-      <password-input @valueUpdated="updatePassword"/>
+      <enhanced-text-input id="posUsernameInput" placeholder="Email" @valueUpdated="updateEmail"/>
+      <enhanced-text-input id="posEmailInput" placeholder="Username" @valueUpdated="updateUsername"/>
+      <enhanced-password-input-without-generate @valueUpdated="updatePassword"/>
     </div>
       <p>Already have an account? <a @click="this.$router.push('/');">Login</a></p>
     <big-button-register-signin text="Register" @click="clickRegisterUser()"/>
@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import TextInput from '@/components/TextInput.vue'
-import PasswordInput from '@/components/PasswordInput.vue'
+import EnhancedTextInput from '@/components/EnhancedTextInput.vue'
+import EnhancedPasswordInputWithoutGenerate from '@/components/EnhancedPasswordInputWithoutGenerate.vue'
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue'
 import { DB_registerUser } from '@/db.js'
 
@@ -28,8 +28,8 @@ export default {
       return { toast }
     },
   components: {
-    TextInput,
-    PasswordInput,
+    EnhancedTextInput,
+    EnhancedPasswordInputWithoutGenerate,
     BigButtonRegisterSignin,
   }, 
   data() {
@@ -78,7 +78,7 @@ h1, h2 {
 p {
   position: absolute;
   bottom: 105px;
-  width: 95%;
+  width: 100%;
   text-align: center;
 }
 
