@@ -48,6 +48,7 @@ class TwoFa(Base):
     user: Mapped[str] = mapped_column(String(255), nullable=False)
     secret: Mapped[str] = mapped_column(String(255), nullable=False)
     name: Mapped[str] = mapped_column(String(255), nullable=False)
+    algo: Mapped[str] = mapped_column(String(6), nullable=True)
 
     def __repr__(self) -> str:
         return f"2fa[{self.id}] = {{ id={self.id}, user={self.user}, secret={self.secret}, name={self.name} }}"
@@ -241,6 +242,14 @@ def getTwoFaSecret(user: str, id: int):
         for row in conn.execute(stmt):
             two_fa_secret = row.secret 
     return two_fa_secret
+
+def getTwoFaAlgorithm(user: str, id: int):
+    stmt = select(TwoFa).where(TwoFa.user == user, TwoFa.id == id)
+    two_fa_algo = ""
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            two_fa_algo = row.algo 
+    return two_fa_algo
 
 
 # PASSWORDS -------------------------------------------------------------------

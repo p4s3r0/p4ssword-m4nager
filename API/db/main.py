@@ -249,7 +249,13 @@ def get_otp(api_key: str = "", user: str = "", id: int = -1):
     if not secret:
         return f"[ERROR] Something went Wrong!"
     
-    otp_code = subprocess.check_output(f'oathtool -b --totp=sha256 "{secret}" -s 60', shell=True).decode('utf-8').replace('\n', '')
+    algorithm = DbHandler.getTwoFaAlgorithm(user, id)
+    otp_code = "error"
+    if algorithm == "SHA256":
+        otp_code = subprocess.check_output(f'oathtool -b --totp=sha256 "{secret}" -s 60', shell=True).decode('utf-8').replace('\n', '')
+    else:
+        otp_code = subprocess.check_output(f'oathtool -b --totp "{secret}"', shell=True).decode('utf-8').replace('\n', '')
+        
     return otp_code
 
 

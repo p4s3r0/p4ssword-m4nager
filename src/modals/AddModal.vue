@@ -85,7 +85,7 @@ components: {
     EnhancedSelector,
     EnhancedPasswordInput,
     GeneratePasswordModal,
-    EnhancedSelectorFolder
+    EnhancedSelectorFolder,
 },
 data() {
     return {
@@ -95,6 +95,7 @@ data() {
         username: "",
         password: "",
         note: "",
+        algo: false,
         color: "black",
         starred: false,
         user: {},
@@ -119,6 +120,9 @@ methods: {
     },
     updateStarred(starred) {
         this.starred = starred;
+    },
+    update256(inp) {
+        this.algo = inp;
     },
     add() {
         if (this.selection == 1) {
