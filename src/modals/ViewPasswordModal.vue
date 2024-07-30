@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="actionButtonContainer">
-                        <div class="ripple actionButton" @click="deletePassword">
+                        <div class="ripple actionButton" @click="showConfirmationModal=true">
                             <symbol-icon icon="trash"/>
                         </div>
     
@@ -69,6 +69,10 @@
                 </div>
             </Transition>
         </div>
+        <Transition name="bounce" mode="out-in">
+            <delete-confirmation-modal v-if="this.showConfirmationModal" 
+            @closeModal="this.showConfirmationModal = false; resetScrolling();" val="password?" @confirmed="showConfirmationModal=false; deletePassword()"/>
+        </Transition>
     </div>
 </template>
 
@@ -78,6 +82,8 @@ import EnhancedTextInput from "@/components/EnhancedTextInput.vue";
 import EnhancedSelectorFolder from "@/components/EnhancedSelectorFolder.vue";
 import SymbolIcon from "@/components/SymbolIcon.vue";
 import StarPreferred from '@/components/StarPreferred.vue'
+
+import DeleteConfirmationModal from "@/modals/DeleteConfirmationModal.vue";
 
 import { useToast } from "vue-toastification";
 import { toasts_config_error, toasts_config_success} from '@/toasts'
@@ -99,7 +105,8 @@ export default {
         SymbolIcon,
         EnhancedTextInput,
         StarPreferred,
-        EnhancedSelectorFolder
+        EnhancedSelectorFolder,
+        DeleteConfirmationModal
     },
     data() {
         return {
@@ -110,7 +117,8 @@ export default {
             folder: store.temp.curr_password_folder,
             note: store.temp.curr_password_note,
             starred: store.temp.curr_password_starred,
-            edit_mode: false
+            edit_mode: false,
+            showConfirmationModal: false
         };
     },
     methods: {
@@ -150,7 +158,10 @@ export default {
                 this.toast.error("Something went Wrong!", toasts_config_error);
             }
         })
-    }
+        },
+        resetScrolling() {
+            document.body.style.overflow = "";
+        },
     },
     beforeMount() {
         document.body.style.overflow = "hidden";

@@ -24,7 +24,7 @@
                         <attribute-value-shower v-if="this.secret != ''" title="Secret" :value="this.secret" />
                     </div>
                     <div class="actionButtonContainer">
-                        <div class="ripple actionButton" @click="delete2FA">
+                        <div class="ripple actionButton" @click="this.showConfirmationModal=true;">
                             <symbol-icon icon="trash"/>
                         </div>
     
@@ -62,6 +62,11 @@
             </Transition>
 
         </div>
+
+        <Transition name="bounce" mode="out-in">
+            <delete-confirmation-modal v-if="this.showConfirmationModal" 
+            @closeModal="this.showConfirmationModal = false;" val="2FA?" @confirmed="showConfirmationModal=false; delete2FA()"/>
+        </Transition>
     </div>
 </template>
 
@@ -70,6 +75,7 @@ import AttributeValueShower from "@/components/AttributeValueShower.vue";
 import SymbolIcon from "@/components/SymbolIcon.vue";
 import EnhancedTextInput from "@/components/EnhancedTextInput.vue";
 import StarPreferred from "@/components/StarPreferred.vue";
+import DeleteConfirmationModal from "@/modals/DeleteConfirmationModal.vue";
 
 import { store } from "@/store/store";
 import { DB_delete2FA, DB_edit2FA } from "@/db";
@@ -87,13 +93,15 @@ export default {
         AttributeValueShower,
         SymbolIcon,
         EnhancedTextInput,
-        StarPreferred
+        StarPreferred,
+        DeleteConfirmationModal
     },
     data() {
         return {
             name: store.temp.curr_2fa_name,
             secret: store.temp.curr_2fa_secret,
-            edit_mode: false
+            edit_mode: false,
+            showConfirmationModal: false
         };
     },
     methods: {

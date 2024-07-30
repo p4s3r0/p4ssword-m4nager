@@ -98,10 +98,10 @@ watch: {
 
 #name {
     position: absolute;
-    left: 110px;
+    left: 60px;
     top: 15px;
-    transform: translateX(-50%);
     font-size: 1.2em;
+
 }
 
 #keyIcon {
