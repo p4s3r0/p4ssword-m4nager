@@ -141,7 +141,7 @@ methods: {
     DB_add2FA(this.name, this.note).then((res) => {
         if (res) {
             this.toast.success("New 2FA Added!", toasts_config_success);
-            this.$emit("closeModal")
+            this.$emit("closeModalReload")
         } else {
             this.toast.error("Something went wrong!", toasts_config_error);   
         }
@@ -155,7 +155,7 @@ methods: {
     DB_addNewPassword(this.name, this.password, this.folder, this.note, this.user.username, this.username, this.starred).then( (res) => {
         if (res) {
             this.toast.success("New Password Added!", toasts_config_success);
-            this.$emit("closeModal")
+            this.$emit("closeModalReload")
         } else {
             this.toast.error("Something went wrong!", toasts_config_error);   
         }
@@ -174,7 +174,7 @@ methods: {
       DB_addNewFolder(this.user.username, this.folder, this.color, this.starred).then( (res) => {
         if (res) {
             this.toast.success("New Folder Added!", toasts_config_success);
-            this.$emit("closeModal")
+            this.$emit("closeModalReload")
         } else {
             this.toast.error("Something went wrong!", toasts_config_error);
         }

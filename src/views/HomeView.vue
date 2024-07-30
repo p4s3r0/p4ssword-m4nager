@@ -100,16 +100,19 @@
         <Transition name="bounce" mode="out-in">
             <view-password-modal
                 v-if="this.showViewPasswordModal"
-                @closeModal="this.showViewPasswordModal = false; resetScrolling();" />
+                @closeModal="this.showViewPasswordModal = false; resetScrolling();"
+                @closeModalReload="this.showViewPasswordModal = false; resetScrolling(); reloadData();" />
         </Transition>
 
         <Transition name="bounce" mode="out-in">
             <two-f-a-modal v-if="this.showTwoFaModal"
-                @closeModal="this.showTwoFaModal = false; resetScrolling();" />
+                @closeModal="this.showTwoFaModal = false; resetScrolling();"
+                @closeModalReload="this.showTwoFaModal = false; resetScrolling(); reloadData()" />
         </Transition>
 
         <add-modal v-if="this.showAddModal"
-            @closeModal="this.showAddModal = false; resetScrolling();" />
+            @closeModal="this.showAddModal=false; resetScrolling();"
+            @closeModalReload="this.showAddModal=false; resetScrolling(); reloadData()" />
     </div>
 </template>
 
@@ -252,11 +255,9 @@ export default {
                 this.folders = rankFolderAlphabetically(res_fold);
                 this.loading = false;
             });
-        }
-    },
-    beforeMount() {
-        document.body.style.overflow = "";
-        getCurrentUser().then((user) => {
+        },
+        reloadData() {
+            getCurrentUser().then((user) => {
             if (user) {
                 this.user = user;
                 DB_getAllPasswords().then((res) => {
@@ -278,6 +279,11 @@ export default {
                 this.$router.push("/");
             }
         });
+        }
+    },
+    beforeMount() {
+        document.body.style.overflow = "";
+        this.reloadData();
     },
 };
 </script>

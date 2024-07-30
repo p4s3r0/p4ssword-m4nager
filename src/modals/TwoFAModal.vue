@@ -53,9 +53,6 @@
                         <enhanced-text-input title="Secret" :value="this.secret" @valueUpdated="this.update2FASecret"/>
                     </div>
                     <div class="starButtonContainer">
-                            <div id="starContainer">
-                                <star-preferred :selected_init=this.starred @valueUpdated="updateStarred" />
-                            </div>
                             <button class="editButton" @click="edit()">Edit</button>
                     </div>
                 </div>
@@ -106,7 +103,10 @@ export default {
     },
     methods: {
         delete2FA() {
-            DB_delete2FA(store.temp.curr_2fa_id).then(this.$emit("closeModal"));
+            DB_delete2FA(store.temp.curr_2fa_id).then((_) => {
+                this.toast.success("2FA deleted!", toasts_config_success);
+                this.$emit("closeModalReload");
+            })
         },
         update2FAName(name) {
             this.name = name;
@@ -118,7 +118,7 @@ export default {
         DB_edit2FA(store.temp.curr_2fa_id, this.name, this.secret).then( (res) => {
             if (res) {
                 this.toast.success("2FA edited!", toasts_config_success);
-                this.$emit("closeModal")
+                this.$emit("closeModalReload")
             } else {
                 this.toast.error("Something went Wrong!", toasts_config_error);
             }
@@ -201,7 +201,7 @@ export default {
 .starButtonContainer {
     margin-top: 15px;
     display: flex; 
-    justify-content: space-between;
+    justify-content: center;
 }
 
 #starContainer {

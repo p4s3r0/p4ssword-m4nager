@@ -125,7 +125,7 @@ export default {
         deletePassword() {
             DB_deletePassword(this.id).then((_) => {
                     this.toast.success("Password deleted!", toasts_config_success);
-                    this.$emit("closeModal");
+                    this.$emit("closeModalReload");
                 }
             )
         },
@@ -153,7 +153,7 @@ export default {
                         this.note, this.starred).then( (res) => {
             if(res == "OK") {
                 this.toast.success("Password edited!", toasts_config_success);
-                this.$emit('closeModal');
+                this.$emit('closeModalReload');
             } else {
                 this.toast.error("Something went Wrong!", toasts_config_error);
             }
