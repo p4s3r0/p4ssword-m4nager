@@ -78,7 +78,6 @@ import { store } from "@/store/store";
 import { DB_delete2FA, DB_edit2FA } from "@/db";
 
 import { useToast } from "vue-toastification";
-import { toasts_config_error, toasts_config_success } from '@/toasts';
 
 export default {
     name: "twoFaModal",
@@ -104,7 +103,7 @@ export default {
     methods: {
         delete2FA() {
             DB_delete2FA(store.temp.curr_2fa_id).then((_) => {
-                this.toast.success("2FA deleted!", toasts_config_success);
+                this.toast.success("2FA deleted!");
                 this.$emit("closeModalReload");
             })
         },
@@ -117,10 +116,10 @@ export default {
         edit() {
         DB_edit2FA(store.temp.curr_2fa_id, this.name, this.secret).then( (res) => {
             if (res) {
-                this.toast.success("2FA edited!", toasts_config_success);
+                this.toast.success("2FA edited!");
                 this.$emit("closeModalReload")
             } else {
-                this.toast.error("Something went Wrong!", toasts_config_error);
+                this.toast.error("Something went Wrong!");
             }
         })
     }

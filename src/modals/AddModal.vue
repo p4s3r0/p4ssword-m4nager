@@ -67,7 +67,6 @@ import EnhancedSelectorFolder from '@/components/EnhancedSelectorFolder.vue';
 import GeneratePasswordModal from './GeneratePasswordModal.vue'
 
 import { useToast } from "vue-toastification";
-import { toasts_config_error, toasts_config_success } from '@/toasts';
 
 import { DB_addNewPassword, DB_addNewFolder, DB_add2FA } from '@/db';
 
@@ -135,29 +134,29 @@ methods: {
     },
     add2FA() {
         if(this.name == "" || this.note == "") {
-            this.toast.error("Name and secret required!", toasts_config_error);
+            this.toast.error("Name and secret required!");
             return;
         }
     DB_add2FA(this.name, this.note).then((res) => {
         if (res) {
-            this.toast.success("New 2FA Added!", toasts_config_success);
+            this.toast.success("New 2FA Added!");
             this.$emit("closeModalReload")
         } else {
-            this.toast.error("Something went wrong!", toasts_config_error);   
+            this.toast.error("Something went wrong!");   
         }
     })
     },
     addPassword() {
         if(this.name == "") {
-            this.toast.error("Name is required!", toasts_config_error);
+            this.toast.error("Name is required!");
             return;
         }
     DB_addNewPassword(this.name, this.password, this.folder, this.note, this.user.username, this.username, this.starred).then( (res) => {
         if (res) {
-            this.toast.success("New Password Added!", toasts_config_success);
+            this.toast.success("New Password Added!");
             this.$emit("closeModalReload")
         } else {
-            this.toast.error("Something went wrong!", toasts_config_error);   
+            this.toast.error("Something went wrong!");   
         }
     });
     },
@@ -173,10 +172,10 @@ methods: {
             return;
       DB_addNewFolder(this.user.username, this.folder, this.color, this.starred).then( (res) => {
         if (res) {
-            this.toast.success("New Folder Added!", toasts_config_success);
+            this.toast.success("New Folder Added!");
             this.$emit("closeModalReload")
         } else {
-            this.toast.error("Something went wrong!", toasts_config_error);
+            this.toast.error("Something went wrong!");
         }
       });
     }

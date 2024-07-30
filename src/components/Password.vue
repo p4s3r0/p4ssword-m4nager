@@ -22,7 +22,6 @@
 import { getCurrentUser } from '@/dexie';
 import { DECRYPT } from '@/store/store';
 import { useToast } from "vue-toastification";
-import { toasts_config_info } from '@/toasts'
 import { store } from '@/store/store'
 
 import SymbolIcon from './SymbolIcon.vue';
@@ -46,12 +45,12 @@ methods: {
     async copyUsername() {
         const dec_username = await DECRYPT(this.username);
         navigator.clipboard.writeText(dec_username);
-        this.toast.info("Copied to Clipboard!", toasts_config_info);
+        this.toast.info("Copied to Clipboard!");
     },
     async copyPassword() {
         const dec_password = await DECRYPT(this.enc_password);   
         navigator.clipboard.writeText(dec_password);
-        this.toast.info("Copied to Clipboard!", toasts_config_info);
+        this.toast.info("Copied to Clipboard!");
     },
     async openPasswordView(name, password, username, id, folder, note, starred) {
         store.temp.curr_password_id = id;

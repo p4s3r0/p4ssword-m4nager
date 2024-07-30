@@ -19,7 +19,6 @@ import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue'
 import { DB_registerUser } from '@/db.js'
 
 import { useToast } from "vue-toastification";
-import { toasts_config_success, toasts_config_error } from "@/toasts"
 
 export default {
   name: 'App',
@@ -51,17 +50,17 @@ export default {
     },
     clickRegisterUser() {
       if (!navigator.onLine) {
-        this.toast.error("No internet Connection!", toasts_config_error);
+        this.toast.error("No internet Connection!");
         return;
       }
       DB_registerUser(this.username, this.email, this.password).then( (res) => {
         if(res == "OK") {
-          this.toast.success("User Registered!", toasts_config_success);
+          this.toast.success("User Registered!");
           this.$router.push("/");
         } else if(res == "[ERROR]-UsernameTaken"){
-          this.toast.error("Username already taken!", toasts_config_error);
+          this.toast.error("Username already taken!");
         } else {
-          this.toast.error("Something weird went wrong!", toasts_config_error);
+          this.toast.error("Something weird went wrong!");
         }
       })
     }

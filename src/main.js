@@ -2,17 +2,16 @@ import { createApp } from 'vue'
 import * as VueRouter from 'vue-router';
 
 import VueCryptojs from 'vue-cryptojs'
-import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
-import 'animate.css';
+import Toast, { POSITION } from "vue-toastification";
 import '@/global.css'
+import "@/assets/toasts.css"
 
 import App from './App.vue'
 import Login from '@/views/LoginView.vue'
 import Register from '@/views/RegisterView.vue'
 import Home from '@/views/HomeView.vue'
 import FolderView from '@/views/FolderView.vue'
-import EditFolder from '@/views/EditFolder.vue'
 import Error404 from './views/Error404.vue';
 
 import './registerServiceWorker'
@@ -41,10 +40,6 @@ const routes = [{
   name: "folder",
   path: "/folder",
   component: FolderView,
-},{
-  name: "editFolder",
-  path: "/editFolder",
-  component: EditFolder,
 },{
   name: "404",
   path: "/:pathMatch(.*)*",
@@ -76,7 +71,8 @@ router.beforeEach((to, from, next) => {
 
 
 const toast_options = {
-    maxToasts: 3
+    maxToasts: 3,
+    position: POSITION.TOP_RIGHT,
 }
 
 

@@ -36,7 +36,6 @@
 
 <script>
 import { useToast } from "vue-toastification";
-import { toasts_config_info } from '@/toasts';
 
 export default {
     setup() {
@@ -59,7 +58,7 @@ data() {
         }
     }, 
     copyContent() {
-        this.toast.info("Copied to Clipboard!", toasts_config_info);
+        this.toast.info("Copied to Clipboard!");
         navigator.clipboard.writeText(this.text);
     }
   }, beforeMount() {

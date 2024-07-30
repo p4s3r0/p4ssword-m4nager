@@ -19,7 +19,6 @@ import EnhancedPasswordInputWithoutGenerate from '@/components/EnhancedPasswordI
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue'
 import { DB_loginUser } from '@/db';
 import { del_dexie, getCurrentUser } from '@/dexie';
-import { toasts_config_error } from '@/toasts';
 
 import { useToast } from "vue-toastification";
 
@@ -53,14 +52,14 @@ export default {
     },
     loginUser() {
       if (!navigator.onLine) {
-        this.toast.error("No internet Connection!", toasts_config_error);
+        this.toast.error("No internet Connection!");
         return;
       }
       DB_loginUser(this.username, this.password).then((res) => {
         if (res) {
           this.$router.push('/home');
         } else {
-          this.toast.error("Incorrect Username or Password", toasts_config_error);
+          this.toast.error("Incorrect Username or Password");
         }
       });
     }

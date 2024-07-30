@@ -86,7 +86,6 @@ import StarPreferred from '@/components/StarPreferred.vue'
 import DeleteConfirmationModal from "@/modals/DeleteConfirmationModal.vue";
 
 import { useToast } from "vue-toastification";
-import { toasts_config_error, toasts_config_success} from '@/toasts'
 
 import { DB_deletePassword, DB_editPassword } from "@/db";
 
@@ -124,7 +123,7 @@ export default {
     methods: {
         deletePassword() {
             DB_deletePassword(this.id).then((_) => {
-                    this.toast.success("Password deleted!", toasts_config_success);
+                    this.toast.success("Password deleted!");
                     this.$emit("closeModalReload");
                 }
             )
@@ -152,10 +151,10 @@ export default {
         DB_editPassword(this.id, this.name, this.username, this.password, this.folder,
                         this.note, this.starred).then( (res) => {
             if(res == "OK") {
-                this.toast.success("Password edited!", toasts_config_success);
+                this.toast.success("Password edited!");
                 this.$emit('closeModalReload');
             } else {
-                this.toast.error("Something went Wrong!", toasts_config_error);
+                this.toast.error("Something went Wrong!");
             }
         })
         },

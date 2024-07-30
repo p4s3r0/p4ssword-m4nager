@@ -70,7 +70,6 @@ import { DB_deleteFolder, DB_getPasswordsForSpecificFolder } from '@/db'
 import { rankPasswordsAlphabetically } from '@/scripts/search'
 
 import { useToast } from "vue-toastification";
-import { toasts_config_error, toasts_config_success } from '@/toasts';
 
 
 export default {
@@ -103,16 +102,16 @@ export default {
 	methods: {
 		deleteFolder() {
 			if (!navigator.onLine) {
-				this.toast.error("No internet Connection!", toasts_config_error);
+				this.toast.error("No internet Connection!");
 				return;
 			}
 
 			DB_deleteFolder(this.folder_id).then( (res) => {
 				if(res) {
-					this.toast.success("Folder Deleted!", toasts_config_success);
+					this.toast.success("Folder Deleted!");
 					this.$router.push('/home');
 				} else {
-					this.toast.error("Something went Wrong!", toasts_config_error);
+					this.toast.error("Something went Wrong!");
 				}
 			})
 		},

@@ -147,9 +147,6 @@ import { store, DECRYPT } from "@/store/store";
 
 import { DB_getAllPasswords, DB_getAllFolders, DB_getAll2FA, DB_logoutUser } from "@/db";
 
-import { useToast } from "vue-toastification";
-import { toasts_config_error } from "@/toasts";
-
 export default {
     name: "App",
     components: {
@@ -164,10 +161,6 @@ export default {
         TwoFAModal,
         AddModal,
 
-    },
-    setup() {
-        const toast = useToast();
-        return { toast };
     },
     data() {
         return {

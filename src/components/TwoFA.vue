@@ -21,7 +21,6 @@
 import { getCurrentUser } from '@/dexie';
 import { useToast } from "vue-toastification";
 import { store } from '@/store/store'
-import { toasts_config_error, toasts_config_info } from '@/toasts'
 import { DB_getOtpCode } from '@/db'
 
 import SymbolIcon from './SymbolIcon.vue';
@@ -45,17 +44,17 @@ data() {
 methods: {
     async copyOtp() {
         if (!navigator.onLine) {
-            this.toast.error("No internet Connection!", toasts_config_error);
+            this.toast.error("No internet Connection!");
             return;
         }
 
         const otp_code = await DB_getOtpCode(this.id)
         if (otp_code.data.length !== 6) {
-            this.toast.error("Something went wrong", toasts_config_error);
+            this.toast.error("Something went wrong");
             return;
         }
         navigator.clipboard.writeText(otp_code.data);
-        this.toast.info("Copied to Clipboard! [" + otp_code.data + "]", toasts_config_info);
+        this.toast.info("Copied to Clipboard! [" + otp_code.data + "]");
     },
     open2FAView() {
         store.temp.curr_2fa_name = this.name;

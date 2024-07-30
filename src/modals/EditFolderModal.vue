@@ -37,7 +37,6 @@ import StarPreferred from '@/components/StarPreferred.vue'
 import EnhancedSelector from '@/components/EnhancedSelector.vue' 
 
 import { useToast } from "vue-toastification";
-import { toasts_config_error, toasts_config_success} from '@/toasts'
 
 import { DB_editFolder } from "@/db";
 
@@ -75,11 +74,11 @@ export default {
         edit() {
             DB_editFolder(this.id, this.name, this.starred, this.color).then( (res) => {
                 if(res == "OK") {
-                    this.toast.success("Folder edited!", toasts_config_success);
+                    this.toast.success("Folder edited!");
                     this.$emit('closeModal');
                     this.$router.push("/home")
                 } else {
-                    this.toast.error("Something went Wrong!", toasts_config_error);
+                    this.toast.error("Something went Wrong!");
                 }
             })
         }
