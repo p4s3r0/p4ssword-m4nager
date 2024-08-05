@@ -1,6 +1,6 @@
 <template>
     <div id="mainLogin">
-        <h1 id="posHello">Hello, {{ this.user.username }} 👋</h1>
+        <h1 @click="this.toast.info('HI')" id="posHello">Hello, {{ this.user.username }} 👋</h1>
         <button id="menuButton" class="ripple" @click="this.showMenuModal = true">
             <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="white">
                 <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
@@ -130,6 +130,9 @@ import AddModal from "@/modals/AddModal.vue";
 
 import SymbolIcon from "@/components/SymbolIcon.vue";
 
+import { useToast } from "vue-toastification";
+
+
 import {
     DBL_logoutUser,
     settings_getFolderOrPassword,
@@ -149,6 +152,10 @@ import { DB_getAllPasswords, DB_getAllFolders, DB_getAll2FA, DB_logoutUser } fro
 
 export default {
     name: "App",
+    setup() {
+      const toast = useToast();
+      return { toast }
+    },
     components: {
         SearchBar,
         Folder,

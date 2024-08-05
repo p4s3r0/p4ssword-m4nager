@@ -73,6 +73,7 @@ router.beforeEach((to, from, next) => {
 const toast_options = {
     maxToasts: 3,
     position: POSITION.TOP_RIGHT,
+    timeout: 1500,
 }
 
 

@@ -150,8 +150,6 @@ export async function DB_deletePassword(id) {
 export async function DB_editPassword(id, name, username, password, folder, note, starred) {
     const user = (await getCurrentUser())
 
-    console.log(id, name, username, password, folder, note, starred)
-
     const res = await axios.get(AXIOS_BASE_URL + "update_password", { params: {
         api_key: user.api_key,
         id: id,

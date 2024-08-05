@@ -1,26 +1,21 @@
 .Vue-Toastification__toast--default {
     background-color: var(--background-color);
-    border: 1px white solid;
     color: white;
 }
 .Vue-Toastification__toast--info {
-    background-color: var(--alternative-color);
-    border: 1px white solid;
+    background-color: rgb(105, 158, 255);
     color: black;
 }
 .Vue-Toastification__toast--success {
     background-color: rgb(171, 240, 171);
-    border: 1px white solid;
     color: black;
 }
 .Vue-Toastification__toast--error {
     background-color: rgb(240, 156, 156);
-    border: 1px white solid;
     color: black;
 }
 .Vue-Toastification__toast--warning {
     background-color: rgb(247, 247, 185);
-    border: 1px white solid;
     color: black;
 }
 
@@ -31,4 +26,18 @@
 }
 .Vue-Toastification__close-button {
     color: black;
+}
+
+@media only screen and (max-width : 600px) {
+    .Vue-Toastification__container {
+      width: 90%;
+      left: 5%;
+      margin-top: 5%;
+      margin: 0;
+    }
+    .Vue-Toastification__container.top-left,
+    .Vue-Toastification__container.top-right,
+    .Vue-Toastification__container.top-center {
+    top: 10px;
+  }
 }

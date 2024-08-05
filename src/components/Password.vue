@@ -45,7 +45,7 @@ methods: {
     async copyUsername() {
         const dec_username = await DECRYPT(this.username);
         navigator.clipboard.writeText(dec_username);
-        this.toast.info("Copied to Clipboard!");
+        this.toast.info("Copied Username to Clipboard!");
     },
     async copyPassword() {
         const dec_password = await DECRYPT(this.enc_password);   
