@@ -69,16 +69,16 @@ export async function DB_registerUser(username, email, password) {
 
 export async function DB_loginUser(username, password) {
     const q = AXIOS_BASE_URL +  "login_user?" + 
-                                "username=" + username + 
+                                "username=" + username +
                                 "&password=" + HASH(password)
 
     const res = await axios.get(q)
 
     if (res.data == "[ERROR]-LoginUserDoesNotExist") {
         return false
-    } 
+    }
     const user = res.data
-    
+
     await DBL_loginUser(username, password, user.email, user.api_key);
     return true;
 }
@@ -87,6 +87,7 @@ export async function DB_loginUser(username, password) {
 export async function DB_logoutUser() {
     const api_key = (await getCurrentUser()).api_key
 
+    if (api_key === undefined) return false;
     await axios.get(AXIOS_BASE_URL + "logout_user", { params: {
         api_key: api_key,
     }})

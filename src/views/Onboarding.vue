@@ -115,7 +115,7 @@ export default {
             DBL_onboardingOff();
             this.$router.push("/");
         }
-    }
+    },
 }
 </script>
 

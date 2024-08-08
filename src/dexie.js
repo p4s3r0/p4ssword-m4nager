@@ -36,6 +36,9 @@ export async function DBL_loginUser(username_, password_, email_, api_key_) {
 
 
 export async function DBL_onboardingOff() {
+    const onboarding = await db.virgin.toArray();
+    if(onboarding.length === 1) return true;
+
     await db.virgin.add({idx: 0, virgin: "im not a virgin"});
 }
 

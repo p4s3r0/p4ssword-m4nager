@@ -23,6 +23,8 @@ import { del_dexie, DBL_onboardingOn } from '@/dexie';
 
 import { useToast } from "vue-toastification";
 
+import { activateOnboarding } from "@/main"
+
 
 export default {
   name: 'App',
@@ -44,7 +46,11 @@ export default {
   methods: {
     redoOnboarding() {
       DBL_onboardingOn().then((_) => {
+        console.log("did it")
+        activateOnboarding();
         this.$router.push("/onboarding");
+        console.log("did it")
+
       })
 
     },

@@ -58,12 +58,22 @@ const router = VueRouter.createRouter({
 });
 
 let onboarding = true;
+export function activateOnboarding() {
+	onboarding = true;
+}
 // Authentication Guard on route change
 router.beforeEach((to, from, next) => {
+	if(to.name === "activate_onboarding") {
+		onboarding = true;
+		to.name = "onboarding"
+	}
 	getCurrentUser().then((user) => {
 		if((to.name !== "login" && to.name !== "register" && to.name !== "onboarding") && !user) {
 			toast.error("Login Before Proceeding")
 			next({name: "login"});
+		}
+		else if(to.name === "onboarding" && !onboarding) {
+			next({name: "login"})
 		}
 		else if(to.name === "login" && onboarding) {
 			if(user) {
