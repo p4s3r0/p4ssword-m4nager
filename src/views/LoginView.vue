@@ -8,6 +8,7 @@
     </div>
     <div id="centercenter">
       <p>Don't have an account? <a @click="this.$router.push('/register');">Register</a></p>
+      <p>No clue what this is about? Check out the <a @click="redoOnboarding()">Tutorial</a></p>
     </div>
     <big-button-register-signin text="Sign in" @click="loginUser()"/>
   </div>
@@ -18,7 +19,7 @@ import EnhancedTextInput from '@/components/EnhancedTextInput.vue'
 import EnhancedPasswordInputWithoutGenerate from '@/components/EnhancedPasswordInputWithoutGenerate.vue'
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue'
 import { DB_loginUser } from '@/db';
-import { del_dexie, getCurrentUser } from '@/dexie';
+import { del_dexie, DBL_onboardingOn } from '@/dexie';
 
 import { useToast } from "vue-toastification";
 
@@ -41,6 +42,12 @@ export default {
       }
   },
   methods: {
+    redoOnboarding() {
+      DBL_onboardingOn().then((_) => {
+        this.$router.push("/onboarding");
+      })
+
+    },
     updateUsername(username) {
       this.username = username;
     },

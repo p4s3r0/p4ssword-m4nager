@@ -100,7 +100,7 @@ data() {
         user: {},
         showGeneratePasswordModal: false
     }
-}, 
+},
 methods: {
     updateFolder(folder) {
         this.folder = folder;
@@ -142,7 +142,7 @@ methods: {
             this.toast.success("New 2FA Added!");
             this.$emit("closeModalReload")
         } else {
-            this.toast.error("Something went wrong!");   
+            this.toast.error("Something went wrong!");
         }
     })
     },
@@ -156,7 +156,7 @@ methods: {
             this.toast.success("New Password Added!");
             this.$emit("closeModalReload")
         } else {
-            this.toast.error("Something went wrong!");   
+            this.toast.error("Something went wrong!");
         }
     });
     },
@@ -179,10 +179,10 @@ methods: {
         }
       });
     }
-}, 
+},
 beforeMount() {
     document.body.style.overflow = "hidden"
-}, 
+},
 }
 </script>
 
@@ -227,7 +227,7 @@ beforeMount() {
 
 .starButtonContainer {
     margin-top: 15px;
-    display: flex; 
+    display: flex;
     justify-content: space-between;
 }
 

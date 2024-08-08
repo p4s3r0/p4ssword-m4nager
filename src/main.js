@@ -13,67 +13,86 @@ import Register from '@/views/RegisterView.vue'
 import Home from '@/views/HomeView.vue'
 import FolderView from '@/views/FolderView.vue'
 import Error404 from './views/Error404.vue';
+import OnboardingView from './views/Onboarding.vue';
 
 import './registerServiceWorker'
 
 import { useToast } from "vue-toastification";
 const toast = useToast()
 
-import { getCurrentUser } from "@/dexie.js"
+import { getCurrentUser, DBL_getOnboarding } from "@/dexie.js"
 
 import data from '../package.json';
 export const APP_VERSION =  data.version;
 
 const routes = [{
-  name: "login",
-  path: "/",
-  component: Login,
+	name: "login",
+	path: "/",
+	component: Login,
 }, {
-  name: "register",
-  path: "/register",
-  component: Register,
+	name: "register",
+	path: "/register",
+	component: Register,
 }, {
-  name: "home",
-  path: "/home",
-  component: Home,
+	name: "home",
+	path: "/home",
+	component: Home,
 }, {
-  name: "folder",
-  path: "/folder",
-  component: FolderView,
+	name: "folder",
+	path: "/folder",
+	component: FolderView,
 },{
-  name: "404",
-  path: "/:pathMatch(.*)*",
-  component: Error404
+	name: "onboarding",
+	path: "/onboarding",
+	component: OnboardingView,
+},{
+	name: "404",
+	path: "/:pathMatch(.*)*",
+	component: Error404
 }
 ];
 
 const router = VueRouter.createRouter({
-    history: VueRouter.createWebHistory(),
-    routes,
+	history: VueRouter.createWebHistory(),
+	routes,
 });
 
-
+let onboarding = true;
 // Authentication Guard on route change
 router.beforeEach((to, from, next) => {
-    getCurrentUser().then((user) => {
-        if((to.name !== "login" && to.name !== "register") && !user) {
-        toast.error("Login Before Proceeding")
-        next({name: "login"});
-      } 
-      else if(to.name === "login" && user) {
-        toast.info("Cached Login with user `" + user.username + "`")
-        next({name: "home"})
-      } else {
-        next()
-      }
-    })
-  })
+	getCurrentUser().then((user) => {
+		if((to.name !== "login" && to.name !== "register" && to.name !== "onboarding") && !user) {
+			toast.error("Login Before Proceeding")
+			next({name: "login"});
+		}
+		else if(to.name === "login" && onboarding) {
+			if(user) {
+				toast.info("Cached Login with user `" + user.username + "`")
+				next({name: "home"})
+			}
+			else
+			{
+				DBL_getOnboarding().then((res) => {
+					if(res) {
+						next({name: "onboarding"})
+					} else {
+						onboarding = false;
+						next({name: "login"})
+					}
+				})
+			}
+		}
+		else {
+			next()
+		}
+	})
+})
 
 
 const toast_options = {
-    maxToasts: 3,
-    position: POSITION.TOP_RIGHT,
-    timeout: 1500,
+		maxToasts: 3,
+		position: POSITION.TOP_RIGHT,
+		timeout: 1500,
 }
 
 

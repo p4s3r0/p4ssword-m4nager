@@ -2,12 +2,13 @@ import { Dexie } from 'dexie';
 import { store } from '@/store/store';
 
 const db = new Dexie("p4ssword_m4nager");
-db.version(6).stores({
+db.version(7).stores({
     curr_user: "++idx, username, password, email, api_key",
     folders: "++idx, folder, color, starred, pass_amount",
     passwords: "++idx, name, password, folder, note, username, starred",
     two_fa: "++idx, username, name, secret",
     settings: "idx, fold_pass_select",
+    virgin: "idx, virgin"
 });
 
 
@@ -16,42 +17,62 @@ export function del_dexie() {
     console.log("deleted db")
 }
 
+
+
 export async function DBL_loginUser(username_, password_, email_, api_key_) {
-    const user_exists = await db.curr_user.toArray(); 
+    const user_exists = await db.curr_user.toArray();
     if (user_exists) {
         await db.curr_user.clear();
     }
     const data = {
-        username: username_, 
-        password: password_, 
+        username: username_,
+        password: password_,
         email: email_,
         api_key: api_key_
     }
     await db.curr_user.add(data);
 }
 
+
+
+export async function DBL_onboardingOff() {
+    await db.virgin.add({idx: 0, virgin: "im not a virgin"});
+}
+
+export async function DBL_onboardingOn() {
+    await db.virgin.clear();
+}
+
+
+export async function DBL_getOnboarding() {
+    const onboarding = await db.virgin.toArray();
+    return onboarding.length === 0;
+}
+
+
+
 export async function DBL_logoutUser() {
-    const user_exists = await db.curr_user.toArray(); 
+    const user_exists = await db.curr_user.toArray();
     if (user_exists) {
         await db.curr_user.clear();
     }
 
-    const folders_exist = await db.folders.toArray(); 
+    const folders_exist = await db.folders.toArray();
     if (folders_exist) {
         await db.folders.clear();
     }
 
-    const passwords_exists = await db.passwords.toArray(); 
+    const passwords_exists = await db.passwords.toArray();
     if (passwords_exists) {
         await db.passwords.clear();
     }
 
-    const twoFa_exists = await db.two_fa.toArray(); 
+    const twoFa_exists = await db.two_fa.toArray();
     if (twoFa_exists) {
         await db.two_fa.clear();
     }
 
-    const settings_exists = await db.settings.toArray(); 
+    const settings_exists = await db.settings.toArray();
     if (settings_exists) {
         await db.settings.clear();
     }
@@ -59,7 +80,7 @@ export async function DBL_logoutUser() {
 
 
 export async function getCurrentUser() {
-    const user_exists = await db.curr_user.toArray(); 
+    const user_exists = await db.curr_user.toArray();
     if (!user_exists) {
         return false;
     }
@@ -92,7 +113,7 @@ export async function DBL_update2FA(twofas) {
         return await db.two_fa.toArray();
     }
 
-    
+
     await db.two_fa.clear();
     for(let i = 0; i < twofas.length; i++)
     {
