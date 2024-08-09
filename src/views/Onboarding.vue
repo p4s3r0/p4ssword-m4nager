@@ -43,7 +43,7 @@
                     <h1>Navigation</h1>
                     <p>Navigating between folders, passwords, and 2FA codes has never been easier! 🌟<br>
                         Simply click on the icons to switch between your folders, passwords and 2FAs. <br>
-                        Need a quick password? Just tap the password icon and voilà! 🚀 It's all designed to be intuitive and user-friendly, so managing your digital life feels effortless and fun! 😊</p>
+                        Need a quick password? Just tap the password icon! 🚀 It's all designed to be intuitive and user-friendly, so managing your digital life feels effortless and fun! 😊</p>
                     <img src="../../images/Onboarding/Navigation.png">
                     <div style="height: 120px;"></div>
                     <div id="actionButtons">
@@ -83,10 +83,11 @@
                         to P4ssword-M4nager! 🎉
                     </h3>
                     <p>
-                        Say goodbye to sticky notes and hello to secure, encrypted passwords with your master key. 🗝️✨ <br>
+                        Say goodbye to sticky notes and hello to the secure and encrypted passwords with your own master key. 🗝️✨ <br>
                         Let us handle the heavy lifting while you enjoy peace of mind. <br>
                         Ready to join the password party? Your digital life just got safer and more fun! 😄🔒<br><br>
-                        We recommend to install the app, if you are on <strong>Android</strong>📱 or <strong>Desktop</strong>🖥, use the Chrome Browser, tap the three dots at the top right corner and hit "Install" or "Add to Home Screen".<br>
+                        We recommend to install the app. <br>
+                        If you are on <strong>Android</strong>📱 or <strong>Desktop</strong>🖥, use the Chrome Browser, tap the three dots at the top right corner and hit "Install" or "Add to Home Screen".<br>
                         If you are on <strong>iOS</strong>📱, tap the share button and hit "Add to Home Screen".<br>
                     </p>
                     <div style="height: 120px;"></div>
