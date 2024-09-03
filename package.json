@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "animate.css": "^4.1.1",
-    "axios": "^1.7.3",
+    "axios": "^1.7.4",
     "dexie": "^3.2.5",
     "dotenv": "^16.4.3",
     "postcss": "^8.4.41",
