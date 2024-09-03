@@ -105,6 +105,9 @@ const toast_options = {
 		timeout: 1500,
 }
 
+export function browserIsSafari() {
+	return /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+}
 
 
 export const AXIOS_BASE_URL="https://api-p4ssword-m4nager.p4s3r0.it/"

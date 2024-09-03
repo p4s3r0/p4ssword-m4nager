@@ -12,6 +12,7 @@ import {DBL_loginUser,
     DBL_getFoldersPasswords,
     getCurrentUser
     } from '@/dexie';
+import { DECRYPT } from './store/store';
 
 
 const AES_KEY_CBC = process.env.VUE_APP_AES_KEY_CBC
@@ -282,6 +283,7 @@ export async function DB_getAll2FA() {
     const user = await getCurrentUser()
 
     if (!navigator.onLine) {
+        console.log("here")
         return DBL_get2Fa();
     }
 
@@ -289,6 +291,7 @@ export async function DB_getAll2FA() {
         api_key: user.api_key,
         user: user.username,
     }})
+
 
     let ret = []
     for(let i = 0; i < res.data.length; i++) {

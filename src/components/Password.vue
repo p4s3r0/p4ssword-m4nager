@@ -39,17 +39,17 @@ setup() {
 data() {
     return {
         user: {},
+        username_saved: 'INIT',
+        password_saved: 'INIT'
     }
 },
 methods: {
     async copyUsername() {
-        const dec_username = await DECRYPT(this.username);
-        navigator.clipboard.writeText(dec_username);
+        navigator.clipboard.writeText(this.username_saved);
         this.toast.info("Copied Username to Clipboard!");
     },
     async copyPassword() {
-        const dec_password = await DECRYPT(this.enc_password);   
-        navigator.clipboard.writeText(dec_password);
+        navigator.clipboard.writeText(this.password_saved);
         this.toast.info("Copied to Clipboard!");
     },
     async openPasswordView(name, password, username, id, folder, note, starred) {
@@ -67,6 +67,12 @@ methods: {
     getCurrentUser().then( (user) => {
         if(user) {
             this.user = user
+            DECRYPT(this.username).then((res) => {
+                this.username_saved = res;
+            });
+            DECRYPT(this.enc_password).then((res) => {
+                this.password_saved = res;
+            });
         } else {
             this.$router.push('/');
         }

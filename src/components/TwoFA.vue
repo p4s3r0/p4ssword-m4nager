@@ -7,21 +7,16 @@
 
         <p id="name"> {{ this.name }}  </p>
         <div id="back" @click=open2FAView()></div>
-
-            <symbol-icon icon="password" class="ripple" @click="copyOtp()" id="keyIcon"/>
-
-
-
-
-            
+        <symbol-icon icon="password" class="ripple" @click="copyOtp()" id="keyIcon"/>
     </div>
 </template>
 
 <script>
 import { getCurrentUser } from '@/dexie';
 import { useToast } from "vue-toastification";
-import { store } from '@/store/store'
-import { DB_getOtpCode } from '@/db'
+import { store } from '@/store/store';
+import { DB_getOtpCode } from '@/db';
+import { browserIsSafari } from '@/main';
 
 import SymbolIcon from './SymbolIcon.vue';
 
@@ -53,8 +48,13 @@ methods: {
             this.toast.error("Something went wrong");
             return;
         }
-        navigator.clipboard.writeText(otp_code.data);
-        this.toast.info("Copied to Clipboard! [" + otp_code.data + "]");
+
+        if(browserIsSafari()) {
+            this.toast.info("OTP Code: [" + otp_code.data + "]", {timeout: 5000,});
+        } else {
+            navigator.clipboard.writeText(otp_code.data);
+            this.toast.info("OTP Code copied to Clipboard")
+        }
     },
     open2FAView() {
         store.temp.curr_2fa_name = this.name;
