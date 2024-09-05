@@ -62,8 +62,17 @@ methods: {
         store.temp.curr_password_starred = starred;
         this.$emit('openPasswordModal');
     }
-    
-}, beforeMount() {
+},  watch: {
+    enc_password: function(newVal, oldVal) { // watch it
+        DECRYPT(newVal).then((res) => {
+            this.password_saved = res;
+        });},
+    username: function(newVal, oldVal)  {
+        DECRYPT(newVal).then((res) => {
+                this.username_saved = res;
+        });}
+    },
+ beforeMount() {
     getCurrentUser().then( (user) => {
         if(user) {
             this.user = user
@@ -71,8 +80,8 @@ methods: {
                 this.username_saved = res;
             });
             DECRYPT(this.enc_password).then((res) => {
-                this.password_saved = res;
-            });
+            this.password_saved = res;
+        });
         } else {
             this.$router.push('/');
         }
