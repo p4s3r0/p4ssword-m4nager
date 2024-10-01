@@ -46,10 +46,8 @@ export default {
   methods: {
     redoOnboarding() {
       DBL_onboardingOn().then((_) => {
-        console.log("did it")
         activateOnboarding();
         this.$router.push("/onboarding");
-        console.log("did it")
 
       })
 

@@ -48,13 +48,7 @@ methods: {
             this.toast.error("Something went wrong");
             return;
         }
-
-        if(browserIsSafari()) {
-            this.toast.info("OTP Code: [" + otp_code.data + "]", {timeout: 5000,});
-        } else {
-            navigator.clipboard.writeText(otp_code.data);
-            this.toast.info("OTP Code copied to Clipboard")
-        }
+        this.$emit("openTwoFaOTPModal", otp_code.data)
     },
     open2FAView() {
         store.temp.curr_2fa_name = this.name;

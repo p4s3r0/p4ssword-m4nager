@@ -153,7 +153,6 @@ h1 {
     margin-top: 10px;
     cursor: pointer;
     transition: background 0.8s;
-
 }
 .editButton:hover {
     background-color: #d9d9d927;
