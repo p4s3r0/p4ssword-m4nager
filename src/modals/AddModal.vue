@@ -244,6 +244,7 @@ beforeMount() {
     cursor: pointer;
     width: 100%;
     height: 56px;
+    color: var(--background-color);
 }
 
 </style>

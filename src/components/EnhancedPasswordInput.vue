@@ -53,6 +53,7 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: row;
+  height: 60px;
 }
 
 
@@ -60,15 +61,19 @@ export default {
   width: 90%;
 }
 input {
+  position: absolute;
   font-size: 1em;
   height: 56px;
+  padding-top: 1px;
+  padding-bottom: 1px;
   border-radius: var(--border-radius);
   padding-left: 20px;
   border: solid 1px rgba(255, 255, 255, 0.5);
   background-color: var(--background-color);
   color: white;
-  width: 90%;
   transition: border 0.5s;
+  right: 75px;
+  left: 0px;
 }
 input:focus {
   outline: none;
@@ -77,22 +82,16 @@ input:focus {
 
 
 i {
-  position: absolute;
-  transform: translateY(-50%);
-  right: 25%;
   width: 30px;
-  top: 55%;
 }
 
-#buttonContainer {
-  position: relative;
-  right: 0;
-}
+
 button {
   border-radius: var(--border-radius);
   border: none;
   cursor: pointer;
-  width: 100%;
-  height: 100%;
+  width: 70px;
+  height: 60px;
+  color: var(--background-color);
 }
 </style>

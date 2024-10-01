@@ -49,6 +49,8 @@ input {
   color: white;
   transition: border 0.5s;
   margin-bottom: 5px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 input:focus {
   outline: none;

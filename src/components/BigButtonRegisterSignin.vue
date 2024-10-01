@@ -26,6 +26,7 @@ export default {
   border-radius: 16px; 
   cursor: pointer;
   max-width: 300px;
+  color: var(--background-color);
 }
 
 p {
