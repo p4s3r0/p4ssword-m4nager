@@ -214,8 +214,9 @@ export default {
 .actionButtonContainer {
     height: 60px;
     display: flex;
-    justify-content: left;
+    justify-content: right;
     margin-top: 20px;
+    margin-right: 10px;
 }
 
 .actionButton {
