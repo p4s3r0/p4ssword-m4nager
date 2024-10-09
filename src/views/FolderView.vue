@@ -57,7 +57,6 @@
 import Password from '@/components/Password.vue'
 import SmallButtonDelete from '@/components/SmallButtonDelete.vue'
 import SmallButtonEdit from '@/components/SmallButtonEdit.vue'
-import AddButton from '@/components/AddButton.vue';
 import HomeButton from '@/components/HomeButton.vue';
 
 import ViewPasswordModal from "@/modals/ViewPasswordModal.vue";
@@ -82,7 +81,6 @@ export default {
 		Password,
 		SmallButtonDelete,
 		SmallButtonEdit,
-		AddButton,
 		HomeButton,
 		ViewPasswordModal,
 		DeleteConfirmationModal,

@@ -283,7 +283,6 @@ export async function DB_getAll2FA() {
     const user = await getCurrentUser()
 
     if (!navigator.onLine) {
-        console.log("here")
         return DBL_get2Fa();
     }
 

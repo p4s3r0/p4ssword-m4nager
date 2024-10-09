@@ -71,10 +71,12 @@
                     <div v-else id="posFolders">
                         <two-f-a v-for="t in this.twoFactors" 
                             @open2FA="this.showTwoFaModal=true"
+                            @openTwoFaOTPModal="openTwoFaOTPModalFunction"
                             :key="t.key" 
                             :name="t.name" 
                             :secret="t.secret" 
-                            :id="t.id" />
+                            :id="t.id"
+                             />
                     </div>
                 </div>
             </Transition>
@@ -110,6 +112,12 @@
                 @closeModalReload="this.showTwoFaModal = false; resetScrolling(); reloadData()" />
         </Transition>
 
+        <Transition name="bounce" mode="out-in">
+            <TwoFaOTPModal v-if="this.showTwoFaOtpModal"
+                :OTPcode="this.twoFaOtpCode"
+                @closeModal="this.showTwoFaOtpModal = false; resetScrolling();"/>
+        </Transition>
+
         <add-modal v-if="this.showAddModal"
             @closeModal="this.showAddModal=false; resetScrolling();"
             @closeModalReload="this.showAddModal=false; resetScrolling(); reloadData()" />
@@ -121,6 +129,8 @@ import SearchBar from "@/components/SearchBar.vue";
 import Folder from "@/components/Folder.vue";
 import Password from "@/components/Password.vue";
 import TwoFA from "@/components/TwoFA.vue";
+
+import TwoFaOTPModal from "@/modals/TwoFaOTPModal.vue";
 
 import UploadFileModal from "@/modals/UploadFileModal.vue";
 import MenuModal from "@/modals/MenuModal.vue";
@@ -167,7 +177,7 @@ export default {
         ViewPasswordModal,
         TwoFAModal,
         AddModal,
-
+        TwoFaOTPModal
     },
     data() {
         return {
@@ -182,10 +192,16 @@ export default {
             showMenuModal: false,
             showViewPasswordModal: false,
             showTwoFaModal: false,
-            showAddModal: false
+            showAddModal: false,
+            showTwoFaOtpModal: false,
+            twoFaOtpCode: 0
         };
     },
     methods: {
+        openTwoFaOTPModalFunction(code) {
+            this.twoFaOtpCode = code;
+            this.showTwoFaOtpModal = true;
+        },
         activateFoldersButton() {
             this.fold_pass_selector = "Folders";
             settings_updateFolderOrPassword("Folders");

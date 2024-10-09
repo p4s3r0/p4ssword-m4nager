@@ -64,6 +64,7 @@ button {
     border-radius: 10px;
     border: none;
     cursor: pointer;
+    color: var(--background-color);
 }
 
 #containerContainer {

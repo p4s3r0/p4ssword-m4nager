@@ -161,7 +161,7 @@ button {
     border: 1px white solid;
     cursor: pointer;
     border-radius: 10px;
-
+    color: var(--background-color);
 }
 
 img {

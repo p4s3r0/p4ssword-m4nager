@@ -55,7 +55,7 @@ select {
     font-size: 1em;
     width: 100%;
     max-width: 1000px;
-    height: 56px;
+    height: 60px;
     border-radius: var(--border-radius);
     padding-left: 20px;
     background-color: var(--background-color);
