@@ -30,10 +30,8 @@
 		<Transition name="bounce" mode="out-in">
 			<view-password-modal
 				v-if="this.showViewPasswordModal"
-				@closeModal="
-						this.showViewPasswordModal = false;
-						resetScrolling();
-				"
+				@closeModal="this.showViewPasswordModal = false; resetScrolling();"
+				@closeModalReload="this.showViewPasswordModal = false; resetScrolling(); reloadData();"
 					/>
 		</Transition>
 		<Transition name="bounce" mode="out-in">
@@ -116,17 +114,34 @@ export default {
 		resetScrolling() {
 			document.body.style.overflow = "";
 		},
-	}, 
-
+		reloadData() {
+			getCurrentUser().then((user) => {
+            if (user) {
+				getCurrentUser().then( (user) => {
+				if(user) {
+					this.user = user
+					DB_getPasswordsForSpecificFolder(store.temp.curr_folder_name).then( (res) => {
+						this.passwords = rankPasswordsAlphabetically(res);
+					})
+				} else {
+					this.$router.push('/');
+				}
+		})
+            } else {
+                this.$router.push("/");
+            }
+		});
+	}
+	},
 	beforeMount() {
 		getCurrentUser().then( (user) => {
 				if(user) {
-						this.user = user
-						DB_getPasswordsForSpecificFolder(store.temp.curr_folder_name).then( (res) => {
-							this.passwords = rankPasswordsAlphabetically(res);
-						})
+					this.user = user
+					DB_getPasswordsForSpecificFolder(store.temp.curr_folder_name).then( (res) => {
+						this.passwords = rankPasswordsAlphabetically(res);
+					})
 				} else {
-						this.$router.push('/');
+					this.$router.push('/');
 				}
 		})
 	}
