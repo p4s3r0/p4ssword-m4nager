@@ -96,7 +96,7 @@ methods: {
     border-bottom: #ffffff20 1px solid;
     position: relative;
     width: 110%;
-    height: 70px;
+    height: 90px;
     display: flex;
     color: white;
     font-size: 1.2em;

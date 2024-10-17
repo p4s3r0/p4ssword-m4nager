@@ -25,6 +25,11 @@ import { getCurrentUser, DBL_getOnboarding } from "@/dexie.js"
 import data from '../package.json';
 export const APP_VERSION =  data.version;
 
+
+import PrimeVue from 'primevue/config';
+import Aura from '@primevue/themes/aura';
+
+
 const routes = [{
 	name: "login",
 	path: "/",
@@ -112,4 +117,33 @@ export function browserIsSafari() {
 
 export const AXIOS_BASE_URL="https://api-p4ssword-m4nager.p4s3r0.it/"
 
-createApp(App).use(router).use(VueCryptojs).use(Toast, toast_options).mount('#app');
+
+
+import Button from "primevue/button"
+import FloatLabel from 'primevue/floatlabel';
+import Select from 'primevue/select';
+
+import InputText from 'primevue/inputtext';
+
+
+import 'primeicons/primeicons.css'
+
+
+
+const app = createApp(App);
+app.component('Button', Button);
+app.component('FloatLabel', FloatLabel);
+app.component('InputText', InputText);
+app.component('Select', Select);
+
+app.use(router).use(VueCryptojs).use(Toast, toast_options).use(PrimeVue, {
+	theme: {
+        preset: Aura,
+        options: {
+            prefix: 'p',
+            darkModeSelector: 'system',
+            cssLayer: true
+        }
+    }
+}
+).mount('#app');

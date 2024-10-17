@@ -4,12 +4,59 @@
   --background-color: #0E0E0E;
   --alternative-color: #cdccd3;
   --border-radius: 10px;
+  --p-primary-color: var(--p-inputtext-background);
+  --p-primary-hover-color: white;
+  --p-primary-active-color: white;
+
+  --p-floatlabel-font-weight: 400;
 
   font-family: "Space Grotesk", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 400;
+  font-weight: var(--p-floatlabel-font-weight);
   font-style: normal;
 }
+
+.p-button {
+  border: none;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.p-floatlabel {
+  --p-floatlabel-color: white;
+  --p-floatlabel-focus-color: white;
+  --p-inputtext-focus-border-color: white;
+  --p-floatlabel-active-color: white;
+  --p-floatlabel-invalid-color: white;
+}
+
+.p-select-option.p-select-option-selected {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.p-inputtext {
+  width: 100%;
+}
+
+.p-select {
+  width: 100%;
+  border: 1px solid var(--p-select-hover-border-color);
+  color: var(--p-select-hover-border-color);
+  height: 55px;
+  padding-top: 7.5px;
+}
+
+.p-star-button-true {
+  background-color: white;
+  border: none;
+  color: var(--background-color);
+}
+.p-star-button-false {
+  background-color: none;
+  border: 0.5px dashed white;
+  color: white
+}
+
 
 
 .ripple {

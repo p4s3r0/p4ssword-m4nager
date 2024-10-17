@@ -18,7 +18,6 @@ import { DECRYPT } from './store/store';
 const AES_KEY_CBC = process.env.VUE_APP_AES_KEY_CBC
 const AES_IV_CBC = process.env.VUE_APP_AES_IV_CBC
 
-
 function HASH(val) {
     return CryptoJS.SHA3(val).toString(CryptoJS.enc.Hex)
 }

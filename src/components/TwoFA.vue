@@ -1,6 +1,6 @@
 <template>
     <div id="container" class="ripple2">
-        <svg id="icon" width="25" height="25" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg id="icon" width="50" height="40" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M14.4316 9.16096L14.9138 8.6788C16.5115 7.08106 16.5115 4.49061 14.9138 2.89286C13.3161 1.29512 10.7256 1.29512 9.12787 2.89287L7.19923 4.82151C5.60149 6.41925 5.60149 9.0097 7.19923 10.6074C7.49684 10.9051 7.8289 11.1472 8.18256 11.334" stroke="yellow" stroke-width="1.5" stroke-linecap="round"/>
             <path d="M3.37514 8.64568L2.89299 9.12784C1.29524 10.7256 1.29524 13.316 2.89299 14.9138C4.49073 16.5115 7.08118 16.5115 8.67892 14.9138L10.6076 12.9851C12.2053 11.3874 12.2053 8.79694 10.6076 7.1992C10.195 6.7866 9.71618 6.48055 9.20537 6.28105" stroke="yellow" stroke-width="1.5" stroke-linecap="round"/>
         </svg>

@@ -18,13 +18,23 @@
                 <!-- FOLDER -->
                 <div v-else-if="this.selection === 1" >
                     <div>
-                        <enhanced-text-input @valueUpdated="updateFolder" placeholder="Folder Name" />
-                        <enhanced-selector @valueUpdated="updateColor"/>
+                        <div style="width: 100%">
+                            <FloatLabel variant="in">
+                                <InputText id="in_label" v-model="this.folder" />
+                                <label style="color: var(--p-select-placeholder-color)" for="in_label">Folder Name</label>
+                            </FloatLabel>
+                        </div>
+                        <div style="width: 100%; margin-top: 5px">
+                            <Select v-model="this.color" :options="colors" optionLabel="name" placeholder="Select a Color" class="w-full md:w-56" />
+                        </div>
                         <div class="starButtonContainer">
-                            <div id="starContainer">
-                                <star-preferred :selected_init=false @valueUpdated="updateStarred" />
+                            <div v-if="this.starred==true">
+                                <Button icon="pi pi-star" severity="contrast" rounded aria-label="Star" @click="this.starred=false" />
                             </div>
-                            <button class="AddButton" @click="add()">Add</button>
+                            <div v-else>
+                                <Button icon="pi pi-star" severity="contrast" text raised rounded aria-label="Star" @click="this.starred=true" class="p-star-button-false"/>
+                            </div>
+                            <Button label="Save" icon="pi pi-save" iconPos="left" style="background-color: white" @click="add()"/>
                         </div>
                     </div>
                 </div>
@@ -88,8 +98,8 @@ components: {
 },
 data() {
     return {
-        selection: 0,
-        folder: "NO FOLDER",
+        selection: 1,
+        folder: "",
         name: "",
         username: "",
         password: "",
@@ -98,7 +108,19 @@ data() {
         color: "black",
         starred: false,
         user: {},
-        showGeneratePasswordModal: false
+        showGeneratePasswordModal: false,
+        colors: [
+            {name: "Black", code: 'black'},
+            {name: "Dark Red", code: 'darkRed'},
+            {name: "Red", code: 'red'},
+            {name: "Dark Orange", code: 'darkOrange'},
+            {name: "Light Orange", code: 'lightOrange'},
+            {name: "Yellow", code: 'yellow'},
+            {name: "Light Green", code: 'lightGreen'},
+            {name: "Green", code: 'green'},
+            {name: "Blue Green", code: 'blueGreen'},
+            {name: "Blue", code: 'blue'},
+            {name: "Violet", code: 'violet'}]
     }
 },
 methods: {
@@ -170,14 +192,15 @@ methods: {
     addFolder() {
         if(this.folder == "")
             return;
-      DB_addNewFolder(this.user.username, this.folder, this.color, this.starred).then( (res) => {
-        if (res) {
-            this.toast.success("New Folder Added!");
-            this.$emit("closeModalReload")
-        } else {
-            this.toast.error("Something went wrong!");
-        }
-      });
+
+        DB_addNewFolder(this.user.username, this.folder, this.color.code, this.starred).then( (res) => {
+            if (res) {
+                this.toast.success("New Folder Added!");
+                this.$emit("closeModalReload")
+            } else {
+                this.toast.error("Something went wrong!");
+            }
+        });
     }
 },
 beforeMount() {
@@ -192,7 +215,7 @@ beforeMount() {
     background-color: var(--background-color);
     border: 1px white solid;
     border-radius: 16px;
-    width: 80%;
+    width: 90%;
     max-width: 500px;
     padding: 20px;
     padding-top: 0px;
@@ -245,6 +268,11 @@ beforeMount() {
     width: 100%;
     height: 56px;
     color: var(--background-color);
+}
+
+
+#wtf {
+    width: 50px;
 }
 
 </style>

@@ -28,7 +28,7 @@
                 <symbol-icon icon="2fa"
                             class="selectorIcon"
                             :class="this.fold_pass_selector == 'twoFA' ? 'IconActive' : 'IconNotActive'"
-                            @click="activateTwoFAButton" />            
+                            @click="activateTwoFAButton" />
             </div>
         </div>
 
