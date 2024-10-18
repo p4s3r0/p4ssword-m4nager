@@ -40,10 +40,29 @@
                 </div>
 
                 <div v-else-if="this.selection === 2" >
-                    <enhanced-text-input @valueUpdated="updateName" id="posNameInput" placeholder="Name" />
-                    <enhanced-text-input @valueUpdated="updateUsername" placeholder="Username" style="margin-bottom: 13px;" />
-                    <enhanced-password-input @valueUpdated="updatePassword" @showGeneratePasswordModal="this.showGeneratePasswordModal=true"/>
-                    <enhanced-selector-folder @valueUpdated="updateFolder" />
+                    <div style="width: 100%">
+                        <FloatLabel variant="in">
+                            <InputText id="in_label" v-model="this.name" />
+                            <label style="color: var(--p-select-placeholder-color)" for="in_label">Password Name</label>
+                        </FloatLabel>
+                        <FloatLabel variant="in" style="margin-top: 5px;">
+                            <InputText id="in_label" v-model="this.username" />
+                            <label style="color: var(--p-select-placeholder-color)" for="in_label">Username</label>
+                        </FloatLabel>
+                        <div style="display: flex;margin-top: 5px;">
+                            <FloatLabel variant="in" style="flex-grow: 1;">
+                                <InputText id="in_label" v-model="this.password" />
+                                <label style="color: var(--p-select-placeholder-color)" for="in_label">Password</label>
+                            </FloatLabel>
+                            <Button label="Generate" icon="pi pi-save" iconPos="left" style="background-color: white; margin-left: 5px;" @click="showGeneratePasswordModal=true"/>
+                        </div>
+                        <Select v-model="this.color" :options="folders" optionLabel="name" placeholder="Folder" class="w-full md:w-56" style="margin-top: 5px;" />
+                    </div>
+
+                    <!-- <enhanced-text-input @valueUpdated="updateName" id="posNameInput" placeholder="Name" /> -->
+                    <!-- <enhanced-text-input @valueUpdated="updateUsername" placeholder="Username" style="margin-bottom: 13px;" /> -->
+                    <!-- <enhanced-password-input @valueUpdated="updatePassword" @showGeneratePasswordModal="this.showGeneratePasswordModal=true"/> -->
+                    <!-- <enhanced-selector-folder @valueUpdated="updateFolder" /> -->
                     <enhanced-text-input @valueUpdated="updateNote" id="posNoteInput" placeholder="Note" />
                     <div class="starButtonContainer">
                             <div id="starContainer">
@@ -54,9 +73,21 @@
                 </div>
 
                 <div v-else-if="this.selection === 3" >
-                    <enhanced-text-input @valueUpdated="updateName" id="posNameInput" placeholder="Name" />
-                    <enhanced-text-input @valueUpdated="updateNote" id="posNoteInput" placeholder="Secret" />
-                    <button class="AddButton" @click="add()">Add</button>
+                    <div style="width: 100%">
+                        <FloatLabel variant="in">
+                            <InputText id="in_label" v-model="this.name" />
+                            <label style="color: var(--p-select-placeholder-color)" for="in_label">2FA Name</label>
+                        </FloatLabel>
+                    </div>
+                    <div style="width: 100%; margin-top: 5px;">
+                        <FloatLabel variant="in">
+                            <InputText id="in_label" v-model="this.note" />
+                            <label style="color: var(--p-select-placeholder-color)" for="in_label">Secret</label>
+                        </FloatLabel>
+                    </div>
+                    <div style="display: flex; justify-content: right; margin-top: 5px;">
+                        <Button label="Save" icon="pi pi-save" iconPos="left" style="background-color: white" @click="add()"/>
+                    </div>
                 </div>
             </transition>
         </div>
@@ -87,6 +118,12 @@ setup() {
       const toast = useToast();
       return { toast }
     },
+    props: {
+        folders: {
+            type: Array,
+            default: []
+        }
+    },
 components: {
     MenuButtonSelection,
     EnhancedTextInput,
@@ -98,7 +135,7 @@ components: {
 },
 data() {
     return {
-        selection: 1,
+        selection: 2,
         folder: "",
         name: "",
         username: "",
@@ -120,7 +157,7 @@ data() {
             {name: "Green", code: 'green'},
             {name: "Blue Green", code: 'blueGreen'},
             {name: "Blue", code: 'blue'},
-            {name: "Violet", code: 'violet'}]
+            {name: "Violet", code: 'violet'}],
     }
 },
 methods: {
@@ -204,7 +241,7 @@ methods: {
     }
 },
 beforeMount() {
-    document.body.style.overflow = "hidden"
+    document.body.style.overflow = "hidden";
 },
 }
 </script>

@@ -57,6 +57,10 @@
   color: white
 }
 
+.p-star-button-true {
+  border: 1px red solid;
+}
+
 
 
 .ripple {
