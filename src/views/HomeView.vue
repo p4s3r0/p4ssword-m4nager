@@ -118,7 +118,7 @@
                 @closeModal="this.showTwoFaOtpModal = false; resetScrolling();"/>
         </Transition>
 
-        <add-modal v-if="this.showAddModal" :folders="this.folders"
+        <add-modal v-if="this.showAddModal"
             @closeModal="this.showAddModal=false; resetScrolling();"
             @closeModalReload="this.showAddModal=false; resetScrolling(); reloadData()" />
     </div>

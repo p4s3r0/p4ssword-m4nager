@@ -54,22 +54,35 @@
                                 <InputText id="in_label" v-model="this.password" />
                                 <label style="color: var(--p-select-placeholder-color)" for="in_label">Password</label>
                             </FloatLabel>
-                            <Button label="Generate" icon="pi pi-save" iconPos="left" style="background-color: white; margin-left: 5px;" @click="showGeneratePasswordModal=true"/>
+                            <Button label="Generate" icon="pi pi-key" iconPos="left" style="background-color: white; margin-left: 5px;" @click="showGeneratePasswordModal=true"/>
                         </div>
-                        <Select v-model="this.color" :options="folders" optionLabel="name" placeholder="Folder" class="w-full md:w-56" style="margin-top: 5px;" />
+                        <Select v-model="this.folder" :options="folders" optionLabel="name" placeholder="Folder" class="w-full md:w-56" style="margin-top: 5px;" />
+                        <FloatLabel variant="in" style="margin-top: 5px;">
+                            <InputText id="in_label" v-model="this.note" />
+                            <label style="color: var(--p-select-placeholder-color)" for="in_label">Note</label>
+                        </FloatLabel>
+                        <div class="starButtonContainer">
+                            <div v-if="this.starred==true">
+                                <Button icon="pi pi-star" severity="contrast" rounded aria-label="Star" @click="this.starred=false" />
+                            </div>
+                            <div v-else>
+                                <Button icon="pi pi-star" severity="contrast" text raised rounded aria-label="Star" @click="this.starred=true" class="p-star-button-false"/>
+                            </div>
+                            <Button label="Save" icon="pi pi-save" iconPos="left" style="background-color: white" @click="add()"/>
+                        </div>
                     </div>
 
                     <!-- <enhanced-text-input @valueUpdated="updateName" id="posNameInput" placeholder="Name" /> -->
                     <!-- <enhanced-text-input @valueUpdated="updateUsername" placeholder="Username" style="margin-bottom: 13px;" /> -->
                     <!-- <enhanced-password-input @valueUpdated="updatePassword" @showGeneratePasswordModal="this.showGeneratePasswordModal=true"/> -->
                     <!-- <enhanced-selector-folder @valueUpdated="updateFolder" /> -->
-                    <enhanced-text-input @valueUpdated="updateNote" id="posNoteInput" placeholder="Note" />
-                    <div class="starButtonContainer">
+                    <!-- <enhanced-text-input @valueUpdated="updateNote" id="posNoteInput" placeholder="Note" /> -->
+                    <!-- <div class="starButtonContainer">
                             <div id="starContainer">
                                 <star-preferred :selected_init=false @valueUpdated="updateStarred" />
                             </div>
                             <button class="AddButton" @click="add()">Add</button>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div v-else-if="this.selection === 3" >
@@ -110,21 +123,17 @@ import GeneratePasswordModal from './GeneratePasswordModal.vue'
 import { useToast } from "vue-toastification";
 
 import { DB_addNewPassword, DB_addNewFolder, DB_add2FA } from '@/db';
+import { DBL_getFoldersNames } from '@/dexie'
 
 
 export default {
 name: 'addModal',
-setup() {
+    setup() {
       const toast = useToast();
       return { toast }
     },
-    props: {
-        folders: {
-            type: Array,
-            default: []
-        }
-    },
-components: {
+    emits: ['closeModal', 'closeModalReload'],
+    components: {
     MenuButtonSelection,
     EnhancedTextInput,
     StarPreferred,
@@ -132,8 +141,8 @@ components: {
     EnhancedPasswordInput,
     GeneratePasswordModal,
     EnhancedSelectorFolder,
-},
-data() {
+    },
+    data() {
     return {
         selection: 2,
         folder: "",
@@ -145,6 +154,7 @@ data() {
         color: "black",
         starred: false,
         user: {},
+        folders: [],
         showGeneratePasswordModal: false,
         colors: [
             {name: "Black", code: 'black'},
@@ -210,7 +220,7 @@ methods: {
             this.toast.error("Name is required!");
             return;
         }
-    DB_addNewPassword(this.name, this.password, this.folder, this.note, this.user.username, this.username, this.starred).then( (res) => {
+    DB_addNewPassword(this.name, this.password, this.folder.name, this.note, this.user.username, this.username, this.starred).then( (res) => {
         if (res) {
             this.toast.success("New Password Added!");
             this.$emit("closeModalReload")
@@ -242,6 +252,10 @@ methods: {
 },
 beforeMount() {
     document.body.style.overflow = "hidden";
+    DBL_getFoldersNames().then((res) => {
+        this.folders = res
+    })
+    
 },
 }
 </script>
