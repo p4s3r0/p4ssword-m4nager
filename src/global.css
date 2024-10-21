@@ -4,17 +4,36 @@
   --background-color: #0E0E0E;
   --alternative-color: #cdccd3;
   --border-radius: 10px;
-  --p-primary-color: var(--p-inputtext-background);
+   --p-primary-color: white;
+  /* --p-primary-color: var(--p-inputtext-background); */
   --p-primary-hover-color: white;
   --p-primary-active-color: white;
 
   --p-floatlabel-font-weight: 400;
+
+  /* Check Box */
+  --p-checkbox-icon-checked-color: black;
+  --p-checkbox-checked-background: white;
+
 
   font-family: "Space Grotesk", sans-serif;
   font-optical-sizing: auto;
   font-weight: var(--p-floatlabel-font-weight);
   font-style: normal;
 }
+
+.p-checkbox-box {
+  width: 40px;  /* Change width as needed */
+  height: 40px; /* Change height as needed */
+}
+/* Adjust the size of the checkmark inside the checkbox */
+.p-checkbox-box .p-checkbox-icon {
+  font-size: 40px; /* Change the checkmark size */
+}
+.p-checkbox {
+  margin-right: 8px; /* Change spacing as needed */
+}
+
 
 .p-button {
   border: none;

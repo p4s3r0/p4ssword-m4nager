@@ -71,18 +71,6 @@
                             <Button label="Save" icon="pi pi-save" iconPos="left" style="background-color: white" @click="add()"/>
                         </div>
                     </div>
-
-                    <!-- <enhanced-text-input @valueUpdated="updateName" id="posNameInput" placeholder="Name" /> -->
-                    <!-- <enhanced-text-input @valueUpdated="updateUsername" placeholder="Username" style="margin-bottom: 13px;" /> -->
-                    <!-- <enhanced-password-input @valueUpdated="updatePassword" @showGeneratePasswordModal="this.showGeneratePasswordModal=true"/> -->
-                    <!-- <enhanced-selector-folder @valueUpdated="updateFolder" /> -->
-                    <!-- <enhanced-text-input @valueUpdated="updateNote" id="posNoteInput" placeholder="Note" /> -->
-                    <!-- <div class="starButtonContainer">
-                            <div id="starContainer">
-                                <star-preferred :selected_init=false @valueUpdated="updateStarred" />
-                            </div>
-                            <button class="AddButton" @click="add()">Add</button>
-                    </div> -->
                 </div>
 
                 <div v-else-if="this.selection === 3" >
@@ -144,7 +132,7 @@ name: 'addModal',
     },
     data() {
     return {
-        selection: 2,
+        selection: 0,
         folder: "",
         name: "",
         username: "",

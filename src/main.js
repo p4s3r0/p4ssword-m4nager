@@ -122,8 +122,11 @@ export const AXIOS_BASE_URL="https://api-p4ssword-m4nager.p4s3r0.it/"
 import Button from "primevue/button"
 import FloatLabel from 'primevue/floatlabel';
 import Select from 'primevue/select';
-
+import Checkbox from 'primevue/checkbox';
 import InputText from 'primevue/inputtext';
+import Slider from 'primevue/slider';
+import InputNumber from 'primevue/inputnumber';
+
 
 
 import 'primeicons/primeicons.css'
@@ -135,6 +138,9 @@ app.component('Button', Button);
 app.component('FloatLabel', FloatLabel);
 app.component('InputText', InputText);
 app.component('Select', Select);
+app.component('Checkbox', Checkbox);
+app.component('Slider', Slider);
+app.component('InputNumber', InputNumber);
 
 app.use(router).use(VueCryptojs).use(Toast, toast_options).use(PrimeVue, {
 	theme: {
