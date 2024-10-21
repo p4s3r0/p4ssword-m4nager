@@ -3,9 +3,18 @@
     <h1>Let's Register you.</h1>
     <h2>Welcome stranger. <br>Lemme keep your passwords</h2>
     <div class="userInput">
-      <enhanced-text-input id="posUsernameInput" placeholder="Email" @valueUpdated="updateEmail"/>
-      <enhanced-text-input id="posEmailInput" placeholder="Username" @valueUpdated="updateUsername"/>
-      <enhanced-password-input-without-generate @valueUpdated="updatePassword"/>
+      <FloatLabel variant="in" style="margin-top: 10px;">
+          <InputText id="in_label" v-model="this.email"/>
+          <label style="color: var(--p-select-placeholder-color)" for="in_label">Email</label>
+      </FloatLabel>
+      <FloatLabel variant="in" style="margin-top: 5px;">
+          <InputText id="in_label" v-model="this.username"/>
+          <label style="color: var(--p-select-placeholder-color)" for="in_label">Username</label>
+      </FloatLabel>
+      <FloatLabel variant="in" style="margin-top: 5px; width: 100%;">
+          <Password v-model="this.password" inputId="in_label" style="width: 100%;" toggleMask/>
+          <label for="in_label">Password</label>
+      </FloatLabel>
     </div>
       <p>Already have an account? <a @click="this.$router.push('/');">Login</a></p>
     <big-button-register-signin text="Register" @click="clickRegisterUser()"/>
@@ -90,7 +99,8 @@ a {
 .userInput {
   position: absolute;
   width: 90%;
-  max-width: 800px;
+  margin-top: 10vh;
+  max-width: 500px;
   left: 50%;
   transform: translateX(-50%);
 }

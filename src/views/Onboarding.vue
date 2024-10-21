@@ -13,8 +13,8 @@
                     </p>
                     <div style="height: 120px;"></div>
                     <div id="actionButtons">
-                        <button class="ripple" @click="stage = 0">Restart Tutorial</button>
-                        <button class="ripple" @click="turnOnboardingOff()">Login</button>
+                        <Button label="Skip Tutorial" icon="pi pi-forward" iconPos="left" style="background-color: white" @click="turnOnboardingOff()"/>
+                        <Button label="Next" icon="pi pi-caret-right" iconPos="left" style="background-color: white" @click="turnOnboardingOff()"/>
                     </div>
                 </div>
             </div>
@@ -30,8 +30,8 @@
                     <img src="../../images/Onboarding/Shortcut.png">
                     <div style="height: 120px;"></div>
                     <div id="actionButtons">
-                        <button class="ripple" @click="turnOnboardingOff()">Skip Tutorial</button>
-                        <button class="ripple" @click="stage += 1">Next</button>
+                        <Button label="Skip Tutorial" icon="pi pi-forward" iconPos="left" style="background-color: white" @click="turnOnboardingOff()"/>
+                        <Button label="Next" icon="pi pi-caret-right" iconPos="left" style="background-color: white" @click="stage+=1"/>
                     </div>
                 </div>
             </div>
@@ -47,8 +47,8 @@
                     <img src="../../images/Onboarding/Navigation.png">
                     <div style="height: 120px;"></div>
                     <div id="actionButtons">
-                        <button class="ripple" @click="turnOnboardingOff()">Skip Tutorial</button>
-                        <button class="ripple" @click="stage += 1">Next</button>
+                        <Button label="Skip Tutorial" icon="pi pi-forward" iconPos="left" style="background-color: white" @click="turnOnboardingOff()"/>
+                        <Button label="Next" icon="pi pi-caret-right" iconPos="left" style="background-color: white" @click="stage+=1"/>
                     </div>
                 </div>
             </div>
@@ -68,8 +68,8 @@
                     <img src="../../images/Onboarding/add.png">
                     <div style="height: 120px;"></div>
                     <div id="actionButtons">
-                        <button class="ripple" @click="turnOnboardingOff()">Skip Tutorial</button>
-                        <button class="ripple" @click="stage += 1">Next</button>
+                        <Button label="Skip Tutorial" icon="pi pi-forward" iconPos="left" style="background-color: white" @click="turnOnboardingOff()"/>
+                        <Button label="Next" icon="pi pi-caret-right" iconPos="left" style="background-color: white" @click="stage+=1"/>
                     </div>
                 </div>
             </div>
@@ -90,10 +90,9 @@
                         If you are on <strong>Android</strong>📱 or <strong>Desktop</strong>🖥, use the Chrome Browser, tap the three dots at the top right corner and hit "Install" or "Add to Home Screen".<br>
                         If you are on <strong>iOS</strong>📱, tap the share button and hit "Add to Home Screen".<br>
                     </p>
-                    <div style="height: 120px;"></div>
                     <div id="actionButtons">
-                        <button class="ripple" @click="turnOnboardingOff()">Skip Tutorial</button>
-                        <button class="ripple" @click="stage += 1">Next</button>
+                        <Button label="Skip Tutorial" icon="pi pi-forward" iconPos="left" style="background-color: white" @click="turnOnboardingOff()"/>
+                        <Button label="Next" icon="pi pi-caret-right" iconPos="left" style="background-color: white" @click="stage+=1"/>
                     </div>
                 </div>
             </div>

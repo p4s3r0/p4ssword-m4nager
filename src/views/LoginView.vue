@@ -3,8 +3,14 @@
     <h1>Let's sign you in.</h1>
     <h2>Welcome back. <br>You've been missed!</h2>
     <div class="userInput">
-      <enhanced-text-input id="posUsernameInput" placeholder="Username" @valueUpdated="updateUsername" />
-      <enhanced-password-input-without-generate @valueUpdated="updatePassword"/>
+      <FloatLabel variant="in">
+          <InputText id="in_label" v-model="this.username"/>
+          <label style="color: var(--p-select-placeholder-color)" for="in_label">Username</label>
+      </FloatLabel>
+      <FloatLabel variant="in" style="margin-top: 5px; width: 100%;">
+        <Password v-model="this.password" inputId="in_label" style="width: 100%;" toggleMask @change="valueChange"/>
+        <label for="in_label">Password</label>
+      </FloatLabel>
     </div>
     <div id="centercenter">
       <p>Don't have an account? <a @click="this.$router.push('/register');">Register</a></p>
@@ -88,7 +94,7 @@ h1, h2 {
   position: absolute;
   width: 90%;
   margin-top: 10vh;
-  max-width: 800px;
+  max-width: 500px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -109,24 +115,4 @@ a {
   text-align: center;
 }
 
-#posUsernameInput {
-  margin-top: 10vh;
-  margin-bottom: 13px;
-}
-
-#Version {
-  position: absolute;
-  bottom: -15px;
-  right: 15px;
-  text-align: right;
-  width: auto;
-  color: rgba(255, 255, 255, 0.093);
-}
-
-@media (max-width : 700px) {
-  .userInput {
-    margin-top: 0;
-  }
-
-}
 </style>
