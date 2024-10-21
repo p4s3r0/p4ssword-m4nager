@@ -15,16 +15,21 @@
                     />
                 </svg>
             </div>
-            <div id="textShower">
-                <enhanced-text-input title="Name" :value="this.name" @valueUpdated="this.updateFolderName"/>
-                <enhanced-selector @valueUpdated="updateFolderColor" :value="this.color"/>
+            <div style="width: 100%">
+                <FloatLabel variant="in">
+                    <InputText id="in_label" v-model="this.name" @change="valueChange"/>
+                    <label style="color: var(--p-select-placeholder-color)" for="in_label">Name</label>
+                </FloatLabel>
+                <Select v-model="this.color" :options="colors" optionLabel="name" :placeholder="this.color" class="w-full md:w-56" style="margin-top: 5px;" @change="valueChange"/>
             </div>
-
-            <div class="starButtonContainer">
-                    <div id="starContainer">
-                        <star-preferred :selected_init=this.starred @valueUpdated="updateStarred" />
-                    </div>
-                    <button class="editButton" @click="edit()">Edit</button>
+            <div class="starButtonContainer" style="display: flex; justify-content: space-between; margin-top: 20px">
+                <div v-if="this.starred==true">
+                    <Button icon="pi pi-star" severity="contrast" rounded aria-label="Star" @click="this.starred=false; this.edit_mode=true" />
+                </div>
+                <div v-else>
+                    <Button icon="pi pi-star" severity="contrast" text raised rounded aria-label="Star" @click="this.starred=true; this.edit_mode=true" class="p-star-button-false"/>
+                </div>
+                <Button label="Edit" icon="pi pi-pencil" iconPos="left" style="background-color: white" @click="edit()" :disabled="!this.edit_mode"/>
             </div>
         </div>
     </div>
@@ -61,7 +66,20 @@ export default {
             id: store.temp.curr_folder_id,
             name: store.temp.curr_folder_name,
             color: store.temp.curr_folder_color,
-            starred: store.temp.curr_folder_starred
+            starred: store.temp.curr_folder_starred,
+            edit_mode: false,
+            colors: [
+            {name: "Black", code: 'black'},
+            {name: "Dark Red", code: 'darkRed'},
+            {name: "Red", code: 'red'},
+            {name: "Dark Orange", code: 'darkOrange'},
+            {name: "Light Orange", code: 'lightOrange'},
+            {name: "Yellow", code: 'yellow'},
+            {name: "Light Green", code: 'lightGreen'},
+            {name: "Green", code: 'green'},
+            {name: "Blue Green", code: 'blueGreen'},
+            {name: "Blue", code: 'blue'},
+            {name: "Violet", code: 'violet'}],
         };
     },
     methods: {
@@ -71,8 +89,19 @@ export default {
         updateFolderColor(color) {
             this.color = color;
         },
+        valueChange() {
+            this.edit_mode = true;
+        },
         edit() {
-            DB_editFolder(this.id, this.name, this.starred, this.color).then( (res) => {
+            let curr_color = this.color
+            console.log(this.color.code)
+            if (this.color.code == undefined) {
+                curr_color = this.color
+            } else {
+                curr_color = this.color.code
+            }
+            console.log(curr_color)
+            DB_editFolder(this.id, this.name, this.starred, curr_color).then( (res) => {
                 if(res == "OK") {
                     this.toast.success("Folder edited!");
                     this.$emit('closeModal');

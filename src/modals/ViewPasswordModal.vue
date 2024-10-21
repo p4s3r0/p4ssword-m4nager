@@ -123,8 +123,6 @@ export default {
         } else {
             curr_folder = this.folder.folder
         }
-        console.log(this.id, this.name, this.username, this.password, curr_folder,
-        this.note, this.starred)
         DB_editPassword(this.id, this.name, this.username, this.password, curr_folder,
                         this.note, this.starred).then( (res) => {
             if(res == "OK") {

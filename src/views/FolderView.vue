@@ -3,8 +3,8 @@
 		<h1>{{ this.folder }}</h1>
 		<div id="posDelEdit">
 			<div id="delEdit">
-				<small-button-delete text="Delete" @click="this.showConfirmationModal=true" />
-				<small-button-edit text="Edit" @click="this.showEditModal=true" />
+				<Button label="Delete" icon="pi pi-trash" iconPos="left" @click="showConfirmationModal=true" severity="danger"/>
+				<Button label="Edit" icon="pi pi-pencil" iconPos="left" @click="showEditModal=true" style="margin-left: 5px;"/>
 			</div>
 		</div>
 

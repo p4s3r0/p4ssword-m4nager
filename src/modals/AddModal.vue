@@ -208,6 +208,10 @@ methods: {
             this.toast.error("Name is required!");
             return;
         }
+        if (this.folder.name == undefined) {
+            this.folder = {}
+            this.folder.name = "NO FOLDER"
+        }
     DB_addNewPassword(this.name, this.password, this.folder.name, this.note, this.user.username, this.username, this.starred).then( (res) => {
         if (res) {
             this.toast.success("New Password Added!");

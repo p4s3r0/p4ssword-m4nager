@@ -5,8 +5,9 @@
             <p>Are you sure you want to delete this {{ this.val }}</p>
 
             <div id="buttonsBottom">
-                <button id="leftButton" class="ripple" @click="this.$emit('confirmed')">Yes</button>
-                <button class="ripple" @click="this.$emit('closeModal')">No</button>
+                <Button label="Delete" icon="pi pi-trash" iconPos="left" @click="this.$emit('confirmed')" severity="danger"/>
+                <Button label="Cancel" icon="pi pi-chevron-left" iconPos="left" @click="this.$emit('closeModal')" style="margin-left: 5px;"/>
+
             </div>
         </div>
     </div>
