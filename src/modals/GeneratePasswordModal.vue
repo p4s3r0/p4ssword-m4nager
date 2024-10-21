@@ -38,9 +38,14 @@
 
 <script>
 import TextShower from '@/components/TextShower.vue';
+import { useToast } from "vue-toastification";
 
 export default {
 name: 'App',
+setup() {
+      const toast = useToast();
+      return { toast }
+    },
 components: {
     TextShower
 },
@@ -99,8 +104,8 @@ methods: {
             }
     },
     copyToClipboard() {
-        console.log(this.password)
         navigator.clipboard.writeText(this.password);
+        this.toast.info("Copied to Clipboard!");
     }
 }
 }
@@ -113,7 +118,7 @@ methods: {
     border: 1px white solid;
     border-radius: 16px;
     width: 90%;
-    max-width: 90%;
+    max-width: 500px;
     padding: 20px;
     padding-top: 0px;
     overflow: scroll;

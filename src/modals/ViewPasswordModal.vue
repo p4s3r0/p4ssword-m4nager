@@ -2,7 +2,7 @@
     <div id="blurredBackground">
         <div id="viewPasswordModalContainer">
             <Transition mode="out-in">
-                <div v-if="this.edit_mode === false">
+                <div>
                     <div id="title">
                         <h1>{{ this.name }}</h1>
                     </div>
@@ -21,56 +21,35 @@
                     </div>
 
                     <div id="textShower">
-                        <attribute-value-shower v-if="this.username != ''" title="Username" :value="this.username" />
-                        <attribute-value-shower v-if="this.password != ''" :is_pssw="true" title="Password" :value="this.password" />
-                        <attribute-value-shower v-if="this.folder != 'NO FOLDER'" title="Folder" :value="this.folder" />
-                        <attribute-value-shower v-if="this.note != ''" title="Note" :value="this.note" />
-                    </div>
-
-                    <div class="actionButtonContainer">
-                        <div class="ripple actionButton" @click="showConfirmationModal=true">
-                            <symbol-icon icon="trash"/>
-                        </div>
-    
-                        <div class="ripple actionButton" @click="this.edit_mode=true">
-                            <symbol-icon icon="edit"/>
-                        </div>
-                    </div>
-                </div>
-                <div v-else>
-                    <h1 id="title">Edit</h1>
-                    <div id="closeButton" @click="this.$emit('closeModal')">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            height="24px"
-                            viewBox="0 -960 960 960"
-                            width="24px"
-                            fill="#e8eaed"
-                        >
-                            <path
-                                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
-                            />
-                        </svg>
-                    </div>
-                    <div id="textShower">
-                        <enhanced-text-input title="Name" :value="this.name" @valueUpdated="this.updatePasswordName"/>
-                        <enhanced-text-input title="Username" :value="this.username" @valueUpdated="this.updatePasswordUsername"/>
-                        <enhanced-text-input :is_pssw="true" title="Password" :value="this.password" @valueUpdated="this.updatePasswordPassword"/>
-                        <enhanced-selector-folder title="Folder" :init_value="this.folder" @valueUpdated="this.updatePasswordFolder"/>
-                        <enhanced-text-input title="Note" :value="this.note" @valueUpdated="this.updatePasswordNote"/>
-                    </div>
-
-                    <div class="starButtonContainer">
-                            <div id="starContainer">
-                                <star-preferred :selected_init=this.starred @valueUpdated="updateStarred" />
+                        <FloatLabel variant="in">
+                            <InputText id="in_label" v-model="this.username" @change="valueChange"/>
+                            <label style="color: var(--p-select-placeholder-color)" for="in_label">Username</label>
+                        </FloatLabel>
+                        <FloatLabel variant="in" style="margin-top: 5px; width: 100%;">
+                            <Password v-model="this.password" inputId="in_label" style="width: 100%;" toggleMask @change="valueChange"/>
+                            <label for="in_label">Password</label>
+                        </FloatLabel>
+                        <Select v-model="this.folder" :options="folders" optionLabel="name" :placeholder="this.folder" class="w-full md:w-56" style="margin-top: 5px;" @change="valueChange"/>
+                        <FloatLabel variant="in" style="margin-top: 5px;">
+                            <InputText id="in_label" v-model="this.note" @change="valueChange"/>
+                            <label style="color: var(--p-select-placeholder-color)" for="in_label">Note</label>
+                        </FloatLabel>
+                            <div class="starButtonContainer" style="display: flex; justify-content: space-between; margin-top: 20px">
+                                <div v-if="this.starred==true">
+                                    <Button icon="pi pi-star" severity="contrast" rounded aria-label="Star" @click="this.starred=false; this.edit_mode=true" />
+                                </div>
+                                <div v-else>
+                                    <Button icon="pi pi-star" severity="contrast" text raised rounded aria-label="Star" @click="this.starred=true; this.edit_mode=true" class="p-star-button-false"/>
+                                </div>
+                                <Button label="Delete" icon="pi pi-trash" iconPos="left" @click="showConfirmationModal=true" severity="danger"/>
+                                <Button label="Edit" icon="pi pi-pencil" iconPos="left" style="background-color: white" @click="edit()" :disabled="!this.edit_mode"/>
                             </div>
-                            <button class="editButton" @click="edit()">Edit</button>
                     </div>
                 </div>
             </Transition>
         </div>
         <Transition name="bounce" mode="out-in">
-            <delete-confirmation-modal v-if="this.showConfirmationModal" 
+            <delete-confirmation-modal v-if="this.showConfirmationModal"
             @closeModal="this.showConfirmationModal = false; resetScrolling();" val="password?" @confirmed="showConfirmationModal=false; deletePassword()"/>
         </Transition>
     </div>
@@ -88,6 +67,7 @@ import DeleteConfirmationModal from "@/modals/DeleteConfirmationModal.vue";
 import { useToast } from "vue-toastification";
 
 import { DB_deletePassword, DB_editPassword } from "@/db";
+import { DBL_getFoldersNames } from '@/dexie'
 
 
 
@@ -117,7 +97,8 @@ export default {
             note: store.temp.curr_password_note,
             starred: store.temp.curr_password_starred,
             edit_mode: false,
-            showConfirmationModal: false
+            showConfirmationModal: false,
+            folders: [],
         };
     },
     methods: {
@@ -128,27 +109,23 @@ export default {
                 }
             )
         },
-        updatePasswordName(name) {
-            this.name = name;
-        },
-        updatePasswordUsername(username) {
-            this.username = username;
-        },
-        updatePasswordPassword(password) {
-            this.password = password;
-        },
-        updatePasswordFolder(folder) {
-            this.folder = folder;
-        },
-        updatePasswordNote(note) {
-            this.note = note;
-        },
         updateStarred(starred) {
             this.starred = starred;
         },
+        valueChange() {
+            this.edit_mode = true;
+        },
         edit() {
         //id, name, username, password, folder, note, starred
-        DB_editPassword(this.id, this.name, this.username, this.password, this.folder,
+        let curr_folder = ""
+        if (this.folder.folder == undefined) {
+            curr_folder = this.folder
+        } else {
+            curr_folder = this.folder.folder
+        }
+        console.log(this.id, this.name, this.username, this.password, curr_folder,
+        this.note, this.starred)
+        DB_editPassword(this.id, this.name, this.username, this.password, curr_folder,
                         this.note, this.starred).then( (res) => {
             if(res == "OK") {
                 this.toast.success("Password edited!");
@@ -164,6 +141,10 @@ export default {
     },
     beforeMount() {
         document.body.style.overflow = "hidden";
+        DBL_getFoldersNames().then((res) => {
+        this.folders = res
+        this.edit_mode = false
+    })
     },
 };
 </script>
