@@ -2,9 +2,12 @@
     <div id="blurredBackground">
 
         <div id="modalUploadFile">
-            <h1>Upload Password</h1>
+            <h2>Upload Password File</h2>
             <input type="file" @change="gotFile"/>
-            <TextInput @valueUpdated="updateValue"/>
+            <FloatLabel variant="in" style="margin-top: 5px; width: 100%;">
+                <Password v-model="this.key" inputId="in_label" style="width: 100%;" toggleMask/>
+                <label for="in_label">Password</label>
+            </FloatLabel>
             <div id="buttonsBottom">
                     <button id="leftButton" class="ripple" @click="this.$emit('closeModal')">Close</button>
                     <button @click="uploadNewPasswords()">Upload</button>
@@ -73,7 +76,7 @@ beforeMount() {
     border: 1px white solid;
     border-radius: 16px;
     width: 80%;
-    max-width: 800px;
+    max-width: 500px;
     padding: 20px;
 }
 

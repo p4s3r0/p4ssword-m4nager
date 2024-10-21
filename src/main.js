@@ -127,6 +127,7 @@ import InputText from 'primevue/inputtext';
 import Slider from 'primevue/slider';
 import InputNumber from 'primevue/inputnumber';
 import Password from 'primevue/password';
+import FileUpload from 'primevue/fileupload';
 
 
 
@@ -143,6 +144,7 @@ app.component('Checkbox', Checkbox);
 app.component('Slider', Slider);
 app.component('InputNumber', InputNumber);
 app.component('Password', Password);
+app.component('FileUpload', FileUpload);
 
 app.use(router).use(VueCryptojs).use(Toast, toast_options).use(PrimeVue, {
 	theme: {
