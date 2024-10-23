@@ -29,7 +29,7 @@
                             <Password v-model="this.password" inputId="in_label" style="width: 100%;" toggleMask @change="valueChange"/>
                             <label for="in_label">Password</label>
                         </FloatLabel>
-                        <Select v-model="this.folder" :options="folders" optionLabel="name" :placeholder="this.folder" class="w-full md:w-56" style="margin-top: 5px;" @change="valueChange"/>
+                        <Select v-model="this.folder" :options="folders" optionLabel="name" :placeholder="this.static_folder" class="w-full md:w-56" style="margin-top: 5px;" @change="valueChange"/>
                         <FloatLabel variant="in" style="margin-top: 5px;">
                             <InputText id="in_label" v-model="this.note" @change="valueChange"/>
                             <label style="color: var(--p-select-placeholder-color)" for="in_label">Note</label>
@@ -99,6 +99,7 @@ export default {
             edit_mode: false,
             showConfirmationModal: false,
             folders: [],
+            static_folder: store.temp.curr_password_folder,
         };
     },
     methods: {
@@ -118,11 +119,12 @@ export default {
         edit() {
         //id, name, username, password, folder, note, starred
         let curr_folder = ""
-        if (this.folder.folder == undefined) {
+        if (this.folder.name == undefined) {
             curr_folder = this.folder
         } else {
-            curr_folder = this.folder.folder
+            curr_folder = this.folder.name
         }
+        console.log(this.folder.name)
         DB_editPassword(this.id, this.name, this.username, this.password, curr_folder,
                         this.note, this.starred).then( (res) => {
             if(res == "OK") {

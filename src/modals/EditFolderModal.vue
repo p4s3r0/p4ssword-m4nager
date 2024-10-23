@@ -94,13 +94,11 @@ export default {
         },
         edit() {
             let curr_color = this.color
-            console.log(this.color.code)
             if (this.color.code == undefined) {
                 curr_color = this.color
             } else {
                 curr_color = this.color.code
             }
-            console.log(curr_color)
             DB_editFolder(this.id, this.name, this.starred, curr_color).then( (res) => {
                 if(res == "OK") {
                     this.toast.success("Folder edited!");
