@@ -268,7 +268,7 @@ h1 {
 
 @media (max-width: 700px) {
     #viewPasswordModalContainer {
-        width: 80%;
+        width: 90%;
         max-height: 80%;
     }
 }
