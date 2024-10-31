@@ -24,6 +24,7 @@ import { getCurrentUser, DBL_getOnboarding } from "@/dexie.js"
 
 import data from '../package.json';
 export const APP_VERSION =  data.version;
+const AXIOS_BASE_URL = process.env.VUE_APP_AXIOS_BASE_URL
 
 
 import PrimeVue from 'primevue/config';
@@ -115,7 +116,6 @@ export function browserIsSafari() {
 }
 
 
-export const AXIOS_BASE_URL="https://api-p4ssword-m4nager.p4s3r0.it/"
 
 
 
