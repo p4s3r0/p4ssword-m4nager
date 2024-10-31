@@ -122,7 +122,7 @@ methods: {
     padding: 20px;
     padding-top: 0px;
     overflow: scroll;
-    max-height: 70vh;
+    max-height: 80vh;
 }
 
 
