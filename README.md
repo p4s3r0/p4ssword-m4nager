@@ -29,9 +29,9 @@ To be able to install the `P4ssword M4nager`, just write me and email.
 |----------|------------|------------|
 |![](images/addFolder.png)|![](images/addPassword.png)| ![](images/addTwofa.png)|
 
-| Folder Inspection | Password Inspection | 
-|----------|------------|
-|![](images/FolderPassword.png)|![](images/passwordView.png)|
+| Folder Inspection | Password Inspection | Password Generator
+|----------|------------|------------|
+|![](images/FolderPassword.png)|![](images/passwordView.png)|![](images/passwordGenerator.png)|
 
 ## 🃏 API Connection
 The API calls are protected with Session like API keys. Everytime a User logs in, a new API-Key is generated and mapped to the current device. Once the user logs out, The API-Key is deleted and no further communicatino is authorized with the old API-Key. 
