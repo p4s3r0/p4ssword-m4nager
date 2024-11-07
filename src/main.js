@@ -22,6 +22,10 @@ const toast = useToast()
 
 import { getCurrentUser, DBL_getOnboarding } from "@/dexie.js"
 
+
+
+
+
 import data from '../package.json';
 export const APP_VERSION =  data.version;
 export const AXIOS_BASE_URL = process.env.VUE_APP_AXIOS_BASE_URL
@@ -29,6 +33,7 @@ export const AXIOS_BASE_URL = process.env.VUE_APP_AXIOS_BASE_URL
 
 import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
+import 'primeicons/primeicons.css'
 
 
 const routes = [{
@@ -130,11 +135,6 @@ import Password from 'primevue/password';
 import FileUpload from 'primevue/fileupload';
 
 
-
-import 'primeicons/primeicons.css'
-
-
-
 const app = createApp(App);
 app.component('Button', Button);
 app.component('FloatLabel', FloatLabel);
@@ -151,8 +151,7 @@ app.use(router).use(VueCryptojs).use(Toast, toast_options).use(PrimeVue, {
         preset: Aura,
         options: {
             prefix: 'p',
-            darkModeSelector: 'system',
-            cssLayer: true
+            cssLayer: true,
         }
     }
 }

@@ -1,6 +1,6 @@
 {
   "name": "p4ssword-m4nager",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -15,7 +15,7 @@
     "dotenv": "^16.4.3",
     "postcss": "^8.4.41",
     "primeicons": "^7.0.0",
-    "primevue": "^4.1.1",
+    "primevue": "^4.2.1",
     "register-service-worker": "^1.7.2",
     "vue": "^3.2.26",
     "vue-cryptojs": "^2.4.5",

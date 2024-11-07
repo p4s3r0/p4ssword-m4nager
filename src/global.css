@@ -4,17 +4,49 @@
   --background-color: #0E0E0E;
   --alternative-color: #cdccd3;
   --border-radius: 10px;
-   --p-primary-color: white;
-  /* --p-primary-color: var(--p-inputtext-background); */
+  --p-primary-color: white;
   --p-primary-hover-color: white;
-  --p-primary-active-color: white;
+  --p-primary-hover-background-color: black;
+  --p-primary-active-color: black;
+  --color-scheme: dark;
 
   --p-floatlabel-font-weight: 400;
 
   /* Check Box */
   --p-checkbox-icon-checked-color: black;
+  --p-checkbox-icon-checked-hover-color: black;
   --p-checkbox-checked-background: white;
+  --p-checkbox-background: black;
+  --p-checkbox-disabled-background: black;
 
+  --p-select-overlay-border-color: black;
+  --p-select-overlay-background: #131313;
+  --p-select-color: white;
+  --p-select-option-color: white;
+  --p-select-option-selected-focus-color: white;
+  --p-select-placeholder-color: white;
+
+  /* Button */
+  --p-button-primary-color: black;
+  --p-button-danger-color: black;
+  --p-button-contrast-hover-background: white;
+  --p-button-contrast-background: white;
+  --p-button-contrast-hover-color: black;
+  --p-button-contrast-color: black;
+
+  /* Label */
+  --p-inputtext-background: #131313;
+  --p-floatlabel-color: white;
+  --p-floatlabel-focus-color: white;
+  --p-inputtext-focus-border-color: white;
+  --p-floatlabel-active-color: white;
+  --p-floatlabel-invalid-color: white;
+  --p-inputtext-border-color: #3f3f46;
+  --p-inputtext-color: white;
+
+  /* Slider */
+  --p-slider-handle-background: #88889a;
+  --p-slider-track-background: #3f3f46;
 
   font-family: "Space Grotesk", sans-serif;
   font-optical-sizing: auto;
@@ -35,20 +67,27 @@
 }
 
 
+input #U {
+  background-color: red;
+  background: red;
+}
+
 .p-button {
   border: none;
   padding-left: 15px;
   padding-right: 15px;
 }
 
-.p-floatlabel {
-  --p-floatlabel-color: white;
-  --p-floatlabel-focus-color: white;
-  --p-inputtext-focus-border-color: white;
-  --p-floatlabel-active-color: white;
-  --p-floatlabel-invalid-color: white;
+.p-slider-handle::before {
+  background-color: #131313;
 }
-
+.p-select {
+  --p-select-background: #131313;
+  --p-select-hover-border-color: #3f3f46;
+}
+.p-select-option {
+  background: #131313;
+}
 .p-select-option.p-select-option-selected {
   background: rgba(255, 255, 255, 0.1);
 }
