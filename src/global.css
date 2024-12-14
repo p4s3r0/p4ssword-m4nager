@@ -53,6 +53,11 @@
   font-optical-sizing: auto;
   font-weight: var(--p-floatlabel-font-weight);
   font-style: normal;
+  scrollbar-width: none; /* Hides scrollbar for Firefox */
+}
+
+:root::-webkit-scrollbar {
+  display: none; /* Hides scrollbar for Chrome, Edge, and Safari */
 }
 
 .p-checkbox-box {

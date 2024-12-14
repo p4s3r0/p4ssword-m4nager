@@ -9,9 +9,8 @@
 		</div>
 
 		<div id="wrapperl">
-
-		<div id="posPasswords">
-			<password v-for="p in this.passwords"
+			<div id="posPasswords">
+				<password v-for="p in this.passwords"
 				@openPasswordModal="this.showViewPasswordModal = true"
 				:key=p.key
 				:name=p.name
@@ -22,10 +21,9 @@
 				:note=p.note 
 				:starred=p.starred />
 			</div>
+			<div style="width: 100px; height: 100px;"></div>
 		</div>
-
 		<home-button @click="this.$router.push('/home')" />
-		
 
 		<Transition name="bounce" mode="out-in">
 			<view-password-modal
@@ -183,7 +181,7 @@ h1 {
 	margin-top: 40px;
 	width: 90%;
 	max-width: 1000px;
-	position: absolute;
+	position: relative;
 	left: 50%;
 	transform: translateX(-50%);
 }
