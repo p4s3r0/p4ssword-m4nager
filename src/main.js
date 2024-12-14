@@ -135,6 +135,7 @@ import Password from 'primevue/password';
 import FileUpload from 'primevue/fileupload';
 
 
+
 const app = createApp(App);
 app.component('Button', Button);
 app.component('FloatLabel', FloatLabel);

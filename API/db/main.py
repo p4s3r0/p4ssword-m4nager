@@ -63,7 +63,10 @@ def login_user(username: str = "", password: str = ""):
 
 @app.get("/logout_user")
 def logout_user(api_key: str = ""):
-    return DbHandler.logout_User(api_key)
+    try:
+        return DbHandler.logout_User(api_key)
+    except:
+        return "[ERROR] Cant remove API Key"
 
 
 
@@ -258,6 +261,17 @@ def get_otp(api_key: str = "", user: str = "", id: int = -1):
         
     return otp_code
 
+
+
+@app.get("/get_api_keys")
+def get_api_keys(api_key: str = "", user: str = ""):
+    if api_key == "" or user == "":
+        return f"[ERROR] Invalid Params"
+
+    if not DbHandler.checkApiKey(api_key, user):
+        return f"Not authorized with this API key"
+
+    return DbHandler.getApiKeys(user)
 
 
 # GLOBAL ######################################################################

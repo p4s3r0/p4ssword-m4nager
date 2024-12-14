@@ -1,6 +1,6 @@
 <template>
     <div id="mainLogin">
-        <h1 @click="this.toast.info('HI')" id="posHello">Hello, {{ this.user.username }} 👋</h1>
+        <h1 id="posHello">Hello, {{ this.user.username }} 👋</h1>
         <button id="menuButton" class="ripple" @click="this.showMenuModal = true">
             <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="white">
                 <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
@@ -8,12 +8,12 @@
         </button>
         <search-bar id="posSearchBar" @valueUpdated="search" />
         <div class="showFoldersOrPasswords">
-            <symbol-icon icon="add" 
+            <symbol-icon icon="add"
                             class="selectorIcon leftIcon"
                             @click="this.showAddModal = true;" />
 
             <div style="display: flex">
-                <symbol-icon icon="folder" 
+                <symbol-icon icon="folder"
                             class="selectorIcon"
                             :class="this.fold_pass_selector == 'Folders' ? 'IconActive' : 'IconNotActive'"
                             @click="activateFoldersButton" />
@@ -96,7 +96,8 @@
                 @closeModal="this.showMenuModal = false; resetScrolling();"
                 @logoutClick="logout()"
                 @downloadClick="download()"
-                @uploadClick="this.showMenuModal = false; this.showUploadFileModal = true;" />
+                @uploadClick="this.showMenuModal = false; this.showUploadFileModal = true;" 
+                @openSessionModal="this.showMenuModal = false; this.showApiModal = true"/>
         </Transition>
 
         <Transition name="bounce" mode="out-in">
@@ -118,6 +119,11 @@
                 @closeModal="this.showTwoFaOtpModal = false; resetScrolling();"/>
         </Transition>
 
+        <Transition name="bounce" mode="out-in">
+            <SessionModal v-if="this.showApiModal"
+                @closeModalReload="this.showApiModal = false; resetScrolling(); reloadData()"/>
+        </Transition>
+
         <add-modal v-if="this.showAddModal"
             @closeModal="this.showAddModal=false; resetScrolling();"
             @closeModalReload="this.showAddModal=false; resetScrolling(); reloadData()" />
@@ -137,6 +143,7 @@ import MenuModal from "@/modals/MenuModal.vue";
 import ViewPasswordModal from "@/modals/ViewPasswordModal.vue";
 import TwoFAModal from "@/modals/TwoFAModal.vue";
 import AddModal from "@/modals/AddModal.vue";
+import SessionModal from "@/modals/SessionModal.vue";
 
 import SymbolIcon from "@/components/SymbolIcon.vue";
 
@@ -158,7 +165,7 @@ import {
 } from "@/scripts/search";
 import { store, DECRYPT } from "@/store/store";
 
-import { DB_getAllPasswords, DB_getAllFolders, DB_getAll2FA, DB_logoutUser } from "@/db";
+import { DB_getAllPasswords, DB_getAllFolders, DB_getAll2FA, DB_logoutUser, DB_checkValidAPIKey } from "@/db";
 
 export default {
     name: "App",
@@ -177,7 +184,8 @@ export default {
         ViewPasswordModal,
         TwoFAModal,
         AddModal,
-        TwoFaOTPModal
+        TwoFaOTPModal,
+        SessionModal
     },
     data() {
         return {
@@ -194,6 +202,7 @@ export default {
             showTwoFaModal: false,
             showAddModal: false,
             showTwoFaOtpModal: false,
+            showApiModal: false,
             twoFaOtpCode: 0
         };
     },
@@ -276,21 +285,31 @@ export default {
             getCurrentUser().then((user) => {
             if (user) {
                 this.user = user;
-                DB_getAllPasswords().then((res) => {
-                    this.passwords = rankPasswordsAlphabetically(res);
-                    // folders are loaded after passwords, to make sure the
-                    //count is correct of the passwords inside the folder
-                    DB_getAllFolders(this.passwords).then((res_fold) => {
-                        this.folders = rankFolderAlphabetically(res_fold);
-                        this.loading = false;
-                    });
-                });
-                DB_getAll2FA().then((res) => {
-                    this.twoFactors = res;
-                });
-                settings_getFolderOrPassword().then((res) => {
-                    this.fold_pass_selector = res;
-                });
+
+                DB_checkValidAPIKey().then((res) => {
+                    if(!res) {
+                        DBL_logoutUser().then(() => {
+                            this.$router.push("/");
+                            this.toast.error("Invalid API Key.")
+                        });
+                    } else {
+                        DB_getAllPasswords().then((res) => {
+                        this.passwords = rankPasswordsAlphabetically(res);
+                        // folders are loaded after passwords, to make sure the
+                        //count is correct of the passwords inside the folder
+                        DB_getAllFolders(this.passwords).then((res_fold) => {
+                            this.folders = rankFolderAlphabetically(res_fold);
+                            this.loading = false;
+                        });
+                        });
+                        DB_getAll2FA().then((res) => {
+                            this.twoFactors = res;
+                        });
+                        settings_getFolderOrPassword().then((res) => {
+                            this.fold_pass_selector = res;
+                        });
+                        }
+                    })
             } else {
                 this.$router.push("/");
             }

@@ -117,14 +117,12 @@ export default {
             this.edit_mode = true;
         },
         edit() {
-        //id, name, username, password, folder, note, starred
         let curr_folder = ""
         if (this.folder.name == undefined) {
             curr_folder = this.folder
         } else {
             curr_folder = this.folder.name
         }
-        console.log(this.folder.name)
         DB_editPassword(this.id, this.name, this.username, this.password, curr_folder,
                         this.note, this.starred).then( (res) => {
             if(res == "OK") {

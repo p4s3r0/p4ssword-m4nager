@@ -9,6 +9,7 @@
                 </svg>
             </div>
             <menu-button-selection name="Logout" icon="lock" @click="this.$emit('logoutClick')"/>
+            <menu-button-selection name="Sessions" icon="session" @click="this.$emit('openSessionModal')"/>
             <menu-button-selection name="Download" icon="download" @click="this.$emit('downloadClick')"/>
             <menu-button-selection name="Upload" icon="upload" @click="this.$emit('uploadClick')"/>
         </div>
@@ -48,6 +49,7 @@ beforeMount() {
     border-radius: 16px;
     width: 60%;
     max-width: 400px;
+    min-width: 300px;
     padding: 20px;
     padding-top: 0px;
 }

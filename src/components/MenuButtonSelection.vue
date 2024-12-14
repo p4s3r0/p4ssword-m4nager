@@ -4,6 +4,10 @@
         <symbol-icon icon="lock"/>
       </div>
 
+      <div class="icon" v-else-if="this.icon=='session'">
+        <symbol-icon icon="session" />
+      </div>
+
       <div class="icon" v-else-if="this.icon=='download'">
         <symbol-icon icon="download" />
       </div>

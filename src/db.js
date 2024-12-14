@@ -96,6 +96,20 @@ export async function DB_logoutUser() {
 }
 
 
+
+
+export async function DB_removeAPIKey(key) {
+    const res = await axios.get(AXIOS_BASE_URL + "logout_user", { params: {
+        api_key: key,
+    }})
+    if(res.data === "[ERROR] Cant remove API Key") {
+        return false
+    } else {
+        return true
+    }
+}
+
+
 export async function DB_addNewPassword(name, password, folder, note, user_DELETE_ME, username, starred, key=null) {
     const user = await getCurrentUser()
     const api_key = user.api_key
@@ -307,7 +321,7 @@ export async function DB_getAll2FA() {
 
 export async function DB_delete2FA(id) {
     const user = await getCurrentUser()
-    
+
     const res = await axios.get(AXIOS_BASE_URL + "del_2fa", { params: {
         api_key: user.api_key,
         user: user.username,
@@ -321,7 +335,7 @@ export async function DB_delete2FA(id) {
 
 export async function DB_getOtpCode(id) {
     const user = await getCurrentUser()
-    
+
     const res = await axios.get(AXIOS_BASE_URL + "get_otp", { params: {
         api_key: user.api_key,
         user: user.username,
@@ -329,4 +343,34 @@ export async function DB_getOtpCode(id) {
     }})
 
     return res;
+}
+
+
+export async function DB_getApiKeys() {
+    const user = await getCurrentUser()
+
+    const res = await axios.get(AXIOS_BASE_URL + "get_api_keys", { params: {
+        user: user.username,
+        api_key: user.api_key,
+    }})
+
+    let api_keys = []
+    for(let i = 0; i < res.data.length; i++) {
+        api_keys.push(res.data[i].key)
+    }
+
+    return api_keys;
+}
+
+export async function DB_checkValidAPIKey() {
+    const user = await getCurrentUser()
+    const res = await axios.get(AXIOS_BASE_URL + "get_api_keys", { params: {
+        user: user.username,
+        api_key: user.api_key,
+    }})
+
+    if(res.data === "Not authorized with this API key")
+        return false
+    else
+        return true
 }

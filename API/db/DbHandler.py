@@ -420,9 +420,7 @@ def get_Folders(user: str):
 def get_FoldersPasswords(user: str, folder: str):
     with Session(engine) as session:
         rows = session.query(Password).filter(Password.user == user, Password.folder == folder)
-    # stmt = select(Password).where(Password.user == user & Password.folder == folder)
-    # passwords = []
-    # with engine.connect() as conn:
+
         passwords = []
         for row in rows:
             passwords.append({
@@ -461,6 +459,18 @@ def getAppVersion():
             version = row.version
     return version
 
+
+def getApiKeys(user):
+    with Session(engine) as session:
+        rows = session.query(ApiKey).filter(ApiKey.user == user)
+
+        api_keys = []
+        for row in rows:
+            api_keys.append({
+                "user": row.user,
+                "key": row.api_key
+            })
+        return api_keys
 
 
 if __name__ == "__main__":

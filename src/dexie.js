@@ -214,7 +214,6 @@ export async function DBL_getFoldersPasswords(folder_name) {
 
 export async function DBL_getPassAmount(folder_name) {
     const passwords = await db.passwords.toArray();
-    console.log(passwords.length)
     const amount = passwords.filter(pass => pass.folder === folder_name).length
     return amount
 }

@@ -62,8 +62,8 @@ import EditFolderModal from "@/modals/EditFolderModal"
 import DeleteConfirmationModal from "@/modals/DeleteConfirmationModal.vue";
 
 import { store } from '@/store/store';
-import { getCurrentUser } from '@/dexie';
-import { DB_deleteFolder, DB_getPasswordsForSpecificFolder } from '@/db'
+import { getCurrentUser, DBL_logoutUser } from '@/dexie';
+import { DB_deleteFolder, DB_getPasswordsForSpecificFolder, DB_checkValidAPIKey } from '@/db'
 import { rankPasswordsAlphabetically } from '@/scripts/search'
 
 import { useToast } from "vue-toastification";
@@ -115,35 +115,29 @@ export default {
 			document.body.style.overflow = "";
 		},
 		reloadData() {
-			getCurrentUser().then((user) => {
-            if (user) {
 				getCurrentUser().then( (user) => {
 				if(user) {
 					this.user = user
-					DB_getPasswordsForSpecificFolder(store.temp.curr_folder_name).then( (res) => {
-						this.passwords = rankPasswordsAlphabetically(res);
-					})
+
+					DB_checkValidAPIKey().then((res) => {
+						if(!res) {
+							DBL_logoutUser().then(() => {
+								this.$router.push("/");
+								this.toast.error("Invalid API Key.")
+							});
+						} else {
+							DB_getPasswordsForSpecificFolder(store.temp.curr_folder_name).then( (res) => {
+								this.passwords = rankPasswordsAlphabetically(res);
+							})
+						}})
 				} else {
 					this.$router.push('/');
 				}
 		})
-            } else {
-                this.$router.push("/");
-            }
-		});
 	}
 	},
 	beforeMount() {
-		getCurrentUser().then( (user) => {
-				if(user) {
-					this.user = user
-					DB_getPasswordsForSpecificFolder(store.temp.curr_folder_name).then( (res) => {
-						this.passwords = rankPasswordsAlphabetically(res);
-					})
-				} else {
-					this.$router.push('/');
-				}
-		})
+		this.reloadData()
 	}
 }
 

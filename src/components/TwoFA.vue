@@ -12,11 +12,10 @@
 </template>
 
 <script>
-import { getCurrentUser } from '@/dexie';
+import { getCurrentUser, DBL_logoutUser } from '@/dexie';
 import { useToast } from "vue-toastification";
 import { store } from '@/store/store';
-import { DB_getOtpCode } from '@/db';
-import { browserIsSafari } from '@/main';
+import { DB_getOtpCode, DB_checkValidAPIKey } from '@/db';
 
 import SymbolIcon from './SymbolIcon.vue';
 
@@ -41,6 +40,15 @@ methods: {
         if (!navigator.onLine) {
             this.toast.error("No internet Connection!");
             return;
+        }
+
+        const res = await DB_checkValidAPIKey()
+        if(!res) {
+            DBL_logoutUser().then(() => {
+                this.$router.push("/");
+                this.toast.error("Invalid API Key.")
+            });
+            return
         }
 
         const otp_code = await DB_getOtpCode(this.id)
