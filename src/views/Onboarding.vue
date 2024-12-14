@@ -13,8 +13,8 @@
                     </p>
                     <div style="height: 120px;"></div>
                     <div id="actionButtons">
-                        <Button label="Skip Tutorial" icon="pi pi-forward" iconPos="left" style="background-color: white" @click="turnOnboardingOff()"/>
-                        <Button label="Next" icon="pi pi-caret-right" iconPos="left" style="background-color: white" @click="turnOnboardingOff()"/>
+                        <Button label="Skip Tutorial" class="leftButton" icon="pi pi-forward" iconPos="left" style="background-color: white" @click="turnOnboardingOff()"/>
+                        <Button label="Next" class="rightButton" icon="pi pi-caret-right" iconPos="left" style="background-color: white" @click="turnOnboardingOff()"/>
                     </div>
                 </div>
             </div>
@@ -30,8 +30,8 @@
                     <img src="../../images/Onboarding/Shortcut.png">
                     <div style="height: 120px;"></div>
                     <div id="actionButtons">
-                        <Button label="Skip Tutorial" icon="pi pi-forward" iconPos="left" style="background-color: white" @click="turnOnboardingOff()"/>
-                        <Button label="Next" icon="pi pi-caret-right" iconPos="left" style="background-color: white" @click="stage+=1"/>
+                        <Button label="Skip Tutorial" class="leftButton" icon="pi pi-forward" iconPos="left" style="background-color: white" @click="turnOnboardingOff()"/>
+                        <Button label="Next" class="rightButton" icon="pi pi-caret-right" iconPos="left" style="background-color: white" @click="stage+=1"/>
                     </div>
                 </div>
             </div>
@@ -47,8 +47,8 @@
                     <img src="../../images/Onboarding/Navigation.png">
                     <div style="height: 120px;"></div>
                     <div id="actionButtons">
-                        <Button label="Skip Tutorial" icon="pi pi-forward" iconPos="left" style="background-color: white" @click="turnOnboardingOff()"/>
-                        <Button label="Next" icon="pi pi-caret-right" iconPos="left" style="background-color: white" @click="stage+=1"/>
+                        <Button label="Skip Tutorial" class="leftButton" icon="pi pi-forward" iconPos="left" style="background-color: white" @click="turnOnboardingOff()"/>
+                        <Button label="Next" class="rightButton" icon="pi pi-caret-right" iconPos="left" style="background-color: white" @click="stage+=1"/>
                     </div>
                 </div>
             </div>
@@ -68,8 +68,8 @@
                     <img src="../../images/Onboarding/add.png">
                     <div style="height: 120px;"></div>
                     <div id="actionButtons">
-                        <Button label="Skip Tutorial" icon="pi pi-forward" iconPos="left" style="background-color: white" @click="turnOnboardingOff()"/>
-                        <Button label="Next" icon="pi pi-caret-right" iconPos="left" style="background-color: white" @click="stage+=1"/>
+                        <Button label="Skip Tutorial" class="leftButton" icon="pi pi-forward" iconPos="left" style="background-color: white" @click="turnOnboardingOff()"/>
+                        <Button label="Next" class="rightButton" icon="pi pi-caret-right" iconPos="left" style="background-color: white" @click="stage+=1"/>
                     </div>
                 </div>
             </div>
@@ -91,8 +91,8 @@
                         If you are on <strong>iOS</strong>📱, tap the share button and hit "Add to Home Screen".<br>
                     </p>
                     <div id="actionButtons">
-                        <Button label="Skip Tutorial" icon="pi pi-forward" iconPos="left" style="background-color: white" @click="turnOnboardingOff()"/>
-                        <Button label="Next" icon="pi pi-caret-right" iconPos="left" style="background-color: white" @click="stage+=1"/>
+                        <Button label="Skip Tutorial" class="leftButton" icon="pi pi-forward" iconPos="left" style="background-color: white" @click="turnOnboardingOff()"/>
+                        <Button label="Next" class="rightButton" icon="pi pi-caret-right" iconPos="left" style="background-color: white" @click="stage+=1"/>
                     </div>
                 </div>
             </div>
@@ -120,13 +120,9 @@ export default {
 </script>
 
 <style scoped>
-#ContainerOnboarding {
-}
 .stage {
     position: absolute;
     top: 0;
-    left: auto;
-    right: auto;
     padding: 0px;
     margin: 0;
     width: 100%;
@@ -136,20 +132,18 @@ export default {
 
 
 .stageInnerContainer {
+    position: relative;
     margin-left: 10%;
     margin-right: 10%;
     width: 80%;
     height: 100svh;
     margin-top: 10vh;
-    margin-bottom: 10vh;
 }
 
 #actionButtons {
-    display: flex;
-    width: 80%;
-    justify-content: space-between;
-    position: absolute;
-    bottom: 50px;
+    position: fixed;
+    bottom: 25px;
+    width: 100%;
 }
 
 button {
@@ -161,6 +155,14 @@ button {
     cursor: pointer;
     border-radius: 10px;
     color: var(--background-color);
+}
+
+.leftButton {
+    margin-right: 20px;
+}
+
+.rightButton {
+
 }
 
 img {
