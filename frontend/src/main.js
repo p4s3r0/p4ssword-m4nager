@@ -23,13 +23,9 @@ const toast = useToast()
 import { getCurrentUser, DBL_getOnboarding } from "@/dexie.js"
 
 
-
-
-
 import data from '../package.json';
 export const APP_VERSION =  data.version;
 export const AXIOS_BASE_URL = process.env.VUE_APP_AXIOS_BASE_URL
-
 
 import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';

@@ -19,11 +19,9 @@ SQL_URL = os.getenv("SQL_URL")
 SQL_PORT = os.getenv("SQL_PORT")
 SQL_DB_NAME = os.getenv("SQL_DB_NAME")
 # connect to database
+
 engine = create_engine(f"{SQL_DATABASE_CLIENT}://{SQL_USER}:{SQL_PASSWORD}@{SQL_URL}:{SQL_PORT}/{SQL_DB_NAME}", echo=True)
 
-
-
-print(f"{SQL_DATABASE_CLIENT}://{SQL_USER}:{SQL_PASSWORD}@{SQL_URL}:{SQL_PORT}/{SQL_DB_NAME}")
 
 class Base(DeclarativeBase):
     pass
@@ -111,6 +109,7 @@ class ApiKey(Base):
     user: Mapped[str] = mapped_column(String(255))
 
 
+Base.metadata.create_all(bind=engine)
 
 ###############################################################################
 # MUTATIONS

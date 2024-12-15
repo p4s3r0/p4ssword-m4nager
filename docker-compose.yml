@@ -1,0 +1,38 @@
+version: "3.8"
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    environment:
+      VUE_APP_API_URL: http://backend:8000
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      SQL_DATABASE_CLIENT: ${SQL_DATABASE_CLIENT}
+      SQL_USER: ${SQL_USER}
+      SQL_PASSWORD: ${SQL_PASSWORD}
+      SQL_URL: ${SQL_URL}
+      SQL_PORT: ${SQL_PORT}
+      SQL_DB_NAME: ${SQL_DB_NAME}
+      P4SSWORD_M4NAGER_IV: ${P4SSWORD_M4NAGER_IV}
+      P4SSWORD_M4NAGER_KEY: ${P4SSWORD_M4NAGER_KEY}
+    depends_on:
+      - postgresdb
+
+  postgresdb:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${SQL_DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
