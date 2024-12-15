@@ -7,7 +7,9 @@ services:
     depends_on:
       - backend
     environment:
-      VUE_APP_API_URL: http://backend:8000
+      VUE_APP_AES_IV_CBC: ${P4SSWORD_M4NAGER_IV}
+      VUE_APP_AES_KEY_CBC: ${P4SSWORD_M4NAGER_KEY}
+      VUE_APP_AXIOS_BASE_URL: ${VUE_APP_AXIOS_BASE_URL}
 
   backend:
     build: ./backend

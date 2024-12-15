@@ -12,9 +12,44 @@ This project is a Password Manager designed to work on every Platform (Windows, 
 - Offline Modus
 - Copy Username/Password/OTP-Code Directly into Clipboard without exposing it
 
-## 🔱 Install as PWA
+## 🔱 Host locally
 
-To be able to install the `P4ssword M4nager`, just write me and email.
+We added a `docker-compose` file on the root project to easyily set it up. Make sure you installed **Docker** and **docker-compose**.
+
+### 1) Install Docker and Docker-Compose
+```bash
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg lsb-release
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+### 2) Setup the .env Files
+
+Place this `.env` file in the root directory. **DONT FORGET** to exchange the `P4SSWORD_M4NAGER_IV` and the `P4SSWORD_M4NAGER_KEY` with a random string of your choice. You should also change the `SQL_PASSWORD` accordingly.
+
+```env
+SQL_DATABASE_CLIENT=postgresql
+SQL_USER=postgres
+SQL_PASSWORD=postgres
+SQL_URL=postgresdb
+SQL_PORT=5432
+SQL_DB_NAME=mydb
+P4SSWORD_M4NAGER_IV=<CHANGE-ME>
+P4SSWORD_M4NAGER_KEY=<CHANGE-ME>
+VUE_APP_AXIOS_BASE_URL=http://0.0.0.0:8000/
+```
+
+### 3) Run it
+Now run in the root directory the `docker-compose` command:
+
+```bash
+sudo docker-compose up --build --force-recreate --no-deps
+```
+
 
 ## 📷 Screenshots
 | Login | Register |
