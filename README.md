@@ -29,26 +29,48 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 
 ### 2) Setup the .env Files
 
-Place this `.env` file in the root directory. **DONT FORGET** to exchange the `P4SSWORD_M4NAGER_IV` and the `P4SSWORD_M4NAGER_KEY` with a random string of your choice. You should also change the `SQL_PASSWORD` accordingly.
+Copy over the `.env.example` and name it `.env`. Exchange the paramater described in the comments
 
 ```env
+# LEAVE AS IS #
 SQL_DATABASE_CLIENT=postgresql
 SQL_USER=postgres
 SQL_PASSWORD=postgres
 SQL_URL=postgresdb
 SQL_PORT=5432
 SQL_DB_NAME=mydb
-P4SSWORD_M4NAGER_IV=<CHANGE-ME>
-P4SSWORD_M4NAGER_KEY=<CHANGE-ME>
-VUE_APP_AXIOS_BASE_URL=http://0.0.0.0:8000/
+
+# TODO: Add Random Strings. #
+# 1) RANDOM_STRING_1 = RANDOM_STRING_1 and RANDOM_STRING_2 = RANDOM_STRING_2 #
+# 2) The random strings need to be 16 bytes long = 16 character #
+# example RANDOM_STRING_1 = abcDEF123654*?+- #
+# example RANDOM_STRING_2 = ghiJKL456987-+?* #
+P4SSWORD_M4NAGER_IV=RANDOM_STRING_1
+VUE_APP_AES_IV_CBC=RANDOM_STRING_1
+
+P4SSWORD_M4NAGER_KEY=RANDOM_STRING_2
+VUE_APP_AES_KEY_CBC=RANDOM_STRING_2
+
+# TODO: Insert your local network ip with port :8000 #
+VUE_APP_AXIOS_BASE_URL=http://192.168.1.17:8000/
 ```
 
 ### 3) Run it
-Now run in the root directory the `docker-compose` command:
+If you are on Linux, execute the `run.sh` script and you are all setup.
+
+```bash
+./run.sh
+```
+
+If you are on Windows, you need to copy the `.env` file manually into the `/frontend`, `/backend` and root folder. Then simply run in the root directory the `docker-compose` command:
 
 ```bash
 sudo docker-compose up --build --force-recreate --no-deps
 ```
+
+### 4) Install PWA
+
+PWAs can only be installed on Chrome (for Android and Desktop) and on Safari (for iOS). In Chrome, press the three dots and click on `Install App` or `Add to Home Screen`. In Safari you have to click the share button and then `Add to Home Screen`. Now you are all set up and ready to use the App.
 
 
 ## 📷 Screenshots
@@ -68,28 +90,3 @@ sudo docker-compose up --build --force-recreate --no-deps
 |----------|------------|------------|
 |![](images/FolderPassword.png)|![](images/passwordView.png)|![](images/passwordGenerator.png)|
 
-## 🃏 API Connection
-The API calls are protected with Session like API keys. Everytime a User logs in, a new API-Key is generated and mapped to the current device. Once the user logs out, The API-Key is deleted and no further communicatino is authorized with the old API-Key. 
-
-Every sensitive data passed to the API is encrypted with the users password. 
-
-| Function | Attributes | Explanation |
-|----------|------------|-------------|
-|`get_app_version`|-|Returns the current app version|
-|`add_user`  | `username`, `email`, `password`  | Register user to the database |
-|`login_user`| `username`, `password`| Checks if login Credentials are correct  |
-|  `logout_user` | `api_key`  | Deletes the API Session Key connected to the device  |
-|`add_password`|`api_key`, `user`, `name`, `password`, `folder`, `note`, `username`, `starred`| Adds a Password to the database |
-|`get_passwords`|`api_key`, `user`| Returns an array of the users Passwords|
-|`del_password`|`api_key`, `user`, `id`| Deletes the Password from the database|
-|`update_password`|`api_key`, `user`, `id`, `name`, `password`, `folder`, `note`, `username`| Updates the Passwords data accordingly|
-|`add_folder`|`api_key`, `user`, `folder`, `color`, `starred`| Adds a Folder to the database|
-|`get_folders`|`api_key`, `user`| Returns an array of the users Folders|
-|`del_folder`|`api_key`, `user`, `id`|Deletes the Folder from the database|
-|`get_folders_passwords`|`api_key`, `user`, `folder`|This API Call will be deleted in future versions. Returns an array of Passwords within the folder|
-|`update_folder`|`api_key`, `user`, `id`, `folder`, `color`, `starred`| Updates the Folders data accordingly|
-|`add_2fa`|`api_key`, `user`, `name`, `secret`|Adds a 2FA to the database|
-|`update_2fa`|`api_key`, `user`, `id`, `name`, `secret`|Updates the 2FAs data accordingly|
-|`get_2fa`|`api_key`, `user`|Returns an array of the users 2FA Codes|
-|`del_2fa`|`api_key`, `user`, `id`|Deletes the 2FA from the database|
-|`get_otp`|`api_key`, `user`, `id`|Returns a valid OTP Code produced with the 2FA secret|
