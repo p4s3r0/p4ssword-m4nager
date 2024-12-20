@@ -9,6 +9,7 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy import select
 import uuid
+from fastapi.responses import JSONResponse
 
 # load environment variables
 load_dotenv()
@@ -128,7 +129,10 @@ def add_User(username: str, email: str, password: str):
     with engine.connect() as conn:
         query = select(User).where(User.username == username)
         for _ in conn.execute(query):
-            return "[ERROR]-UsernameTaken"
+            return JSONResponse(
+                status_code=401,
+                content={"message": "Username already taken"}
+            )
 
     with Session(engine) as session:
         user = User(
@@ -138,7 +142,10 @@ def add_User(username: str, email: str, password: str):
         )
         session.add(user)
         session.commit()
-    return True;
+    return JSONResponse(
+        status_code=201,
+        content={"message": "User added to Database"}
+    )
 
 
 def del_User(username: str):
@@ -157,15 +164,24 @@ def login_User(username: str, password: str):
                 "email": row.email,
                 "api_key": uuid_key
             }
-            return ret
-        return "[ERROR]-LoginUserDoesNotExist"
+            return JSONResponse(
+                status_code=202,
+                content={"data": ret}
+            )
+        return JSONResponse(
+            status_code=401,
+            content={"message": "Invalid Credentials"}
+        )
 
 
 def logout_User(api_key: str):
     with Session(engine) as session:
         session.delete(session.get(ApiKey, api_key))
         session.commit()
-    return True
+    return JSONResponse(
+        status_code=200,
+        content={"message": "Correctly logged out user"}
+    )
 
 
 # TWO_FA -------------------------------------------------------------------------
@@ -188,7 +204,10 @@ def add_twoFa(user: str, secret: str, name:str):
         )
         session.add(twoFa)
         session.commit()
-    return True
+    return JSONResponse(
+            status_code=202,
+            content={"message": "Two FA added"}
+        )
 
 
 
@@ -200,13 +219,19 @@ def del_twoFa(id: int, user: str):
             two_fa = row
 
     if two_fa == None:
-        return False
+        return JSONResponse(
+            status_code=400,
+            content={"message": "Cant delete 2FA"}
+        )
 
     with Session(engine) as session:
         session.delete(session.get(TwoFa, two_fa.id))
         session.commit()
-    return True
-        
+    return JSONResponse(
+        status_code=201,
+        content={"message": "2FA deleted"}
+    )
+
 
 
 def get_twoFas(user: str):
@@ -220,7 +245,10 @@ def get_twoFas(user: str):
                 "secret": row.secret,
                 "name": row.name,
             })
-    return two_fas
+    return JSONResponse(
+        status_code=202,
+        content={"data": two_fas}
+    )
 
 
 
@@ -230,7 +258,10 @@ def update_twoFa(user: str, id: str, name: str, secret: str):
                                                                             'name': name, 
                                                                             'secret': secret})
         session.commit()
-    return True
+    return JSONResponse(
+            status_code=202,
+            content={"message": "2FA edited"}
+        )
 
 
 
@@ -298,10 +329,10 @@ def del_password(user: str, id: int):
 
 def get_Passwords(user: str):
     stmt = select(Password).where(Password.user == user)
-    password = []
+    passwords = []
     with engine.connect() as conn:
         for row in conn.execute(stmt):
-            password.append({
+            passwords.append({
                 "id": row.id,
                 "name": row.name,
                 "starred": row.starred,
@@ -311,7 +342,10 @@ def get_Passwords(user: str):
                 "user": row.user,
                 "username": row.username
             })
-    return password
+    return JSONResponse(
+        status_code=200,
+        content={"data": passwords}
+    )
 
 
 
@@ -432,7 +466,10 @@ def get_FoldersPasswords(user: str, folder: str):
                 "user": row.user,
                 "username": row.username
             })
-        return passwords
+        return JSONResponse(
+            status_code=200,
+            content={"data": passwords}
+        )
 
 
 
@@ -469,7 +506,11 @@ def getApiKeys(user):
                 "user": row.user,
                 "key": row.api_key
             })
-        return api_keys
+        return JSONResponse(
+            status_code=200,
+            content={"data": api_keys}
+        )
+
 
 
 if __name__ == "__main__":

@@ -52,11 +52,24 @@ methods: {
         }
 
         const otp_code = await DB_getOtpCode(this.id)
-        if (otp_code.data.length !== 6) {
-            this.toast.error("Something went wrong");
-            return;
+
+        if (otp_code) {
+            if (otp_code.data.length !== 6) {
+                this.toast.error("Something went wrong");
+                return;
+            }
+            this.$emit("openTwoFaOTPModal", otp_code.data)
+        } else if (otp_code === -1) {
+            this.toast.error("Invalid Parameter!")
+        } else if (otp_code === -2) {
+            this.toast.error("Not authorized, invalid API key!")
+        } else if (otp_code === -3) {
+            this.toast.error("Secret not in backend!")
+        } else if (otp_code === -4) {
+            this.toast.error("Cannot generate OTP!")
+        } else {
+            this.toast.error("API Error!")
         }
-        this.$emit("openTwoFaOTPModal", otp_code.data)
     },
     open2FAView() {
         store.temp.curr_2fa_name = this.name;

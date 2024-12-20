@@ -104,9 +104,19 @@ export default {
     },
     methods: {
         deletePassword() {
-            DB_deletePassword(this.id).then((_) => {
-                    this.toast.success("Password deleted!");
-                    this.$emit("closeModalReload");
+            DB_deletePassword(this.id).then((res) => {
+                    if (res === 0) {
+                        this.toast.success("Password deleted!");
+                        this.$emit("closeModalReload");
+                    } else if (res === -1) {
+                        this.toast.error("Invalid Parameters!");
+                    } else if (res === -2) {
+                        this.toast.error("Not authorized, API key invalid!");
+                    } else if (res === -3) {
+                        this.toast.error("Internal API Error!");
+                    } else {
+                        this.toast.error("API Error!");
+                    }
                 }
             )
         },
@@ -125,11 +135,17 @@ export default {
         }
         DB_editPassword(this.id, this.name, this.username, this.password, curr_folder,
                         this.note, this.starred).then( (res) => {
-            if(res == "OK") {
+            if(res === 0) {
                 this.toast.success("Password edited!");
                 this.$emit('closeModalReload');
+            } else if (res === -1) {
+                this.toast.error("Invalid Parameters!");
+            } else if (res === -2) {
+                this.toast.error("Not authorized, API key invalid!");
+            } else if (res === -3) {
+                this.toast.error("Internal API Error!");
             } else {
-                this.toast.error("Something went Wrong!");
+                this.toast.error("API Error!");
             }
         })
         },

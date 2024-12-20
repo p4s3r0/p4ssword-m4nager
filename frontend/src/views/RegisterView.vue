@@ -63,13 +63,15 @@ export default {
         return;
       }
       DB_registerUser(this.username, this.email, this.password).then( (res) => {
-        if(res == "OK") {
+        if(res === 0) {
           this.toast.success("User Registered!");
           this.$router.push("/");
-        } else if(res == "[ERROR]-UsernameTaken"){
+        } else if (res === -1) {
+          this.toast.info("Data missing!");
+        } else if(res === -2){
           this.toast.error("Username already taken!");
         } else {
-          this.toast.error("Something weird went wrong!");
+          this.toast.error("API Error!");
         }
       })
     }

@@ -195,11 +195,15 @@ methods: {
             return;
         }
     DB_add2FA(this.name, this.note).then((res) => {
-        if (res) {
+        if (res === 0) {
             this.toast.success("New 2FA Added!");
             this.$emit("closeModalReload")
+        } else if (res === -1) {
+            this.toast.error("Invalid Parameters!");
+        } else if (res === -2) {
+            this.toast.error("Invalid API Key!");
         } else {
-            this.toast.error("Something went wrong!");
+            this.toast.error("API Error!");
         }
     })
     },
@@ -212,12 +216,18 @@ methods: {
             this.folder = {}
             this.folder.name = "NO FOLDER"
         }
-    DB_addNewPassword(this.name, this.password, this.folder.name, this.note, this.user.username, this.username, this.starred).then( (res) => {
-        if (res) {
+    DB_addNewPassword(this.name, this.password, this.folder.name, this.note, this.username, this.starred).then( (res) => {
+        if (res === 0) {
             this.toast.success("New Password Added!");
             this.$emit("closeModalReload")
+        } else if (res === -1) {
+            this.toast.error("Invalid API Parameters!")
+        } else if (res === -2) {
+            this.toast.error("Invalid API key!")
+        } else if (res === -3) {
+            this.toast.error("Internal API Error!")
         } else {
-            this.toast.error("Something went wrong!");
+            this.toast.error("API Error!")
         }
     });
     },
@@ -233,14 +243,20 @@ methods: {
             return;
 
         DB_addNewFolder(this.user.username, this.folder, this.color.code, this.starred).then( (res) => {
-            if (res) {
+            if (res === 0) {
                 this.toast.success("New Folder Added!");
                 this.$emit("closeModalReload")
+            } else if (res === -1) {
+                this.toast.error("Invalid API Parameters!")
+            } else if (res === -2) {
+                this.toast.error("Invalid API key!")
+            } else if (res === -3) {
+                this.toast.error("Internal API Error!")
             } else {
-                this.toast.error("Something went wrong!");
+                this.toast.error("API Error!")
             }
-        });
-    }
+            });
+}
 },
 beforeMount() {
     document.body.style.overflow = "hidden";

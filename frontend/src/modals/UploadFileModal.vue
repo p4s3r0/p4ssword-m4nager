@@ -56,7 +56,7 @@ methods: {
         for(let i = 0; i < this.fileContent.data.length; i++) {
             const pssw = this.fileContent.data[i];
             const user = await getCurrentUser(); 
-            await DB_addNewPassword(pssw.name, pssw.password, pssw.folder, pssw.note, user.username, pssw.username, pssw.starred, this.key);
+            await DB_addNewPassword(pssw.name, pssw.password, pssw.folder, pssw.note, pssw.username, pssw.starred, this.key);
         }
     }
 },  

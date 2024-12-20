@@ -100,12 +100,18 @@ export default {
                 curr_color = this.color.code
             }
             DB_editFolder(this.id, this.name, this.starred, curr_color).then( (res) => {
-                if(res == "OK") {
+                if(res === 0) {
                     this.toast.success("Folder edited!");
                     this.$emit('closeModal');
                     this.$router.push("/home")
+                } else if (res === -1) {
+                    this.toast.error("Invalid Parameters!");
+                } else if (res === -2) {
+                    this.toast.error("Invalid API key!");
+                } else if (res === -3) {
+                    this.toast.error("Internal API Error!");
                 } else {
-                    this.toast.error("Something went Wrong!");
+                    this.toast.error("API Error!");
                 }
             })
         }

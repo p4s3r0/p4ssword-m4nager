@@ -77,9 +77,19 @@ export default {
     },
     methods: {
         delete2FA() {
-            DB_delete2FA(store.temp.curr_2fa_id).then((_) => {
-                this.toast.success("2FA deleted!");
-                this.$emit("closeModalReload");
+            DB_delete2FA(store.temp.curr_2fa_id).then((res) => {
+                if (res === 0) {
+                    this.toast.success("2FA deleted!");
+                    this.$emit("closeModalReload");
+                } else if (res === -1) {
+                    this.toast.error("Invalid Parameters!");
+                } else if (res === -2) {
+                    this.toast.error("Not authorized, invalid API key!");
+                } else if (res === -3) {
+                    this.toast.error("Internal API Error!");
+                } else {
+                    this.toast.error("API Error!");
+                }
             })
         },
         update2FAName(name) {
@@ -93,11 +103,17 @@ export default {
         },
         edit() {
         DB_edit2FA(store.temp.curr_2fa_id, this.name, this.secret).then( (res) => {
-            if (res) {
+            if (res === 0) {
                 this.toast.success("2FA edited!");
                 this.$emit("closeModalReload")
+            } else if (res === -1) {
+                this.toast.error("Invalid Parameters!");
+            } else if (res === -2) {
+                this.toast.error("Not authorized, invalid API key!");
+            } else if (res === -3) {
+                this.toast.error("Internal API Error!");
             } else {
-                this.toast.error("Something went Wrong!");
+                this.toast.error("API Error!");
             }
         })
     }

@@ -73,10 +73,15 @@ export default {
         return;
       }
       DB_loginUser(this.username, this.password).then((res) => {
-        if (res) {
+
+        if(res === 0) {
           this.$router.push('/home');
+        } else if (res === -1) {
+          this.toast.info("Data missing!");
+        } else if(res === -2){
+          this.toast.error("Wrong Credentials");
         } else {
-          this.toast.error("Incorrect Username or Password");
+          this.toast.error("API Error!");
         }
       });
     }

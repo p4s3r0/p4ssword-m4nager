@@ -277,7 +277,16 @@ export default {
         },
         reloadFolders() {
             DB_getAllFolders(this.passwords).then((res_fold) => {
-                this.folders = rankFolderAlphabetically(res_fold);
+                if (res_fold === -1) {
+                    this.toast.error("Invalid Parameters!")
+                } else if (res_fold === -2) {
+                    this.toast.error("Invalid API Key!")
+                } else if (res_fold === -99) {
+                    this.toast.error("API Error!")
+                }
+                else if (res_fold) {
+                    this.folders = rankFolderAlphabetically(res_fold);
+                }
                 this.loading = false;
             });
         },
@@ -294,16 +303,44 @@ export default {
                         });
                     } else {
                         DB_getAllPasswords().then((res) => {
-                        this.passwords = rankPasswordsAlphabetically(res);
-                        // folders are loaded after passwords, to make sure the
-                        //count is correct of the passwords inside the folder
-                        DB_getAllFolders(this.passwords).then((res_fold) => {
-                            this.folders = rankFolderAlphabetically(res_fold);
-                            this.loading = false;
-                        });
+                            if (res === -1) {
+                                this.toast.error("Invalid Parameters!")
+                                this.loading = false;
+                                return;
+                            } else if (res === -2) {
+                                this.toast.error("Invalid API Key!")
+                                this.loading = false;
+                                return;
+                            } else if (res === -99) {
+                                this.toast.error("API Error!")
+                                this.loading = false;
+                                return;
+                            }
+                            this.passwords = rankPasswordsAlphabetically(res);
+                            // folders are loaded after passwords, to make sure the
+                            //count is correct of the passwords inside the folder
+                            DB_getAllFolders(this.passwords).then((res_fold) => {
+                                if (res_fold === -1) {
+                                    this.toast.error("Invalid Parameters!")
+                                } else if (res_fold === -2) {
+                                    this.toast.error("Invalid API Key!")
+                                } else if (res_fold === -99) {
+                                    this.toast.error("API Error!")
+                                }
+                                else if (res_fold) {
+                                    this.folders = rankFolderAlphabetically(res_fold);
+                                }
+                                this.loading = false;
+                            });
                         });
                         DB_getAll2FA().then((res) => {
-                            this.twoFactors = res;
+                            if (res) {
+                                this.twoFactors = res;
+                            } else if (res === -1) {
+                                this.toast.error("Invalid Parameters!")
+                            } else if (res === -2) {
+                                this.toast.error("Invalid API Key!")
+                            }
                         });
                         settings_getFolderOrPassword().then((res) => {
                             this.fold_pass_selector = res;

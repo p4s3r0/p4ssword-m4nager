@@ -40,17 +40,27 @@ name: 'addModal',
 methods: {
     async removeAPIKey(key) {
         const res = await DB_removeAPIKey(key)
-        if(res) {
+        if(res === 0) {
             this.toast.success("Successfully removed API key")
             this.api_keys = this.api_keys.filter(key_elem => key_elem !== key)
-        } else {
+        } else if (res === -1){
             this.toast.error("Cant remove API key")
+        } else {
+            this.toast.error("API Error")
         }
     }
     },
 beforeMount() {
     DB_getApiKeys().then((res) => {
-        this.api_keys = res
+        if (res) {
+            this.api_keys = res
+        } else if (res === -1) {
+            this.toast.error("Cant load 2FA, invalid parameters.")
+        } else if (res === -2) {
+            this.toast.error("Cant load 2FA, invalid API key.")
+        } else {
+            this.toast.error("API Error!")
+        }
     })
 
 },

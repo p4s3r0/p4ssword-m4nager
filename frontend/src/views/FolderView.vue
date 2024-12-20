@@ -101,11 +101,17 @@ export default {
 			}
 
 			DB_deleteFolder(this.folder_id).then( (res) => {
-				if(res) {
-					this.toast.success("Folder Deleted!");
+				if (res === 0) {
+					this.toast.success("Folder deleted!");
 					this.$router.push('/home');
+				} else if (res === -1) {
+					this.toast.error("Invalid Parameters!");
+				} else if (res === -2) {
+					this.toast.error("Not authorized, API key invalid!");
+				} else if (res === -3) {
+					this.toast.error("Internal API Error!");
 				} else {
-					this.toast.error("Something went Wrong!");
+					this.toast.error("API Error!");
 				}
 			})
 		},
@@ -125,7 +131,19 @@ export default {
 							});
 						} else {
 							DB_getPasswordsForSpecificFolder(store.temp.curr_folder_name).then( (res) => {
-								this.passwords = rankPasswordsAlphabetically(res);
+								if (res) {
+									this.passwords = rankPasswordsAlphabetically(res);
+									return;
+								} else if (res === -1) {
+									this.toast.error("Invalid Parameters!");
+								} else if (res === -2) {
+									this.toast.error("Invalid API key!")
+								} else if (res === -3) {
+									this.toast.error("Internal API Error!")
+								} else {
+									this.toast.error("API Error!")
+								}
+								this.$router.push("/home");
 							})
 						}})
 				} else {
