@@ -244,6 +244,7 @@ def get_twoFas(user: str):
                 "user": row.user,
                 "secret": row.secret,
                 "name": row.name,
+                "algo": row.algo
             })
     return JSONResponse(
         status_code=202,

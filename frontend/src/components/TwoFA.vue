@@ -70,7 +70,6 @@ methods: {
         navigator.clipboard.writeText(val);
     },
 }, beforeMount() {
-    console.log(this.secret)
     getCurrentUser().then( (user) => {
         if(!user) {
             this.$router.push('/');

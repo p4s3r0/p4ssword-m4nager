@@ -32,12 +32,6 @@ def HASH(val):
     keccak_hash.update(bytes(val, 'utf-8'))
     return keccak_hash.hexdigest()
 
-def decrypt(enc):
-    key = os.getenv("P4SSWORD_M4NAGER_KEY")
-    iv =  os.getenv("P4SSWORD_M4NAGER_IV").encode('utf-8')
-    enc = base64.b64decode(enc)
-    cipher = AES.new(key.encode('utf-8'), AES.MODE_CBC, iv)
-    return unpad(cipher.decrypt(enc),16).decode()
 
 
 # USER ########################################################################
@@ -362,45 +356,6 @@ def update_2fa(api_key: str = "", id: int = -1, user: str = "", name: str = "", 
     return DbHandler.update_twoFa(user, id, name, secret)
 
 
-@app.get("/get_otp")
-def get_otp(api_key: str = "", user: str = "", id: int = -1):
-    if api_key == "" or user == "" or id == -1:
-        return JSONResponse(
-            status_code=400,
-            content={"message": "Atleast one Parameter is empty"}
-        )
-
-    if not DbHandler.checkApiKey(api_key, user):
-        return JSONResponse(
-            status_code=401,
-            content={"message": "Not authorized, invalid API key"}
-        )
-
-    secret = decrypt(DbHandler.getTwoFaSecret(user, id))
-
-    if not secret:
-        return JSONResponse(
-            status_code=417,
-            content={"message": "secret not present"}
-        )
-
-    try:
-        algorithm = DbHandler.getTwoFaAlgorithm(user, id)
-        otp_code = "error"
-        if algorithm == "SHA256":
-            otp_code = subprocess.check_output(f'oathtool -b --totp=sha256 "{secret}" -s 60', shell=True).decode('utf-8').replace('\n', '')
-        else:
-            otp_code = subprocess.check_output(f'oathtool -b --totp "{secret}"', shell=True).decode('utf-8').replace('\n', '')
-
-        return JSONResponse(
-            status_code=200,
-            content={"data": otp_code}
-        )
-    except:
-        return JSONResponse(
-            status_code=200,
-            content={"data": otp_code}
-        )
 
 
 @app.get("/get_api_keys")

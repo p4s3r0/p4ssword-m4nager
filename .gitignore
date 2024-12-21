@@ -74,6 +74,9 @@ typings/
 .env
 .env.test
 .env.server
+.env.frontend
+
+tfa.txt
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
