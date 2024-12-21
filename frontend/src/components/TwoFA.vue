@@ -15,7 +15,7 @@
 import { getCurrentUser, DBL_logoutUser } from '@/dexie';
 import { useToast } from "vue-toastification";
 import { store } from '@/store/store';
-import { DB_getOtpCode, DB_checkValidAPIKey } from '@/db';
+import { DB_checkValidAPIKey, getSHA_OTP, getTOTP } from '@/db';
 
 import SymbolIcon from './SymbolIcon.vue';
 
@@ -23,7 +23,7 @@ import SymbolIcon from './SymbolIcon.vue';
 
 export default {
 name: 'App',
-props: ["name", "secret", "id"],
+props: ["name", "secret", "id", "algo"],
 setup() {
       const toast = useToast();
       return { toast }
@@ -37,11 +37,6 @@ data() {
 },
 methods: {
     async copyOtp() {
-        if (!navigator.onLine) {
-            this.toast.error("No internet Connection!");
-            return;
-        }
-
         const res = await DB_checkValidAPIKey()
         if(!res) {
             DBL_logoutUser().then(() => {
@@ -51,25 +46,18 @@ methods: {
             return
         }
 
-        const otp_code = await DB_getOtpCode(this.id)
-
-        if (otp_code) {
-            if (otp_code.data.length !== 6) {
-                this.toast.error("Something went wrong");
-                return;
-            }
-            this.$emit("openTwoFaOTPModal", otp_code.data)
-        } else if (otp_code === -1) {
-            this.toast.error("Invalid Parameter!")
-        } else if (otp_code === -2) {
-            this.toast.error("Not authorized, invalid API key!")
-        } else if (otp_code === -3) {
-            this.toast.error("Secret not in backend!")
-        } else if (otp_code === -4) {
-            this.toast.error("Cannot generate OTP!")
+        let otp_code = null;
+        if (this.algo === "SHA256") {
+            otp_code = getSHA_OTP(this.secret)
         } else {
-            this.toast.error("API Error!")
+            otp_code = getTOTP(this.secret)
         }
+
+        if (otp_code.length !== 6) {
+            this.toast.error("Something went Wrong!")
+            return;
+        }
+        this.$emit("openTwoFaOTPModal", otp_code)
     },
     open2FAView() {
         store.temp.curr_2fa_name = this.name;
@@ -82,6 +70,7 @@ methods: {
         navigator.clipboard.writeText(val);
     },
 }, beforeMount() {
+    console.log(this.secret)
     getCurrentUser().then( (user) => {
         if(!user) {
             this.$router.push('/');

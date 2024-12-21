@@ -76,6 +76,7 @@
                             :name="t.name" 
                             :secret="t.secret" 
                             :id="t.id"
+                            :algo="t.algo"
                              />
                     </div>
                 </div>
@@ -334,6 +335,7 @@ export default {
                             });
                         });
                         DB_getAll2FA().then((res) => {
+                            console.log(res)
                             if (res) {
                                 this.twoFactors = res;
                             } else if (res === -1) {
