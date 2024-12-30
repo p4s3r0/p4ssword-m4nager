@@ -10,7 +10,7 @@
             </FloatLabel>
             <div id="buttonsBottom">
                     <button id="leftButton" class="ripple" @click="this.$emit('closeModal')">Close</button>
-                    <button @click="uploadNewPasswords()">Upload</button>
+                    <button @click="uploadData()">Upload</button>
             </div>
         </div>
     </div>
@@ -18,8 +18,9 @@
 
 <script>
 import TextInput from '@/components/TextInput.vue';
+import TwoFA from '@/components/TwoFA.vue';
 
-import { DB_addNewPassword } from '@/db.js';
+import { DB_add2FA, DB_addNewFolder, DB_addNewPassword } from '@/db.js';
 import { getCurrentUser } from '@/dexie';
 
 export default {
@@ -39,11 +40,15 @@ methods: {
     },
     gotFile(event) {
         const file = event.target.files[0];
+        console.log("hi")
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
                 try {
+                    console.log("hi")
                     this.fileContent = JSON.parse(e.target.result);
+                    console.log("hi", this.fileContent.folders[0].folder)
+
                 } catch (error) {
                     console.error("Error parsing JSON:", error);
                     this.fileContent = "Error parsing JSON file.";
@@ -52,14 +57,25 @@ methods: {
             reader.readAsText(file);
         }
     },
-    async uploadNewPasswords() {
-        for(let i = 0; i < this.fileContent.data.length; i++) {
-            const pssw = this.fileContent.data[i];
-            const user = await getCurrentUser(); 
+    async uploadData() {
+        // Passwords
+        for(let i = 0; i < this.fileContent.passwords.length; i++) {
+            const pssw = this.fileContent.passwords[i];
             await DB_addNewPassword(pssw.name, pssw.password, pssw.folder, pssw.note, pssw.username, pssw.starred, this.key);
         }
+        //Folders
+        for(let i = 0; i < this.fileContent.folders.length; i++) {
+            const fold = this.fileContent.folders[i];
+            await DB_addNewFolder("", fold.folder, fold.color, fold.starred);
+        }
+        // 2FA
+        for(let i = 0; i < this.fileContent.twoFAs.length; i++) {
+            const twoFAs = this.fileContent.twoFAs[i];
+            const user = await getCurrentUser();
+            await DB_add2FA(twoFAs.name, twoFAs.secret, this.key);
+        }
     }
-},  
+},
 beforeMount() {
     document.body.style.overflow = "hidden"
 },

@@ -157,6 +157,8 @@ import {
     settings_updateFolderOrPassword,
     getCurrentUser,
     DBL_getPasswords,
+    DBL_getFolders,
+    DBL_get2Fa
 } from "@/dexie";
 import {
     rankFoldersBySearch,
@@ -251,18 +253,52 @@ export default {
         async download() {
             const passwords = await DBL_getPasswords();
 
-            let str = '{\n\t"data": [';
+            let str = '{\n\t"passwords": [';
             for (let i = 0; i < passwords.length; i++) {
-                str += "\n{\n";
-                str = str + '\t"name": "' + passwords[i].name.replace('"', '"') + '",\n';
-                str = str + '\t"username": "' + (await DECRYPT(passwords[i].username)).replace('"', '"') + '",\n';
-                str = str + '\t"password": "' + (await DECRYPT(passwords[i].password)).replace('"', '"') + '",\n';
-                str = str + '\t"folder": "' + passwords[i].folder.replace('"', '"') + '",\n';
-                str = str + '\t"note": "' + (await DECRYPT(passwords[i].note)).replace('"', '"') + '",\n';
-                str = str + '\t"idx": "' + passwords[i].idx + '",\n';
-                str = str + '\t"starred": "' + passwords[i].starred + '"\n';
-                str += "},";
+                str += "\n\t\t{\n";
+                str = str + '\t\t\t"name": "' + passwords[i].name.replace('"', '"') + '",\n';
+                str = str + '\t\t\t"username": "' + (await DECRYPT(passwords[i].username)).replace('"', '"') + '",\n';
+                str = str + '\t\t\t"password": "' + (await DECRYPT(passwords[i].password)).replace('"', '"') + '",\n';
+                str = str + '\t\t\t"folder": "' + passwords[i].folder.replace('"', '"') + '",\n';
+                str = str + '\t\t\t"note": "' + (await DECRYPT(passwords[i].note)).replace('"', '"') + '",\n';
+                str = str + '\t\t\t"idx": "' + passwords[i].idx + '",\n';
+                str = str + '\t\t\t"starred": "' + passwords[i].starred + '"\n';
+                if (i == passwords.length - 1) {
+                    str += "\t\t}"
+                } else {
+                    str += "\t\t},";
+                }
             }
+
+            const folders = await DBL_getFolders(passwords);
+
+            str += '\n\t],\n\t"folders": [';
+            for(let i = 0; i < folders.length; i++) {
+                str += "\n\t\t{\n";
+                str = str + '\t\t\t"folder": "' + folders[i].folder + '",\n';
+                str = str + '\t\t\t"color": "' + folders[i].color + '",\n';
+                str = str + '\t\t\t"starred": "' + folders[i].starred + '"\n';
+                if (i == folders.length - 1) {
+                    str += "\t\t}"
+                } else {
+                    str += "\t\t},";
+                }
+            }
+
+            const twoFAs = await DBL_get2Fa()
+
+            str += '\n\t],\n\t"twoFAs": [';
+            for(let i = 0; i < twoFAs.length; i++) {
+                str += "\n\t\t{\n";
+                str = str + '\t\t\t"name": "' + twoFAs[i].name + '",\n';
+                str = str + '\t\t\t"secret": "' + twoFAs[i].secret + '"\n';
+                if (i == twoFAs.length - 1) {
+                    str += "\t\t}"
+                } else {
+                    str += "\t\t},";
+                }
+            }
+
             str += "\n]}";
 
             const blob = new Blob([str], { type: "text/plain" });
@@ -335,7 +371,6 @@ export default {
                             });
                         });
                         DB_getAll2FA().then((res) => {
-                            console.log(res)
                             if (res) {
                                 this.twoFactors = res;
                             } else if (res === -1) {

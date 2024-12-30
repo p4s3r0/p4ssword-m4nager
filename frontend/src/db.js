@@ -363,14 +363,14 @@ export async function DB_editFolder(id, folder, starred, color) {
 }
 
 
-export async function DB_add2FA(name, secret) {
+export async function DB_add2FA(name, secret, key=null) {
     const user = await getCurrentUser()
 
     const res = await AXIOS_CALL("add_2fa", {
         api_key: user.api_key,
         user: user.username,
         name: name,
-        secret: (await ENCRYPT(secret))
+        secret: (await ENCRYPT(secret, key))
     })
 
     if (res.status === 202) { // OK
@@ -427,7 +427,6 @@ export async function DB_getAll2FA() {
                 secret: (await DECRYPT(res.data.data[i].secret)),
                 algo: res.data.data[i].algo === null ? "TOTP" : res.data.data[i].algo
             })
-            console.log(ret)
         }
         DBL_update2FA(ret)
         return ret;
