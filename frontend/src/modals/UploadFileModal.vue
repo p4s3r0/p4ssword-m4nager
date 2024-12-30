@@ -6,11 +6,11 @@
             <input type="file" @change="gotFile"/>
             <FloatLabel variant="in" style="margin-top: 5px; width: 100%;">
                 <Password v-model="this.key" inputId="in_label" style="width: 100%;" toggleMask/>
-                <label for="in_label">Password</label>
+                <label for="in_label">Encrypt with this Password</label>
             </FloatLabel>
             <div id="buttonsBottom">
-                    <button id="leftButton" class="ripple" @click="this.$emit('closeModal')">Close</button>
-                    <button @click="uploadData()">Upload</button>
+                <Button id="leftButton" label="Close" icon="pi pi-times" iconPos="left" @click="this.$emit('closeModal')"/>
+                <Button label="Upload" icon="pi pi-upload" iconPos="left" @click="uploadData()"/>
             </div>
         </div>
     </div>
