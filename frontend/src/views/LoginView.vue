@@ -25,7 +25,6 @@ import EnhancedTextInput from '@/components/EnhancedTextInput.vue'
 import EnhancedPasswordInputWithoutGenerate from '@/components/EnhancedPasswordInputWithoutGenerate.vue'
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue'
 import { DB_loginUser } from '@/db';
-import { del_dexie, DBL_onboardingOn } from '@/dexie';
 
 import { useToast } from "vue-toastification";
 
@@ -63,9 +62,6 @@ export default {
     },
     updatePassword(password) {
       this.password = password;
-    },
-    deleteLocalDb() {
-      del_dexie();
     },
     loginUser() {
       if (!navigator.onLine) {

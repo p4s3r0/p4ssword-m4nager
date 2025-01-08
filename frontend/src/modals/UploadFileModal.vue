@@ -18,7 +18,6 @@
 
 <script>
 import TextInput from '@/components/TextInput.vue';
-import TwoFA from '@/components/TwoFA.vue';
 
 import { DB_add2FA, DB_addNewFolder, DB_addNewPassword } from '@/db.js';
 import { getCurrentUser } from '@/dexie';

@@ -4,14 +4,10 @@ import base32 from 'hi-base32';
 
 import axios from 'axios';
 
-import {DBL_loginUser, 
-    DBL_updateFolders, 
-    DBL_getFolders,
+import {DBL_loginUser,
+    DBL_updateFolders,
     DBL_updatePasswords,
-    DBL_getPasswords, 
     DBL_update2FA,
-    DBL_get2Fa,
-    DBL_getFoldersPasswords,
     getCurrentUser
     } from '@/dexie';
 import { DECRYPT } from './store/store';
@@ -55,8 +51,6 @@ async function AXIOS_CALL(call, parameters) {
     try {
         ret = await axios.get(AXIOS_BASE_URL + call, { params: parameters })
     } catch (error) {
-        console.log(error)
-
         if (error === undefined) {
             return {status: 500}
         }
@@ -93,6 +87,7 @@ export async function DB_loginUser(username, password) {
         username: username,
         password: HASH(password)
     });
+
 
     if (res.status === 202) { // OK
         const user = res.data.data

@@ -1,9 +1,10 @@
 import { Dexie } from 'dexie';
-import { store } from '@/store/store';
+import CryptoJS from 'crypto-js';
 
+const LOCAL_K = process.env.VUE_APP_L_P;
 const db = new Dexie("p4ssword_m4nager");
-db.version(7).stores({
-    curr_user: "++idx, username, password, email, api_key",
+db.version(8).stores({
+    log: "++idx, u, p, e, a",
     folders: "++idx, folder, color, starred, pass_amount",
     passwords: "++idx, name, password, folder, note, username, starred",
     two_fa: "++idx, username, name, secret",
@@ -12,25 +13,40 @@ db.version(7).stores({
 });
 
 
-export function del_dexie() {
-    db.delete()
-    console.log("deleted db")
+
+
+export function enc_local_data(data) {
+    const key = CryptoJS.enc.Utf8.parse(LOCAL_K + "KEY");
+    var iv = CryptoJS.enc.Utf8.parse(LOCAL_K + "IV")
+    var encrypted = CryptoJS.AES.encrypt(data, key, { iv: iv, mode: CryptoJS.mode.CBC});
+    return encrypted.toString();
+}
+
+
+
+export function dec_local_data(data) {
+    var key = CryptoJS.enc.Utf8.parse(LOCAL_K + "KEY");
+    var iv = CryptoJS.enc.Utf8.parse(LOCAL_K + "IV")
+    var decrypted =  CryptoJS.AES.decrypt(data, key, { iv: iv, mode: CryptoJS.mode.CBC});
+    decrypted = decrypted.toString(CryptoJS.enc.Utf8);
+    return decrypted;
 }
 
 
 
 export async function DBL_loginUser(username_, password_, email_, api_key_) {
-    const user_exists = await db.curr_user.toArray();
+    const user_exists = await db.log.toArray();
     if (user_exists) {
-        await db.curr_user.clear();
+        await db.log.clear();
     }
-    const data = {
-        username: username_,
-        password: password_,
-        email: email_,
-        api_key: api_key_
+    let data = {
+        u: enc_local_data(username_),
+        p: enc_local_data(password_),
+        e: enc_local_data(email_),
+        a: enc_local_data(api_key_)
     }
-    await db.curr_user.add(data);
+
+    await db.log.add(data);
 }
 
 
@@ -55,9 +71,9 @@ export async function DBL_getOnboarding() {
 
 
 export async function DBL_logoutUser() {
-    const user_exists = await db.curr_user.toArray();
+    const user_exists = await db.log.toArray();
     if (user_exists) {
-        await db.curr_user.clear();
+        await db.log.clear();
     }
 
     const folders_exist = await db.folders.toArray();
@@ -83,12 +99,19 @@ export async function DBL_logoutUser() {
 
 
 export async function getCurrentUser() {
-    const user_exists = await db.curr_user.toArray();
-    if (!user_exists) {
+    const user_exists = await db.log.toArray();
+    if (!user_exists || user_exists.length === 0) {
         return false;
     }
 
-    return user_exists[0];
+    const data = {
+        username: dec_local_data(user_exists[0].u),
+        password: dec_local_data(user_exists[0].p),
+        email: dec_local_data(user_exists[0].e),
+        api_key: dec_local_data(user_exists[0].a)
+    }
+
+    return data;
 }
 
 
@@ -129,6 +152,12 @@ export async function DBL_update2FA(twofas) {
         await db.two_fa.add(data);
     }
 }
+
+
+
+
+
+
 
 
 export async function DBL_updatePasswords(passwords) {
@@ -228,3 +257,6 @@ export async function DBL_getFoldersNames() {
     }
     return ret;
 }
+
+
+
