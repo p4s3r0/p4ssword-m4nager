@@ -1,20 +1,19 @@
+<script>
+export default {
+  name: '404',
+};
+</script>
+
 <template>
   <div id="Container404">
     <div id="innerContainer">
       <h1>404 Site not found</h1>
-      <a @click="this.$router.push('/')">Return to Login</a>
+      <a @click="$router.push('/')">Return to Login</a>
     </div>
   </div>
 </template>
   
-<script>
 
-
-export default {
-  name: '404',
-}
-
-</script>
 
 <style scoped>
 #Container404 {

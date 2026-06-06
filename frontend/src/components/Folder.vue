@@ -1,19 +1,53 @@
-<template>
-    <div id="mainFolder" class="ripple2">
-        <div id="colorRectangle" :class="this.color"></div>
-        <svg v-if="this.starred" viewBox="0 0 24 24" class="starred icon flat-color"><path id="primary" d="M22,9.81a1,1,0,0,0-.83-.69l-5.7-.78L12.88,3.53a1,1,0,0,0-1.76,0L8.57,8.34l-5.7.78a1,1,0,0,0-.82.69,1,1,0,0,0,.28,1l4.09,3.73-1,5.24A1,1,0,0,0,6.88,20.9L12,18.38l5.12,2.52a1,1,0,0,0,.44.1,1,1,0,0,0,1-1.18l-1-5.24,4.09-3.73A1,1,0,0,0,22,9.81Z" ></path></svg>
-        <p id="folderName">{{ this.name }} </p>
-        <p id="amount"> {{ this.pass_amount }}</p>
-    </div>
-</template>
-
-<script>
-import { DBL_getPassAmount } from '@/dexie';
-export default {
-name: 'App',
-props: ["name", "color", "starred", "id", "pass_amount"],
-}
+<script setup>
+const props = defineProps({
+  name: {
+    type: String,
+    default: undefined
+  },
+  color: {
+    type: String,
+    default: undefined
+  },
+  starred: {
+    type: Boolean,
+    default: undefined
+  },
+  id: {
+    type: Number,
+    default: undefined,
+  },
+  passAmount: {
+    type: Number,
+    default: undefined,
+  }
+});
 </script>
+
+<template>
+  <div
+    id="mainFolder"
+    class="ripple2"
+  >
+    <div
+      id="colorRectangle"
+      :class="props.color"
+    />
+    <svg
+      v-if="props.starred"
+      viewBox="0 0 24 24"
+      class="starred icon flat-color"
+    ><path
+      id="primary"
+      d="M22,9.81a1,1,0,0,0-.83-.69l-5.7-.78L12.88,3.53a1,1,0,0,0-1.76,0L8.57,8.34l-5.7.78a1,1,0,0,0-.82.69,1,1,0,0,0,.28,1l4.09,3.73-1,5.24A1,1,0,0,0,6.88,20.9L12,18.38l5.12,2.52a1,1,0,0,0,.44.1,1,1,0,0,0,1-1.18l-1-5.24,4.09-3.73A1,1,0,0,0,22,9.81Z"
+    /></svg>
+    <p id="folderName">
+      {{ props.name }}
+    </p>
+    <p id="amount">
+      {{ props.pass_amount }}
+    </p>
+  </div>
+</template>
 
 <style scoped>
 #mainFolder {
@@ -104,7 +138,7 @@ props: ["name", "color", "starred", "id", "pass_amount"],
 
 .starred {
     position: absolute;
-    top: 0px;
+    top:0;
     left: 5px;
     transform: translate(-50%, -50%);
     width: 30px;

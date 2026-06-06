@@ -1,39 +1,39 @@
-<template>
-	<div id="containerContainer">
-        <div id="deleteConfirmationModalContainer">
-            <h1>Delete Confirmation</h1>
-            <p>Are you sure you want to delete this {{ this.val }}</p>
+<script setup>
+const props = defineProps({
+  val: {
+    type: String,
+    default: undefined
+  }
+});
 
-            <div id="buttonsBottom">
-                <Button label="Delete" icon="pi pi-trash" iconPos="left" @click="this.$emit('confirmed')" severity="danger"/>
-                <Button label="Cancel" icon="pi pi-chevron-left" iconPos="left" @click="this.$emit('closeModal')" style="margin-left: 5px;"/>
-
-            </div>
-        </div>
-    </div>
-</template>
-
-<script>
-
-export default {
-name: 'modalDeleteConfirmationModal',
-props: {
-    val: {
-        type: String,
-    }
-},
-components: {
-},
-data() {
-    return {
-    }
-}, 
-methods: {
-}, 
-beforeMount() {
-}, 
-}
+const emit = defineEmits(['closeModal', 'confirmed']);
 </script>
+
+<template>
+  <div id="containerContainer">
+    <div id="deleteConfirmationModalContainer">
+      <h1>Delete Confirmation</h1>
+      <p>Are you sure you want to delete this {{ props.val }}</p>
+
+      <div id="buttonsBottom">
+        <Button
+          label="Delete"
+          icon="pi pi-trash"
+          icon-pos="left"
+          severity="danger"
+          @click="emit('confirmed')"
+        />
+        <Button
+          label="Cancel"
+          icon="pi pi-chevron-left"
+          icon-pos="left"
+          style="margin-left: 5px;"
+          @click="emit('closeModal')"
+        />
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 #deleteConfirmationModalContainer {
@@ -44,7 +44,7 @@ beforeMount() {
     width: 60%;
     max-width: 400px;
     padding: 20px;
-    padding-top: 0px;
+    padding-top: 0;
 }
 
 #buttonsBottom {
@@ -54,9 +54,6 @@ beforeMount() {
     align-items: center;
     width: 100%;
     margin-bottom: 10px;
-}
-#leftButton {
-    margin-right: 10px;
 }
 
 button {

@@ -1,17 +1,26 @@
+<script>
+const props = {
+  text: {
+    type: String,
+    default: undefined
+  },
+  status: {
+    type: String,
+    default: undefined
+  }
+};
+</script>
+
 <template>
-    <div id="main" :class="this.status">
-      <p>{{ this.text }}</p>
-    </div>
+  <div
+    id="main"
+    :class="props.status"
+  >
+    <p>{{ props.text }}</p>
+  </div>
 </template>
   
-<script>
-export default {
-    name: 'App',
-    props: ["text", "status"],
-    components: {
-    }
-}
-</script>
+
 
 <style scoped>
 #main {
@@ -24,7 +33,6 @@ export default {
     padding-bottom: 2.5px;
     cursor: pointer;
 }
-
 
 .active {
     background: white;

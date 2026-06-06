@@ -1,85 +1,90 @@
-<template>
-    <div id="blurredBackground">
+<script setup>
+import { ref } from "vue";
+import { DB_add2FA, DB_addNewFolder, DB_addNewPassword } from "@/db";
 
-        <div id="modalUploadFile">
-            <h2>Upload Password File</h2>
-            <input type="file" @change="gotFile"/>
-            <FloatLabel variant="in" style="margin-top: 5px; width: 100%;">
-                <Password v-model="this.key" inputId="in_label" style="width: 100%;" toggleMask/>
-                <label for="in_label">Encrypt with this Password</label>
-            </FloatLabel>
-            <div id="buttonsBottom">
-                <Button id="leftButton" label="Close" icon="pi pi-times" iconPos="left" @click="this.$emit('closeModal')"/>
-                <Button label="Upload" icon="pi pi-upload" iconPos="left" @click="uploadData()"/>
-            </div>
-        </div>
-    </div>
-</template>
+const emit = defineEmits(['closeModal']);
 
-<script>
-import TextInput from '@/components/TextInput.vue';
+const fileContent = ref(null);
+const key = ref("toor");
+document.body.style.overflow = "hidden";
 
-import { DB_add2FA, DB_addNewFolder, DB_addNewPassword } from '@/db.js';
-import { getCurrentUser } from '@/dexie';
+function updateValue(val) {
+  key.value = val;
+}
 
-export default {
-name: 'uploadFile',
-components: {
-    TextInput,
-},
-data() {
-    return {
-        fileContent: null,
-        key: "toor"
-    }
-}, 
-methods: {
-    updateValue(val) {
-        this.key = val
-    },
-    gotFile(event) {
-        const file = event.target.files[0];
-        console.log("hi")
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                try {
-                    console.log("hi")
-                    this.fileContent = JSON.parse(e.target.result);
-                    console.log("hi", this.fileContent.folders[0].folder)
+function gotFile(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        fileContent.value = JSON.parse(e.target.result);
+      } catch (error) {
+        fileContent.value = "Error parsing JSON file.";
+      }
+    };
+    reader.readAsText(file);
+  }
+}
 
-                } catch (error) {
-                    console.error("Error parsing JSON:", error);
-                    this.fileContent = "Error parsing JSON file.";
-                }
-            };
-            reader.readAsText(file);
-        }
-    },
-    async uploadData() {
-        // Passwords
-        for(let i = 0; i < this.fileContent.passwords.length; i++) {
-            const pssw = this.fileContent.passwords[i];
-            await DB_addNewPassword(pssw.name, pssw.password, pssw.folder, pssw.note, pssw.username, pssw.starred, this.key);
-        }
-        //Folders
-        for(let i = 0; i < this.fileContent.folders.length; i++) {
-            const fold = this.fileContent.folders[i];
-            await DB_addNewFolder("", fold.folder, fold.color, fold.starred);
-        }
-        // 2FA
-        for(let i = 0; i < this.fileContent.twoFAs.length; i++) {
-            const twoFAs = this.fileContent.twoFAs[i];
-            const user = await getCurrentUser();
-            await DB_add2FA(twoFAs.name, twoFAs.secret, this.key);
-        }
-    }
-},
-beforeMount() {
-    document.body.style.overflow = "hidden"
-},
+
+async function uploadData() {
+  // Passwords
+  for(let i = 0; i < fileContent.value.passwords.length; i++) {
+    const pssw = fileContent.value.passwords[i];
+    await DB_addNewPassword(pssw.name, pssw.password, pssw.folder, pssw.note, pssw.username, pssw.starred, key.value);
+  }
+  //Folders
+  for(let i = 0; i < fileContent.value.folders.length; i++) {
+    const fold = fileContent.value.folders[i];
+    await DB_addNewFolder("", fold.folder, fold.color, fold.starred);
+  }
+  // 2FA
+  for(let i = 0; i < fileContent.value.twoFAs.length; i++) {
+    const twoFAs = fileContent.value.twoFAs[i];
+    await DB_add2FA(twoFAs.name, twoFAs.secret, key.value);
+  }
 }
 </script>
+
+<template>
+  <div id="blurredBackground">
+    <div id="modalUploadFile">
+      <h2>Upload Password File</h2>
+      <input
+        type="file"
+        @change="gotFile"
+      >
+      <FloatLabel
+        variant="in"
+        style="margin-top: 5px; width: 100%;"
+      >
+        <Password
+          v-model="key"
+          input-id="in_label"
+          style="width: 100%;"
+          toggle-mask
+        />
+        <label for="in_label">Encrypt with this Password</label>
+      </FloatLabel>
+      <div id="buttonsBottom">
+        <Button
+          id="leftButton"
+          label="Close"
+          icon="pi pi-times"
+          icon-pos="left"
+          @click="emit('closeModal')"
+        />
+        <Button
+          label="Upload"
+          icon="pi pi-upload"
+          icon-pos="left"
+          @click="uploadData()"
+        />
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 #modalUploadFile {

@@ -1,79 +1,78 @@
-<template>
-    <div id="containerContainer">
-        <div id="container">
-            <h1>OTP Code</h1>
-            <div id="closeButton" @click="this.$emit('closeModal')">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-                </svg>
-            </div>
-            <div id="numbersContainer">
-                <div class="singleNumber">
-                    <h2>{{ this.code[0] }}</h2>
-                </div>
 
-                <div class="singleNumber">
-                    <h2>{{ this.code[1] }}</h2>
-                </div>
-
-                <div class="singleNumber">
-                    <h2>{{ this.code[2] }}</h2>
-                </div>
-                <h1 id="numberSeparator">.</h1>
-                
-                <div class="singleNumber">
-                    <h2>{{ this.code[3] }}</h2>
-                </div>
-
-                <div class="singleNumber">
-                    <h2>{{ this.code[4] }}</h2>
-                </div>
-
-                <div class="singleNumber">
-                    <h2>{{ this.code[5] }}</h2>
-                </div>
-            </div>
-            <button class="copyButton" @click="copyOtp()">Copy to Clipboard</button>
-
-        </div>
-    </div>
-
-</template>
-
-<script>
+<script setup>
 import { useToast } from "vue-toastification";
 
+const props = defineProps({
+  code: {
+    type: String,
+    required: true,
+  },
+});
 
-export default {
-name: 'App',
-props: ["OTPcode"],
-setup() {
-      const toast = useToast();
-      return { toast }
-    },
-    components: {
-        
-    },
-data() {
-    return {
-        code: 0
-    }
-},
-methods: {
-    async copyOtp() {
-        navigator.clipboard.writeText(this.code);
-        this.toast.info("OTP Code copied to Clipboard")
-    },
-}, beforeMount() {
-    this.code = this.OTPcode 
-},
-watch: {
-    OTPcode: function(newVal, oldVal) { // watch it
-        this.code = newVal
-    },
-}
+const emit = defineEmits(['closeModal']);
+const toast = useToast();
+
+async function copyOtp() {
+  navigator.clipboard.writeText(props.code);
+  toast.info("OTP Code copied to Clipboard");
 }
 </script>
+
+<template>
+  <div id="containerContainer">
+    <div id="container">
+      <h1>OTP Code</h1>
+      <div
+        id="closeButton"
+        @click="emit('closeModal')"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24px"
+          viewBox="0 -960 960 960"
+          width="24px"
+          fill="#e8eaed"
+        >
+          <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+        </svg>
+      </div>
+      <div id="numbersContainer">
+        <div class="singleNumber">
+          <h2>{{ props.code[0] }}</h2>
+        </div>
+
+        <div class="singleNumber">
+          <h2>{{ props.code[1] }}</h2>
+        </div>
+
+        <div class="singleNumber">
+          <h2>{{ props.code[2] }}</h2>
+        </div>
+        <h1 id="numberSeparator">
+          .
+        </h1>
+                
+        <div class="singleNumber">
+          <h2>{{ props.code[3] }}</h2>
+        </div>
+
+        <div class="singleNumber">
+          <h2>{{ props.code[4] }}</h2>
+        </div>
+
+        <div class="singleNumber">
+          <h2>{{ props.code[5] }}</h2>
+        </div>
+      </div>
+      <button
+        class="copyButton"
+        @click="copyOtp()"
+      >
+        Copy to Clipboard
+      </button>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 #container {
@@ -112,7 +111,7 @@ watch: {
 }
 
 h2, h1 {
-    margin: 0px;
+    margin: 0;
 }
 
 h1 {
@@ -133,20 +132,16 @@ h1 {
     width: 100%;
     background-color: white;
     color: var(--background-color);
-    border: 0px;
+    border: 0;
     border-radius: 10px;
     margin-top: 20px;
     cursor: pointer;
     transition: background 0.8s;
 }
-.editButton:hover {
-    background-color: #d9d9d927;
-}
-
 
 #numberSeparator {
     border-bottom: none;
-    margin-left: 0px;
+    margin-left: 0;
     margin-right: 5px;
 }
 </style>

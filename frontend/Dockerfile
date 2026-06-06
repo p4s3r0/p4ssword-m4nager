@@ -1,5 +1,5 @@
-# Step 1: Build the Vue app
-FROM node:16 as build
+# Build Vite app
+FROM node:20-alpine AS build
 
 WORKDIR /app
 
@@ -9,10 +9,11 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Step 2: Serve the app
+# Serve built files
 FROM nginx:alpine
 
 COPY --from=build /app/dist /usr/share/nginx/html
 
-EXPOSE 8080
+EXPOSE 80
+
 CMD ["nginx", "-g", "daemon off;"]

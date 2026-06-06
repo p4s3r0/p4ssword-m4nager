@@ -1,401 +1,377 @@
-<template>
-    <div id="mainLogin">
-        <h1 id="posHello">Hello, {{ this.user.username }} 👋</h1>
-        <button id="menuButton" class="ripple" @click="this.showMenuModal = true">
-            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="white">
-                <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
-            </svg>
-        </button>
-        <search-bar id="posSearchBar" @valueUpdated="search" />
-        <div class="showFoldersOrPasswords">
-            <symbol-icon icon="add"
-                            class="selectorIcon leftIcon"
-                            @click="this.showAddModal = true;" />
-
-            <div style="display: flex">
-                <symbol-icon icon="folder"
-                            class="selectorIcon"
-                            :class="this.fold_pass_selector == 'Folders' ? 'IconActive' : 'IconNotActive'"
-                            @click="activateFoldersButton" />
-
-
-                <symbol-icon icon="password"
-                            class="selectorIcon"
-                            :class="this.fold_pass_selector == 'Passwords' ? 'IconActive' : 'IconNotActive'"
-                            @click="activatePasswordsButton" />
-
-
-                <symbol-icon icon="2fa"
-                            class="selectorIcon"
-                            :class="this.fold_pass_selector == 'twoFA' ? 'IconActive' : 'IconNotActive'"
-                            @click="activateTwoFAButton" />
-            </div>
-        </div>
-
-
-
-        <div id="wrapperl">
-            <Transition name="fade" mode="out-in">
-                <div v-if="this.loading">
-                    <div class="loader"></div>
-                </div>
-                <div v-else>
-                    <div v-if="this.fold_pass_selector == 'Folders'" id="posFolders">
-                        <folder
-                            v-for="f in this.folders"
-                            @click="openFolder(f.id, f.folder, f.color, f.starred)"
-                            :key="f.key"
-                            :name="f.folder"
-                            :color="f.color"
-                            :id="f.id"
-                            :starred="f.starred"
-                            :pass_amount="f.pass_amount"
-                        />
-                    </div>
-
-                    <div v-else-if="this.fold_pass_selector == 'Passwords'" id="posFolders">
-                        <password
-                            v-for="p in this.passwords"
-                            @openPasswordModal="this.showViewPasswordModal = true"
-                            :key="p.key"
-                            :name="p.name"
-                            :enc_password="p.password"
-                            :username="p.username"
-                            :id="p.id"
-                            :folder="p.folder"
-                            :note="p.note"
-                            :starred="p.starred"
-                        />
-                    </div>
-
-                    <div v-else id="posFolders">
-                        <two-f-a v-for="t in this.twoFactors" 
-                            @open2FA="this.showTwoFaModal=true"
-                            @openTwoFaOTPModal="openTwoFaOTPModalFunction"
-                            :key="t.key" 
-                            :name="t.name" 
-                            :secret="t.secret" 
-                            :id="t.id"
-                            :algo="t.algo"
-                             />
-                    </div>
-                </div>
-            </Transition>
-        </div>
-
-
-
-        <Transition name="bounce" mode="out-in">
-            <upload-file-modal
-                v-if="this.showUploadFileModal"
-                @closeModal=" this.showUploadFileModal = false; resetScrolling();" />
-        </Transition>
-
-        <Transition name="bounce" mode="out-in">
-            <menu-modal
-                v-if="this.showMenuModal"
-                @closeModal="this.showMenuModal = false; resetScrolling();"
-                @logoutClick="logout()"
-                @downloadClick="download()"
-                @uploadClick="this.showMenuModal = false; this.showUploadFileModal = true;" 
-                @openSessionModal="this.showMenuModal = false; this.showApiModal = true"/>
-        </Transition>
-
-        <Transition name="bounce" mode="out-in">
-            <view-password-modal
-                v-if="this.showViewPasswordModal"
-                @closeModal="this.showViewPasswordModal = false; resetScrolling();"
-                @closeModalReload="this.showViewPasswordModal = false; resetScrolling(); reloadData();" />
-        </Transition>
-
-        <Transition name="bounce" mode="out-in">
-            <two-f-a-modal v-if="this.showTwoFaModal"
-                @closeModal="this.showTwoFaModal = false; resetScrolling();"
-                @closeModalReload="this.showTwoFaModal = false; resetScrolling(); reloadData()" />
-        </Transition>
-
-        <Transition name="bounce" mode="out-in">
-            <TwoFaOTPModal v-if="this.showTwoFaOtpModal"
-                :OTPcode="this.twoFaOtpCode"
-                @closeModal="this.showTwoFaOtpModal = false; resetScrolling();"/>
-        </Transition>
-
-        <Transition name="bounce" mode="out-in">
-            <SessionModal v-if="this.showApiModal"
-                @closeModalReload="this.showApiModal = false; resetScrolling(); reloadData()"/>
-        </Transition>
-
-        <add-modal v-if="this.showAddModal"
-            @closeModal="this.showAddModal=false; resetScrolling();"
-            @closeModalReload="this.showAddModal=false; resetScrolling(); reloadData()" />
-    </div>
-</template>
-
-<script>
+<script setup>
 import SearchBar from "@/components/SearchBar.vue";
 import Folder from "@/components/Folder.vue";
 import Password from "@/components/Password.vue";
 import TwoFA from "@/components/TwoFA.vue";
-
 import TwoFaOTPModal from "@/modals/TwoFaOTPModal.vue";
-
 import UploadFileModal from "@/modals/UploadFileModal.vue";
 import MenuModal from "@/modals/MenuModal.vue";
 import ViewPasswordModal from "@/modals/ViewPasswordModal.vue";
 import TwoFAModal from "@/modals/TwoFAModal.vue";
 import AddModal from "@/modals/AddModal.vue";
 import SessionModal from "@/modals/SessionModal.vue";
-
 import SymbolIcon from "@/components/SymbolIcon.vue";
-
 import { useToast } from "vue-toastification";
-
-
+import { settings_getFolderOrPassword, settings_updateFolderOrPassword } from "@/dexie";
 import {
-    DBL_logoutUser,
-    settings_getFolderOrPassword,
-    settings_updateFolderOrPassword,
-    getCurrentUser,
-    DBL_getPasswords,
-    DBL_getFolders,
-    DBL_get2Fa
-} from "@/dexie";
-import {
-    rankFoldersBySearch,
-    rankPasswordsBySearch,
-    rankPasswordsAlphabetically,
-    rankFolderAlphabetically,
+  rankFoldersBySearch,
+  rankPasswordsBySearch,
+  rankPasswordsAlphabetically,
+  rankFolderAlphabetically,
 } from "@/scripts/search";
-import { store, DECRYPT } from "@/store/store";
-
+import { store } from "@/store/store";
 import { DB_getAllPasswords, DB_getAllFolders, DB_getAll2FA, DB_logoutUser, DB_checkValidAPIKey } from "@/db";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { download } from "@/helper/transfer_data";
+import { useUserStore } from "@/store/userStore";
 
-export default {
-    name: "App",
-    setup() {
-      const toast = useToast();
-      return { toast }
-    },
-    components: {
-        SearchBar,
-        Folder,
-        Password,
-        TwoFA,
-        SymbolIcon,
-        UploadFileModal,
-        MenuModal,
-        ViewPasswordModal,
-        TwoFAModal,
-        AddModal,
-        TwoFaOTPModal,
-        SessionModal
-    },
-    data() {
-        return {
-            user: {},
-            fold_pass_selector: "Folders",
-            folders: [],
-            passwords: [],
-            twoFactors: [],
-            new_app_version: "",
-            loading: true,
-            showUploadFileModal: false,
-            showMenuModal: false,
-            showViewPasswordModal: false,
-            showTwoFaModal: false,
-            showAddModal: false,
-            showTwoFaOtpModal: false,
-            showApiModal: false,
-            twoFaOtpCode: 0
-        };
-    },
-    methods: {
-        openTwoFaOTPModalFunction(code) {
-            this.twoFaOtpCode = code;
-            this.showTwoFaOtpModal = true;
-        },
-        activateFoldersButton() {
-            this.fold_pass_selector = "Folders";
-            settings_updateFolderOrPassword("Folders");
-        },
-        activatePasswordsButton() {
-            this.fold_pass_selector = "Passwords";
-            settings_updateFolderOrPassword("Passwords");
-        },
-        activateTwoFAButton() {
-            this.fold_pass_selector = "twoFA";
-            settings_updateFolderOrPassword("twoFA");
-        },
-        logout() {
-            DBL_logoutUser().then(() => {
-                this.$router.push("/");
-            });
-            DB_logoutUser();
-        },
-        openFolder(folder_id, folder_name, folder_color, folder_starred) {
-            store.temp.curr_folder_id = folder_id;
-            store.temp.curr_folder_name = folder_name;
-            store.temp.curr_folder_color = folder_color;
-            store.temp.curr_folder_starred = folder_starred;
-            this.$router.push("/folder");
-        },
-        search(keyword) {
-            if (this.fold_pass_selector == "Folders") {
-                rankFoldersBySearch(keyword).then((res) => {
-                    this.folders = res;
-                });
-            } else {
-                rankPasswordsBySearch(keyword).then((res) => {
-                    this.passwords = res;
-                });
-            }
-        },
-        async download() {
-            const passwords = await DBL_getPasswords();
+const toast = useToast();
+const router = useRouter();
 
-            let str = '{\n\t"passwords": [';
-            for (let i = 0; i < passwords.length; i++) {
-                str += "\n\t\t{\n";
-                str = str + '\t\t\t"name": "' + passwords[i].name.replace('"', '"') + '",\n';
-                str = str + '\t\t\t"username": "' + (await DECRYPT(passwords[i].username)).replace('"', '"') + '",\n';
-                str = str + '\t\t\t"password": "' + (await DECRYPT(passwords[i].password)).replace('"', '"') + '",\n';
-                str = str + '\t\t\t"folder": "' + passwords[i].folder.replace('"', '"') + '",\n';
-                str = str + '\t\t\t"note": "' + (await DECRYPT(passwords[i].note)).replace('"', '"') + '",\n';
-                str = str + '\t\t\t"idx": "' + passwords[i].idx + '",\n';
-                str = str + '\t\t\t"starred": "' + passwords[i].starred + '"\n';
-                if (i == passwords.length - 1) {
-                    str += "\t\t}"
-                } else {
-                    str += "\t\t},";
-                }
-            }
+const fold_pass_selector = ref("Folders");
+const folders = ref([]);
+const passwords = ref([]);
+const twoFactors = ref([]);
+const loading = ref(true);
+const showUploadFileModal = ref(false);
+const showMenuModal = ref(false);
+const showViewPasswordModal = ref(false);
+const showTwoFaModal = ref(false);
+const showAddModal = ref(false);
+const showTwoFaOtpModal = ref(false);
+const showApiModal = ref(false);
+const twoFaOtpCode = ref(0);
+const searchQuery = ref("");
 
-            const folders = await DBL_getFolders(passwords);
+const userStore = useUserStore();
 
-            str += '\n\t],\n\t"folders": [';
-            for(let i = 0; i < folders.length; i++) {
-                str += "\n\t\t{\n";
-                str = str + '\t\t\t"folder": "' + folders[i].folder + '",\n';
-                str = str + '\t\t\t"color": "' + folders[i].color + '",\n';
-                str = str + '\t\t\t"starred": "' + folders[i].starred + '"\n';
-                if (i == folders.length - 1) {
-                    str += "\t\t}"
-                } else {
-                    str += "\t\t},";
-                }
-            }
+function openTwoFaOTPModalFunction(code) {
+  twoFaOtpCode.value = code;
+  showTwoFaOtpModal.value = true;
+}
 
-            const twoFAs = await DBL_get2Fa()
+function activateFoldersButton() {
+  fold_pass_selector.value = "Folders";
+  settings_updateFolderOrPassword("Folders");
+}
 
-            str += '\n\t],\n\t"twoFAs": [';
-            for(let i = 0; i < twoFAs.length; i++) {
-                str += "\n\t\t{\n";
-                str = str + '\t\t\t"name": "' + twoFAs[i].name + '",\n';
-                str = str + '\t\t\t"secret": "' + twoFAs[i].secret + '"\n';
-                if (i == twoFAs.length - 1) {
-                    str += "\t\t}"
-                } else {
-                    str += "\t\t},";
-                }
-            }
+function activatePasswordsButton() {
+  fold_pass_selector.value = "Passwords";
+  settings_updateFolderOrPassword("Passwords");
+}
 
-            str += "\n]}";
+function activateTwoFAButton() {
+  fold_pass_selector.value = "twoFA";
+  settings_updateFolderOrPassword("twoFA");
+}
 
-            const blob = new Blob([str], { type: "text/plain" });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = "passwords.json";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        },
-        resetScrolling() {
-            document.body.style.overflow = "";
-        },
-        reloadFolders() {
-            DB_getAllFolders(this.passwords).then((res_fold) => {
-                if (res_fold === -1) {
-                    this.toast.error("Invalid Parameters!")
-                } else if (res_fold === -2) {
-                    this.toast.error("Invalid API Key!")
-                } else if (res_fold === -99) {
-                    this.toast.error("API Error!")
-                }
-                else if (res_fold) {
-                    this.folders = rankFolderAlphabetically(res_fold);
-                }
-                this.loading = false;
-            });
-        },
-        reloadData() {
-            getCurrentUser().then((user) => {
-            if (user) {
-                this.user = user;
+function logout() {
+  DB_logoutUser();
+}
 
-                DB_checkValidAPIKey().then((res) => {
-                    if(!res) {
-                        DBL_logoutUser().then(() => {
-                            this.$router.push("/");
-                            this.toast.error("Invalid API Key.")
-                        });
-                    } else {
-                        DB_getAllPasswords().then((res) => {
-                            if (res === -1) {
-                                this.toast.error("Invalid Parameters!")
-                                this.loading = false;
-                                return;
-                            } else if (res === -2) {
-                                this.toast.error("Invalid API Key!")
-                                this.loading = false;
-                                return;
-                            } else if (res === -99) {
-                                this.toast.error("API Error!")
-                                this.loading = false;
-                                return;
-                            }
-                            this.passwords = rankPasswordsAlphabetically(res);
-                            // folders are loaded after passwords, to make sure the
-                            //count is correct of the passwords inside the folder
-                            DB_getAllFolders(this.passwords).then((res_fold) => {
-                                if (res_fold === -1) {
-                                    this.toast.error("Invalid Parameters!")
-                                } else if (res_fold === -2) {
-                                    this.toast.error("Invalid API Key!")
-                                } else if (res_fold === -99) {
-                                    this.toast.error("API Error!")
-                                }
-                                else if (res_fold) {
-                                    this.folders = rankFolderAlphabetically(res_fold);
-                                }
-                                this.loading = false;
-                            });
-                        });
-                        DB_getAll2FA().then((res) => {
-                            if (res) {
-                                this.twoFactors = res;
-                            } else if (res === -1) {
-                                this.toast.error("Invalid Parameters!")
-                            } else if (res === -2) {
-                                this.toast.error("Invalid API Key!")
-                            }
-                        });
-                        settings_getFolderOrPassword().then((res) => {
-                            this.fold_pass_selector = res;
-                        });
-                        }
-                    })
-            } else {
-                this.$router.push("/");
-            }
-        });
+function openFolder(folder_id, folder_name, folder_color, folder_starred) {
+  store.temp.curr_folder_id = folder_id;
+  store.temp.curr_folder_name = folder_name;
+  store.temp.curr_folder_color = folder_color;
+  store.temp.curr_folder_starred = folder_starred;
+  router.push("/folder");
+}
+
+function search() {
+  if (fold_pass_selector.value === "Folders") {
+    rankFoldersBySearch(searchQuery.value).then((res) => {
+      folders.value = res;
+    });
+  } else {
+    rankPasswordsBySearch(searchQuery.value).then((res) => {
+      passwords.value = res;
+    });
+  }
+}
+
+
+function resetScrolling() {
+  document.body.style.overflow = "";
+}
+
+function reloadFolders() {
+  DB_getAllFolders(passwords.value).then((res_fold) => {
+    if (res_fold === -1) {
+      toast.error("Invalid Parameters!");
+    } else if (res_fold === -2) {
+      toast.error("Invalid API Key!");
+    } else if (res_fold === -99) {
+      toast.error("API Error!");
+    }
+    else if (res_fold) {
+      folders.value = rankFolderAlphabetically(res_fold);
+    }
+    loading.value = false;
+  });
+}
+
+function reloadData() {
+  if (!userStore.isLoggedIn) {
+    router.push({ name: "login" });
+  }
+  const user = userStore.getUser;
+
+  DB_checkValidAPIKey(user).then((response) => {
+    if(!response) {
+      //userStore.removeUser()
+      toast.error("Invalid API Key.");
+      router.push({ name: "login" });
+      return;
+    }
+
+    DB_getAllPasswords().then((res) => {
+      if (res === -1) {
+        toast.error("Invalid Parameters!");
+        loading.value = false;
+        return;
+      } else if (res === -2) {
+        toast.error("Invalid API Key!");
+        loading.value = false;
+        return;
+      } else if (res === -99) {
+        toast.error("API Error!");
+        loading.value = false;
+        return;
+      }
+      passwords.value = rankPasswordsAlphabetically(res);
+      // folders are loaded after passwords, to make sure the
+      //count is correct of the passwords inside the folder
+      DB_getAllFolders(passwords.value).then((res_fold) => {
+        if (res_fold === -1) {
+          toast.error("Invalid Parameters!");
+        } else if (res_fold === -2) {
+          toast.error("Invalid API Key!");
+        } else if (res_fold === -99) {
+          toast.error("API Error!");
         }
-    },
-    beforeMount() {
-        document.body.style.overflow = "";
-        this.reloadData();
-    },
-};
+        else if (res_fold) {
+          folders.value = rankFolderAlphabetically(res_fold);
+        }
+        loading.value = false;
+      });
+    });
+    DB_getAll2FA().then((res) => {
+      if (res) {
+        twoFactors.value = res;
+      } else if (res === -1) {
+        toast.error("Invalid Parameters!");
+      } else if (res === -2) {
+        toast.error("Invalid API Key!");
+      }
+    });
+    settings_getFolderOrPassword().then((res) => {
+      fold_pass_selector.value = res;
+    });
+  });
+}
+
+document.body.style.overflow = "";
+reloadData();
 </script>
+
+<template>
+  <div id="mainLogin">
+    <h1 id="posHello">
+      Hello, {{ userStore.username }} 👋
+    </h1>
+    <button
+      id="menuButton"
+      class="ripple"
+      @click="showMenuModal = true"
+    >
+      <svg
+        height="24px"
+        viewBox="0 -960 960 960"
+        width="24px"
+        fill="white"
+      >
+        <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+      </svg>
+    </button>
+    <search-bar
+      id="posSearchBar"
+      v-model="searchQuery"
+      @value-updated="search"
+    />
+    <div class="showFoldersOrPasswords">
+      <symbol-icon
+        icon="add"
+        class="selectorIcon leftIcon"
+        @click="showAddModal = true;"
+      />
+
+      <div style="display: flex">
+        <symbol-icon
+          icon="folder"
+          class="selectorIcon"
+          :class="fold_pass_selector === 'Folders' ? 'IconActive' : 'IconNotActive'"
+          @click="activateFoldersButton"
+        />
+
+
+        <symbol-icon
+          icon="password"
+          class="selectorIcon"
+          :class="fold_pass_selector === 'Passwords' ? 'IconActive' : 'IconNotActive'"
+          @click="activatePasswordsButton"
+        />
+
+
+        <symbol-icon
+          icon="2fa"
+          class="selectorIcon"
+          :class="fold_pass_selector === 'twoFA' ? 'IconActive' : 'IconNotActive'"
+          @click="activateTwoFAButton"
+        />
+      </div>
+    </div>
+
+
+
+    <div id="wrapperl">
+      <Transition
+        name="fade"
+        mode="out-in"
+      >
+        <div v-if="loading">
+          <div class="loader" />
+        </div>
+        <div v-else>
+          <div
+            v-if="fold_pass_selector === 'Folders'"
+            id="posFolders"
+          >
+            <folder
+              v-for="f in folders"
+              :id="f.id"
+              :key="f.key"
+              :name="f.folder"
+              :color="f.color"
+              :starred="f.starred"
+              :pass-amount="f.pass_amount"
+              @click="openFolder(f.id, f.folder, f.color, f.starred)"
+            />
+          </div>
+
+          <div
+            v-else-if="fold_pass_selector === 'Passwords'"
+            id="posFolders"
+          >
+            <password
+              v-for="p in passwords"
+              :id="p.id"
+              :key="p.key"
+              :name="p.name"
+              :enc-password="p.password"
+              :username="p.username"
+              :folder="p.folder"
+              :note="p.note"
+              :starred="p.starred"
+              @open-password-modal="showViewPasswordModal = true"
+            />
+          </div>
+
+          <div
+            v-else
+            id="posFolders"
+          >
+            <two-f-a
+              v-for="t in twoFactors"
+              :id="t.id"
+              :key="t.key"
+              :name="t.name" 
+              :secret="t.secret" 
+              :algo="t.algo" 
+              @open2-f-a="showTwoFaModal=true"
+              @open-two-fa-o-t-p-modal="openTwoFaOTPModalFunction"
+            />
+          </div>
+        </div>
+      </Transition>
+    </div>
+
+
+
+    <Transition
+      name="bounce"
+      mode="out-in"
+    >
+      <upload-file-modal
+        v-if="showUploadFileModal"
+        @close-modal=" showUploadFileModal = false; resetScrolling();"
+      />
+    </Transition>
+
+    <Transition
+      name="bounce"
+      mode="out-in"
+    >
+      <menu-modal
+        v-if="showMenuModal"
+        @close-modal="showMenuModal = false; resetScrolling();"
+        @logout-click="logout()"
+        @download-click="download()"
+        @upload-click="showMenuModal = false; showUploadFileModal = true;"
+        @open-session-modal="showMenuModal = false; showApiModal = true"
+      />
+    </Transition>
+
+    <Transition
+      name="bounce"
+      mode="out-in"
+    >
+      <view-password-modal
+        v-if="showViewPasswordModal"
+        @close-modal="showViewPasswordModal = false; resetScrolling();"
+        @close-modal-reload="showViewPasswordModal = false; resetScrolling(); reloadData();"
+      />
+    </Transition>
+
+    <Transition
+      name="bounce"
+      mode="out-in"
+    >
+      <two-f-a-modal
+        v-if="showTwoFaModal"
+        @close-modal="showTwoFaModal = false; resetScrolling();"
+        @close-modal-reload="showTwoFaModal = false; resetScrolling(); reloadData()"
+      />
+    </Transition>
+
+    <Transition
+      name="bounce"
+      mode="out-in"
+    >
+      <TwoFaOTPModal
+        v-if="showTwoFaOtpModal"
+        :code="twoFaOtpCode"
+        @close-modal="showTwoFaOtpModal = false; resetScrolling();"
+      />
+    </Transition>
+
+    <Transition
+      name="bounce"
+      mode="out-in"
+    >
+      <SessionModal
+        v-if="showApiModal"
+        @close-modal-reload="showApiModal = false; resetScrolling(); reloadData()"
+      />
+    </Transition>
+
+    <add-modal
+      v-if="showAddModal"
+      @close-modal="showAddModal=false; resetScrolling();"
+      @close-modal-reload="showAddModal=false; resetScrolling(); reloadData()"
+    />
+  </div>
+</template>
 
 <style scoped>
 #wrapperl {
@@ -429,7 +405,6 @@ export default {
     margin-left: 50%;
     transform: translateX(-50%);
     max-width: 650px;
-    align-items: right;
     justify-content: space-between;
 }
 
@@ -441,7 +416,6 @@ export default {
 
 #rightTopButton {
     display: flex;
-    align-items: bottom;
     justify-content: right;
 }
 

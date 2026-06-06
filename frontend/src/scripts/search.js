@@ -1,19 +1,19 @@
-import { DBL_getFolders, DBL_updatePasswords } from "@/dexie"
+import { DBL_getFolders, DBL_updatePasswords } from "@/dexie";
 
 
 
 export async function rankFoldersBySearch(search) {
-    const folders = await DBL_getFolders()
-    if (search == "") {
+    const folders = await DBL_getFolders();
+    if (search === "") {
         return rankFolderAlphabetically(folders);
     }
-    let ranking = []
+    let ranking = [];
 
     for (let f = 0; f < folders.length; f++) {
         let curr_score = 0;
         let curr_score_index = 0;
         for (let w = 0; w < folders[f].folder.length && curr_score_index < search.length; w++) {
-            if (folders[f].folder[w].toLowerCase() == search[curr_score_index].toLowerCase()) {
+            if (folders[f].folder[w].toLowerCase() === search[curr_score_index].toLowerCase()) {
                 curr_score_index += 1;
                 curr_score += 1;
             }
@@ -35,18 +35,18 @@ export async function rankFoldersBySearch(search) {
 
 
 export async function rankPasswordsBySearch(search) {
-    const passwords = await DBL_updatePasswords(null)
-    if (search == "") {
+    const passwords = await DBL_updatePasswords(null);
+    if (search === "") {
         return rankPasswordsAlphabetically(passwords);
     }
 
-    let ranking = []
+    let ranking = [];
 
     for (let p = 0; p < passwords.length; p++) {
         let curr_score = 0;
         let curr_score_index = 0;
         for (let w = 0; w < passwords[p].name.length && curr_score_index < search.length; w++) {
-            if (passwords[p].name[w].toLowerCase() == search[curr_score_index].toLowerCase()) {
+            if (passwords[p].name[w].toLowerCase() === search[curr_score_index].toLowerCase()) {
                 curr_score_index += 1;
                 curr_score += 1;
             }
@@ -55,15 +55,15 @@ export async function rankPasswordsBySearch(search) {
         const el = {
             score: curr_score,
             data: passwords[p]
-        }
-        ranking.push(el)
+        };
+        ranking.push(el);
     }
 
     ranking.sort((a,b) => b.score - a.score); 
     let ret = [];
     for (let i = 0; i < ranking.length; i++) {
         ret.push(ranking[i].data);
-        ret[i]["id"] = ranking[i].data.idx
+        ret[i]["id"] = ranking[i].data.idx;
     }
 
     return ret;  
@@ -72,21 +72,21 @@ export async function rankPasswordsBySearch(search) {
 
 
 export function rankPasswordsAlphabetically(passwords) {
-    let ranking = []
+    let ranking = [];
 
     for (let p = 0; p < passwords.length; p++) {
-        if (passwords[p].name.length == 0) {
+        if (passwords[p].name.length === 0) {
             ranking.push({
                 score: 0,
                 data: passwords[p]
-            })
+            });
             continue;
         }
 
         ranking.push({
             score: passwords[p].name.charCodeAt(0) + (passwords[p].starred ? 0 : 1000),
             data: passwords[p]
-        })
+        });
     }
     ranking.sort((a,b) => a.score - b.score); 
     for (let i = 0; i < ranking.length; i++) {
@@ -99,22 +99,22 @@ export function rankPasswordsAlphabetically(passwords) {
 
 
 export function rankFolderAlphabetically(folders) {
-    let ranking = []
+    let ranking = [];
 
     for (let f = 0; f < folders.length; f++) {
-        if (folders[f].folder.length == 0) {
+        if (folders[f].folder.length === 0) {
             ranking.push({
                 score: 0,
                 data: folders[f]
-            })
+            });
             continue;
         }
-        const first_letter = folders[f].folder[0].toLowerCase()
+        const first_letter = folders[f].folder[0].toLowerCase();
 
         ranking.push({
             score: first_letter.charCodeAt(0) + (folders[f].starred ? 0 : 1000),
             data: folders[f]
-        })
+        });
     }
     ranking.sort((a,b) => a.score - b.score); 
     for (let i = 0; i < ranking.length; i++) {

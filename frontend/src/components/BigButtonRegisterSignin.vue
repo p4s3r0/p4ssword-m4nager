@@ -1,18 +1,17 @@
+<script setup>
+const props = defineProps({
+  text: {
+    type: String,
+    default: undefined
+  }
+});
+</script>
+
 <template>
   <div id="mainBigButtonRegisterSigning">
-    <p>{{ this.text }}</p>
+    <p>{{ props.text }}</p>
   </div>
 </template>
-
-<script>
-
-export default {
-  name: 'App',
-  props: ["text"],
-  components: {
-  }
-}
-</script>
 
 <style scoped>
 #mainBigButtonRegisterSigning {

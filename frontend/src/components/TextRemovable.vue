@@ -1,53 +1,37 @@
-<template>
-    <div class="container" :class='[{"mainApiKey": this.curr_user_api_key}]'>
-      <p style="position: absolute; right: 50px; left: 10px; text-wrap: nowrap; overflow: hidden">{{ this.my_value }}</p>
-      <div style="position: absolute; right: 10px; cursor: pointer;" @click="this.$emit('removeApi')">
-          <SymbolIcon icon="remove" :inverted="this.curr_user_api_key"/>
-      </div>
-    </div>
-</template>
-  
-<script>
+<script setup>
 import SymbolIcon from './SymbolIcon.vue';
-import { getCurrentUser } from '@/dexie'
+import { ref } from "vue";
 
-export default {
-    name: 'App',
-    props: ["my_value"],
-    components: {
-        SymbolIcon
-    }, 
-    data() {
-        return {
-          key: this.my_value,
-          curr_user_api_key: false
-        }
-      },
-    methods: {
-    },
-    watch: {
-        my_value: function(newVal, oldVal) { // watch it
-          this.key = newVal;
-          getCurrentUser().then((user) => {
-            if (user.api_key == this.key) {
-              this.curr_user_api_key = true
-            } else {
-              this.curr_user_api_key = false
-            }
-          })
-        }
-    },
-    beforeMount() {
-      this.key = this.my_value
-      getCurrentUser().then((user) => {
-        if (user.api_key == this.my_value) {
-          this.curr_user_api_key = true
-        }
-      }
-      )
-    }
+const props = defineProps({
+  myValue: {
+    type: String,
+    default: undefined
   }
+});
+
+const emit = defineEmits(['removeApi']);
+const curr_user_api_key = ref(false);
 </script>
+
+<template>
+  <div
+    class="container"
+    :class="[{'mainApiKey': curr_user_api_key}]"
+  >
+    <p style="position: absolute; right: 50px; left: 10px; text-wrap: nowrap; overflow: hidden">
+      {{ props.my_value }}
+    </p>
+    <div
+      style="position: absolute; right: 10px; cursor: pointer;"
+      @click="emit('removeApi')"
+    >
+      <SymbolIcon
+        icon="remove"
+        :inverted="curr_user_api_key"
+      />
+    </div>
+  </div>
+</template>
 
 <style scoped>
     .container {

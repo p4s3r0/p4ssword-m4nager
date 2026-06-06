@@ -3,9 +3,9 @@
   "version": "2.8.7",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@primevue/themes": "^4.1.1",
@@ -15,6 +15,7 @@
     "dexie": "^3.2.5",
     "dotenv": "^16.4.3",
     "hi-base32": "^0.5.1",
+    "pinia": "^3.0.4",
     "postcss": "^8.4.41",
     "primeicons": "^7.0.0",
     "primevue": "^4.2.1",
@@ -29,11 +30,14 @@
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
-    "@vue/cli-plugin-babel": "~5.0.0",
+    "@eslint/js": "^9.39.4",
+    "@vitejs/plugin-vue": "^6.0.6",
     "@vue/cli-plugin-pwa": "~5.0.0",
-    "@vue/cli-service": "^5.0.8",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3"
+    "eslint": "^9.39.4",
+    "eslint-plugin-vue": "^9.33.0",
+    "path": "^0.12.7",
+    "vite": "^8.0.12",
+    "vite-plugin-pwa": "^1.3.0"
   },
   "eslintConfig": {
     "root": true,

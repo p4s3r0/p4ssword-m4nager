@@ -1,93 +1,107 @@
+<script setup>
+import { ref } from "vue";
+import { HASH } from "@/db";
+import { useRouter } from "vue-router";
+import { useToast } from "vue-toastification";
+import { DBL_onboardingOn } from "@/dexie";
+import BigButtonRegisterSignin from "@/components/BigButtonRegisterSignin.vue";
+import API from "@/plugins/axios";
+import { biometricEncrypt, biometricRegister } from "@/plugins/biometric_authentication";
+import { useUserStore } from "@/store/userStore";
+import { activateOnboarding } from "@/plugins/router";
+
+const userStore = useUserStore();
+
+
+const toast = useToast();
+const router = useRouter();
+
+const username = ref("");
+const password = ref("");
+
+function redoOnboarding() {
+  DBL_onboardingOn().then((_) => {
+    activateOnboarding();
+    router.push({ name: "onboarding" });
+  });
+}
+
+function createUserEncryption(passkey, apiKey) {
+  biometricEncrypt(password.value, passkey).then((encrypted) => {
+    localStorage.setItem("key", encrypted.ciphertext);
+    localStorage.setItem("iv", encrypted.iv);
+    userStore.setUser(username.value, password.value, apiKey);
+    router.push({ name: "home" });
+  });
+}
+
+function loginUser() {
+  API.get("login_user", { params: {
+    username: username.value,
+    password: HASH(password.value),
+    } }
+  ).then((response) => {
+    const apiKey = response.data.data.api_key;
+    localStorage.setItem("api-key", apiKey);
+    localStorage.setItem("username", username.value);
+    biometricRegister(username.value).then((passkey) => {
+      localStorage.setItem("authentication-id", passkey.id);
+      createUserEncryption(passkey.id, apiKey);
+    });
+  }, (response) => {
+    response.code === 401 ? toast.error("Wrong Credentials") : toast.error("API Error!");
+  });
+}
+</script>
+
 <template>
   <div id="containerLoginView">
     <h1>Let's sign you in.</h1>
     <h2>Welcome back. <br>You've been missed!</h2>
     <div class="userInput">
       <FloatLabel variant="in">
-          <InputText id="in_label" v-model="this.username"/>
-          <label style="color: var(--p-select-placeholder-color)" for="in_label">Username</label>
+        <InputText
+          id="in_label"
+          v-model="username"
+        />
+        <label
+          style="color: var(--p-select-placeholder-color)"
+          for="in_label"
+        >Username</label>
       </FloatLabel>
-      <FloatLabel variant="in" style="margin-top: 5px; width: 100%;">
-        <Password v-model="this.password" inputId="in_label" style="width: 100%;" toggleMask @change="valueChange"/>
+      <FloatLabel
+        variant="in"
+        style="margin-top: 5px; width: 100%"
+      >
+        <Password
+          v-model="password"
+          input-id="in_label"
+          style="width: 100%"
+          toggle-mask
+        />
         <label for="in_label">Password</label>
       </FloatLabel>
     </div>
     <div id="centercenter">
-      <p>Don't have an account? <a @click="this.$router.push('/register');">Register</a></p>
-      <p>No clue what this is about? Check out the <a @click="redoOnboarding()">Tutorial</a></p>
+      <p>
+        Don't have an account?
+        <a @click="router.push({ name: 'register' })">Register</a>
+      </p>
+      <p>
+        No clue what this is about? Check out the
+        <a @click="redoOnboarding()">Tutorial</a>
+      </p>
     </div>
-    <big-button-register-signin text="Sign in" @click="loginUser()"/>
+    <big-button-register-signin
+      text="Sign in"
+      @click="loginUser()"
+    />
   </div>
 </template>
 
-<script>
-import EnhancedTextInput from '@/components/EnhancedTextInput.vue'
-import EnhancedPasswordInputWithoutGenerate from '@/components/EnhancedPasswordInputWithoutGenerate.vue'
-import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue'
-import { DB_loginUser } from '@/db';
-
-import { useToast } from "vue-toastification";
-
-import { activateOnboarding } from "@/main"
-
-
-export default {
-  name: 'App',
-  setup() {
-      const toast = useToast();
-      return { toast }
-    },
-  components: {
-    EnhancedTextInput,
-    EnhancedPasswordInputWithoutGenerate,
-    BigButtonRegisterSignin,
-  },
-  data() {
-      return {
-        username: "",
-        password: "",
-      }
-  },
-  methods: {
-    redoOnboarding() {
-      DBL_onboardingOn().then((_) => {
-        activateOnboarding();
-        this.$router.push("/onboarding");
-
-      })
-
-    },
-    updateUsername(username) {
-      this.username = username;
-    },
-    updatePassword(password) {
-      this.password = password;
-    },
-    loginUser() {
-      if (!navigator.onLine) {
-        this.toast.error("No internet Connection!");
-        return;
-      }
-      DB_loginUser(this.username, this.password).then((res) => {
-
-        if(res === 0) {
-          this.$router.push('/home');
-        } else if (res === -1) {
-          this.toast.info("Data missing!");
-        } else if(res === -2){
-          this.toast.error("Wrong Credentials");
-        } else {
-          this.toast.error("API Error!");
-        }
-      });
-    }
-  }
-}
-</script>
-
 <style scoped>
-
-h1, h2 {
+h1,
+h2 {
   margin-left: 8%;
 }
 
@@ -99,7 +113,6 @@ h1, h2 {
   left: 50%;
   transform: translateX(-50%);
 }
-
 
 a {
   font-weight: bold;
@@ -115,5 +128,4 @@ a {
   transform: translateX(-50%);
   text-align: center;
 }
-
 </style>

@@ -1,71 +1,72 @@
-<template>
-    <div id="blurredBackground">
-        <div id="sessionsModalContainer">
-            <h1 id="modalTitle">Active Sessions</h1>
-            <div id="closeButton" @click="this.$emit('closeModalReload')">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-                </svg>
-            </div>
-            <div style="width:100%; display: flex; flex-direction: column;">
-                <TextRemovable v-for="a in this.api_keys" :my_value="a" @removeApi="removeAPIKey(a)"/>
-            </div>
-        </div>
-    </div>
-</template>
-
-<script>
+<script setup>
 import TextRemovable from "@/components/TextRemovable.vue";
-
 import { useToast } from "vue-toastification";
-
 import { DB_getApiKeys, DB_removeAPIKey } from '@/db';
+import { ref } from "vue";
 
+const emits = defineEmits(['closeModal', 'closeModalReload']);
+const toast = useToast();
+const api_keys = ref([]);
 
-export default {
-name: 'addModal',
-    setup() {
-      const toast = useToast();
-      return { toast }
-    },
-    emits: ['closeModal'],
-    components: {
-        TextRemovable
-    },
-    data() {
-    return {
-        api_keys: []
-    }
-},
-methods: {
-    async removeAPIKey(key) {
-        const res = await DB_removeAPIKey(key)
-        if(res === 0) {
-            this.toast.success("Successfully removed API key")
-            this.api_keys = this.api_keys.filter(key_elem => key_elem !== key)
-        } else if (res === -1){
-            this.toast.error("Cant remove API key")
-        } else {
-            this.toast.error("API Error")
-        }
-    }
-    },
-beforeMount() {
-    DB_getApiKeys().then((res) => {
-        if (res) {
-            this.api_keys = res
-        } else if (res === -1) {
-            this.toast.error("Cant load 2FA, invalid parameters.")
-        } else if (res === -2) {
-            this.toast.error("Cant load 2FA, invalid API key.")
-        } else {
-            this.toast.error("API Error!")
-        }
-    })
+DB_getApiKeys().then((res) => {
+  if (res) {
+    api_keys.value = res;
+  } else if (res === -1) {
+    toast.error("Cant load 2FA, invalid parameters.");
+  } else if (res === -2) {
+    toast.error("Cant load 2FA, invalid API key.");
+  } else {
+    toast.error("API Error!");
+  }
+});
 
-},
+async function removeAPIKey(key) {
+  const res = await DB_removeAPIKey(key);
+  if(res === 0) {
+    toast.success("Successfully removed API key");
+    api_keys.value = api_keys.value.filter(key_elem => key_elem !== key);
+  } else if (res === -1){
+    toast.error("Cant remove API key");
+  } else {
+    toast.error("API Error");
+  }
 }
 </script>
+
+<template>
+  <div id="blurredBackground">
+    <div id="sessionsModalContainer">
+      <h1 id="modalTitle">
+        Active Sessions
+      </h1>
+      <div
+        id="closeButton"
+        @click="emit('closeModalReload')"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24px"
+          viewBox="0 -960 960 960"
+          width="24px"
+          fill="#e8eaed"
+        >
+          <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+        </svg>
+      </div>
+      <div style="width:100%; display: flex; flex-direction: column;">
+        <div
+          v-for="a in api_keys"
+          :key="a"
+        >
+          <TextRemovable
+            :my-value="a"
+            @remove-api="removeAPIKey(a)"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 #sessionsModalContainer {
@@ -76,7 +77,7 @@ beforeMount() {
     width: 90%;
     max-width: 500px;
     padding: 20px;
-    padding-top: 0px;
+    padding-top: 0;
     overflow: scroll;
     max-height: 80vh;
 }

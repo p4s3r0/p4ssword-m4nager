@@ -1,88 +1,91 @@
-<template>
-    <div id="container" class="ripple2">
-        <svg id="icon" width="50" height="40" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14.4316 9.16096L14.9138 8.6788C16.5115 7.08106 16.5115 4.49061 14.9138 2.89286C13.3161 1.29512 10.7256 1.29512 9.12787 2.89287L7.19923 4.82151C5.60149 6.41925 5.60149 9.0097 7.19923 10.6074C7.49684 10.9051 7.8289 11.1472 8.18256 11.334" stroke="yellow" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M3.37514 8.64568L2.89299 9.12784C1.29524 10.7256 1.29524 13.316 2.89299 14.9138C4.49073 16.5115 7.08118 16.5115 8.67892 14.9138L10.6076 12.9851C12.2053 11.3874 12.2053 8.79694 10.6076 7.1992C10.195 6.7866 9.71618 6.48055 9.20537 6.28105" stroke="yellow" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
 
-        <p id="name"> {{ this.name }}  </p>
-        <div id="back" @click=open2FAView()></div>
-        <symbol-icon icon="password" class="ripple" @click="copyOtp()" id="keyIcon"/>
-    </div>
-</template>
-
-<script>
-import { getCurrentUser, DBL_logoutUser } from '@/dexie';
-import { useToast } from "vue-toastification";
+<script setup>
 import { store } from '@/store/store';
-import { DB_checkValidAPIKey, getSHA_OTP, getTOTP } from '@/db';
-
 import SymbolIcon from './SymbolIcon.vue';
 
+const props = defineProps({
+  name: {
+    type: String,
+    default: undefined
+  },
+  secret: {
+    type: String,
+    default: undefined
+  },
+  id: {
+    type: Number,
+    default: undefined
+  },
+  algo: {
+    type: String,
+    default: undefined
+  }
+});
 
+const emit = defineEmits(['open2FA', 'openTwoFaOTPModal']);
 
-export default {
-name: 'App',
-props: ["name", "secret", "id", "algo"],
-setup() {
-      const toast = useToast();
-      return { toast }
-    },
-    components: {
-        SymbolIcon
-    },
-data() {
-    return {
-    }
-},
-methods: {
-    async copyOtp() {
-        const res = await DB_checkValidAPIKey()
-        if(!res) {
-            DBL_logoutUser().then(() => {
-                this.$router.push("/");
-                this.toast.error("Invalid API Key.")
-            });
-            return
-        }
+async function copyOtp() {
+  let otp_code;
+  if (props.algo === "SHA256") {
+    otp_code = getSHA_OTP(props.secret);
+  } else {
+    otp_code = getTOTP(props.secret);
+  }
 
-        let otp_code = null;
-        if (this.algo === "SHA256") {
-            otp_code = getSHA_OTP(this.secret)
-        } else {
-            otp_code = getTOTP(this.secret)
-        }
-
-        if (otp_code.length !== 6) {
-            this.toast.error("Something went Wrong!")
-            return;
-        }
-        this.$emit("openTwoFaOTPModal", otp_code)
-    },
-    open2FAView() {
-        store.temp.curr_2fa_name = this.name;
-        store.temp.curr_2fa_secret = this.secret;
-        store.temp.curr_2fa_id = this.id;
-        this.$emit("open2FA")
-    },
-    async plscopy() {
-        const val = await this.copyOtp()
-        navigator.clipboard.writeText(val);
-    },
-}, beforeMount() {
-    getCurrentUser().then( (user) => {
-        if(!user) {
-            this.$router.push('/');
-        }
-    })
-},
-watch: {
-    otp(newVal, oldVal) {
-        navigator.clipboard.writeText(newVal);
-    }
+  emit("openTwoFaOTPModal", otp_code);
 }
+
+function open2FAView() {
+  store.temp.curr_2fa_name = props.name;
+  store.temp.curr_2fa_secret = props.secret;
+  store.temp.curr_2fa_id = props.id;
+  emit("open2FA");
 }
 </script>
+
+<template>
+  <div
+    id="container"
+    class="ripple2"
+  >
+    <svg
+      id="icon"
+      width="50"
+      height="40"
+      viewBox="0 0 18 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M14.4316 9.16096L14.9138 8.6788C16.5115 7.08106 16.5115 4.49061 14.9138 2.89286C13.3161 1.29512 10.7256 1.29512 9.12787 2.89287L7.19923 4.82151C5.60149 6.41925 5.60149 9.0097 7.19923 10.6074C7.49684 10.9051 7.8289 11.1472 8.18256 11.334"
+        stroke="yellow"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      />
+      <path
+        d="M3.37514 8.64568L2.89299 9.12784C1.29524 10.7256 1.29524 13.316 2.89299 14.9138C4.49073 16.5115 7.08118 16.5115 8.67892 14.9138L10.6076 12.9851C12.2053 11.3874 12.2053 8.79694 10.6076 7.1992C10.195 6.7866 9.71618 6.48055 9.20537 6.28105"
+        stroke="yellow"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      />
+    </svg>
+
+    <p id="name">
+      {{ name }}
+    </p>
+    <div
+      id="back"
+      @click="open2FAView()"
+    />
+    <symbol-icon
+      id="keyIcon"
+      icon="password"
+      class="ripple"
+      @click="copyOtp()"
+    />
+  </div>
+</template>
+
 
 <style scoped>
 #container {
@@ -111,7 +114,7 @@ watch: {
     right: 15px;
     top: 46px;
     transform: translateY(-50%);
-    margin-right: 0px;
+    margin-right:0;
     cursor: pointer;
     border-radius: 15px;
     padding: 10px;
@@ -135,22 +138,12 @@ watch: {
 
 svg {
     transform: translateY(-50%);
-    margin-right: 0px;
+    margin-right:0;
     cursor: pointer;
     top: 35px;
     border-radius: 15px;
     padding: 10px;
 }
-
-.starred {
-    position: absolute;
-    top: 0px;
-    left: 5px;
-    transform: translate(-50%, -50%);
-    width: 30px;
-    fill: #ffea00;
-}
-
 
 @media (max-width : 700px) {
     .ripple {

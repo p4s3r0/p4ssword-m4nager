@@ -1,94 +1,140 @@
-<template>
-    <div id="mainPassword" class="ripple2">
-        <svg v-if="this.starred" viewBox="0 0 24 24" class="starred icon flat-color"><path id="primary" d="M22,9.81a1,1,0,0,0-.83-.69l-5.7-.78L12.88,3.53a1,1,0,0,0-1.76,0L8.57,8.34l-5.7.78a1,1,0,0,0-.82.69,1,1,0,0,0,.28,1l4.09,3.73-1,5.24A1,1,0,0,0,6.88,20.9L12,18.38l5.12,2.52a1,1,0,0,0,.44.1,1,1,0,0,0,1-1.18l-1-5.24,4.09-3.73A1,1,0,0,0,22,9.81Z" ></path></svg>
-        <svg v-else viewBox="0 0 24 24" class="notStarred icon flat-color"><path id="primary" d="M22,9.81a1,1,0,0,0-.83-.69l-5.7-.78L12.88,3.53a1,1,0,0,0-1.76,0L8.57,8.34l-5.7.78a1,1,0,0,0-.82.69,1,1,0,0,0,.28,1l4.09,3.73-1,5.24A1,1,0,0,0,6.88,20.9L12,18.38l5.12,2.52a1,1,0,0,0,.44.1,1,1,0,0,0,1-1.18l-1-5.24,4.09-3.73A1,1,0,0,0,22,9.81Z" ></path></svg>
 
-        <div id="nameAndFolderContainer">
-            <p id="passwordName">{{ this.name }} </p>
-            <p id="passwordFolder"> {{ this.folder }}</p>
-        </div>
-        <div id="back" @click="openPasswordView(this.name, this.enc_password, this.username, this.id, this.folder, this.note, this.starred)">
-        </div>
-        <div id="posIcons">
-                <symbol-icon icon="user" class="ripple symbol" @click="copyUsername"/>
-                <symbol-icon icon="password" class="ripple symbol" @click="copyPassword"/>
-
-        </div>
-    </div>
-
-</template>
-
-<script>
-import { getCurrentUser } from '@/dexie';
+<script setup>
 import { DECRYPT } from '@/store/store';
 import { useToast } from "vue-toastification";
-import { store } from '@/store/store'
-
+import { store } from '@/store/store';
 import SymbolIcon from './SymbolIcon.vue';
+import { ref, watch } from "vue";
+import { useUserStore } from "@/store/userStore";
 
-export default {
-name: 'App',
-props: ["name", "enc_password", "username", "id", "folder", "note", "starred"],
-setup() {
-      const toast = useToast();
-      return { toast }
-    },
-    components: {
-        SymbolIcon
-    },
-data() {
-    return {
-        user: {},
-        username_saved: 'INIT',
-        password_saved: 'INIT'
-    }
-},
-methods: {
-    async copyUsername() {
-        navigator.clipboard.writeText(this.username_saved);
-        this.toast.info("Copied Username to Clipboard!");
-    },
-    async copyPassword() {
-        navigator.clipboard.writeText(this.password_saved);
-        this.toast.info("Copied to Clipboard!");
-    },
-    async openPasswordView(name, password, username, id, folder, note, starred) {
-        store.temp.curr_password_id = id;
-        store.temp.curr_password_name = name;
-        store.temp.curr_password_username = await DECRYPT(username);
-        store.temp.curr_password_password = await DECRYPT(password);
-        store.temp.curr_password_folder = folder;
-        store.temp.curr_password_note = await DECRYPT(note);
-        store.temp.curr_password_starred = starred;
-        this.$emit('openPasswordModal');
-    }
-},  watch: {
-    enc_password: function(newVal, oldVal) { // watch it
-        DECRYPT(newVal).then((res) => {
-            this.password_saved = res;
-        });},
-    username: function(newVal, oldVal)  {
-        DECRYPT(newVal).then((res) => {
-                this.username_saved = res;
-        });}
-    },
- beforeMount() {
-    getCurrentUser().then( (user) => {
-        if(user) {
-            this.user = user
-            DECRYPT(this.username).then((res) => {
-                this.username_saved = res;
-            });
-            DECRYPT(this.enc_password).then((res) => {
-            this.password_saved = res;
-        });
-        } else {
-            this.$router.push('/');
-        }
-    })
+const props = defineProps({
+  name: {
+    type: String,
+    default: undefined
+  },
+  encPassword: {
+    type: String,
+    default: undefined
+  },
+  username: {
+    type: String,
+    default: undefined
+  },
+  id: {
+    type: Number,
+    default: undefined
+  },
+  folder: {
+    type: String,
+    default: undefined
+  },
+  note: {
+    type: String,
+    default: undefined
+  },
+  starred: {
+    type: Boolean,
+    default: undefined
+  }
+});
+
+const emit = defineEmits(['openPasswordModal']);
+
+const toast = useToast();
+const userStore = useUserStore();
+const user = ref({});
+const username_saved = ref('INIT');
+const password_saved = ref('INIT');
+
+async function copyUsername() {
+  navigator.clipboard.writeText(username_saved.value);
+  toast.info("Copied Username to Clipboard!");
 }
+
+async function copyPassword() {
+  navigator.clipboard.writeText(password_saved.value);
+  toast.info("Copied to Clipboard!");
 }
+
+async function openPasswordView(name, password, username, id, folder, note, starred) {
+  store.temp.curr_password_id = id;
+  store.temp.curr_password_name = name;
+  store.temp.curr_password_username = await DECRYPT(username);
+  store.temp.curr_password_password = await DECRYPT(password);
+  store.temp.curr_password_folder = folder;
+  store.temp.curr_password_note = await DECRYPT(note);
+  store.temp.curr_password_starred = starred;
+  emit('openPasswordModal');
+}
+
+watch(encPassword, async (newVal) => {
+  DECRYPT(newVal).then((res) => {
+    password_saved.value = res;
+  });
+});
+
+watch(username, async (newVal) => {
+  username_saved.value = await DECRYPT(newVal);
+});
+
+DECRYPT(userStore.username).then((res) => {
+  username_saved.value = res;
+});
+
+DECRYPT(encPassword.value).then((res) => {
+  password_saved.value = res;
+});
 </script>
+
+<template>
+  <div
+    id="mainPassword"
+    class="ripple2"
+  >
+    <svg
+      v-if="starred"
+      viewBox="0 0 24 24"
+      class="starred icon flat-color"
+    ><path
+      id="primary"
+      d="M22,9.81a1,1,0,0,0-.83-.69l-5.7-.78L12.88,3.53a1,1,0,0,0-1.76,0L8.57,8.34l-5.7.78a1,1,0,0,0-.82.69,1,1,0,0,0,.28,1l4.09,3.73-1,5.24A1,1,0,0,0,6.88,20.9L12,18.38l5.12,2.52a1,1,0,0,0,.44.1,1,1,0,0,0,1-1.18l-1-5.24,4.09-3.73A1,1,0,0,0,22,9.81Z"
+    /></svg>
+    <svg
+      v-else
+      viewBox="0 0 24 24"
+      class="notStarred icon flat-color"
+    ><path
+      id="primary"
+      d="M22,9.81a1,1,0,0,0-.83-.69l-5.7-.78L12.88,3.53a1,1,0,0,0-1.76,0L8.57,8.34l-5.7.78a1,1,0,0,0-.82.69,1,1,0,0,0,.28,1l4.09,3.73-1,5.24A1,1,0,0,0,6.88,20.9L12,18.38l5.12,2.52a1,1,0,0,0,.44.1,1,1,0,0,0,1-1.18l-1-5.24,4.09-3.73A1,1,0,0,0,22,9.81Z"
+    /></svg>
+
+    <div id="nameAndFolderContainer">
+      <p id="passwordName">
+        {{ name }}
+      </p>
+      <p id="passwordFolder">
+        {{ folder }}
+      </p>
+    </div>
+    <div
+      id="back"
+      @click="openPasswordView(name, encPassword, username, id, folder, note, starred)"
+    />
+    <div id="posIcons">
+      <symbol-icon
+        icon="user"
+        class="ripple symbol"
+        @click="copyUsername"
+      />
+      <symbol-icon
+        icon="password"
+        class="ripple symbol"
+        @click="copyPassword"
+      />
+    </div>
+  </div>
+</template>
+
 
 <style scoped>
 #mainPassword {

@@ -1,42 +1,55 @@
-<template>
-    <div id="blurredBackground">
-        <div id="menuModalContainer">
-            <h1 id="modalTitle">Profile</h1>
-            <p>version@{{ this.APP_VERSION }}</p>
-            <div id="closeButton" @click="this.$emit('closeModal')">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-                </svg>
-            </div>
-            <menu-button-selection name="Logout" icon="lock" @click="this.$emit('logoutClick')"/>
-            <menu-button-selection name="Sessions" icon="session" @click="this.$emit('openSessionModal')"/>
-            <menu-button-selection name="Download" icon="download" @click="this.$emit('downloadClick')"/>
-            <menu-button-selection name="Upload" icon="upload" @click="this.$emit('uploadClick')"/>
-        </div>
-    </div>
-</template>
+<script setup>
+import MenuButtonSelection from '@/components/MenuButtonSelection.vue';
+import { APP_VERSION } from '@/main';
 
-<script>
-import MenuButtonSelection from '@/components/MenuButtonSelection.vue'
-import { APP_VERSION } from '@/main'
-
-export default {
-name: 'menuModal',
-components: {
-    MenuButtonSelection
-},
-data() {
-    return {
-        APP_VERSION: APP_VERSION
-    }
-}, 
-methods: {
-}, 
-beforeMount() {
-    document.body.style.overflow = "hidden"
-}, 
-}
+const emit = defineEmits(['closeModal', 'logoutClick', 'openSessionModal', 'downloadClick', 'uploadClick']);
+document.body.style.overflow = "hidden";
 </script>
+
+<template>
+  <div id="blurredBackground">
+    <div id="menuModalContainer">
+      <h1 id="modalTitle">
+        Profile
+      </h1>
+      <p>version@{{ APP_VERSION }}</p>
+      <div
+        id="closeButton"
+        @click="emit('closeModal')"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24px"
+          viewBox="0 -960 960 960"
+          width="24px"
+          fill="#e8eaed"
+        >
+          <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+        </svg>
+      </div>
+      <menu-button-selection
+        name="Logout"
+        icon="lock"
+        @click="emit('logoutClick')"
+      />
+      <menu-button-selection
+        name="Sessions"
+        icon="session"
+        @click="emit('openSessionModal')"
+      />
+      <menu-button-selection
+        name="Download"
+        icon="download"
+        @click="emit('downloadClick')"
+      />
+      <menu-button-selection
+        name="Upload"
+        icon="upload"
+        @click="emit('uploadClick')"
+      />
+    </div>
+  </div>
+</template>
 
 <style scoped>
 #menuModalContainer {
@@ -51,7 +64,7 @@ beforeMount() {
     max-width: 400px;
     min-width: 300px;
     padding: 20px;
-    padding-top: 0px;
+    padding-top: 0;
 }
 
 #blurredBackground {
