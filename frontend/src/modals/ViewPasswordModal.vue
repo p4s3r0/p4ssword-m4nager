@@ -7,6 +7,7 @@ import { ref } from "vue";
 
 const emit = defineEmits(["closeModalReload", "closeModal"]);
 const toast = useToast();
+const id = ref(store.temp.curr_password_id);
 const name = ref(store.temp.curr_password_name);
 const username = ref(store.temp.curr_password_username);
 const password = ref(store.temp.curr_password_password);

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" href="/favicon.ico" />
+
+    <title>P4M</title>
+
+    <style>
+      /* NO SCROLLBAR */
+      html {
+        scrollbar-width: none;
+      }
+
+      body {
+        -ms-overflow-style: none;
+      }
+
+      body::-webkit-scrollbar {
+        display: none;
+      }
+
+      section::-webkit-scrollbar {
+        width: 0 !important;
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <noscript>
+      <strong>
+        We're sorry but P4M doesn't work properly without JavaScript enabled.
+      </strong>
+    </noscript>
+
+    <div id="app"></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

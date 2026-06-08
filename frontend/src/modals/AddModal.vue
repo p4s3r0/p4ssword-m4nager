@@ -3,9 +3,12 @@ import { ref } from "vue";
 import MenuButtonSelection from '@/components/MenuButtonSelection.vue';
 import GeneratePasswordModal from './GeneratePasswordModal.vue';
 import { useToast } from "vue-toastification";
-import { DB_addNewPassword, DB_addNewFolder, DB_add2FA } from '@/db';
+import { DB_addNewPassword, DB_addNewFolder, DB_add2FA, DB_getAllFolders } from '@/db';
+import API from "@/plugins/axios";
+import { useUserStore } from "@/store/userStore";
 
 document.body.style.overflow = "hidden";
+const userStore = useUserStore();
 
 const emit = defineEmits(['closeModal', 'closeModalReload']);
 const toast = useToast();
@@ -33,6 +36,12 @@ const colors = [
   { name: "Blue Green", code: 'blueGreen' },
   { name: "Blue", code: 'blue' },
   { name: "Violet", code: 'violet' }];
+
+
+API.get(`get_folders?api_key=${userStore.apiKey}&user=${userStore.username}`).then((response) => {
+  folders.value = response.data;
+  console.log(folders.value);
+});
 
 function updateFolder(folder) {
   folder.value = folder;
@@ -283,7 +292,7 @@ function addFolder() {
             <Select
               v-model="folder"
               :options="folders"
-              option-label="name"
+              option-label="folder"
               placeholder="Folder"
               class="w-full md:w-56"
               style="margin-top: 5px;"
@@ -391,8 +400,7 @@ function addFolder() {
     border-radius: 16px;
     width: 90%;
     max-width: 500px;
-    padding: 20px;
-    padding-top:0;
+    padding: 0 20px 20px 20px;
     overflow: scroll;
     max-height: 80vh;
 }

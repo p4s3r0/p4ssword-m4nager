@@ -1,9 +1,4 @@
-import { DBL_getFolders, DBL_updatePasswords } from "@/dexie";
-
-
-
-export async function rankFoldersBySearch(search) {
-    const folders = await DBL_getFolders();
+export async function rankFoldersBySearch(folders, search) {
     if (search === "") {
         return rankFolderAlphabetically(folders);
     }
@@ -18,7 +13,6 @@ export async function rankFoldersBySearch(search) {
                 curr_score += 1;
             }
         }
-        //create object
         ranking.push({
             score: curr_score,
             data: folders[f]
@@ -34,8 +28,7 @@ export async function rankFoldersBySearch(search) {
 
 
 
-export async function rankPasswordsBySearch(search) {
-    const passwords = await DBL_updatePasswords(null);
+export async function rankPasswordsBySearch(passwords, search) {
     if (search === "") {
         return rankPasswordsAlphabetically(passwords);
     }

@@ -1,5 +1,7 @@
-<script>
+<script setup>
 const model = defineModel({ type: String, default: "" });
+
+const emit = defineEmits(['valueUpdated']);
 </script>
 
 <template>
@@ -31,7 +33,7 @@ const model = defineModel({ type: String, default: "" });
       v-model="model"
       type="text"
       placeholder="Search"
-      @input="$emit('valueUpdated', my_value)"
+      @input="emit('valueUpdated', model)"
     >
   </div>
 </template>

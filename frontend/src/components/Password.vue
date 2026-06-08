@@ -56,24 +56,24 @@ async function copyPassword() {
   toast.info("Copied to Clipboard!");
 }
 
-async function openPasswordView(name, password, username, id, folder, note, starred) {
-  store.temp.curr_password_id = id;
-  store.temp.curr_password_name = name;
-  store.temp.curr_password_username = await DECRYPT(username);
-  store.temp.curr_password_password = await DECRYPT(password);
-  store.temp.curr_password_folder = folder;
-  store.temp.curr_password_note = await DECRYPT(note);
-  store.temp.curr_password_starred = starred;
+async function openPasswordView() {
+  store.temp.curr_password_id = props.id;
+  store.temp.curr_password_name = props.name;
+  store.temp.curr_password_username = await DECRYPT(props.username);
+  store.temp.curr_password_password = await DECRYPT(props.encPassword);
+  store.temp.curr_password_folder = props.folder;
+  store.temp.curr_password_note = await DECRYPT(props.note);
+  store.temp.curr_password_starred = props.starred;
   emit('openPasswordModal');
 }
 
-watch(encPassword, async (newVal) => {
+watch(() => props.encPassword, async (newVal) => {
   DECRYPT(newVal).then((res) => {
     password_saved.value = res;
   });
 });
 
-watch(username, async (newVal) => {
+watch(() => props.username, async (newVal) => {
   username_saved.value = await DECRYPT(newVal);
 });
 
@@ -81,7 +81,7 @@ DECRYPT(userStore.username).then((res) => {
   username_saved.value = res;
 });
 
-DECRYPT(encPassword.value).then((res) => {
+DECRYPT(props.encPassword).then((res) => {
   password_saved.value = res;
 });
 </script>
@@ -118,18 +118,18 @@ DECRYPT(encPassword.value).then((res) => {
     </div>
     <div
       id="back"
-      @click="openPasswordView(name, encPassword, username, id, folder, note, starred)"
+      @click="openPasswordView()"
     />
     <div id="posIcons">
       <symbol-icon
         icon="user"
         class="ripple symbol"
-        @click="copyUsername"
+        @click="copyUsername()"
       />
       <symbol-icon
         icon="password"
         class="ripple symbol"
-        @click="copyPassword"
+        @click="copyPassword()"
       />
     </div>
   </div>

@@ -12,7 +12,6 @@ import { activateOnboarding } from "@/plugins/router";
 
 const userStore = useUserStore();
 
-
 const toast = useToast();
 const router = useRouter();
 
@@ -30,7 +29,7 @@ function createUserEncryption(passkey, apiKey) {
   biometricEncrypt(password.value, passkey).then((encrypted) => {
     localStorage.setItem("key", encrypted.ciphertext);
     localStorage.setItem("iv", encrypted.iv);
-    userStore.setUser(username.value, password.value, apiKey);
+    userStore.setUser(username.value, apiKey, password.value);
     router.push({ name: "home" });
   });
 }

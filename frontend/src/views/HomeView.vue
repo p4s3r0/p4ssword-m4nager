@@ -80,11 +80,11 @@ function openFolder(folder_id, folder_name, folder_color, folder_starred) {
 
 function search() {
   if (fold_pass_selector.value === "Folders") {
-    rankFoldersBySearch(searchQuery.value).then((res) => {
+    rankFoldersBySearch(folders.value, searchQuery.value).then((res) => {
       folders.value = res;
     });
   } else {
-    rankPasswordsBySearch(searchQuery.value).then((res) => {
+    rankPasswordsBySearch(passwords.value, searchQuery.value).then((res) => {
       passwords.value = res;
     });
   }
@@ -316,7 +316,7 @@ reloadData();
         v-if="showMenuModal"
         @close-modal="showMenuModal = false; resetScrolling();"
         @logout-click="logout()"
-        @download-click="download()"
+        @download-click="download(passwords, folders, twoFactors)"
         @upload-click="showMenuModal = false; showUploadFileModal = true;"
         @open-session-modal="showMenuModal = false; showApiModal = true"
       />
@@ -383,7 +383,6 @@ reloadData();
 }
 #posHello {
     position: relative;
-    margin-top: -10px;
     margin-left: 5%;
 }
 #posSearchBar {

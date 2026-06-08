@@ -85,8 +85,6 @@ export async function DB_loginUser(username, password) {
 
   if (res.status === 202) {
     // OK
-    const user = res.data.data;
-    await DBL_loginUser(username, password, user.email, user.apiKey);
     return 0;
   } else if (res.status === 400) {
     // Wrong Params
@@ -214,15 +212,7 @@ export async function DB_deletePassword(id) {
   return -99;
 }
 
-export async function DB_editPassword(
-  id,
-  name,
-  username,
-  password,
-  folder,
-  note,
-  starred
-) {
+export async function DB_editPassword(id, name, username, password, folder, note, starred) {
   const userStore = useUserStore();
   const user = userStore.getUser;
 
@@ -299,7 +289,6 @@ export async function DB_getAllFolders(passwords) {
         (pass) => pass.folder === folders[i].folder
       ).length;
     }
-    await DBL_updateFolders(folders);
     return folders;
   } else if (res.status === 400) {
     // Invalid paramaters
@@ -462,7 +451,6 @@ export async function DB_getAll2FA() {
         algo: res.data.data[i].algo === null ? "TOTP" : res.data.data[i].algo,
       });
     }
-    DBL_update2FA(ret);
     return ret;
   } else if (res.status === 400) {
     // Invalid paramaters

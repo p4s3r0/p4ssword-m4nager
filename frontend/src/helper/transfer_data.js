@@ -1,9 +1,6 @@
-import { DBL_get2Fa, DBL_getFolders, DBL_getPasswords } from "@/dexie";
 import { DECRYPT } from "@/store/store";
 
-export async function download() {
-  const passwords = await DBL_getPasswords();
-
+export async function download(passwords, folders, twoFAs) {
   let str = '{\n\t"passwords": [';
   for (let i = 0; i < passwords.length; i++) {
     str += "\n\t\t{\n";
@@ -21,8 +18,6 @@ export async function download() {
     }
   }
 
-  const folders = await DBL_getFolders(passwords);
-
   str += '\n\t],\n\t"folders": [';
   for(let i = 0; i < folders.length; i++) {
     str += "\n\t\t{\n";
@@ -35,8 +30,6 @@ export async function download() {
       str += "\t\t},";
     }
   }
-
-  const twoFAs = await DBL_get2Fa();
 
   str += '\n\t],\n\t"twoFAs": [';
   for(let i = 0; i < twoFAs.length; i++) {

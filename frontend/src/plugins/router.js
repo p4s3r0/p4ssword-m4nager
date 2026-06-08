@@ -77,14 +77,13 @@ router.beforeEach(async (to, from, next) => {
       toast.info("Cached Login with user `" + userStore.username + "`");
       next({ name: "home" });
     } else {
-      DBL_getOnboarding().then((response) => {
-        if (response) {
-          next({ name: "onboarding" });
-        } else {
-          onboarding = false;
-          next({ name: "login" });
-        }
-      });
+      const response = await DBL_getOnboarding();
+      if (response) {
+        next({ name: "onboarding" });
+      } else {
+        onboarding = false;
+        next({ name: "login" });
+      }
     }
   } else {
     next();
