@@ -1,14 +1,13 @@
 <script setup>
 import { ref } from "vue";
-import { HASH } from "@/db";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import { DBL_onboardingOn } from "@/dexie";
 import BigButtonRegisterSignin from "@/components/BigButtonRegisterSignin.vue";
 import API from "@/plugins/axios";
-import { biometricEncrypt, biometricRegister } from "@/plugins/biometric_authentication";
 import { useUserStore } from "@/store/userStore";
 import { activateOnboarding } from "@/plugins/router";
+import { biometricRegister } from "@/plugins/biometric_authentication";
 
 const userStore = useUserStore();
 
@@ -25,30 +24,26 @@ function redoOnboarding() {
   });
 }
 
-function createUserEncryption(passkey, apiKey) {
-  biometricEncrypt(password.value, passkey).then((encrypted) => {
-    localStorage.setItem("key", encrypted.ciphertext);
-    localStorage.setItem("iv", encrypted.iv);
-    userStore.setUser(username.value, apiKey, password.value);
-    router.push({ name: "home" });
-  });
-}
-
 function loginUser() {
-  API.get("login_user", { params: {
-    username: username.value,
-    password: HASH(password.value),
-    } }
-  ).then((response) => {
-    const apiKey = response.data.data.api_key;
-    localStorage.setItem("api-key", apiKey);
-    localStorage.setItem("username", username.value);
-    biometricRegister(username.value).then((passkey) => {
-      localStorage.setItem("authentication-id", passkey.id);
-      createUserEncryption(passkey.id, apiKey);
-    });
-  }, (response) => {
-    response.code === 401 ? toast.error("Wrong Credentials") : toast.error("API Error!");
+  API.post("users/sign_in", {
+      user: {
+        username: username.value,
+        password: password.value
+      }
+    }).then(async (response) => {
+    const user = response.data.user;
+    localStorage.setItem("username", user.username);
+    const authenticationObject = await biometricRegister(username.value);
+    localStorage.setItem("authentication-id", authenticationObject.id);
+    const success = await userStore.loginUser(authenticationObject.id, user.username, password.value);
+    if (success) {
+      toast.success("Logged in!");
+      router.push({ name: "home" });
+    } else {
+      toast.error("OHOH!");
+    }
+  }, () => {
+    toast.error("Error!");
   });
 }
 </script>

@@ -25,6 +25,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { download } from "@/helper/transfer_data";
 import { useUserStore } from "@/store/userStore";
+import API from "@/plugins/axios";
 
 const toast = useToast();
 const router = useRouter();
@@ -111,64 +112,21 @@ function reloadFolders() {
   });
 }
 
-function reloadData() {
-  if (!userStore.isLoggedIn) {
-    router.push({ name: "login" });
-  }
-  const user = userStore.getUser;
+async function reloadData() {
+  const passwordsApi = await API.get("passwords");
+  passwords.value = rankPasswordsAlphabetically(passwordsApi.data);
 
-  DB_checkValidAPIKey(user).then((response) => {
-    if(!response) {
-      //userStore.removeUser()
-      toast.error("Invalid API Key.");
-      router.push({ name: "login" });
-      return;
-    }
+  const foldersApi = await API.get("folders");
+  folders.value = rankFolderAlphabetically(foldersApi.data);
 
-    DB_getAllPasswords().then((res) => {
-      if (res === -1) {
-        toast.error("Invalid Parameters!");
-        loading.value = false;
-        return;
-      } else if (res === -2) {
-        toast.error("Invalid API Key!");
-        loading.value = false;
-        return;
-      } else if (res === -99) {
-        toast.error("API Error!");
-        loading.value = false;
-        return;
-      }
-      passwords.value = rankPasswordsAlphabetically(res);
-      // folders are loaded after passwords, to make sure the
-      //count is correct of the passwords inside the folder
-      DB_getAllFolders(passwords.value).then((res_fold) => {
-        if (res_fold === -1) {
-          toast.error("Invalid Parameters!");
-        } else if (res_fold === -2) {
-          toast.error("Invalid API Key!");
-        } else if (res_fold === -99) {
-          toast.error("API Error!");
-        }
-        else if (res_fold) {
-          folders.value = rankFolderAlphabetically(res_fold);
-        }
-        loading.value = false;
-      });
-    });
-    DB_getAll2FA().then((res) => {
-      if (res) {
-        twoFactors.value = res;
-      } else if (res === -1) {
-        toast.error("Invalid Parameters!");
-      } else if (res === -2) {
-        toast.error("Invalid API Key!");
-      }
-    });
-    settings_getFolderOrPassword().then((res) => {
-      fold_pass_selector.value = res;
-    });
+  const twoFactorsApi = await API.get("tfas");
+  twoFactors.value = twoFactorsApi.data;
+
+  settings_getFolderOrPassword().then((res) => {
+    fold_pass_selector.value = res;
   });
+
+  loading.value = false;
 }
 
 document.body.style.overflow = "";

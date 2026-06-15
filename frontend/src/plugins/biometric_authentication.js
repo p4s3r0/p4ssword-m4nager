@@ -1,5 +1,8 @@
 // register
 export async function biometricRegister(username) {
+  if (import.meta.env.DEV) {
+    return { id: "dev-biometric-id" };
+  }
   if (typeof username !== "string") {
     throw new Error(`Username is required as string, got: ${username}`);
   }
@@ -41,9 +44,9 @@ export async function biometricRegister(username) {
   });
 }
 
-export async function biometricDecrypt(encrypted, biometricId) {
+export async function biometricDecrypt(iv, ciphertext, biometricId) {
   const key = await getEncryptionKey(biometricId);
-  const plaintextBuffer = await crypto.subtle.decrypt({ name: "AES-GCM", iv: base64UrlToArrayBuffer(encrypted.iv), }, key, base64UrlToArrayBuffer(encrypted.ciphertext));
+  const plaintextBuffer = await crypto.subtle.decrypt({ name: "AES-GCM", iv: base64UrlToArrayBuffer(iv), }, key, base64UrlToArrayBuffer(ciphertext));
   return new TextDecoder().decode(plaintextBuffer);
 }
 
@@ -135,6 +138,9 @@ function getOrCreatePrfSalt() {
 }
 
 async function getPrfOutput(biometricId) {
+  if (import.meta.env.DEV) {
+    return new Uint8Array(32).fill(0).buffer;
+  }
   const credentialId = base64UrlToArrayBuffer(biometricId);
   const prfSalt = getOrCreatePrfSalt();
 

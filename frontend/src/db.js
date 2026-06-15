@@ -45,6 +45,8 @@ export function DECRYPT_CBC(val) {
 }
 
 async function AXIOS_CALL(call, parameters) {
+  console.error("WRONG AXIOS CALL");
+  return;
   let ret;
   try {
     ret = await API.get(call, { params: parameters });

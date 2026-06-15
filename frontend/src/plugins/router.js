@@ -54,17 +54,47 @@ export function activateOnboarding() {
 router.beforeEach(async (to, from, next) => {
   const userStore = useUserStore();
   if (!["login", "register", "onboarding"].includes(to.name) && !userStore.initialized) {
+    if (userStore.isLoggedIn) {
+      return next();
+    }
+
     const authenticationId = localStorage.getItem("authentication-id");
     const key = localStorage.getItem("key");
     const iv = localStorage.getItem("iv");
-    const apiKey = localStorage.getItem("api-key");
     const username = localStorage.getItem("username");
-    if (authenticationId === null || key === null || apiKey === null || iv === null || username === null) {
-      next({ name: "login" });
+    if (authenticationId === null || key === null || iv === null || username === null ) {
+      return next({ name: "login" });
     }
 
-    const password = await biometricDecrypt({ iv: iv, ciphertext: key }, authenticationId);
-    userStore.setUser(username, apiKey, password);
+    const success = await userStore.setUser();
+    if (success) {
+      return next({ name: "home" });
+    } else {
+      userStore.removeUser();
+      return next({ name: "login" });
+    }
+  }
+
+  if (to.name === "login" || to.name === "register") {
+    if (userStore.isLoggedIn) {
+      return next();
+    }
+
+    const authenticationId = localStorage.getItem("authentication-id");
+    const key = localStorage.getItem("key");
+    const iv = localStorage.getItem("iv");
+    const username = localStorage.getItem("username");
+    if (authenticationId !== null && key !== null && iv !== null && username !== null) {
+      const password = await biometricDecrypt(iv, key, authenticationId);
+      const success = await userStore.setUser(authenticationId, username, password);
+      if (!success) {
+        userStore.removeUser();
+        return next({ name: "login" });
+      }
+      return next({ name: "home" });
+    }
+
+    return next();
   }
 
   if (!["login", "register", "onboarding"].includes(to.name) && !userStore.isLoggedIn) {
@@ -75,15 +105,15 @@ router.beforeEach(async (to, from, next) => {
   } else if (to.name === "login" && onboarding) {
     if (userStore.isLoggedIn) {
       toast.info("Cached Login with user `" + userStore.username + "`");
-      next({ name: "home" });
+      return next({ name: "home" });
+    }
+
+    const response = await DBL_getOnboarding();
+    if (response) {
+      next({ name: "onboarding" });
     } else {
-      const response = await DBL_getOnboarding();
-      if (response) {
-        next({ name: "onboarding" });
-      } else {
-        onboarding = false;
-        next({ name: "login" });
-      }
+      onboarding = false;
+      next({ name: "login" });
     }
   } else {
     next();

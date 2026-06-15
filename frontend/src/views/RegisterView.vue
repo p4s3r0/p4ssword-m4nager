@@ -5,6 +5,7 @@ import { DB_registerUser } from '@/db.js';
 
 import { useToast } from "vue-toastification";
 import { useRouter } from "vue-router";
+import API from "@/plugins/axios";
 
 const router = useRouter();
 const toast = useToast();
@@ -12,35 +13,28 @@ const username = ref("");
 const email = ref("");
 const password = ref("");
 
-function updateUsername(username) {
-  username.value = username;
-}
-
-function updateEmail(email) {
-  email.value = email;
-}
-
-function updatePassword(password) {
-  password.value = password;
-}
-
 function clickRegisterUser() {
-  if (!navigator.onLine) {
-    toast.error("No internet Connection!");
-    return;
-  }
-
-  DB_registerUser(username.value, email.value, password.value).then((res) => {
-    if (res === 0) {
-      toast.success("User Registered!");
-      router.push("/");
-    } else if (res === -1) {
-      toast.info("Data missing!");
-    } else if (res === -2) {
-      toast.error("Username already taken!");
-    } else {
-      toast.error("API Error!");
+  API.post("users", {
+    user: {
+      email: email.value,
+      username: username.value,
+      password: password.value
     }
+  }).then((response) => {
+    const user = response.data.user;
+    localStorage.setItem("username", user.username);
+
+    // set the cookie as authentication from the header.
+    const cookie = response.headers["set-cookie"];
+    if (cookie) {
+      document.cookie = cookie;
+    }
+
+    toast.success("User Registered!");
+    router.push("/");
+    return user;
+  }, () => {
+    toast.error("Error!");
   });
 }
 </script>
