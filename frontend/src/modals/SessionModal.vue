@@ -1,36 +1,6 @@
 <script setup>
 import TextRemovable from "@/components/TextRemovable.vue";
-import { useToast } from "vue-toastification";
-import { DB_getApiKeys, DB_removeAPIKey } from '@/db';
-import { ref } from "vue";
 
-const emits = defineEmits(['closeModal', 'closeModalReload']);
-const toast = useToast();
-const api_keys = ref([]);
-
-DB_getApiKeys().then((res) => {
-  if (res) {
-    api_keys.value = res;
-  } else if (res === -1) {
-    toast.error("Cant load 2FA, invalid parameters.");
-  } else if (res === -2) {
-    toast.error("Cant load 2FA, invalid API key.");
-  } else {
-    toast.error("API Error!");
-  }
-});
-
-async function removeAPIKey(key) {
-  const res = await DB_removeAPIKey(key);
-  if(res === 0) {
-    toast.success("Successfully removed API key");
-    api_keys.value = api_keys.value.filter(key_elem => key_elem !== key);
-  } else if (res === -1){
-    toast.error("Cant remove API key");
-  } else {
-    toast.error("API Error");
-  }
-}
 </script>
 
 <template>

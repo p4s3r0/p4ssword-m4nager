@@ -1,71 +1,47 @@
 <script setup>
 import DeleteConfirmationModal from "@/modals/DeleteConfirmationModal.vue";
 import { useToast } from "vue-toastification";
-import { DB_deletePassword, DB_editPassword } from "@/db";
-import { store } from "@/store/store";
 import { ref } from "vue";
+import API from "@/plugins/axios";
+import { useTempStore } from "@/store/tempStore";
+import { DECRYPT, ENCRYPT } from "@/plugins/encryption";
 
 const emit = defineEmits(["closeModalReload", "closeModal"]);
 const toast = useToast();
-const id = ref(store.temp.curr_password_id);
-const name = ref(store.temp.curr_password_name);
-const username = ref(store.temp.curr_password_username);
-const password = ref(store.temp.curr_password_password);
-const folder = ref(store.temp.curr_password_folder);
-const note = ref(store.temp.curr_password_note);
-const starred = ref(store.temp.curr_password_starred);
+const tempStore = useTempStore();
+
+const password = ref(tempStore.password);
+password.value.password = DECRYPT(tempStore.password.enc_password);
+
 const edit_mode = ref(false);
 const showConfirmationModal = ref(false);
 const folders = ref([]);
-const static_folder = ref(store.temp.curr_password_folder);
 
 document.body.style.overflow = "hidden";
+
+API.get("folders").then( (res) => {
+  folders.value = res.data;
+});
+
 function deletePassword() {
-  DB_deletePassword(id.value).then((res) => {
-      if (res === 0) {
-        toast.success("Password deleted!");
-        emit("closeModalReload");
-      } else if (res === -1) {
-        toast.error("Invalid Parameters!");
-      } else if (res === -2) {
-        toast.error("Not authorized, API key invalid!");
-      } else if (res === -3) {
-        toast.error("Internal API Error!");
-      } else {
-        toast.error("API Error!");
-      }
-    }
-  );
+  API.delete(`passwords/${password.value.id}`);
 }
 
-function updateStarred(starred) {
-  starred.value = starred;
-}
 function valueChange() {
   edit_mode.value = true;
 }
 
 function edit() {
-  let curr_folder;
-  if (folder.value.name === undefined) {
-    curr_folder = folder.value;
-  } else {
-    curr_folder = folder.value.name;
-  }
-  DB_editPassword(id.value, name.value, username.value, password.value, curr_folder,
-    note.value, starred.value).then( (res) => {
-    if(res === 0) {
-      toast.success("Password edited!");
-      emit('closeModalReload');
-    } else if (res === -1) {
-      toast.error("Invalid Parameters!");
-    } else if (res === -2) {
-      toast.error("Not authorized, API key invalid!");
-    } else if (res === -3) {
-      toast.error("Internal API Error!");
-    } else {
-      toast.error("API Error!");
-    }
+  API.put(`passwords/${password.value.id}`, {
+    name: password.value.name,
+    username: password.value.username,
+    enc_password: ENCRYPT(password.value.password),
+    folder_id: password.value.folder_id,
+    note: password.value.note,
+    starred: password.value.starred,
+  }).then(() => {
+    toast.success("Password edited!");
+    emit("closeModalReload");
   });
 }
 
@@ -79,7 +55,7 @@ function resetScrolling() {
     <div id="viewPasswordModalContainer">
       <div>
         <div id="title">
-          <h1>{{ name }}</h1>
+          <h1>{{ password.name }}</h1>
         </div>
         <div
           id="closeButton"
@@ -102,7 +78,7 @@ function resetScrolling() {
           <FloatLabel variant="in">
             <InputText
               id="in_label"
-              v-model="username"
+              v-model="password.username"
               @change="valueChange"
             />
             <label
@@ -115,7 +91,7 @@ function resetScrolling() {
             style="margin-top: 5px; width: 100%;"
           >
             <Password
-              v-model="password"
+              v-model="password.password"
               input-id="in_label"
               style="width: 100%;"
               toggle-mask
@@ -124,10 +100,10 @@ function resetScrolling() {
             <label for="in_label">Password</label>
           </FloatLabel>
           <Select
-            v-model="folder"
+            v-model="password.folder_id"
             :options="folders"
             option-label="name"
-            :placeholder="static_folder"
+            option-value="id"
             class="w-full md:w-56"
             style="margin-top: 5px;"
             @change="valueChange"
@@ -138,7 +114,7 @@ function resetScrolling() {
           >
             <InputText
               id="in_label"
-              v-model="note"
+              v-model="password.note"
               @change="valueChange"
             />
             <label
@@ -150,13 +126,13 @@ function resetScrolling() {
             class="starButtonContainer"
             style="display: flex; justify-content: space-between; margin-top: 20px"
           >
-            <div v-if="starred">
+            <div v-if="password.starred">
               <Button
                 icon="pi pi-star"
                 severity="contrast"
                 rounded
                 aria-label="Star"
-                @click="starred=false; edit_mode=true"
+                @click="password.starred=false; edit_mode=true"
               />
             </div>
             <div v-else>
@@ -168,7 +144,7 @@ function resetScrolling() {
                 rounded
                 aria-label="Star"
                 class="p-star-button-false"
-                @click="starred=true; edit_mode=true"
+                @click="password.starred=true; edit_mode=true"
               />
             </div>
             <Button

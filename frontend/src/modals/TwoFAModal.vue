@@ -1,60 +1,41 @@
 <script setup>
+import { ref } from "vue";
 import DeleteConfirmationModal from "@/modals/DeleteConfirmationModal.vue";
-import { store } from "@/store/store";
-import { DB_delete2FA, DB_edit2FA } from "@/db";
 import { useToast } from "vue-toastification";
+import { useTempStore } from "@/store/tempStore";
+import { DECRYPT, ENCRYPT } from "@/plugins/encryption";
+import API from "@/plugins/axios";
 
 const toast = useToast();
 const emit = defineEmits(["closeModalReload", "closeModal"]);
 
 document.body.style.overflow = "hidden";
 
-const name = ref(store.temp.curr_2fa_name);
-const secret = ref(store.temp.curr_2fa_secret);
+const tempStore = useTempStore();
+
+const tfa = ref(tempStore.tfa);
+tfa.value.secret = DECRYPT(tfa.value.enc_secret);
+
 const edit_mode = ref(false);
 const showConfirmationModal = ref(false);
+
 function delete2FA() {
-  DB_delete2FA(store.temp.curr_2fa_id).then((res) => {
-    if (res === 0) {
-      toast.success("2FA deleted!");
-      emit("closeModalReload");
-    } else if (res === -1) {
-      toast.error("Invalid Parameters!");
-    } else if (res === -2) {
-      toast.error("Not authorized, invalid API key!");
-    } else if (res === -3) {
-      toast.error("Internal API Error!");
-    } else {
-      toast.error("API Error!");
-    }
+  API.delete(`tfas/${tempStore.tfa.id}`).then(() => {
+    toast.success("2FA deleted!");
+    emit("closeModalReload");
   });
 }
-function update2FAName(name) {
-  name.value = name;
-}
-
-function update2FASecret(secret) {
-  secret.value = secret;
-}
-
 function valueChange() {
-      edit_mode.value = true;
+  edit_mode.value = true;
 }
 
 function edit() {
-  DB_edit2FA(store.temp.curr_2fa_id, name.value, secret.value).then( (res) => {
-    if (res === 0) {
-      toast.success("2FA edited!");
-      emit("closeModalReload");
-    } else if (res === -1) {
-      toast.error("Invalid Parameters!");
-    } else if (res === -2) {
-      toast.error("Not authorized, invalid API key!");
-    } else if (res === -3) {
-      toast.error("Internal API Error!");
-    } else {
-      toast.error("API Error!");
-    }
+  API.put(`tfas/${tempStore.tfa.id}`, {
+    name: tfa.value.name,
+    enc_secret: ENCRYPT(tfa.value.secret),
+  }).then(() => {
+    toast.success("2FA edited!");
+    emit("closeModalReload");
   });
 }
 </script>
@@ -64,7 +45,7 @@ function edit() {
     <div id="viewTwoFAModalContainer">
       <div>
         <div id="title">
-          <h1>{{ name }}</h1>
+          <h1>{{ tfa.name }}</h1>
         </div>
         <div
           id="closeButton"
@@ -87,7 +68,7 @@ function edit() {
           <FloatLabel variant="in">
             <InputText
               id="in_label"
-              v-model="secret"
+              v-model="tfa.secret"
               @change="valueChange"
             />
             <label
@@ -138,8 +119,7 @@ function edit() {
     border-radius: 16px;
     width: 80%;
     max-width: 500px;
-    padding: 20px;
-    padding-top: 0;
+    padding: 0 20px 20px 20px;
     overflow: scroll;
     max-height: 80vh;
 }
@@ -173,12 +153,5 @@ function edit() {
 
 #textShower {
     margin-top: 30px;
-}
-
-@media (max-width: 700px) {
-    #viewPasswordModalContainer {
-        width: 90%;
-        max-height: 80%;
-    }
 }
 </style>

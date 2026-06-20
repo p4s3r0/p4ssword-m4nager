@@ -65,53 +65,16 @@ export async function rankPasswordsBySearch(passwords, search) {
 
 
 export function rankPasswordsAlphabetically(passwords) {
-    let ranking = [];
-
-    for (let p = 0; p < passwords.length; p++) {
-        if (passwords[p].name.length === 0) {
-            ranking.push({
-                score: 0,
-                data: passwords[p]
-            });
-            continue;
-        }
-
-        ranking.push({
-            score: passwords[p].name.charCodeAt(0) + (passwords[p].starred ? 0 : 1000),
-            data: passwords[p]
-        });
-    }
-    ranking.sort((a,b) => a.score - b.score); 
-    for (let i = 0; i < ranking.length; i++) {
-        ranking[i] = ranking[i].data;
-    }
-    return ranking;
+    return [...passwords].sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
+    );
 }
 
 
 
 
 export function rankFolderAlphabetically(folders) {
-    let ranking = [];
-
-    for (let f = 0; f < folders.length; f++) {
-        if (folders[f].folder.length === 0) {
-            ranking.push({
-                score: 0,
-                data: folders[f]
-            });
-            continue;
-        }
-        const first_letter = folders[f].folder[0].toLowerCase();
-
-        ranking.push({
-            score: first_letter.charCodeAt(0) + (folders[f].starred ? 0 : 1000),
-            data: folders[f]
-        });
-    }
-    ranking.sort((a,b) => a.score - b.score); 
-    for (let i = 0; i < ranking.length; i++) {
-        ranking[i] = ranking[i].data;
-    }
-    return ranking;
+    return [...folders].sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
+    );
 }

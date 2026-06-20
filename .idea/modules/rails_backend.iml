@@ -9,6 +9,9 @@
       </configuration>
     </facet>
   </component>
+  <component name="ModuleRunConfigurationManager">
+    <shared />
+  </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$/../../rails_backend">
       <sourceFolder url="file://$MODULE_DIR$/../../rails_backend/features" isTestSource="true" />
@@ -176,6 +179,9 @@
     <entry key="config/cable">
       <value>file://$MODULE_DIR$/../../rails_backend/config/cable.yml</value>
     </entry>
+    <entry key="config/cache">
+      <value>file://$MODULE_DIR$/../../rails_backend/config/cache.yml</value>
+    </entry>
     <entry key="config/database">
       <value>file://$MODULE_DIR$/../../rails_backend/config/database.yml</value>
     </entry>
@@ -197,8 +203,8 @@
     <entry key="config/routes.rb">
       <value>file://$MODULE_DIR$/../../rails_backend/config/routes.rb</value>
     </entry>
-    <entry key="config/secrets">
-      <value>file://$MODULE_DIR$/../../rails_backend/config</value>
+    <entry key="config/solid_cache">
+      <value>file://$MODULE_DIR$/../../rails_backend/config/solid_cache.yml</value>
     </entry>
     <entry key="db">
       <value>file://$MODULE_DIR$/../../rails_backend/db</value>
@@ -232,6 +238,10 @@
     </entry>
     <entry key="public/stylesheets">
       <value>file://$MODULE_DIR$/../../rails_backend/public/stylesheets</value>
+    </entry>
+    <entry key="test/mailers/previews">
+      <value>file://$MODULE_DIR$/../../rails_backend/test/mailers/previews</value>
+      <value>file://$MODULE_DIR$/../../rails_backend/test/mailers/previews</value>
     </entry>
     <entry key="tmp">
       <value>file://$MODULE_DIR$/../../rails_backend/tmp</value>

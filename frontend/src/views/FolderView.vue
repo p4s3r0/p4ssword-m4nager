@@ -1,6 +1,4 @@
 <script setup>
-import { store } from "@/store/store";
-import { DB_deleteFolder, DB_getPasswordsForSpecificFolder, } from "@/db";
 import { rankPasswordsAlphabetically } from "@/scripts/search";
 import { useToast } from "vue-toastification";
 import { ref } from "vue";
@@ -10,11 +8,13 @@ import HomeButton from "@/components/HomeButton.vue";
 import ViewPasswordModal from "@/modals/ViewPasswordModal.vue";
 import EditFolderModal from "@/modals/EditFolderModal.vue";
 import DeleteConfirmationModal from "@/modals/DeleteConfirmationModal.vue";
+import API from "@/plugins/axios";
+import { useTempStore } from "@/store/tempStore";
 
 const toast = useToast();
 const router = useRouter();
-const folder = ref(store.temp.curr_folder_name);
-const folder_id = ref(store.temp.curr_folder_id);
+const tempStore = useTempStore();
+
 const passwords = ref([]);
 const showViewPasswordModal = ref(false);
 const showEditModal = ref(false);
@@ -23,19 +23,9 @@ const showConfirmationModal = ref(false);
 reloadData();
 
 function deleteFolder() {
-  DB_deleteFolder(folder_id.value).then((res) => {
-    if (res === 0) {
-      toast.success("Folder deleted!");
-      router.push("/home");
-    } else if (res === -1) {
-      toast.error("Invalid Parameters!");
-    } else if (res === -2) {
-      toast.error("Not authorized, API key invalid!");
-    } else if (res === -3) {
-      toast.error("Internal API Error!");
-    } else {
-      toast.error("API Error!");
-    }
+  API.delete(`folders/${tempStore.folder.id}`).then(() => {
+    toast.success("Folder deleted!");
+    router.push({ name: "home" });
   });
 }
 
@@ -44,27 +34,19 @@ function resetScrolling() {
 }
 
 function reloadData() {
-  DB_getPasswordsForSpecificFolder(store.temp.curr_folder_name).then((res) => {
-    if (res) {
-      passwords.value = rankPasswordsAlphabetically(res);
-      return;
-    } else if (res === -1) {
-      toast.error("Invalid Parameters!");
-    } else if (res === -2) {
-      toast.error("Invalid API key!");
-    } else if (res === -3) {
-      toast.error("Internal API Error!");
-    } else {
-      toast.error("API Error!");
-    }
-    router.push("/home");
+  API.get(`folders/${tempStore.folder.id}`).then((response) => {
+    passwords.value = rankPasswordsAlphabetically(response.data.passwords);
   });
+}
+
+function openEditDialog() {
+  showEditModal.value = true;
 }
 </script>
 
 <template>
   <div id="mainLogin">
-    <h1>{{ folder }}</h1>
+    <h1>{{ tempStore.folder.name }}</h1>
     <div id="posDelEdit">
       <div id="delEdit">
         <Button
@@ -79,7 +61,7 @@ function reloadData() {
           icon="pi pi-pencil"
           icon-pos="left"
           style="margin-left: 5px"
-          @click="showEditModal = true"
+          @click="openEditDialog()"
         />
       </div>
     </div>
@@ -88,14 +70,8 @@ function reloadData() {
       <div id="posPasswords">
         <password
           v-for="p in passwords"
-          :id="p.id"
           :key="p.key"
-          :name="p.name"
-          :enc-password="p.password"
-          :username="p.username"
-          :folder="p.folder"
-          :note="p.note"
-          :starred="p.starred"
+          :password="p"
           @open-password-modal="showViewPasswordModal = true"
         />
       </div>

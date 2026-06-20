@@ -3,9 +3,9 @@ import { ref } from "vue";
 import MenuButtonSelection from '@/components/MenuButtonSelection.vue';
 import GeneratePasswordModal from './GeneratePasswordModal.vue';
 import { useToast } from "vue-toastification";
-import { DB_addNewPassword, DB_addNewFolder, DB_add2FA, DB_getAllFolders } from '@/db';
 import API from "@/plugins/axios";
 import { useUserStore } from "@/store/userStore";
+import { ENCRYPT } from "@/plugins/encryption";
 
 document.body.style.overflow = "hidden";
 const userStore = useUserStore();
@@ -13,7 +13,7 @@ const userStore = useUserStore();
 const emit = defineEmits(['closeModal', 'closeModalReload']);
 const toast = useToast();
 const selection = ref(0);
-const folder = ref("");
+const folder = ref(null);
 const name = ref("");
 const username = ref("");
 const password = ref("");
@@ -38,9 +38,8 @@ const colors = [
   { name: "Violet", code: 'violet' }];
 
 
-API.get(`get_folders?api_key=${userStore.apiKey}&user=${userStore.username}`).then((response) => {
+API.get("folders").then((response) => {
   folders.value = response.data;
-  console.log(folders.value);
 });
 
 function updateFolder(folder) {
@@ -84,21 +83,16 @@ function add2FA() {
     toast.error("Name and secret required!");
     return;
   }
-  DB_add2FA(name.value, note.value).then((res) => {
-    if (res === 0) {
-      toast.success("New 2FA Added!");
-      emit("closeModalReload");
-    } else if (res === -1) {
-      toast.error("Invalid Parameters!");
-    } else if (res === -2) {
-      toast.error("Invalid API Key!");
-    } else {
-      toast.error("API Error!");
-    }
+
+  API.post("tfas", {
+    name: name.value,
+    enc_secret: ENCRYPT(note.value),
+    starred: starred.value,
+    algo: algo.value,
   });
 }
 
-function addPassword() {
+async function addPassword() {
   if(name.value === "") {
     toast.error("Name is required!");
     return;
@@ -107,19 +101,18 @@ function addPassword() {
     folder.value = {};
     folder.value.name = "NO FOLDER";
   }
-  DB_addNewPassword(name.value, password.value, folder.value.name, note.value, username.value, starred.value).then( (res) => {
-    if (res === 0) {
-      toast.success("New Password Added!");
-      emit("closeModalReload");
-    } else if (res === -1) {
-      toast.error("Invalid API Parameters!");
-    } else if (res === -2) {
-      toast.error("Invalid API key!");
-    } else if (res === -3) {
-      toast.error("Internal API Error!");
-    } else {
-      toast.error("API Error!");
+
+  API.post("passwords", {
+    password: {
+      name: name.value,
+      enc_password: ENCRYPT(password.value),
+      folder_id: folder.value.id,
+      note: note.value,
+      username: username.value,
+      starred: starred.value
     }
+  }).then(() => {
+    emit("closeModalReload");
   });
 }
 
@@ -128,19 +121,13 @@ function addFolder() {
     return;
   }
 
-  DB_addNewFolder(user.value.username, folder.value, color.value.code, starred.value).then( (res) => {
-    if (res === 0) {
-      toast.success("New Folder Added!");
-      emit("closeModalReload");
-    } else if (res === -1) {
-      toast.error("Invalid API Parameters!");
-    } else if (res === -2) {
-      toast.error("Invalid API key!");
-    } else if (res === -3) {
-      toast.error("Internal API Error!");
-    } else {
-      toast.error("API Error!");
-    }
+  API.post("folders", {
+    username: userStore.username,
+    name: folder.value,
+    color: color.value.code,
+    starred: starred.value,
+  }).then(() => {
+    emit("closeModalReload");
   });
 }
 </script>
@@ -292,7 +279,7 @@ function addFolder() {
             <Select
               v-model="folder"
               :options="folders"
-              option-label="folder"
+              option-label="name"
               placeholder="Folder"
               class="w-full md:w-56"
               style="margin-top: 5px;"

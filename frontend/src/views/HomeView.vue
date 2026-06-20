@@ -19,16 +19,16 @@ import {
   rankPasswordsAlphabetically,
   rankFolderAlphabetically,
 } from "@/scripts/search";
-import { store } from "@/store/store";
-import { DB_getAllPasswords, DB_getAllFolders, DB_getAll2FA, DB_logoutUser, DB_checkValidAPIKey } from "@/db";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { download } from "@/helper/transfer_data";
 import { useUserStore } from "@/store/userStore";
 import API from "@/plugins/axios";
+import { useTempStore } from "@/store/tempStore";
 
 const toast = useToast();
 const router = useRouter();
+const tempStore = useTempStore();
 
 const fold_pass_selector = ref("Folders");
 const folders = ref([]);
@@ -68,14 +68,14 @@ function activateTwoFAButton() {
 }
 
 function logout() {
-  DB_logoutUser();
+  API.delete("users/sign_out").then(() => {
+    userStore.removeUser();
+    router.push({ name: "login" });
+  });
 }
 
-function openFolder(folder_id, folder_name, folder_color, folder_starred) {
-  store.temp.curr_folder_id = folder_id;
-  store.temp.curr_folder_name = folder_name;
-  store.temp.curr_folder_color = folder_color;
-  store.temp.curr_folder_starred = folder_starred;
+function openFolder(folder) {
+  tempStore.setFolder(folder);
   router.push("/folder");
 }
 
@@ -97,17 +97,8 @@ function resetScrolling() {
 }
 
 function reloadFolders() {
-  DB_getAllFolders(passwords.value).then((res_fold) => {
-    if (res_fold === -1) {
-      toast.error("Invalid Parameters!");
-    } else if (res_fold === -2) {
-      toast.error("Invalid API Key!");
-    } else if (res_fold === -99) {
-      toast.error("API Error!");
-    }
-    else if (res_fold) {
-      folders.value = rankFolderAlphabetically(res_fold);
-    }
+  API.get("folders").then((response) => {
+    folders.value = rankFolderAlphabetically(response.data);
     loading.value = false;
   });
 }
@@ -131,6 +122,11 @@ async function reloadData() {
 
 document.body.style.overflow = "";
 reloadData();
+
+function openTwoFaModal(twoFactor) {
+  tempStore.setTfa(twoFactor);
+  showTwoFaModal.value = true;
+}
 </script>
 
 <template>
@@ -209,11 +205,11 @@ reloadData();
               v-for="f in folders"
               :id="f.id"
               :key="f.key"
-              :name="f.folder"
+              :name="f.name"
               :color="f.color"
               :starred="f.starred"
               :pass-amount="f.pass_amount"
-              @click="openFolder(f.id, f.folder, f.color, f.starred)"
+              @click="openFolder(f)"
             />
           </div>
 
@@ -221,34 +217,31 @@ reloadData();
             v-else-if="fold_pass_selector === 'Passwords'"
             id="posFolders"
           >
-            <password
+            <template
               v-for="p in passwords"
-              :id="p.id"
               :key="p.key"
-              :name="p.name"
-              :enc-password="p.password"
-              :username="p.username"
-              :folder="p.folder"
-              :note="p.note"
-              :starred="p.starred"
-              @open-password-modal="showViewPasswordModal = true"
-            />
+            >
+              <password
+                :password="p"
+                @open-password-modal="showViewPasswordModal = true"
+              />
+            </template>
           </div>
 
           <div
             v-else
             id="posFolders"
           >
-            <two-f-a
+            <template
               v-for="t in twoFactors"
-              :id="t.id"
               :key="t.key"
-              :name="t.name" 
-              :secret="t.secret" 
-              :algo="t.algo" 
-              @open2-f-a="showTwoFaModal=true"
-              @open-two-fa-o-t-p-modal="openTwoFaOTPModalFunction"
-            />
+            >
+              <two-f-a
+                :tfa="t"
+                @open2-f-a="openTwoFaModal(t)"
+                @open-two-fa-o-t-p-modal="openTwoFaOTPModalFunction"
+              />
+            </template>
           </div>
         </div>
       </Transition>

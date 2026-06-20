@@ -1,44 +1,36 @@
 
 <script setup>
-import { store } from '@/store/store';
 import SymbolIcon from './SymbolIcon.vue';
+import { ref } from "vue";
+import { DECRYPT } from "@/plugins/encryption";
+import { getSHA_OTP, getTOTP } from "@/db";
+import { useTempStore } from "@/store/tempStore";
 
 const props = defineProps({
-  name: {
-    type: String,
-    default: undefined
+  tfa: {
+    type: Object,
+    default: () => {}
   },
-  secret: {
-    type: String,
-    default: undefined
-  },
-  id: {
-    type: Number,
-    default: undefined
-  },
-  algo: {
-    type: String,
-    default: undefined
-  }
 });
 
 const emit = defineEmits(['open2FA', 'openTwoFaOTPModal']);
 
+const tempStore = useTempStore();
+const secret = ref("");
+
 async function copyOtp() {
   let otp_code;
-  if (props.algo === "SHA256") {
-    otp_code = getSHA_OTP(props.secret);
+  if (props.tfa.algo === "SHA256") {
+    otp_code = getSHA_OTP(DECRYPT(props.tfa.encSecret));
   } else {
-    otp_code = getTOTP(props.secret);
+    otp_code = getTOTP(DECRYPT(props.tfa.encSecret));
   }
 
   emit("openTwoFaOTPModal", otp_code);
-}
+};
 
 function open2FAView() {
-  store.temp.curr_2fa_name = props.name;
-  store.temp.curr_2fa_secret = props.secret;
-  store.temp.curr_2fa_id = props.id;
+  tempStore.setTfa(props.tfa);
   emit("open2FA");
 }
 </script>
@@ -71,7 +63,7 @@ function open2FAView() {
     </svg>
 
     <p id="name">
-      {{ name }}
+      {{ props.tfa.name }}
     </p>
     <div
       id="back"

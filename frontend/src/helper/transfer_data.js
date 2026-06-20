@@ -1,4 +1,4 @@
-import { DECRYPT } from "@/store/store";
+import { DECRYPT } from "@/plugins/encryption";
 
 export async function download(passwords, folders, twoFAs) {
   let str = '{\n\t"passwords": [';

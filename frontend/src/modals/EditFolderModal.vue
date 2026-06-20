@@ -1,9 +1,9 @@
 <script setup>
 import { useToast } from "vue-toastification";
-import { DB_editFolder } from "@/db";
-import { store } from "@/store/store";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useTempStore } from "@/store/tempStore";
+import API from "@/plugins/axios";
 
 const emit = defineEmits(['closeModal']);
 const toast = useToast();
@@ -11,10 +11,8 @@ const router = useRouter();
 
 document.body.style.overflow = "hidden";
 
-const id = ref(store.temp.curr_folder_id);
-const name = ref(store.temp.curr_folder_name);
-const color = ref(store.temp.curr_folder_color);
-const starred = ref(store.temp.curr_folder_starred);
+const tempStore = useTempStore();
+const folder = ref(tempStore.folder);
 const edit_mode = ref(false);
 const colors = [
   { name: "Black", code: 'black' },
@@ -29,39 +27,18 @@ const colors = [
   { name: "Blue", code: 'blue' },
   { name: "Violet", code: 'violet' }];
 
-function updateFolderName(name) {
-  name.value = name;
-}
-
-function updateFolderColor(color) {
-  color.value = color;
-}
-
 function valueChange() {
   edit_mode.value = true;
 }
 
 function edit() {
-  let curr_color;
-  if (color.value.code === undefined) {
-    curr_color = color.value;
-  } else {
-    curr_color = color.value.code;
-  }
-  DB_editFolder(id.value, name.value, starred.value, curr_color).then( (res) => {
-    if(res === 0) {
-      toast.success("Folder edited!");
-      emit('closeModal');
-      router.push("/home");
-    } else if (res === -1) {
-      toast.error("Invalid Parameters!");
-    } else if (res === -2) {
-      toast.error("Invalid API key!");
-    } else if (res === -3) {
-      toast.error("Internal API Error!");
-    } else {
-      toast.error("API Error!");
-    }
+  API.put(`folders/${folder.value.id}`, {
+    name: folder.value.name,
+    color: folder.value.color,
+  }).then(() => {
+    toast.success("Folder edited!");
+    emit('closeModal');
+    router.push({ name: "home" });
   });
 }
 </script>
@@ -92,7 +69,7 @@ function edit() {
         <FloatLabel variant="in">
           <InputText
             id="in_label"
-            v-model="name"
+            v-model="folder.name"
             @change="valueChange"
           />
           <label
@@ -101,10 +78,11 @@ function edit() {
           >Name</label>
         </FloatLabel>
         <Select
-          v-model="color"
+          v-model="folder.color"
           :options="colors"
           option-label="name"
-          :placeholder="color"
+          option-value="code"
+          :placeholder="folder.color"
           class="w-full md:w-56"
           style="margin-top: 5px;"
           @change="valueChange"
@@ -114,13 +92,13 @@ function edit() {
         class="starButtonContainer"
         style="display: flex; justify-content: space-between; margin-top: 20px"
       >
-        <div v-if="starred">
+        <div v-if="folder.starred">
           <Button
             icon="pi pi-star"
             severity="contrast"
             rounded
             aria-label="Star"
-            @click="starred=false; edit_mode=true"
+            @click="folder.starred=false; edit_mode=true"
           />
         </div>
         <div v-else>

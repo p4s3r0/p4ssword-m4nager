@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
-import { DB_add2FA, DB_addNewFolder, DB_addNewPassword } from "@/db";
+import { ENCRYPT } from "@/plugins/encryption";
+import API from "@/plugins/axios";
 
 const emit = defineEmits(['closeModal']);
 
@@ -32,17 +33,32 @@ async function uploadData() {
   // Passwords
   for(let i = 0; i < fileContent.value.passwords.length; i++) {
     const pssw = fileContent.value.passwords[i];
-    await DB_addNewPassword(pssw.name, pssw.password, pssw.folder, pssw.note, pssw.username, pssw.starred, key.value);
+    await API.post("/passwords", {
+      name: pssw.name,
+      enc_password: ENCRYPT(pssw.password),
+      folder_id: pssw.folder.id,
+      note: pssw.note,
+      username: pssw.username,
+      starred: pssw.starred,
+      key: key.value,
+    });
   }
   //Folders
   for(let i = 0; i < fileContent.value.folders.length; i++) {
     const fold = fileContent.value.folders[i];
-    await DB_addNewFolder("", fold.folder, fold.color, fold.starred);
+    await API.post("/folders", {
+      name: fold.folder,
+      color: fold.color,
+      starred: fold.starred,
+    });
   }
   // 2FA
   for(let i = 0; i < fileContent.value.twoFAs.length; i++) {
     const twoFAs = fileContent.value.twoFAs[i];
-    await DB_add2FA(twoFAs.name, twoFAs.secret, key.value);
+    await API.post("/tfa", {
+      name: twoFAs.name,
+      enc_secret: ENCRYPT(twoFAs.secret),
+    });
   }
 }
 </script>

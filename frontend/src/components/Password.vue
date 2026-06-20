@@ -1,48 +1,22 @@
-
 <script setup>
-import { DECRYPT } from '@/store/store';
 import { useToast } from "vue-toastification";
-import { store } from '@/store/store';
 import SymbolIcon from './SymbolIcon.vue';
 import { ref, watch } from "vue";
-import { useUserStore } from "@/store/userStore";
+import { DECRYPT } from "@/plugins/encryption";
+import { useTempStore } from "@/store/tempStore";
 
 const props = defineProps({
-  name: {
-    type: String,
-    default: undefined
-  },
-  encPassword: {
-    type: String,
-    default: undefined
-  },
-  username: {
-    type: String,
-    default: undefined
-  },
-  id: {
-    type: Number,
-    default: undefined
-  },
-  folder: {
-    type: String,
-    default: undefined
-  },
-  note: {
-    type: String,
-    default: undefined
-  },
-  starred: {
-    type: Boolean,
-    default: undefined
+  password: {
+    type: Object,
+    default: () => {}
   }
 });
 
 const emit = defineEmits(['openPasswordModal']);
 
 const toast = useToast();
-const userStore = useUserStore();
-const user = ref({});
+const tempStore = useTempStore();
+
 const username_saved = ref('INIT');
 const password_saved = ref('INIT');
 
@@ -57,33 +31,20 @@ async function copyPassword() {
 }
 
 async function openPasswordView() {
-  store.temp.curr_password_id = props.id;
-  store.temp.curr_password_name = props.name;
-  store.temp.curr_password_username = await DECRYPT(props.username);
-  store.temp.curr_password_password = await DECRYPT(props.encPassword);
-  store.temp.curr_password_folder = props.folder;
-  store.temp.curr_password_note = await DECRYPT(props.note);
-  store.temp.curr_password_starred = props.starred;
+  tempStore.setPassword(props.password);
   emit('openPasswordModal');
 }
 
-watch(() => props.encPassword, async (newVal) => {
-  DECRYPT(newVal).then((res) => {
-    password_saved.value = res;
-  });
+watch(() => props.encPassword, (newVal) => {
+  password_saved.value = DECRYPT(newVal);
 });
 
 watch(() => props.username, async (newVal) => {
-  username_saved.value = await DECRYPT(newVal);
+  username_saved.value = DECRYPT(newVal);
 });
 
-DECRYPT(userStore.username).then((res) => {
-  username_saved.value = res;
-});
-
-DECRYPT(props.encPassword).then((res) => {
-  password_saved.value = res;
-});
+username_saved.value = DECRYPT(props.password.username);
+password_saved.value = DECRYPT(props.password.enc_password);
 </script>
 
 <template>
@@ -92,7 +53,7 @@ DECRYPT(props.encPassword).then((res) => {
     class="ripple2"
   >
     <svg
-      v-if="starred"
+      v-if="props.password.starred"
       viewBox="0 0 24 24"
       class="starred icon flat-color"
     ><path
@@ -110,10 +71,10 @@ DECRYPT(props.encPassword).then((res) => {
 
     <div id="nameAndFolderContainer">
       <p id="passwordName">
-        {{ name }}
+        {{ props.password.name }}
       </p>
       <p id="passwordFolder">
-        {{ folder }}
+        {{ props.password.folder_id }}
       </p>
     </div>
     <div

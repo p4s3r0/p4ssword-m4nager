@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from "vue";
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue';
-import { DB_registerUser } from '@/db.js';
 
 import { useToast } from "vue-toastification";
 import { useRouter } from "vue-router";

@@ -32,6 +32,7 @@ function loginUser() {
       }
     }).then(async (response) => {
     const user = response.data.user;
+
     localStorage.setItem("username", user.username);
     const authenticationObject = await biometricRegister(username.value);
     localStorage.setItem("authentication-id", authenticationObject.id);
