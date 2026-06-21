@@ -1,8 +1,21 @@
 <script setup>
 import PMIconButton from "@/components/PMIconButton.vue";
 import { useUserStore } from "@/store/userStore";
+import { useDialog } from "primevue";
+import { DIALOG_DEFAULT_PROPS } from "@/helper/constants";
+import ProfileDialog from "@/views/home/_dialogs/ProfileDialog.vue";
 
 const userStore = useUserStore();
+const dialog = useDialog();
+
+function openProfileDialog() {
+  dialog.open(ProfileDialog, {
+    props: {
+      ...DIALOG_DEFAULT_PROPS,
+      header: "Profile"
+    }
+  });
+}
 </script>
 
 <template>
@@ -12,7 +25,7 @@ const userStore = useUserStore();
       id="menuButton"
       icon="pi-bars"
       class="ripple"
-      @click="showMenuModal = true"
+      @click="openProfileDialog()"
     />
   </div>
 </template>

@@ -5,6 +5,8 @@ import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue';
 import { useToast } from "vue-toastification";
 import { useRouter } from "vue-router";
 import API from "@/plugins/axios";
+import PMTextInput from "@/components/PMTextInput.vue";
+import PMPasswordInput from "@/components/PMPasswordInput.vue";
 
 const router = useRouter();
 const toast = useToast();
@@ -39,82 +41,79 @@ function clickRegisterUser() {
 </script>
 
 <template>
-  <div id="mainLogin">
-    <h1>Let's Register you.</h1>
-    <h2>Welcome stranger. <br>Lemme keep your passwords</h2>
-    <div class="userInput">
-      <FloatLabel
-        variant="in"
-        style="margin-top: 10px;"
-      >
-        <InputText
-          id="in_label"
+  <div class="container-register-view">
+    <div class="top-part">
+      <div class="header">
+        <h1>Let's Register you.</h1>
+        <h2>Welcome stranger. <br>Lemme keep your passwords</h2>
+      </div>
+      <div class="user-input">
+        <PMTextInput
           v-model="email"
+          label="Email"
+          name="email"
         />
-        <label
-          style="color: var(--p-select-placeholder-color)"
-          for="in_label"
-        >Email</label>
-      </FloatLabel>
-      <FloatLabel
-        variant="in"
-        style="margin-top: 5px;"
-      >
-        <InputText
-          id="in_label"
+        <PMTextInput
           v-model="username"
+          label="Username"
+          name="username"
         />
-        <label
-          style="color: var(--p-select-placeholder-color)"
-          for="in_label"
-        >Username</label>
-      </FloatLabel>
-      <FloatLabel
-        variant="in"
-        style="margin-top: 5px; width: 100%;"
-      >
-        <Password
+        <PMPasswordInput
           v-model="password"
-          input-id="in_label"
-          style="width: 100%;"
-          toggle-mask
+          label="Password"
+          name="password"
         />
-        <label for="in_label">Password</label>
-      </FloatLabel>
+      </div>
     </div>
-    <p>Already have an account? <a @click="$router.push('/');">Login</a></p>
-    <big-button-register-signin
-      text="Register"
-      @click="clickRegisterUser()"
-    />
+    <div class="footer">
+      <div class="links">
+        <p>Already have an account? <a @click="$router.push('/');">Login</a></p>
+      </div>
+      <big-button-register-signin
+        text="Register"
+        @click="clickRegisterUser()"
+      />
+    </div>
   </div>
 </template>
 
 <style scoped>
+.container-register-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: calc(var(--gap-10) * 2) var(--gap-4) var(--gap-4) var(--gap-4);
+  height: 100svh;
 
-h1, h2 {
-  padding-left: 8%;
+  .user-input {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-2);
+    margin-top: 10vh;
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-2);
+      margin-bottom: var(--gap-4);
+      p {
+        margin: 0;
+      }
+    }
+
+    a {
+      font-weight: bold;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
 }
 
-p {
-  position: absolute;
-  bottom: 105px;
-  width: 100%;
-  text-align: center;
-}
-
-a {
-  font-weight: bold;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.userInput {
-  position: absolute;
-  width: 90%;
-  margin-top: 10vh;
-  max-width: 500px;
-  left: 50%;
-  transform: translateX(-50%);
-}
 </style>
