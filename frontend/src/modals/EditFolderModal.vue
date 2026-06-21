@@ -3,6 +3,7 @@ import { useToast } from "vue-toastification";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useTempStore } from "@/store/tempStore";
+import PMColorPicker from "@/components/PMColorPicker.vue";
 import API from "@/plugins/axios";
 
 const emit = defineEmits(['closeModal']);
@@ -14,18 +15,6 @@ document.body.style.overflow = "hidden";
 const tempStore = useTempStore();
 const folder = ref(tempStore.folder);
 const edit_mode = ref(false);
-const colors = [
-  { name: "Black", code: 'black' },
-  { name: "Dark Red", code: 'darkRed' },
-  { name: "Red", code: 'red' },
-  { name: "Dark Orange", code: 'darkOrange' },
-  { name: "Light Orange", code: 'lightOrange' },
-  { name: "Yellow", code: 'yellow' },
-  { name: "Light Green", code: 'lightGreen' },
-  { name: "Green", code: 'green' },
-  { name: "Blue Green", code: 'blueGreen' },
-  { name: "Blue", code: 'blue' },
-  { name: "Violet", code: 'violet' }];
 
 function valueChange() {
   edit_mode.value = true;
@@ -77,16 +66,13 @@ function edit() {
             for="in_label"
           >Name</label>
         </FloatLabel>
-        <Select
-          v-model="folder.color"
-          :options="colors"
-          option-label="name"
-          option-value="code"
-          :placeholder="folder.color"
-          class="w-full md:w-56"
-          style="margin-top: 5px;"
-          @change="valueChange"
-        />
+        <div style="margin-top: 20px;">
+          <PMColorPicker
+            v-model="folder.color"
+            label="Color"
+            @update:model-value="valueChange"
+          />
+        </div>
       </div>
       <div
         class="starButtonContainer"
@@ -129,7 +115,7 @@ function edit() {
 <style scoped>
 #viewPasswordModalContainer {
     position: relative;
-    background-color: var(--background-color);
+    background-color: var(--surface-0);
     border: 1px white solid;
     border-radius: 16px;
     width: 60%;

@@ -3,7 +3,7 @@ import { createPinia } from 'pinia';
 import VueCryptojs from "vue-cryptojs";
 import "vue-toastification/dist/index.css";
 import Toast, { POSITION } from "vue-toastification";
-import "@/core.scss";
+import "@/styles/core.scss";
 import "@/assets/toasts.css";
 import App from "./App.vue";
 import data from "../package.json";
@@ -11,7 +11,7 @@ import "./registerServiceWorker";
 import PrimeVue from "primevue/config";
 import Aura from "@primevue/themes/aura";
 import "primeicons/primeicons.css";
-import "./core.scss";
+import "./styles/core.scss";
 
 const pinia = createPinia();
 
@@ -38,6 +38,7 @@ export function browserIsSafari() {
   );
 }
 
+import { DialogService } from "primevue";
 import Button from "primevue/button";
 import FloatLabel from "primevue/floatlabel";
 import Select from "primevue/select";
@@ -47,6 +48,10 @@ import Slider from "primevue/slider";
 import InputNumber from "primevue/inputnumber";
 import Password from "primevue/password";
 import FileUpload from "primevue/fileupload";
+import DynamicDialog from "primevue/dynamicdialog";
+import SelectButton from "primevue/selectbutton";
+import TextArea from "primevue/textarea";
+import ColorPicker from "primevue/colorpicker";
 
 const app = createApp(App);
 // eslint-disable-next-line vue/no-reserved-component-names
@@ -60,12 +65,17 @@ app.component("Slider", Slider);
 app.component("InputNumber", InputNumber);
 app.component("Password", Password);
 app.component("FileUpload", FileUpload);
+app.component("DynamicDialog", DynamicDialog);
+app.component("SelectButton", SelectButton);
+app.component("TextArea", TextArea);
+app.component("ColorPicker", ColorPicker);
 
 app
   .use(pinia)
   .use(router)
   .use(VueCryptojs)
   .use(Toast, toast_options)
+  .use(DialogService)
   .use(PrimeVue, {
     theme: {
       preset: Aura,

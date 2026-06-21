@@ -25,7 +25,7 @@ const props = defineProps({
   border-radius: 16px; 
   cursor: pointer;
   max-width: 300px;
-  color: var(--background-color);
+  color: var(--surface-0);
 }
 
 p {

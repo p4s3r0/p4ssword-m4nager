@@ -7,11 +7,18 @@
       <component :is="Component" />
     </transition>
   </router-view>
+  <DynamicDialog />
 </template>
 
 <style>
 html {
-  background-color: #0E0E0E;
+  background-color: var(--surface-0);
+  color: var(--surface-900);
+  margin: 0;
+}
+
+body {
+  margin: 0;
 }
 
 .fade-enter-from,

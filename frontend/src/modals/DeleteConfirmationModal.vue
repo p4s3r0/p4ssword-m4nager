@@ -38,7 +38,7 @@ const emit = defineEmits(['closeModal', 'confirmed']);
 <style scoped>
 #deleteConfirmationModalContainer {
     position: absolute;
-    background-color: var(--background-color);
+    background-color: var(--surface-0);
     border: 1px white solid;
     border-radius: 16px;
     width: 60%;
@@ -62,7 +62,7 @@ button {
     border-radius: 10px;
     border: none;
     cursor: pointer;
-    color: var(--background-color);
+    color: var(--surface-0);
 }
 
 #containerContainer {

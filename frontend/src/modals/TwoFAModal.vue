@@ -114,7 +114,7 @@ function edit() {
 <style scoped>
 #viewTwoFAModalContainer {
     position: relative;
-    background-color: var(--background-color);
+    background-color: var(--surface-0);
     border: 1px white solid;
     border-radius: 16px;
     width: 80%;

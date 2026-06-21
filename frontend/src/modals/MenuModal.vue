@@ -57,7 +57,7 @@ document.body.style.overflow = "hidden";
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--background-color);
+    background-color: var(--surface-0);
     border: 1px white solid;
     border-radius: 16px;
     width: 60%;

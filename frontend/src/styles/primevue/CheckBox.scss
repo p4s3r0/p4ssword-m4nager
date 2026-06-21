@@ -1,0 +1,25 @@
+.p-checkbox {
+  margin-right: 8px;
+
+  .p-checkbox-box {
+    width: 40px;
+    height: 40px;
+  }
+
+  .p-checkbox-box .p-checkbox-icon {
+    font-size: 40px;
+  }
+
+  --p-checkbox-icon-checked-color: black;
+  --p-checkbox-icon-checked-hover-color: black;
+  --p-checkbox-checked-background: white;
+  --p-checkbox-background: black;
+  --p-checkbox-disabled-background: black;
+
+  --p-select-overlay-border-color: black;
+  --p-select-overlay-background: #131313;
+  --p-select-color: white;
+  --p-select-option-color: white;
+  --p-select-option-selected-focus-color: white;
+  --p-select-placeholder-color: white;
+}

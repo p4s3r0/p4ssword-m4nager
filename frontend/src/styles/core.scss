@@ -1,0 +1,182 @@
+@use "./primevue/_primevue.scss";
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
+@import "primeicons/primeicons.css";
+
+:root {
+  --surface-0: #E1E1E1;
+  --surface-100: #FFFFFF;
+  --surface-200: #C1C1C1;
+  --surface-800: #2B2B2B;
+  --surface-900: #0B0B0B;
+
+  --gap-1: 4px;
+  --gap-2: 8px;
+  --gap-3: 12px;
+  --gap-4: 16px;
+  --gap-5: 20px;
+  --gap-6: 24px;
+  --gap-7: 28px;
+  --gap-8: 32px;
+  --gap-9: 36px;
+  --gap-10: 40px;
+
+  --color-red: #ce0b0b;
+
+  --border-radius-2: 10px;
+  --border-radius-3: 15px;
+  --border-radius-4: 20px;
+  --border-radius-5: 25px;
+  --border-radius-6: 30px;
+  --border-radius-7: 35px;
+  --border-radius-8: 40px;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  scrollbar-width: none;
+}
+
+h1 {
+  margin: 0;
+}
+
+:root::-webkit-scrollbar {
+  display: none;
+}
+
+.p-slider-handle::before {
+  background-color: #131313;
+}
+.p-select {
+  --p-select-background: #131313;
+  --p-select-hover-border-color: #3f3f46;
+}
+.p-select-option {
+  background: #131313;
+}
+.p-select-option.p-select-option-selected {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.p-inputtext {
+  width: 100%;
+}
+
+.p-select {
+  width: 100%;
+  border: 1px solid var(--p-select-hover-border-color);
+  color: var(--p-select-hover-border-color);
+  height: 55px;
+  padding-top: 7.5px;
+}
+
+.p-star-button-true {
+  background-color: white;
+  border: none;
+  color: var(--surface-0);
+}
+.p-star-button-false {
+  background-color: none;
+  border: 0.5px dashed white;
+  color: white
+}
+
+.p-star-button-true {
+  border: 1px red solid;
+}
+
+
+
+.ripple {
+    background-position: center;
+    transition: background 0.3s;
+}
+.ripple:hover {
+    background: var(--surface-100) radial-gradient(circle, transparent 1%, var(--surface-200) 1%) center/15000%;
+}
+.ripple:active {
+    background-color: #ffffff84;
+    background-size: 100%;
+    transition: background 0.5s;
+}
+
+
+.ripple2 {
+    background-position: center;
+    transition: background 1s;
+  }
+  .ripple2:hover {
+    background: #1E1E1E radial-gradient(circle, transparent 1%, #545454a0 1%) center/15000%;
+  }
+  .ripple2:active {
+    background-color: #1E1E1E;
+    background-size: 100%;
+    transition: background 0s;
+  }
+
+
+
+.ripple3 {
+  background-position: center;
+  transition: background 0.3s;
+}
+.ripple3:hover {
+  background: #ffffff84 radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
+}
+.ripple3:active {
+  background-color: #ffffff84;
+  background-size: 100%;
+  transition: background 0.5s;
+}
+
+
+
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}

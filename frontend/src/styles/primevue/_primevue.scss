@@ -1,0 +1,16 @@
+@use "./Button";
+@use "./CheckBox";
+@use "./Slider";
+@use "./TextInput";
+@use "./Dialog";
+@use "./Select";
+@use "./TextArea";
+@use "./ColorPicker";
+
+
+label {
+  color: var(--surface-900);
+  background: var(--surface-100);
+  border-radius: var(--border-radius-4);
+  padding: 0 var(--gap-2);
+}

@@ -1,0 +1,28 @@
+.p-select {
+  background-color: var(--surface-100) !important;
+  border: 1px solid var(--surface-200) !important;
+  border-radius: var(--border-radius-3);
+  padding-left: var(--gap-2);
+  height: 50px !important;
+
+  .p-select-label {
+    color: var(--surface-900) !important;
+  }
+}
+
+.p-select-overlay {
+  background-color: var(--surface-100) !important;
+  border: 1px solid var(--surface-0) !important;
+
+  .p-select-list {
+    .p-select-option {
+      background-color: var(--surface-100) !important;
+      color: var(--surface-900) !important;
+
+      &.p-select-option-selected {
+        background-color: var(--surface-0) !important;
+      }
+    }
+  }
+}
+

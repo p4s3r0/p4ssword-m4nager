@@ -144,7 +144,7 @@ button {
     border-radius: 10px;
     border: none;
     cursor: pointer;
-    color: var(--background-color);
+    color: var(--surface-0);
 }
 
 input {

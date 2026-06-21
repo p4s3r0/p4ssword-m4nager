@@ -249,11 +249,11 @@ function turnOnboardingOff() {
 button {
     min-width: 100px;
     min-height: 68px;
-    background-color: var(--background-color);
+    background-color: var(--surface-0);
     border: 1px white solid;
     cursor: pointer;
     border-radius: 10px;
-    color: var(--background-color);
+    color: var(--surface-0);
 }
 
 .leftButton {

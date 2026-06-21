@@ -37,7 +37,7 @@ const curr_user_api_key = ref(false);
     .container {
         position: relative;
         background-color: var(--lighter-back-color);
-        border-radius: var(--border-radius);
+        border-radius: var(--border-radius-2);
         margin-bottom: 5px;
         height: 50px;
         display: flex;

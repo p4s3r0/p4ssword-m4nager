@@ -77,10 +77,10 @@ async function copyOtp() {
 <style scoped>
 #container {
     position: absolute;
-    background-color: var(--background-color);
+    background-color: var(--surface-0);
     padding: 10px 20px 10px 20px;
     border: solid 1px white;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-2);
 }
 #containerContainer {
     position: fixed;
@@ -107,7 +107,7 @@ async function copyOtp() {
     background: #1b1b1b;
     padding: 5px 10px 5px 10px;
     margin-right: 5px;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-2);
 }
 
 h2, h1 {
@@ -131,7 +131,7 @@ h1 {
     height: 45px;
     width: 100%;
     background-color: white;
-    color: var(--background-color);
+    color: var(--surface-0);
     border: 0;
     border-radius: 10px;
     margin-top: 20px;

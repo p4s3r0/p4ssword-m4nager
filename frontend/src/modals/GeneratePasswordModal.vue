@@ -151,7 +151,7 @@ function copyToClipboard() {
 <style scoped>
 #GeneratePasswordModalContainer {
     position: relative;
-    background-color: var(--background-color);
+    background-color: var(--surface-0);
     border: 1px white solid;
     border-radius: 16px;
     width: 90%;
@@ -182,7 +182,7 @@ button {
     border-radius: 10px;
     border: none;
     cursor: pointer;
-    color: var(--background-color);
+    color: var(--surface-0);
 }
 
 #containsCheckBoxes {

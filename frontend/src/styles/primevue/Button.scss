@@ -1,0 +1,22 @@
+.p-button {
+  border: 1px solid var(--surface-200);
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: white !important;
+  border-radius: var(--border-radius-3);
+
+  &.severity-primary {
+    background-color: var(--surface-900) !important;
+    color: var(--surface-0) !important;
+  }
+
+  &.severity-delete {
+    color: var(--color-red) !important;
+    border: 1px solid var(--color-red) !important;
+  }
+
+  &.color-delete {
+    color: var(--color-red) !important;
+    border: 1px solid var(--color-red) !important;
+  }
+}

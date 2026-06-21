@@ -28,10 +28,7 @@ import TextRemovable from "@/components/TextRemovable.vue";
           v-for="a in api_keys"
           :key="a"
         >
-          <TextRemovable
-            :my-value="a"
-            @remove-api="removeAPIKey(a)"
-          />
+          {{ a }}
         </div>
       </div>
     </div>
@@ -41,7 +38,7 @@ import TextRemovable from "@/components/TextRemovable.vue";
 <style scoped>
 #sessionsModalContainer {
     position: relative;
-    background-color: var(--background-color);
+    background-color: var(--surface-0);
     border: 1px white solid;
     border-radius: 16px;
     width: 90%;

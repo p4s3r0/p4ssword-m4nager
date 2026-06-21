@@ -1,77 +1,81 @@
 export async function rankFoldersBySearch(folders, search) {
-    if (search === "") {
+    if (!search || search.trim() === "") {
         return rankFolderAlphabetically(folders);
     }
-    let ranking = [];
 
-    for (let f = 0; f < folders.length; f++) {
-        let curr_score = 0;
-        let curr_score_index = 0;
-        for (let w = 0; w < folders[f].folder.length && curr_score_index < search.length; w++) {
-            if (folders[f].folder[w].toLowerCase() === search[curr_score_index].toLowerCase()) {
-                curr_score_index += 1;
-                curr_score += 1;
+    const query = search.toLowerCase();
+    const ranking = folders.map(folder => {
+        let score = 0;
+        const name = (folder.name || "").toLowerCase();
+
+        if (name === query) {
+            score = 100;
+        } else if (name.startsWith(query)) {
+            score = 80;
+        } else if (name.includes(query)) {
+            score = 60;
+        } else {
+            // Fuzzy match score: count how many characters of query appear in name in order
+            let queryIdx = 0;
+            for (let i = 0; i < name.length && queryIdx < query.length; i++) {
+                if (name[i] === query[queryIdx]) {
+                    queryIdx++;
+                    score++;
+                }
             }
         }
-        ranking.push({
-            score: curr_score,
-            data: folders[f]
-        });
-    }
 
-    ranking.sort((a,b) => b.score - a.score); 
-    for (let i = 0; i < ranking.length; i++) {
-        ranking[i] = ranking[i].data;
-    }
-    return ranking;    
+        return { score, data: folder };
+    });
+
+    return ranking
+        .sort((a, b) => b.score - a.score || a.data.name.localeCompare(b.data.name))
+        .map(item => item.data);
 }
 
-
-
 export async function rankPasswordsBySearch(passwords, search) {
-    if (search === "") {
+    if (!search || search.trim() === "") {
         return rankPasswordsAlphabetically(passwords);
     }
 
-    let ranking = [];
+    const query = search.toLowerCase();
+    const ranking = passwords.map(password => {
+        let score = 0;
+        const name = (password.name || "").toLowerCase();
+        const username = (password.username || "").toLowerCase();
+        const url = (password.url || "").toLowerCase();
 
-    for (let p = 0; p < passwords.length; p++) {
-        let curr_score = 0;
-        let curr_score_index = 0;
-        for (let w = 0; w < passwords[p].name.length && curr_score_index < search.length; w++) {
-            if (passwords[p].name[w].toLowerCase() === search[curr_score_index].toLowerCase()) {
-                curr_score_index += 1;
-                curr_score += 1;
+        if (name === query) {
+            score = 100;
+        } else if (name.startsWith(query)) {
+            score = 80;
+        } else if (name.includes(query)) {
+            score = 60;
+        } else if (username.includes(query) || url.includes(query)) {
+            score = 40;
+        } else {
+            let queryIdx = 0;
+            for (let i = 0; i < name.length && queryIdx < query.length; i++) {
+                if (name[i] === query[queryIdx]) {
+                    queryIdx++;
+                    score++;
+                }
             }
         }
-        //create object
-        const el = {
-            score: curr_score,
-            data: passwords[p]
-        };
-        ranking.push(el);
-    }
 
-    ranking.sort((a,b) => b.score - a.score); 
-    let ret = [];
-    for (let i = 0; i < ranking.length; i++) {
-        ret.push(ranking[i].data);
-        ret[i]["id"] = ranking[i].data.idx;
-    }
+        return { score, data: password };
+    });
 
-    return ret;  
+    return ranking
+        .sort((a, b) => b.score - a.score || a.data.name.localeCompare(b.data.name))
+        .map(item => item.data);
 }
-
-
 
 export function rankPasswordsAlphabetically(passwords) {
     return [...passwords].sort((a, b) =>
       a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
     );
 }
-
-
-
 
 export function rankFolderAlphabetically(folders) {
     return [...folders].sort((a, b) =>

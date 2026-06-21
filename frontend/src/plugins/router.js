@@ -21,12 +21,30 @@ export const routes = [
   {
     name: "home",
     path: "/home",
-    component: () => import("@/views/HomeView.vue"),
+    redirect: () => ({ name: "home.passwords" }),
+    component: () => import("@/views/home/HomeView.vue"),
+    children: [
+      {
+        name: "home.passwords",
+        path: "passwords",
+        component: () => import("@/views/home/passwords/PasswordsView.vue"),
+      },
+      {
+        name: "home.folders",
+        path: "folders",
+        component: () => import("@/views/home/folders/FoldersView.vue"),
+      },
+      {
+        name: "home.tfa",
+        path: "tfa",
+        component: () => import("@/views/home/tfa/TfaView.vue"),
+      }
+    ]
   },
   {
-    name: "folder",
-    path: "/folder",
-    component: () => import("@/views/FolderView.vue"),
+    name: "folder.passwords",
+    path: "/folder/:id",
+    component: () => import("@/views/home/folders/folder/FolderView.vue"),
   },
   {
     name: "onboarding",
