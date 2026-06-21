@@ -3,7 +3,7 @@ import { createPinia } from 'pinia';
 import VueCryptojs from "vue-cryptojs";
 import "vue-toastification/dist/index.css";
 import Toast, { POSITION } from "vue-toastification";
-import "@/global.css";
+import "@/core.scss";
 import "@/assets/toasts.css";
 import App from "./App.vue";
 import data from "../package.json";
@@ -11,6 +11,7 @@ import "./registerServiceWorker";
 import PrimeVue from "primevue/config";
 import Aura from "@primevue/themes/aura";
 import "primeicons/primeicons.css";
+import "./core.scss";
 
 const pinia = createPinia();
 
