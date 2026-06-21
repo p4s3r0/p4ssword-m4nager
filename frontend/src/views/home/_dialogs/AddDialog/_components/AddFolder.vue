@@ -6,7 +6,6 @@ import API from "@/plugins/axios";
 import PMToggleButton from "@/components/PMToggleButton.vue";
 import PMTextButton from "@/components/PMTextButton.vue";
 import { useToast } from "vue-toastification";
-import { useDialog } from "primevue";
 
 const toast = useToast();
 

@@ -34,17 +34,21 @@ function openPasswordDialog(password) {
 </script>
 
 <template>
-  <div class="passwords-container">
+  <TransitionGroup
+    name="list"
+    tag="div"
+    class="passwords-container"
+  >
     <div
       v-for="password in props.passwords"
-      :key="password.key"
+      :key="password.id"
     >
       <password
         :password="password"
         @click="openPasswordDialog(password)"
       />
     </div>
-  </div>
+  </TransitionGroup>
 </template>
 
 <style scoped>
@@ -52,5 +56,22 @@ function openPasswordDialog(password) {
   display: flex;
   flex-direction: column;
   gap: var(--gap-2);
+  position: relative;
+}
+
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.3s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.list-leave-active {
+  position: absolute;
 }
 </style>

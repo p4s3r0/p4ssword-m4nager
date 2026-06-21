@@ -92,17 +92,21 @@ function reloadData() {
       </div>
     </div>
 
-    <div class="passwords-container">
+    <TransitionGroup
+      name="list"
+      tag="div"
+      class="passwords-container"
+    >
       <div
         v-for="password in passwords.entries"
-        :key="password.key"
+        :key="password.id"
       >
         <password
           :password="password"
           @click="openPasswordDialog(password)"
         />
       </div>
-    </div>
+    </TransitionGroup>
   </div>
 </template>
 
@@ -130,6 +134,23 @@ function reloadData() {
     flex-direction: column;
     gap: var(--gap-3);
     width: 100%;
+    position: relative;
+  }
+
+  .list-move,
+  .list-enter-active,
+  .list-leave-active {
+    transition: all 0.3s ease;
+  }
+
+  .list-enter-from,
+  .list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  .list-leave-active {
+    position: absolute;
   }
 }
 </style>

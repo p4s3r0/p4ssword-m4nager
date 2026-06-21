@@ -35,9 +35,9 @@ export const routes = [
         component: () => import("@/views/home/folders/FoldersView.vue"),
       },
       {
-        name: "home.tfa",
-        path: "tfa",
-        component: () => import("@/views/home/tfa/TfaView.vue"),
+        name: "home.tfas",
+        path: "tfas",
+        component: () => import("@/views/home/tfas/TfasView.vue"),
       }
     ]
   },

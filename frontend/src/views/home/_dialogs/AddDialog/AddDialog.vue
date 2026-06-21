@@ -3,6 +3,7 @@ import { inject, ref } from "vue";
 import PMSelectButton from "@/components/PMSelectButton.vue";
 import AddPassword from "@/views/home/_dialogs/AddDialog/_components/AddPassword.vue";
 import AddFolder from "@/views/home/_dialogs/AddDialog/_components/AddFolder.vue";
+import AddTfa from "@/views/home/_dialogs/AddDialog/_components/AddTfa.vue";
 
 const dialogRef = inject("dialogRef");
 const addOptions = [
@@ -28,6 +29,10 @@ const addOption = ref("password");
       />
       <AddFolder
         v-if="addOption === 'folder'"
+        @close-reload="dialogRef?.close({ reload: true })"
+      />
+      <AddTfa
+        v-if="addOption === 'tfa'"
         @close-reload="dialogRef?.close({ reload: true })"
       />
     </div>

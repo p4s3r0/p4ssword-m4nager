@@ -8,14 +8,14 @@ import { DIALOG_DEFAULT_PROPS } from "@/helper/constants";
 
 const dialog = useDialog();
 const router = useRouter();
-const route = useRoute();
 
+const emit = defineEmits(["reload"]);
 const model = defineModel({ type: String, default: "" });
 
 const options = [
   { value: 'home.folders', icon: 'pi-folder' },
   { value: 'home.passwords', icon: 'pi-key' },
-  { value: 'home.tfa', icon: 'pi-ticket' }
+  { value: 'home.tfas', icon: 'pi-ticket' }
 ];
 
 function onOptionChange(value) {
@@ -24,7 +24,13 @@ function onOptionChange(value) {
 
 function showAddDialog() {
   dialog.open(AddDialog, {
-    props: DIALOG_DEFAULT_PROPS
+    props: DIALOG_DEFAULT_PROPS,
+    onClose: (data) => {
+      if (data?.data?.reload) {
+        emit("reload");
+      }
+
+    }
   });
 }
 </script>

@@ -90,14 +90,17 @@ reloadData();
     </div>
 
     <div class="show-folders-or-passwords">
-      <Navigation v-model="fold_pass_selector" />
+      <Navigation
+        v-model="fold_pass_selector"
+        @reload="reloadData"
+      />
     </div>
 
     <div class="sub-view-container">
       <router-view
         :passwords="passwords"
         :folders="folders"
-        :tfa="twoFactors"
+        :tfas="twoFactors"
         @reload="reloadData"
       />
     </div>

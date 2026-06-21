@@ -5,6 +5,7 @@ import { ref, watch } from "vue";
 import { DECRYPT } from "@/plugins/encryption";
 import { useTempStore } from "@/store/tempStore";
 import PMTag from "@/components/PMTag.vue";
+import PMIconButton from "@/components/PMIconButton.vue";
 
 const props = defineProps({
   password: {
@@ -66,18 +67,14 @@ password_saved.value = DECRYPT(props.password.enc_password);
       </template>
     </div>
     <div class="password-icons">
-      <div class="copy-icon ripple">
-        <i
-          class="pi pi-user"
-          @click.stop="copyUsername()"
-        />
-      </div>
-      <div class="copy-icon ripple">
-        <i
-          class="pi pi-key"
-          @click.stop="copyPassword()"
-        />
-      </div>
+      <PMIconButton
+        icon="pi pi-user"
+        @click.stop="copyUsername()"
+      />
+      <PMIconButton
+        icon="pi-key"
+        @click.stop="copyPassword()"
+      />
     </div>
   </div>
 </template>
@@ -111,13 +108,13 @@ password_saved.value = DECRYPT(props.password.enc_password);
   .password-icons {
     display: flex;
     align-items: center;
+    gap: var(--gap-2);
 
     .copy-icon {
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: var(--gap-2);
-      padding: var(--gap-3) var(--gap-2);
     }
 
     .pi {
