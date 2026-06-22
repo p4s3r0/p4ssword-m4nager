@@ -205,9 +205,6 @@ reloadData();
   .loader:after {
     animation-delay: -1s;
   }
-  @keyframes l2 {
-    100% {box-shadow: 0 0 0 40px #fff0}
-  }
 
   /* LOADER ENDE */
 
