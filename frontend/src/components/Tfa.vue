@@ -86,13 +86,14 @@ function open2FAView() {
   justify-content: space-between;
   background-color: var(--surface-100);
   border-radius: var(--gap-5);
-  padding: var(--gap-2) var(--gap-2) var(--gap-2) var(--gap-5);
+  padding: var(--gap-4);
   border: 1px solid var(--surface-200);
+  height: 80px;
 
   .left {
     display: flex;
     align-items: center;
-    gap: var(--gap-2);
+    gap: var(--gap-4);
     padding: var(--gap-2);
   }
 

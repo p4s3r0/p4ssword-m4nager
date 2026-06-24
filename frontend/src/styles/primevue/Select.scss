@@ -2,10 +2,15 @@
   background-color: var(--surface-100) !important;
   border: 1px solid var(--surface-200) !important;
   border-radius: var(--border-radius-3);
+  padding-top: 0px !important;
   padding-left: var(--gap-2);
   height: 50px !important;
+  color: var(--surface-900) !important;
+  font-weight: 500;
 
   .p-select-label {
+    display: flex;
+    align-items: center;
     color: var(--surface-900) !important;
   }
 }

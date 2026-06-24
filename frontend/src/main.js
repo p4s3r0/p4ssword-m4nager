@@ -51,7 +51,6 @@ import FileUpload from "primevue/fileupload";
 import DynamicDialog from "primevue/dynamicdialog";
 import SelectButton from "primevue/selectbutton";
 import TextArea from "primevue/textarea";
-import ColorPicker from "primevue/colorpicker";
 
 const app = createApp(App);
 // eslint-disable-next-line vue/no-reserved-component-names
@@ -68,7 +67,6 @@ app.component("FileUpload", FileUpload);
 app.component("DynamicDialog", DynamicDialog);
 app.component("SelectButton", SelectButton);
 app.component("TextArea", TextArea);
-app.component("ColorPicker", ColorPicker);
 
 app
   .use(pinia)

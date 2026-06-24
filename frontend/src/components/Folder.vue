@@ -33,14 +33,14 @@ const props = defineProps({
   color: var(--surface-900);
   border-radius: var(--border-radius-4);
   background-color: var(--surface-100);
-  padding: var(--gap-2) var(--gap-5);
+  padding: var(--gap-4);
   border: 1px solid var(--surface-200);
-  height: 62px;
+  height: 80px;
 
   .left-container {
     display: flex;
     align-items: center;
-    gap: var(--gap-2);
+    gap: var(--gap-4);
     height: 100%;
 
     .folder-color {

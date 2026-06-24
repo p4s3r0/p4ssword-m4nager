@@ -85,11 +85,13 @@ password_saved.value = DECRYPT(props.password.enc_password);
   position: relative;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   cursor: pointer;
   border-radius: var(--border-radius-4);
   background-color: var(--surface-100);
-  padding: var(--gap-2) var(--gap-2) var(--gap-2) var(--gap-5);
+  padding: var(--gap-4) calc(var(--gap-4) + 2px) var(--gap-4) var(--gap-4);
   border: 1px solid var(--surface-200);
+  height: 80px;
 
   .name-and-folder-container {
     display: flex;

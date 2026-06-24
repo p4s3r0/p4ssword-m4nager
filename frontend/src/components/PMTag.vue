@@ -16,7 +16,10 @@ const props = defineProps({
     class="tag"
     :style="`background-color: ${props.color};`"
   >
-    <p class="text">
+    <p
+      class="text"
+      :style="`--tag-color: ${props.color};`"
+    >
       {{ props.text }}
     </p>
   </div>
@@ -27,9 +30,11 @@ const props = defineProps({
   background-color: #f0f0f0;
   padding: 0 var(--gap-2);
   border-radius: 999px;
+  width: fit-content;
+
   .text {
     font-size: 0.8rem;
-    color: var(--surface-200);
+    color: color-mix(in srgb, white 90%, var(--tag-color) 20%);
     margin: 0;
   }
 }
