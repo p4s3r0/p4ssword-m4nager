@@ -10,10 +10,17 @@ import { useDialog } from "primevue";
 const toast = useToast();
 
 const tfa = ref({});
+const submitted = ref(false);
 
 const emit = defineEmits(["close-reload"]);
 
 function addTfa() {
+  submitted.value = true;
+  if (!tfa.value.name) {
+    toast.error("Name is required");
+    return;
+  }
+
   API.post("tfas", {
     tfa: {
       name: tfa.value.name,
@@ -32,6 +39,7 @@ function addTfa() {
       v-model="tfa.name"
       name="name"
       label="Name"
+      :required="submitted"
     />
     <PMTextInput
       v-model="tfa.secret"

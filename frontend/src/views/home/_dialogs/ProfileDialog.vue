@@ -1,13 +1,21 @@
 <script setup>
 import { APP_VERSION } from '@/main';
+import { ref, watch } from "vue";
 import API from "@/plugins/axios";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "vue-router";
 import { inject } from "vue";
+import PMTextToggleSwitch from "@/components/PMTextToggleSwitch.vue";
+import { useToast } from "vue-toastification";
+
+const dialogRef = inject("dialogRef");
 
 const userStore = useUserStore();
 const router = useRouter();
-const dialogRef = inject("dialogRef");
+const toast = useToast();
+
+const theme = ref(document.documentElement.classList.contains("dark"));
+const disableThemeSwitcher = ref(false);
 
 function logout() {
   API.delete("users/sign_out").then(() => {
@@ -16,13 +24,44 @@ function logout() {
     router.push({ name: "login" });
   });
 }
+
+watch(theme, (newVal, oldVal) => {
+  disableThemeSwitcher.value = true;
+  const currTheme = newVal ? "dark" : "light";
+
+  API.put("users/set_theme", { theme: currTheme }).then((response) => {
+    theme.value = response.data === "dark";
+  }, () => {
+    toast.error("Something went wrong!");
+    theme.value = oldVal;
+  }).finally(() => {
+    disableThemeSwitcher.value = false;
+  });
+
+  if (currTheme === "dark") {
+    document.documentElement.classList.add("dark");
+    localStorage.setItem("theme", "dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+    localStorage.setItem("theme", "light");
+  }
+});
 </script>
 
 <template>
+  {{ disableThemeSwitcher }}
   <div class="profile-dialog">
     <p class="version">
       Version: {{ APP_VERSION }}
     </p>
+
+    <div>
+      <PMTextToggleSwitch
+        v-model="theme"
+        :text="theme ? 'Dark Mode' : 'Light Mode'"
+        :disabled="disableThemeSwitcher"
+      />
+    </div>
     <div
       class="list-element ripple"
       @click="logout()"

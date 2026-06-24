@@ -24,6 +24,7 @@ initialPassword.folder_id = initialPassword?.folder?.id;
 
 const password = ref({ ...initialPassword });
 const folders = ref([]);
+const submitted = ref(false);
 
 API.get("folders").then((response) => {
   folders.value = response.data;
@@ -41,6 +42,12 @@ const isChanged = computed(() => {
 });
 
 function updatePassword() {
+  submitted.value = true;
+  if (!password.value.name) {
+    toast.error("Name is required");
+    return;
+  }
+
   API.put(`passwords/${password.value.id}`, {
     password: {
       name: password.value.name,
@@ -83,6 +90,7 @@ function deletePassword() {
       v-model="password.name"
       label="Name"
       name="name"
+      :required="submitted"
     />
 
     <PMTextInput

@@ -11,6 +11,10 @@ const props = defineProps({
   label: {
     type: String,
     default: undefined
+  },
+  required: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -26,8 +30,15 @@ const model = defineModel({ type: String, default: "" });
         :placeholder="props.placeholder"
         :feedback="false"
         toggle-mask
+        :class="{ 'p-invalid': props.required && !model }"
       />
-      <label :for="props.name">{{ props.label }}</label>
+      <label :for="props.name">
+        {{ props.label }}
+        <span
+          v-if="props.required"
+          class="required"
+        >*</span>
+      </label>
     </FloatLabel>
   </div>
 </template>
@@ -35,10 +46,9 @@ const model = defineModel({ type: String, default: "" });
 <style scoped>
 .text-input-container {
   width: 100%;
-}
 
-:deep(.p-password),
-:deep(.p-password-input) {
-  width: 100%;
+  .required {
+    color: var(--color-red);
+  }
 }
 </style>

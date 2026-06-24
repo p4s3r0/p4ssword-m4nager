@@ -19,6 +19,7 @@ const toast = useToast();
 const folders = ref([]);
 const password = ref({});
 const dialog = useDialog();
+const submitted = ref(false);
 
 const emit = defineEmits(["close-reload"]);
 
@@ -27,6 +28,12 @@ API.get("folders").then((response) => {
 });
 
 function addPassword() {
+  submitted.value = true;
+  if (!password.value.name) {
+    toast.error("Name is required");
+    return;
+  }
+
   API.post("passwords", {
     password: {
       name: password.value.name,
@@ -63,6 +70,7 @@ function generatePassword() {
       v-model="password.name"
       name="name"
       label="Name"
+      :required="submitted"
     />
     <PMTextInput
       v-model="password.username"

@@ -77,6 +77,46 @@ export function rankPasswordsAlphabetically(passwords) {
     );
 }
 
+export async function rankTfasBySearch(tfas, search) {
+    if (!search || search.trim() === "") {
+        return rankTfasAlphabetically(tfas);
+    }
+
+    const query = search.toLowerCase();
+    const ranking = tfas.map(tfa => {
+        let score = 0;
+        const name = (tfa.name || "").toLowerCase();
+
+        if (name === query) {
+            score = 100;
+        } else if (name.startsWith(query)) {
+            score = 80;
+        } else if (name.includes(query)) {
+            score = 60;
+        } else {
+            let queryIdx = 0;
+            for (let i = 0; i < name.length && queryIdx < query.length; i++) {
+                if (name[i] === query[queryIdx]) {
+                    queryIdx++;
+                    score++;
+                }
+            }
+        }
+
+        return { score, data: tfa };
+    });
+
+    return ranking
+        .sort((a, b) => b.score - a.score || a.data.name.localeCompare(b.data.name))
+        .map(item => item.data);
+}
+
+export function rankTfasAlphabetically(tfas) {
+    return [...tfas].sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
+    );
+}
+
 export function rankFolderAlphabetically(folders) {
     return [...folders].sort((a, b) =>
       a.name.localeCompare(b.name, undefined, { sensitivity: "base" })

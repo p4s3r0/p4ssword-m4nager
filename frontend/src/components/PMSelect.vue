@@ -15,6 +15,10 @@ const props = defineProps({
   placeholder: {
     type: String,
     default: undefined
+  },
+  required: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -28,9 +32,9 @@ const model = defineModel({ type: [String, Number, Object], default: "" });
     :option-label="props.optionLabel"
     :option-value="props.optionValue"
     :placeholder="props.placeholder"
+    :class="{ 'p-invalid': props.required && !model }"
   />
 </template>
 
 <style scoped>
-
 </style>

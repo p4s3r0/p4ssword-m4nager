@@ -1,26 +1,17 @@
 <script setup>
 import SearchBar from "@/components/SearchBar.vue";
-import Folder from "@/components/Folder.vue";
-import TwoFaOTPModal from "@/modals/TwoFaOTPModal.vue";
-import UploadFileModal from "@/modals/UploadFileModal.vue";
-import MenuModal from "@/modals/MenuModal.vue";
-import ViewPasswordModal from "@/modals/ViewPasswordModal.vue";
-import TwoFAModal from "@/modals/TwoFAModal.vue";
-import AddModal from "@/modals/AddModal.vue";
-import SessionModal from "@/modals/SessionModal.vue";
-import { useToast } from "vue-toastification";
 import {
   rankFoldersBySearch,
   rankPasswordsBySearch,
   rankPasswordsAlphabetically,
   rankFolderAlphabetically,
+  rankTfasBySearch,
+  rankTfasAlphabetically,
 } from "@/scripts/search";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { download } from "@/helper/transfer_data";
 import { useUserStore } from "@/store/userStore";
 import API from "@/plugins/axios";
-import { useTempStore } from "@/store/tempStore";
 import Header from "@/views/home/_components/Header.vue";
 import Navigation from "@/views/home/_components/Navigation.vue";
 
@@ -35,8 +26,16 @@ const loading = ref(true);
 const searchQuery = ref("");
 const allFolders = ref([]);
 const allPasswords = ref([]);
+const allTfas = ref([]);
 
 const userStore = useUserStore();
+API.get("users/get_theme").then((response) => {
+  if (response.data === "dark") {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+});
 
 function logout() {
   API.delete("users/sign_out").then(() => {
@@ -47,9 +46,13 @@ function logout() {
 
 
 function search() {
-  if (fold_pass_selector.value === "Folders") {
+  if (fold_pass_selector.value === "home.folders") {
     rankFoldersBySearch([...allFolders.value], searchQuery.value).then((res) => {
       folders.value = res;
+    });
+  } else if (fold_pass_selector.value === "home.tfas") {
+    rankTfasBySearch([...allTfas.value], searchQuery.value).then((res) => {
+      twoFactors.value = res;
     });
   } else {
     rankPasswordsBySearch([...allPasswords.value], searchQuery.value).then((res) => {
@@ -68,7 +71,8 @@ async function reloadData() {
   folders.value = [...allFolders.value];
 
   const twoFactorsApi = await API.get("tfas");
-  twoFactors.value = twoFactorsApi.data;
+  allTfas.value = rankTfasAlphabetically(twoFactorsApi.data);
+  twoFactors.value = [...allTfas.value];
 
   loading.value = false;
   if (searchQuery.value) {
@@ -77,6 +81,11 @@ async function reloadData() {
 }
 
 reloadData();
+
+watch(fold_pass_selector, () => {
+  searchQuery.value = "";
+  search();
+});
 </script>
 
 <template>

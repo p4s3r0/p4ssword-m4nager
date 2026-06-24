@@ -10,10 +10,17 @@ import { useToast } from "vue-toastification";
 const toast = useToast();
 
 const folder = ref({ color: "#000000" });
+const submitted = ref(false);
 
 const emit = defineEmits(["close-reload"]);
 
 function addFolder() {
+  submitted.value = true;
+  if (!folder.value.name) {
+    toast.error("Name is required");
+    return;
+  }
+
   API.post("folders", {
     folder: {
       name: folder.value.name,
@@ -33,6 +40,7 @@ function addFolder() {
       v-model="folder.name"
       name="name"
       label="Name"
+      :required="submitted"
     />
 
     <PMColorPicker

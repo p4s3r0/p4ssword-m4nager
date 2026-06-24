@@ -18,6 +18,7 @@ const router = useRouter();
 
 const username = ref("");
 const password = ref("");
+const submitted = ref(false);
 
 function redoOnboarding() {
   DBL_onboardingOn().then((_) => {
@@ -27,6 +28,11 @@ function redoOnboarding() {
 }
 
 function loginUser() {
+  submitted.value = true;
+  if (!username.value || !password.value) {
+    toast.error("Please fill in all required fields");
+    return;
+  }
   API.post("users/sign_in", {
       user: {
         username: username.value,
@@ -35,18 +41,25 @@ function loginUser() {
     }).then(async (response) => {
     const user = response.data.user;
 
-    localStorage.setItem("username", user.username);
-    const authenticationObject = await biometricRegister(username.value);
+    let authenticationObject;
+    try {
+      localStorage.setItem("username", user.username);
+      authenticationObject = await biometricRegister(username.value);
+    } catch (error) {
+      toast.error("Biometric Authentication failed. Please try again.");
+      return;
+    }
+
     localStorage.setItem("authentication-id", authenticationObject.id);
     const success = await userStore.loginUser(authenticationObject.id, user.username, password.value);
     if (success) {
       toast.success("Logged in!");
       router.push({ name: "home" });
     } else {
-      toast.error("OHOH!");
+      toast.error("Biometric Authentication failed. Please try again.");
     }
   }, () => {
-    toast.error("Error!");
+    toast.error("Something went wrong!");
   });
 }
 </script>
@@ -63,11 +76,13 @@ function loginUser() {
           v-model="username"
           label="Username"
           name="username"
+          :required="submitted"
         />
         <PMPasswordInput
           v-model="password"
           label="Password"
           name="password"
+          :required="submitted"
         />
       </div>
     </div>

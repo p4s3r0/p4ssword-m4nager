@@ -5,4 +5,8 @@
   width: 100%;
   height: 50px;
   border-radius: var(--border-radius-3);
+
+  &.p-invalid {
+    border-color: var(--color-red) !important;
+  }
 }

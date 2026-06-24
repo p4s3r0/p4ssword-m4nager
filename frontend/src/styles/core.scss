@@ -3,7 +3,7 @@
 @import "primeicons/primeicons.css";
 
 :root {
-  --surface-0: #E1E1E1;
+  --surface-0: #F0F0F0;
   --surface-100: #FFFFFF;
   --surface-200: #C1C1C1;
   --surface-800: #2B2B2B;
@@ -35,6 +35,17 @@
   font-style: normal;
   scrollbar-width: none;
 }
+
+/* Dark Mode*/
+.dark {
+  --surface-0:   #121212;
+  --surface-100: #1A1A1A;
+  --surface-200: #242424;
+
+  --surface-800: #B3B3B3;
+  --surface-900: #F5F5F5;
+}
+
 
 h1 {
   margin: 0;

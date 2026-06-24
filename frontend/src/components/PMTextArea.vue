@@ -7,6 +7,10 @@ const props = defineProps({
   name: {
     type: String,
     default: undefined
+  },
+  required: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -20,12 +24,23 @@ const model = defineModel({ type: String, default: "" });
       v-model="model"
       rows="2"
       style="resize: none"
+      :class="{ 'p-invalid': props.required && !model }"
     />
-    <label :for="props.name">{{ props.label }}</label>
+    <label :for="props.name">
+      {{ props.label }}
+      <span
+        v-if="props.required"
+        class="required"
+      >*</span>
+    </label>
   </FloatLabel>
 </template>
 
 <style scoped>
+.required {
+  color: var(--color-red);
+}
+
 label {
   top: 50% !important;
   transform: translateY(-50%) !important;

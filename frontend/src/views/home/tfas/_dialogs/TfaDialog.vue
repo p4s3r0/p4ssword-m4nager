@@ -18,6 +18,7 @@ const initialTfa = { ...dialogRef?.value?.data?.tfa };
 initialTfa.secret = initialTfa.enc_secret ? DECRYPT(initialTfa.enc_secret) : "";
 
 const tfa = ref({ ...initialTfa });
+const submitted = ref(false);
 
 const isChanged = computed(() => {
   return (
@@ -27,6 +28,12 @@ const isChanged = computed(() => {
 });
 
 function updateTfa() {
+  submitted.value = true;
+  if (!tfa.value.name) {
+    toast.error("Name is required");
+    return;
+  }
+
   API.put(`tfas/${tfa.value.id}`, {
     tfa: {
       name: tfa.value.name,
@@ -65,6 +72,7 @@ function deleteTfa() {
       v-model="tfa.name"
       label="Name"
       name="name"
+      :required="submitted"
     />
     <PMTextInput
       v-model="tfa.secret"

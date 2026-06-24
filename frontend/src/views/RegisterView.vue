@@ -13,8 +13,14 @@ const toast = useToast();
 const username = ref("");
 const email = ref("");
 const password = ref("");
+const submitted = ref(false);
 
 function clickRegisterUser() {
+  submitted.value = true;
+  if (!email.value || !username.value || !password.value) {
+    toast.error("Please fill in all required fields");
+    return;
+  }
   API.post("users", {
     user: {
       email: email.value,
@@ -52,16 +58,19 @@ function clickRegisterUser() {
           v-model="email"
           label="Email"
           name="email"
+          :required="submitted"
         />
         <PMTextInput
           v-model="username"
           label="Username"
           name="username"
+          :required="submitted"
         />
         <PMPasswordInput
           v-model="password"
           label="Password"
           name="password"
+          :required="submitted"
         />
       </div>
     </div>

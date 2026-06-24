@@ -26,18 +26,6 @@ const toast_options = {
   timeout: 1500,
 };
 
-export function browserIsSafari() {
-  return (
-    /constructor/i.test(window.HTMLElement) ||
-    (function (p) {
-      return p.toString() === "[object SafariRemoteNotification]";
-    })(
-      !window["safari"] ||
-        (typeof safari !== "undefined" && window["safari"].pushNotification)
-    )
-  );
-}
-
 import { DialogService } from "primevue";
 import Button from "primevue/button";
 import FloatLabel from "primevue/floatlabel";

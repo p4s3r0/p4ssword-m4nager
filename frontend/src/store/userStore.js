@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { biometricDecrypt, biometricEncrypt, biometricRegister } from "@/plugins/biometric_authentication";
+import { biometricDecrypt, biometricEncrypt } from "@/plugins/biometric_authentication";
 
 export const useUserStore = defineStore('userStore', {
   state: () => ({

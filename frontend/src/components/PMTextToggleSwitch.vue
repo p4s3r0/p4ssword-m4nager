@@ -3,12 +3,17 @@ const props = defineProps({
   text: {
     type: String,
     required: true
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   }
 });
 
 const model = defineModel({ type: Boolean, default: false });
 
 const toggle = () => {
+  if (props.disabled) return;
   model.value = !model.value;
 };
 </script>
@@ -16,6 +21,7 @@ const toggle = () => {
 <template>
   <div
     class="pm-text-toggle-switch"
+    :class="{ 'disabled': props.disabled }"
     @click="toggle"
   >
     <div
@@ -48,6 +54,12 @@ const toggle = () => {
   gap: var(--gap-2);
   border: 1px solid var(--surface-200);
   width: 100%;
+}
+
+.pm-text-toggle-switch.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
 }
 
 .text-container {

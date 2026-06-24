@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, nextTick } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/store/userStore";
 import { useToast } from "vue-toastification";
@@ -10,16 +10,21 @@ const userStore = useUserStore();
 const toast = useToast();
 
 const username = ref(localStorage.getItem("username") || "");
+if (localStorage.getItem("theme") === "dark") {
+  document.documentElement.classList.add("dark");
+}
 
 async function login() {
   const success = await userStore.setUser();
   if (success) {
     toast.success("Welcome back, " + username.value + "!");
-    router.push({ name: "home" });
+    await nextTick();
+    await router.push({ name: "home" });
   } else {
     toast.error("Authentication failed. Please login manually.");
     userStore.removeUser();
-    router.push({ name: "login" });
+    await nextTick();
+    await router.push({ name: "login" });
   }
 }
 
@@ -28,6 +33,11 @@ onMounted(() => {
     router.push({ name: "login" });
   }
 });
+
+async function standardLogin() {
+  userStore.removeUser();
+  await router.push({ name: 'login' });
+}
 </script>
 
 <template>
@@ -42,7 +52,7 @@ onMounted(() => {
       />
     </div>
     <div class="footer">
-      <a @click="userStore.removeUser(); router.push({ name: 'login' })">Login as another user</a>
+      <a @click="standardLogin()">Login as another user</a>
     </div>
   </div>
 </template>

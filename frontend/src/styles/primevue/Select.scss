@@ -13,6 +13,10 @@
     align-items: center;
     color: var(--surface-900) !important;
   }
+
+  &.p-invalid {
+    border-color: var(--color-red) !important;
+  }
 }
 
 .p-select-overlay {

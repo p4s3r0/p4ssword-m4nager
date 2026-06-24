@@ -37,16 +37,17 @@ async function openPasswordView() {
   emit('openPasswordModal');
 }
 
-watch(() => props.encPassword, (newVal) => {
-  password_saved.value = DECRYPT(newVal);
-});
+watch(() => props.password, (newVal) => {
+  if (newVal) {
+    username_saved.value = DECRYPT(newVal.username);
+    password_saved.value = DECRYPT(newVal.enc_password);
+  }
+}, { deep: true });
 
-watch(() => props.username, async (newVal) => {
-  username_saved.value = DECRYPT(newVal);
-});
-
-username_saved.value = DECRYPT(props.password.username);
-password_saved.value = DECRYPT(props.password.enc_password);
+if (props.password) {
+  username_saved.value = DECRYPT(props.password.username);
+  password_saved.value = DECRYPT(props.password.enc_password);
+}
 </script>
 
 <template>

@@ -1,11 +1,23 @@
 <script setup>
 import PMTextInput from "@/components/PMTextInput.vue";
-import { inject } from "vue";
+import { inject, ref } from "vue";
 import PMColorPicker from "@/components/PMColorPicker.vue";
 import PMTextButton from "@/components/PMTextButton.vue";
+import { useToast } from "vue-toastification";
 
 const dialogRef = inject("dialogRef");
-const folder = dialogRef?.value?.data?.folder;
+const toast = useToast();
+const folder = ref({ ...dialogRef?.value?.data?.folder });
+const submitted = ref(false);
+
+function confirm() {
+  submitted.value = true;
+  if (!folder.value.name) {
+    toast.error("Name is required");
+    return;
+  }
+  dialogRef.value.close({ edit: folder.value });
+}
 </script>
 
 <template>
@@ -14,6 +26,7 @@ const folder = dialogRef?.value?.data?.folder;
       v-model="folder.name"
       name="name"
       label="Name"
+      :required="submitted"
     />
 
     <PMColorPicker
@@ -30,7 +43,7 @@ const folder = dialogRef?.value?.data?.folder;
 
       <PMTextButton
         text="Confirm"
-        @click="dialogRef.close({ edit: folder})"
+        @click="confirm"
       />
     </div>
   </div>
