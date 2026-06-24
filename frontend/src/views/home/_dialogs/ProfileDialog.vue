@@ -49,7 +49,6 @@ watch(theme, (newVal, oldVal) => {
 </script>
 
 <template>
-  {{ disableThemeSwitcher }}
   <div class="profile-dialog">
     <p class="version">
       Version: {{ APP_VERSION }}

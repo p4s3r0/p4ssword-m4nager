@@ -21,7 +21,7 @@ const model = defineModel({ type: Boolean, default: false });
 
 <style scoped>
 .toggle-button {
-  border: 1px dashed var(--surface-900);
+  border: 1px dashed var(--surface-700);
   padding: var(--gap-2);
   border-radius: 99999px;
   width: 50px;

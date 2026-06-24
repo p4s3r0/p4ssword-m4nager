@@ -111,7 +111,7 @@ function getOptionValue(option) {
 .pm-select-button {
   position: relative;
   display: flex;
-  border: 1px dashed var(--surface-900);
+  border: 1px dashed var(--surface-700);
   padding: var(--gap-1);
   border-radius: var(--border-radius-4);
   width: fit-content;
