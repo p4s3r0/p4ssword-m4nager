@@ -1,3 +1,6 @@
+.p-toast {
+  width: 100%;
+
 .p-toast-message {
   background-color: var(--surface-900) !important;
   border-color: var(--surface-800) !important;
@@ -8,7 +11,7 @@
   gap: var(--gap-2);
   justify-content: space-between;
   max-width: 70%;
-  justify-self: end;
+  margin-left: auto;
 
   .close-icon {
     color: var(--surface-0) !important;
@@ -55,4 +58,5 @@
     width: 1px;
     background-color: var(--surface-800);
   }
+}
 }
