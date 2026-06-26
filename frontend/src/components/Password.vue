@@ -1,5 +1,6 @@
 <script setup>
-import { useToast } from "vue-toastification";
+import { useToast } from "primevue/usetoast";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 import SymbolIcon from './SymbolIcon.vue';
 import { ref, watch } from "vue";
 import { DECRYPT } from "@/plugins/encryption";
@@ -24,12 +25,22 @@ const password_saved = ref('INIT');
 
 async function copyUsername() {
   navigator.clipboard.writeText(username_saved.value);
-  toast.info("Copied Username to Clipboard!");
+  toast.add({
+    severity: "info",
+    summary: "Info",
+    detail: "Copied Username to Clipboard!",
+    life: TOAST_LIFESPAN
+  });
 }
 
 async function copyPassword() {
   navigator.clipboard.writeText(password_saved.value);
-  toast.info("Copied to Clipboard!");
+  toast.add({
+    severity: "info",
+    summary: "Info",
+    detail: "Copied to Clipboard!",
+    life: TOAST_LIFESPAN
+  });
 }
 
 async function openPasswordView() {

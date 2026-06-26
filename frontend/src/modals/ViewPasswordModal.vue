@@ -1,6 +1,7 @@
 <script setup>
 import DeleteConfirmationModal from "@/modals/DeleteConfirmationModal.vue";
-import { useToast } from "vue-toastification";
+import { useToast } from "primevue/usetoast";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 import { ref } from "vue";
 import API from "@/plugins/axios";
 import { useTempStore } from "@/store/tempStore";
@@ -40,7 +41,12 @@ function edit() {
     note: password.value.note,
     starred: password.value.starred,
   }).then(() => {
-    toast.success("Password edited!");
+    toast.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Password edited!",
+      life: TOAST_LIFESPAN
+    });
     emit("closeModalReload");
   });
 }

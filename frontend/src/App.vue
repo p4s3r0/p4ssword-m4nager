@@ -1,4 +1,7 @@
 <script setup>
+import { useUserStore } from "@/store/userStore";
+
+const userStore = useUserStore();
 </script>
 
 <template>
@@ -11,6 +14,18 @@
     </transition>
   </router-view>
   <DynamicDialog />
+  <Toast>
+    <template #container="{ message, closeCallback }">
+      <div class="toast-container">
+        <div class="type-indicator" />
+        {{ message.detail }}
+      </div>
+      <i
+        class="pi pi-times close-icon"
+        @click="closeCallback"
+      />
+    </template>
+  </Toast>
 </template>
 
 <style>

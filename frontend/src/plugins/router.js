@@ -1,12 +1,12 @@
 import Login from "@/views/LoginView.vue";
 import PasskeyLogin from "@/views/PasskeyLoginView.vue";
 import * as VueRouter from "vue-router";
-import { useToast } from "vue-toastification";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 import { useUserStore } from "@/store/userStore";
 import { DBL_getOnboarding } from "@/dexie";
 import { biometricDecrypt } from "@/plugins/biometric_authentication";
 
-const toast = useToast();
+// const toast = useToast();
 
 export const routes = [
   {
@@ -110,7 +110,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if (!["login", "register", "onboarding", "passkey-login"].includes(to.name) && !userStore.isLoggedIn) {
-    toast.error("Login Before Proceeding");
+    // toast.error("Login Before Proceeding");
     next({ name: "login" });
   } else if (to.name === "onboarding" && !onboarding) {
     next({ name: "login" });

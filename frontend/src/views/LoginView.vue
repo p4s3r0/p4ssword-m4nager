@@ -1,7 +1,8 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useToast } from "vue-toastification";
+import { useToast } from "primevue/usetoast";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 import { DBL_onboardingOn } from "@/dexie";
 import BigButtonRegisterSignin from "@/components/BigButtonRegisterSignin.vue";
 import API from "@/plugins/axios";
@@ -30,7 +31,12 @@ function redoOnboarding() {
 function loginUser() {
   submitted.value = true;
   if (!username.value || !password.value) {
-    toast.error("Please fill in all required fields");
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "Please fill in all required fields",
+      life: TOAST_LIFESPAN
+    });
     return;
   }
   API.post("users/sign_in", {
@@ -46,20 +52,40 @@ function loginUser() {
       localStorage.setItem("username", user.username);
       authenticationObject = await biometricRegister(username.value);
     } catch (error) {
-      toast.error("Biometric Authentication failed. Please try again.");
+      toast.add({
+        severity: "error",
+        summary: "Error",
+        detail: "Biometric Authentication failed. Please try again.",
+        life: TOAST_LIFESPAN
+      });
       return;
     }
 
     localStorage.setItem("authentication-id", authenticationObject.id);
-    const success = await userStore.loginUser(authenticationObject.id, user.username, password.value);
+    const success = await userStore.loginUser(authenticationObject.id, user.username, password.value, user.session_token);
     if (success) {
-      toast.success("Logged in!");
+      toast.add({
+        severity: "success",
+        summary: "Success",
+        detail: "Logged in!",
+        life: TOAST_LIFESPAN
+      });
       router.push({ name: "home" });
     } else {
-      toast.error("Biometric Authentication failed. Please try again.");
+      toast.add({
+        severity: "error",
+        summary: "Error",
+        detail: "Biometric Authentication failed. Please try again.",
+        life: TOAST_LIFESPAN
+      });
     }
   }, () => {
-    toast.error("Something went wrong!");
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "Something went wrong!",
+      life: TOAST_LIFESPAN
+    });
   });
 }
 </script>
@@ -76,13 +102,15 @@ function loginUser() {
           v-model="username"
           label="Username"
           name="username"
-          :required="submitted"
+          required
+          :submitted="submitted"
         />
         <PMPasswordInput
           v-model="password"
           label="Password"
           name="password"
-          :required="submitted"
+          required
+          :submitted="submitted"
         />
       </div>
     </div>

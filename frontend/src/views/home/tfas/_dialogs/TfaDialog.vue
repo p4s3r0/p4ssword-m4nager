@@ -6,7 +6,8 @@ import PMIconButton from "@/components/PMIconButton.vue";
 import PMTextButton from "@/components/PMTextButton.vue";
 import API from "@/plugins/axios";
 import { useDialog } from "primevue";
-import { useToast } from "vue-toastification";
+import { useToast } from "primevue/usetoast";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 import DeleteConfirmationDialog from "@/dialogs/DeleteConfirmationDialog.vue";
 import { DIALOG_DEFAULT_PROPS } from "@/helper/constants";
 
@@ -30,7 +31,12 @@ const isChanged = computed(() => {
 function updateTfa() {
   submitted.value = true;
   if (!tfa.value.name) {
-    toast.error("Name is required");
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "Name is required",
+      life: TOAST_LIFESPAN
+    });
     return;
   }
 
@@ -40,7 +46,12 @@ function updateTfa() {
       enc_secret: ENCRYPT(tfa.value.secret),
     },
   }).then(() => {
-    toast.success("TFA updated!");
+    toast.add({
+      severity: "success",
+      summary: "Success",
+      detail: "TFA updated!",
+      life: TOAST_LIFESPAN
+    });
     dialogRef.value.close({ reload: true });
   });
 }
@@ -57,7 +68,12 @@ function deleteTfa() {
     onClose: (opt) => {
       if (opt?.data?.confirmed) {
         API.delete(`tfas/${tfa.value.id}`).then(() => {
-          toast.success("TFA deleted!");
+          toast.add({
+            severity: "success",
+            summary: "Success",
+            detail: "TFA deleted!",
+            life: TOAST_LIFESPAN
+          });
           dialogRef.value.close({ reload: true });
         });
       }
@@ -72,7 +88,8 @@ function deleteTfa() {
       v-model="tfa.name"
       label="Name"
       name="name"
-      :required="submitted"
+      required
+      :submitted="submitted"
     />
     <PMTextInput
       v-model="tfa.secret"

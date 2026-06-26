@@ -1,6 +1,7 @@
 
 <script setup>
-import { useToast } from "vue-toastification";
+import { useToast } from "primevue/usetoast";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 
 const props = defineProps({
   code: {
@@ -14,7 +15,12 @@ const toast = useToast();
 
 async function copyOtp() {
   navigator.clipboard.writeText(props.code);
-  toast.info("OTP Code copied to Clipboard");
+  toast.add({
+    severity: "info",
+    summary: "Info",
+    detail: "OTP Code copied to Clipboard",
+    life: TOAST_LIFESPAN
+  });
 }
 </script>
 

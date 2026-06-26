@@ -10,3 +10,5 @@ export const DIALOG_DEFAULT_PROPS = {
     "960px": "900px"
   }
 };
+
+export const TOAST_LIFESPAN = 2000;

@@ -2,7 +2,8 @@
 import { ref } from "vue";
 import BigButtonRegisterSignin from '@/components/BigButtonRegisterSignin.vue';
 
-import { useToast } from "vue-toastification";
+import { useToast } from "primevue/usetoast";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 import { useRouter } from "vue-router";
 import API from "@/plugins/axios";
 import PMTextInput from "@/components/PMTextInput.vue";
@@ -18,7 +19,12 @@ const submitted = ref(false);
 function clickRegisterUser() {
   submitted.value = true;
   if (!email.value || !username.value || !password.value) {
-    toast.error("Please fill in all required fields");
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "Please fill in all required fields",
+      life: TOAST_LIFESPAN
+    });
     return;
   }
   API.post("users", {
@@ -37,11 +43,21 @@ function clickRegisterUser() {
       document.cookie = cookie;
     }
 
-    toast.success("User Registered!");
+    toast.add({
+      severity: "success",
+      summary: "Success",
+      detail: "User Registered!",
+      life: TOAST_LIFESPAN
+    });
     router.push("/");
     return user;
   }, () => {
-    toast.error("Error!");
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "Error!",
+      life: TOAST_LIFESPAN
+    });
   });
 }
 </script>
@@ -58,19 +74,22 @@ function clickRegisterUser() {
           v-model="email"
           label="Email"
           name="email"
-          :required="submitted"
+          required
+          :submitted="submitted"
         />
         <PMTextInput
           v-model="username"
           label="Username"
           name="username"
-          :required="submitted"
+          required
+          :submitted="submitted"
         />
         <PMPasswordInput
           v-model="password"
           label="Password"
           name="password"
-          :required="submitted"
+          required
+          :submitted="submitted"
         />
       </div>
     </div>

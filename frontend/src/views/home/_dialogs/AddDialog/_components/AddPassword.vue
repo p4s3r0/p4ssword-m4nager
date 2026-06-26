@@ -9,7 +9,8 @@ import PMTextArea from "@/components/PMTextArea.vue";
 import PMToggleButton from "@/components/PMToggleButton.vue";
 import PMTextButton from "@/components/PMTextButton.vue";
 import { ENCRYPT } from "@/plugins/encryption";
-import { useToast } from "vue-toastification";
+import { useToast } from "primevue/usetoast";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 import { useDialog } from "primevue";
 import GeneratePasswordDialog from "@/views/home/_dialogs/AddDialog/GeneratePasswordDialog.vue";
 import { DIALOG_DEFAULT_PROPS } from "@/helper/constants";
@@ -30,7 +31,12 @@ API.get("folders").then((response) => {
 function addPassword() {
   submitted.value = true;
   if (!password.value.name) {
-    toast.error("Name is required");
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "Name is required",
+      life: TOAST_LIFESPAN
+    });
     return;
   }
 
@@ -44,7 +50,12 @@ function addPassword() {
       starred: password.value.starred,
     }
   }).then(() => {
-    toast.success("Password added!");
+    toast.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Password added!",
+      life: TOAST_LIFESPAN
+    });
     emit("close-reload");
   });
 }
@@ -70,7 +81,8 @@ function generatePassword() {
       v-model="password.name"
       name="name"
       label="Name"
-      :required="submitted"
+      required
+      :submitted="submitted"
     />
     <PMTextInput
       v-model="password.username"
@@ -96,6 +108,7 @@ function generatePassword() {
       option-label="name"
       option-value="id"
       placeholder="Folder"
+      label="Folder"
     />
 
     <PMTextArea

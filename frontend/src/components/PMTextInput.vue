@@ -15,6 +15,10 @@ const props = defineProps({
   required: {
     type: Boolean,
     default: false
+  },
+  submitted: {
+    type: Boolean,
+    default: false
   }
 });
 const model = defineModel({ type: String, default: "" });
@@ -28,13 +32,14 @@ const model = defineModel({ type: String, default: "" });
         v-model="model"
         :placeholder="props.placeholder"
         type="text"
-        :class="{ 'p-invalid': props.required && !model }"
+        :class="{ 'p-invalid': props.required && props.submitted && !model}"
       />
       <label :for="props.name">
         {{ props.label }}
         <span
           v-if="props.required"
           class="required"
+          :class="{ 'invalid': props.submitted && !model }"
         >*</span>
       </label>
     </FloatLabel>
@@ -46,7 +51,11 @@ const model = defineModel({ type: String, default: "" });
   width: 100%;
 
   .required {
-    color: var(--color-red);
+    color: var(--surface-900);
+
+    &.invalid {
+      color: var(--color-red);
+    }
   }
 }
 </style>

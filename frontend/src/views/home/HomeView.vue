@@ -18,6 +18,13 @@ import Navigation from "@/views/home/_components/Navigation.vue";
 const router = useRouter();
 const route = useRoute();
 
+const transitionName = ref("slide-right");
+const routeOrder = {
+  "home.folders": 0,
+  "home.passwords": 1,
+  "home.tfas": 2,
+};
+
 const fold_pass_selector = ref(route.name);
 const folders = ref([]);
 const passwords = ref([]);
@@ -27,6 +34,16 @@ const searchQuery = ref("");
 const allFolders = ref([]);
 const allPasswords = ref([]);
 const allTfas = ref([]);
+
+watch(() => route.name, (to, from) => {
+    fold_pass_selector.value = to;
+
+    if (from) {
+      transitionName.value = routeOrder[to] > routeOrder[from] ? "slide-right" : "slide-left";
+    }
+  },
+  { immediate: true }
+);
 
 const userStore = useUserStore();
 API.get("users/get_theme").then((response) => {
@@ -106,12 +123,20 @@ watch(fold_pass_selector, () => {
     </div>
 
     <div class="sub-view-container">
-      <router-view
-        :passwords="passwords"
-        :folders="folders"
-        :tfas="twoFactors"
-        @reload="reloadData"
-      />
+      <router-view v-slot="{ Component }">
+        <transition
+          :name="transitionName"
+        >
+          <component
+            :is="Component"
+            :key="route.name"
+            :passwords="passwords"
+            :folders="folders"
+            :tfas="twoFactors"
+            @reload="reloadData"
+          />
+        </transition>
+      </router-view>
     </div>
   </div>
 </template>
@@ -130,28 +155,6 @@ watch(fold_pass_selector, () => {
     justify-content: center;
   }
 
-  #wrapperl {
-    max-width: 700px;
-    margin-left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    margin-top: -10px;
-  }
-
-  #posHello {
-    position: relative;
-    margin-left: 5%;
-  }
-
-  #menuButton {
-    position: absolute;
-    top: 50px;
-    right: 20px;
-    background-color: var(--surface-0);
-    border: none;
-    cursor: pointer;
-  }
-
   .show-folders-or-passwords {
     display: flex;
     width: 100%;
@@ -161,66 +164,54 @@ watch(fold_pass_selector, () => {
     justify-content: space-between;
 
   }
+}
 
-  #posFolders {
-    margin-top: 40px;
-    width: 90%;
-    max-width: 1000px;
-  }
+.sub-view-container {
+  display: grid;
+  grid-template-columns: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  min-height: 400px;
 
-  #rightTopButton {
-    display: flex;
-    justify-content: right;
-  }
-
-  .selectorIcon {
-    cursor: pointer;
-    margin-right: 20px;
-  }
-
-  .IconActive {
-    border-bottom: 1px solid white;
-  }
-
-  #addIcon {
-    justify-content: left;
-    margin-left: 20px;
-  }
-
-
-
-  /* HTML: <div class="loader"></div> */
-  .loader {
-    width: 20px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 0 0 0 #fff4;
-    animation: l2 1.5s infinite linear;
-    position: relative;
-    margin-left: 48%;
-    margin-top: 200px;
-  }
-  .loader:before,
-  .loader:after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    box-shadow: 0 0 0 0 #fff4;
-    animation: inherit;
-    animation-delay: -0.5s;
-  }
-  .loader:after {
-    animation-delay: -1s;
-  }
-
-  /* LOADER ENDE */
-
-  .leftIcon {
-    margin-left: 15px;
+  & > * {
+    grid-area: 1 / 1;
   }
 }
 
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+  transition: all 0.3s ease-out;
+}
 
+.slide-right-enter-active,
+.slide-left-enter-active {
+  z-index: 2;
+}
+
+.slide-right-leave-active,
+.slide-left-leave-active {
+  z-index: 1;
+}
+
+.slide-right-enter-from {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.slide-left-enter-from {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.slide-left-leave-to {
+  opacity: 0;
+  transform: translateX(100%);
+}
 </style>

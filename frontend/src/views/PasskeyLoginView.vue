@@ -2,7 +2,8 @@
 import { ref, onMounted, nextTick } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/store/userStore";
-import { useToast } from "vue-toastification";
+import { useToast } from "primevue/usetoast";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 import BigButtonRegisterSignin from "@/components/BigButtonRegisterSignin.vue";
 
 const router = useRouter();
@@ -17,11 +18,21 @@ if (localStorage.getItem("theme") === "dark") {
 async function login() {
   const success = await userStore.setUser();
   if (success) {
-    toast.success("Welcome back, " + username.value + "!");
+    toast.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Welcome back, " + username.value + "!",
+      life: TOAST_LIFESPAN
+    });
     await nextTick();
     await router.push({ name: "home" });
   } else {
-    toast.error("Authentication failed. Please login manually.");
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "Authentication failed. Please login manually.",
+      life: TOAST_LIFESPAN
+    });
     userStore.removeUser();
     await nextTick();
     await router.push({ name: "login" });

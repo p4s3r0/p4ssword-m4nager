@@ -1,5 +1,5 @@
 <script setup>
-import { inject, ref } from "vue";
+import { inject, ref, watch } from "vue";
 import PMSelectButton from "@/components/PMSelectButton.vue";
 import AddPassword from "@/views/home/_dialogs/AddDialog/_components/AddPassword.vue";
 import AddFolder from "@/views/home/_dialogs/AddDialog/_components/AddFolder.vue";
@@ -12,6 +12,11 @@ const addOptions = [
   { value: "tfa", icon: "pi-ticket", label: "TFA" }
 ];
 const addOption = ref("password");
+
+watch(addOption, (val) => {
+  const option = addOptions.find((opt) => opt.value === val);
+  dialogRef.value.options.props.header = `Add ${option.label}`;
+}, { immediate: true });
 </script>
 
 <template>
@@ -23,18 +28,23 @@ const addOption = ref("password");
       />
     </div>
     <div class="add-container">
-      <AddPassword
-        v-if="addOption === 'password'"
-        @close-reload="dialogRef?.close({ reload: true })"
-      />
-      <AddFolder
-        v-if="addOption === 'folder'"
-        @close-reload="dialogRef?.close({ reload: true })"
-      />
-      <AddTfa
-        v-if="addOption === 'tfa'"
-        @close-reload="dialogRef?.close({ reload: true })"
-      />
+      <Transition
+        name="fade"
+        mode="out-in"
+      >
+        <AddPassword
+          v-if="addOption === 'password'"
+          @close-reload="dialogRef?.close({ reload: true })"
+        />
+        <AddFolder
+          v-else-if="addOption === 'folder'"
+          @close-reload="dialogRef?.close({ reload: true })"
+        />
+        <AddTfa
+          v-else-if="addOption === 'tfa'"
+          @close-reload="dialogRef?.close({ reload: true })"
+        />
+      </Transition>
     </div>
   </div>
 </template>

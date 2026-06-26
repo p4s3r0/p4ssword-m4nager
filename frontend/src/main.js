@@ -1,10 +1,7 @@
 import { createApp } from "vue";
 import { createPinia } from 'pinia';
 import VueCryptojs from "vue-cryptojs";
-import "vue-toastification/dist/index.css";
-import Toast, { POSITION } from "vue-toastification";
 import "@/styles/core.scss";
-import "@/assets/toasts.css";
 import App from "./App.vue";
 import data from "../package.json";
 import "./registerServiceWorker";
@@ -12,19 +9,13 @@ import PrimeVue from "primevue/config";
 import Aura from "@primevue/themes/aura";
 import "primeicons/primeicons.css";
 import "./styles/core.scss";
+import ToastService from 'primevue/toastservice';
 
 const pinia = createPinia();
 
 import { router } from "@/plugins/router";
 
 export const APP_VERSION = data.version;
-
-
-const toast_options = {
-  maxToasts: 3,
-  position: POSITION.TOP_RIGHT,
-  timeout: 1500,
-};
 
 import { DialogService } from "primevue";
 import Button from "primevue/button";
@@ -39,6 +30,7 @@ import FileUpload from "primevue/fileupload";
 import DynamicDialog from "primevue/dynamicdialog";
 import SelectButton from "primevue/selectbutton";
 import TextArea from "primevue/textarea";
+import Toast from 'primevue/toast';
 
 const app = createApp(App);
 // eslint-disable-next-line vue/no-reserved-component-names
@@ -55,13 +47,14 @@ app.component("FileUpload", FileUpload);
 app.component("DynamicDialog", DynamicDialog);
 app.component("SelectButton", SelectButton);
 app.component("TextArea", TextArea);
+app.component("Toast", Toast);
 
 app
   .use(pinia)
   .use(router)
   .use(VueCryptojs)
-  .use(Toast, toast_options)
   .use(DialogService)
+  .use(ToastService)
   .use(PrimeVue, {
     theme: {
       preset: Aura,

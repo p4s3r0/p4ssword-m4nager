@@ -23,7 +23,6 @@
     "vue-cryptojs": "^2.4.5",
     "vue-loader": "^17.4.2",
     "vue-router": "^4.3.2",
-    "vue-toastification": "^2.0.0-rc.5",
     "webpack": "^5.97.1"
   },
   "devDependencies": {

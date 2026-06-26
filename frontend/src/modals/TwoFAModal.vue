@@ -1,7 +1,8 @@
 <script setup>
 import { ref } from "vue";
 import DeleteConfirmationModal from "@/modals/DeleteConfirmationModal.vue";
-import { useToast } from "vue-toastification";
+import { useToast } from "primevue/usetoast";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 import { useTempStore } from "@/store/tempStore";
 import { DECRYPT, ENCRYPT } from "@/plugins/encryption";
 import API from "@/plugins/axios";
@@ -21,7 +22,12 @@ const showConfirmationModal = ref(false);
 
 function delete2FA() {
   API.delete(`tfas/${tempStore.tfa.id}`).then(() => {
-    toast.success("2FA deleted!");
+    toast.add({
+      severity: "success",
+      summary: "Success",
+      detail: "2FA deleted!",
+      life: TOAST_LIFESPAN
+    });
     emit("closeModalReload");
   });
 }
@@ -34,7 +40,12 @@ function edit() {
     name: tfa.value.name,
     enc_secret: ENCRYPT(tfa.value.secret),
   }).then(() => {
-    toast.success("2FA edited!");
+    toast.add({
+      severity: "success",
+      summary: "Success",
+      detail: "2FA edited!",
+      life: TOAST_LIFESPAN
+    });
     emit("closeModalReload");
   });
 }

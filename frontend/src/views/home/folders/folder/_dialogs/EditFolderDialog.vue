@@ -3,7 +3,8 @@ import PMTextInput from "@/components/PMTextInput.vue";
 import { inject, ref } from "vue";
 import PMColorPicker from "@/components/PMColorPicker.vue";
 import PMTextButton from "@/components/PMTextButton.vue";
-import { useToast } from "vue-toastification";
+import { useToast } from "primevue/usetoast";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 
 const dialogRef = inject("dialogRef");
 const toast = useToast();
@@ -13,7 +14,12 @@ const submitted = ref(false);
 function confirm() {
   submitted.value = true;
   if (!folder.value.name) {
-    toast.error("Name is required");
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "Name is required",
+      life: TOAST_LIFESPAN
+    });
     return;
   }
   dialogRef.value.close({ edit: folder.value });
@@ -26,7 +32,8 @@ function confirm() {
       v-model="folder.name"
       name="name"
       label="Name"
-      :required="submitted"
+      required
+      :submitted="submitted"
     />
 
     <PMColorPicker

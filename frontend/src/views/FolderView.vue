@@ -1,6 +1,7 @@
 <script setup>
 import { rankPasswordsAlphabetically } from "@/scripts/search";
-import { useToast } from "vue-toastification";
+import { useToast } from "primevue/usetoast";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import Password from "@/components/Password.vue";
@@ -24,7 +25,12 @@ reloadData();
 
 function deleteFolder() {
   API.delete(`folders/${tempStore.folder.id}`).then(() => {
-    toast.success("Folder deleted!");
+    toast.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Folder deleted!",
+      life: TOAST_LIFESPAN
+    });
     router.push({ name: "home" });
   });
 }

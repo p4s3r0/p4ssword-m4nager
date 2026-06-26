@@ -21,10 +21,6 @@ const colorValue = computed({
 });
 
 const colorPickerInput = ref(null);
-
-function openColorPicker() {
-  colorPickerInput.value.click();
-}
 </script>
 
 <template>
@@ -33,7 +29,6 @@ function openColorPicker() {
       <div
         class="color-preview"
         :style="{ backgroundColor: colorValue }"
-        @click="openColorPicker"
       >
         <input
           ref="colorPickerInput"
@@ -72,12 +67,12 @@ function openColorPicker() {
 
       .hidden-color-input {
         position: absolute;
-        top: -10px;
-        left: -10px;
-        width: 1px;
-        height: 1px;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         opacity: 0;
-        pointer-events: none;
+        cursor: pointer;
       }
     }
 

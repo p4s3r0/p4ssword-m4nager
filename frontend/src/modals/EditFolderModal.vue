@@ -1,5 +1,6 @@
 <script setup>
-import { useToast } from "vue-toastification";
+import { useToast } from "primevue/usetoast";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useTempStore } from "@/store/tempStore";
@@ -25,7 +26,12 @@ function edit() {
     name: folder.value.name,
     color: folder.value.color,
   }).then(() => {
-    toast.success("Folder edited!");
+    toast.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Folder edited!",
+      life: TOAST_LIFESPAN
+    });
     emit('closeModal');
     router.push({ name: "home" });
   });

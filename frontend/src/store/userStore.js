@@ -1,10 +1,12 @@
 import { defineStore } from "pinia";
 import { biometricDecrypt, biometricEncrypt } from "@/plugins/biometric_authentication";
+import API from "@/plugins/axios";
 
 export const useUserStore = defineStore('userStore', {
   state: () => ({
     username: null,
     key: null,
+    sessionToken: null,
     initialized: false,
   }),
   getters: {
@@ -12,6 +14,7 @@ export const useUserStore = defineStore('userStore', {
       return {
         username: state.username,
         key: state.key,
+        sessionToken: state.sessionToken,
       };
     },
     isLoggedIn: (state) => {
@@ -19,15 +22,17 @@ export const useUserStore = defineStore('userStore', {
     }
   },
   actions: {
-    async loginUser(authenticationId, username, key) {
+    async loginUser(authenticationId, username, key, sessionToken) {
       try {
         this.username = username;
         this.key = import.meta.env.DEV ? "password" : key;
+        this.sessionToken = sessionToken;
         this.initialized = true;
 
         const encrypted = await biometricEncrypt(this.key, authenticationId);
         localStorage.setItem("key", encrypted.ciphertext);
         localStorage.setItem("iv", encrypted.iv);
+        localStorage.setItem("sessionToken", sessionToken);
         return true;
       } catch (error) {
         return false;
@@ -39,9 +44,14 @@ export const useUserStore = defineStore('userStore', {
         const authenticationId = localStorage.getItem("authentication-id");
         const username = localStorage.getItem("username");
         const iv = localStorage.getItem("iv");
+        const sessionToken = localStorage.getItem("sessionToken");
         const key = await biometricDecrypt(iv, encryptedKey, authenticationId);
+        
+        const response = await API.post("users/refresh", { username, session_token: sessionToken });
+
         this.username = username;
         this.key = import.meta.env.DEV ? "password" : key;
+        this.sessionToken = response.data.user.session_token;
         this.initialized = true;
         return true;
       } catch(error) {
@@ -51,12 +61,14 @@ export const useUserStore = defineStore('userStore', {
     removeUser() {
       this.username = null;
       this.key = null;
+      this.sessionToken = null;
       this.initialized = false;
       localStorage.removeItem("key");
       localStorage.removeItem("authentication-id");
       localStorage.removeItem("iv");
       localStorage.removeItem("prfSalt");
       localStorage.removeItem("username");
+      localStorage.removeItem("sessionToken");
     }
   },
 });

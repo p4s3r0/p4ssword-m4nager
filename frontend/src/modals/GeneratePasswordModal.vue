@@ -1,5 +1,6 @@
 <script setup>
-import { useToast } from "vue-toastification";
+import { useToast } from "primevue/usetoast";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 import { ref } from "vue";
 
 const emit = defineEmits(['closeModal']);
@@ -56,7 +57,12 @@ function generatePassword() {
 
 function copyToClipboard() {
   navigator.clipboard.writeText(password.value);
-  toast.info("Copied to Clipboard!");
+  toast.add({
+    severity: "info",
+    summary: "Info",
+    detail: "Copied to Clipboard!",
+    life: TOAST_LIFESPAN
+  });
 }
 </script>
 

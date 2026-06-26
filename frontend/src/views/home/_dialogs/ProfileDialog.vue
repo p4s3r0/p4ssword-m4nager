@@ -6,7 +6,8 @@ import { useUserStore } from "@/store/userStore";
 import { useRouter } from "vue-router";
 import { inject } from "vue";
 import PMTextToggleSwitch from "@/components/PMTextToggleSwitch.vue";
-import { useToast } from "vue-toastification";
+import { useToast } from "primevue/usetoast";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 
 const dialogRef = inject("dialogRef");
 
@@ -25,6 +26,27 @@ function logout() {
   });
 }
 
+function destroySessions() {
+  API.delete("users/destroy_all_sessions").then(() => {
+    userStore.removeUser();
+    dialogRef.value.close();
+    router.push({ name: "login" });
+    toast.add({
+      severity: "success",
+      summary: "Success",
+      detail: "All sessions have been destroyed.",
+      life: TOAST_LIFESPAN
+    });
+  }, () => {
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "Something went wrong!",
+      life: TOAST_LIFESPAN
+    });
+  });
+}
+
 watch(theme, (newVal, oldVal) => {
   disableThemeSwitcher.value = true;
   const currTheme = newVal ? "dark" : "light";
@@ -32,7 +54,12 @@ watch(theme, (newVal, oldVal) => {
   API.put("users/set_theme", { theme: currTheme }).then((response) => {
     theme.value = response.data === "dark";
   }, () => {
-    toast.error("Something went wrong!");
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "Something went wrong!",
+      life: TOAST_LIFESPAN
+    });
     theme.value = oldVal;
   }).finally(() => {
     disableThemeSwitcher.value = false;
@@ -69,9 +96,12 @@ watch(theme, (newVal, oldVal) => {
       Logout
     </div>
 
-    <div class="list-element ripple">
+    <div
+      class="list-element ripple"
+      @click="destroySessions()"
+    >
       <i class="pi pi-hourglass" />
-      Sessions
+      Destroy all Sessions
     </div>
 
     <div class="list-element ripple">

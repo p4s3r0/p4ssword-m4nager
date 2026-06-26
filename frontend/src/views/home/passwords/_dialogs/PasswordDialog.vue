@@ -12,7 +12,8 @@ import PMTextButton from "@/components/PMTextButton.vue";
 import { useDialog } from "primevue";
 import DeleteConfirmationDialog from "@/dialogs/DeleteConfirmationDialog.vue";
 import { DIALOG_DEFAULT_PROPS } from "@/helper/constants";
-import { useToast } from "vue-toastification";
+import { useToast } from "primevue/usetoast";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 
 const dialogRef = inject("dialogRef");
 const toast = useToast();
@@ -44,7 +45,12 @@ const isChanged = computed(() => {
 function updatePassword() {
   submitted.value = true;
   if (!password.value.name) {
-    toast.error("Name is required");
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "Name is required",
+      life: TOAST_LIFESPAN
+    });
     return;
   }
 
@@ -58,7 +64,12 @@ function updatePassword() {
       starred: password.value.starred,
     },
   }).then(() => {
-    toast.success("Password updated!");
+    toast.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Password updated!",
+      life: TOAST_LIFESPAN
+    });
     dialogRef.value.close({ reload: true });
   });
 }
@@ -75,7 +86,12 @@ function deletePassword() {
     onClose: (opt) => {
       if (opt?.data?.confirmed) {
         API.delete(`passwords/${password.value.id}`).then(() => {
-          toast.success("Password deleted!");
+          toast.add({
+            severity: "success",
+            summary: "Success",
+            detail: "Password deleted!",
+            life: TOAST_LIFESPAN
+          });
           dialogRef.value.close({ reload: true });
         });
       }
@@ -90,7 +106,8 @@ function deletePassword() {
       v-model="password.name"
       label="Name"
       name="name"
-      :required="submitted"
+      required
+      :submitted="submitted"
     />
 
     <PMTextInput
@@ -111,6 +128,7 @@ function deletePassword() {
       option-label="name"
       option-value="id"
       placeholder="Folder"
+      label="Folder"
     />
 
     <PMTextArea

@@ -121,9 +121,10 @@ function getOptionValue(option) {
   .active-bg {
     position: absolute;
     top: var(--gap-1);
-    left: 0; // Changed from var(--gap-1) to 0 because we use offsetLeft directly
+    left: 0;
     height: calc(100% - 2 * var(--gap-1));
     background-color: var(--surface-100);
+    border: 1px solid var(--surface-200);
     border-radius: var(--border-radius-4);
     transition: transform 0.2s ease, width 0.2s ease;
     z-index: 0;

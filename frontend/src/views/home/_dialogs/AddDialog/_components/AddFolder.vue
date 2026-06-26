@@ -5,7 +5,8 @@ import PMColorPicker from "@/components/PMColorPicker.vue";
 import API from "@/plugins/axios";
 import PMToggleButton from "@/components/PMToggleButton.vue";
 import PMTextButton from "@/components/PMTextButton.vue";
-import { useToast } from "vue-toastification";
+import { useToast } from "primevue/usetoast";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 
 const toast = useToast();
 
@@ -17,7 +18,12 @@ const emit = defineEmits(["close-reload"]);
 function addFolder() {
   submitted.value = true;
   if (!folder.value.name) {
-    toast.error("Name is required");
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "Name is required",
+      life: TOAST_LIFESPAN
+    });
     return;
   }
 
@@ -28,7 +34,12 @@ function addFolder() {
       starred: folder.value.starred,
     }
   }).then(() => {
-    toast.success("Folder added!");
+    toast.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Folder added!",
+      life: TOAST_LIFESPAN
+    });
     emit("close-reload");
   });
 }

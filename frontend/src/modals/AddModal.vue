@@ -2,7 +2,8 @@
 import { ref } from "vue";
 import MenuButtonSelection from '@/components/MenuButtonSelection.vue';
 import GeneratePasswordModal from './GeneratePasswordModal.vue';
-import { useToast } from "vue-toastification";
+import { useToast } from "primevue/usetoast";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 import API from "@/plugins/axios";
 import { useUserStore } from "@/store/userStore";
 import { ENCRYPT } from "@/plugins/encryption";
@@ -80,7 +81,12 @@ function add() {
 }
 function add2FA() {
   if(name.value === "" || note.value === "") {
-    toast.error("Name and secret required!");
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "Name and secret required!",
+      life: TOAST_LIFESPAN
+    });
     return;
   }
 
@@ -94,7 +100,12 @@ function add2FA() {
 
 async function addPassword() {
   if(name.value === "") {
-    toast.error("Name is required!");
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "Name is required!",
+      life: TOAST_LIFESPAN
+    });
     return;
   }
   if (folder.value.name === undefined) {
