@@ -50,13 +50,13 @@ async function openPasswordView() {
 
 watch(() => props.password, (newVal) => {
   if (newVal) {
-    username_saved.value = DECRYPT(newVal.username);
+    username_saved.value = DECRYPT(newVal.enc_username);
     password_saved.value = DECRYPT(newVal.enc_password);
   }
 }, { deep: true });
 
 if (props.password) {
-  username_saved.value = DECRYPT(props.password.username);
+  username_saved.value = DECRYPT(props.password.enc_username);
   password_saved.value = DECRYPT(props.password.enc_password);
 }
 </script>

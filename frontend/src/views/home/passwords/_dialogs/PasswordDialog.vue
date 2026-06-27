@@ -21,6 +21,8 @@ const dialog = useDialog();
 
 const initialPassword = { ...dialogRef?.value?.data?.password };
 initialPassword.password = DECRYPT(initialPassword.enc_password);
+initialPassword.username = DECRYPT(initialPassword.enc_username);
+initialPassword.note = DECRYPT(initialPassword.enc_note);
 initialPassword.folder_id = initialPassword?.folder?.id;
 
 const password = ref({ ...initialPassword });
@@ -57,10 +59,10 @@ function updatePassword() {
   API.put(`passwords/${password.value.id}`, {
     password: {
       name: password.value.name,
-      username: password.value.username,
+      enc_username: ENCRYPT(password.value.username),
       enc_password: ENCRYPT(password.value.password),
       folder_id: password.value.folder_id,
-      note: password.value.note,
+      enc_note: ENCRYPT(password.value.note),
       starred: password.value.starred,
     },
   }).then(() => {

@@ -45,8 +45,8 @@ function addPassword() {
       name: password.value.name,
       folder_id: password.value.folder,
       enc_password: ENCRYPT(password.value.password),
-      username: password.value.username,
-      note: password.value.notes,
+      enc_username: ENCRYPT(password.value.username),
+      enc_note: ENCRYPT(password.value.notes),
       starred: password.value.starred,
     }
   }).then(() => {

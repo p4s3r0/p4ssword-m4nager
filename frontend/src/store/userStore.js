@@ -2,6 +2,8 @@ import { defineStore } from "pinia";
 import { biometricDecrypt, biometricEncrypt } from "@/plugins/biometric_authentication";
 import API from "@/plugins/axios";
 
+const dev_password = "password";
+
 export const useUserStore = defineStore('userStore', {
   state: () => ({
     username: null,
@@ -25,7 +27,7 @@ export const useUserStore = defineStore('userStore', {
     async loginUser(authenticationId, username, key, sessionToken) {
       try {
         this.username = username;
-        this.key = import.meta.env.DEV ? "password" : key;
+        this.key = import.meta.env.DEV ? dev_password : key;
         this.sessionToken = sessionToken;
         this.initialized = true;
 
@@ -50,7 +52,7 @@ export const useUserStore = defineStore('userStore', {
         const response = await API.post("users/refresh", { username, session_token: sessionToken });
 
         this.username = username;
-        this.key = import.meta.env.DEV ? "password" : key;
+        this.key = import.meta.env.DEV ? dev_password : key;
         this.sessionToken = response.data.user.session_token;
         this.initialized = true;
         return true;
