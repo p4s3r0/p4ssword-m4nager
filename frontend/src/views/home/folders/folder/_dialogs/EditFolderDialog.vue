@@ -5,6 +5,7 @@ import PMColorPicker from "@/components/PMColorPicker.vue";
 import PMTextButton from "@/components/PMTextButton.vue";
 import { useToast } from "primevue/usetoast";
 import { TOAST_LIFESPAN } from "@/helper/constants";
+import API from "@/plugins/axios";
 
 const dialogRef = inject("dialogRef");
 const toast = useToast();
@@ -22,7 +23,23 @@ function confirm() {
     });
     return;
   }
-  dialogRef.value.close({ edit: folder.value });
+
+  API.put(`folders/${folder.value.id}`, { folder: folder.value }).then(() => {
+    toast.add({
+      severity: "success",
+      summary: "Success",
+      detail: "Folder updated successfully",
+      life: TOAST_LIFESPAN
+    });
+    dialogRef.value.close({ reload: true });
+  }).catch(() => {
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "An error occurred while updating the folder",
+      life: TOAST_LIFESPAN
+    });
+  });
 }
 </script>
 

@@ -12,6 +12,7 @@ import { ref, watch, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
 import API from "@/plugins/axios";
 import Navigation from "@/views/home/_components/Navigation.vue";
+import PMLoader from "@/components/PMLoader.vue";
 
 const route = useRoute();
 
@@ -81,6 +82,7 @@ function search() {
 }
 
 async function reloadData() {
+  loading.value = true;
   const passwordsApi = await API.get("passwords");
   allPasswords.value = rankPasswordsAlphabetically(passwordsApi.data);
   passwords.value = [...allPasswords.value];
@@ -129,7 +131,16 @@ watch(fold_pass_selector, () => {
       />
     </div>
 
-    <div class="sub-view-container">
+    <div
+      v-if="loading"
+      class="sub-view-container"
+    >
+      <PMLoader />
+    </div>
+    <div
+      v-else
+      class="sub-view-container"
+    >
       <router-view v-slot="{ Component }">
         <transition
           :name="isMobile ? transitionName : 'fade'"

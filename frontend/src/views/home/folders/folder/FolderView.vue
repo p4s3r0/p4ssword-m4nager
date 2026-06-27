@@ -4,6 +4,7 @@ import { ref, onMounted, onUnmounted } from "vue";
 import API from "@/plugins/axios";
 import Password from "@/components/Password.vue";
 import PMIconButton from "@/components/PMIconButton.vue";
+import PMLoader from "@/components/PMLoader.vue";
 import { useDialog } from "primevue";
 import DeleteConfirmationDialog from "@/dialogs/DeleteConfirmationDialog.vue";
 import { DIALOG_DEFAULT_PROPS } from "@/helper/constants";
@@ -16,6 +17,7 @@ import { rankPasswordsAlphabetically } from "@/scripts/search";
 const route = useRoute();
 const router = useRouter();
 const dialog = useDialog();
+const loading = ref(true);
 const passwords = ref({ loading: true, entries: [] });
 const folder = ref({ loading: true, object: {} });
 
@@ -32,15 +34,23 @@ onUnmounted(() => {
   window.removeEventListener("resize", updateWidth);
 });
 
-API.get(`folders/${route.params.id}`).then((response) => {
-  folder.value.object = response.data.folder;
-  folder.value.loading = false;
-});
+async function loadInitialData() {
+  loading.value = true;
+  try {
+    const [folderResponse, passwordsResponse] = await Promise.all([
+      API.get(`folders/${route.params.id}`),
+      API.get(`folders/${route.params.id}/passwords`)
+    ]);
+    folder.value.object = folderResponse.data.folder;
+    folder.value.loading = false;
+    passwords.value.entries = rankPasswordsAlphabetically(passwordsResponse.data);
+    passwords.value.loading = false;
+  } finally {
+    loading.value = false;
+  }
+}
 
-API.get(`folders/${route.params.id}/passwords`).then((response) => {
-  passwords.value.entries = rankPasswordsAlphabetically(response.data);
-  passwords.value.loading = false;
-});
+loadInitialData();
 
 function editFolder() {
   dialog.open(EditFolderDialog, {
@@ -56,6 +66,7 @@ function editFolder() {
         API.get(`folders/${route.params.id}`).then((response) => {
           folder.value.object = response.data.folder;
         });
+        reloadData();
       }
     }
   });
@@ -110,40 +121,45 @@ function reloadData() {
     class="folder-view"
     :class="{ 'desktop-layout': !isMobile }"
   >
-    <div class="header">
-      <h1>{{ folder?.object?.name }}</h1>
-      <div class="actions">
-        <PMIconButton
-          icon="pi-trash"
-          severity="delete"
-          @click="deleteFolder()"
-        />
-        <PMIconButton
-          icon="pi-pencil"
-          @click="editFolder()"
-        />
-        <PMIconButton
-          icon="pi-arrow-left"
-          @click="$router.back()"
-        />
-      </div>
+    <div v-if="loading">
+      <PMLoader />
     </div>
-
-    <TransitionGroup
-      name="list"
-      tag="div"
-      class="passwords-container"
-    >
-      <div
-        v-for="password in passwords.entries"
-        :key="password.id"
-      >
-        <password
-          :password="password"
-          @click="openPasswordDialog(password)"
-        />
+    <template v-else>
+      <div class="header">
+        <h1>{{ folder?.object?.name }}</h1>
+        <div class="actions">
+          <PMIconButton
+            icon="pi-trash"
+            severity="delete"
+            @click="deleteFolder()"
+          />
+          <PMIconButton
+            icon="pi-pencil"
+            @click="editFolder()"
+          />
+          <PMIconButton
+            icon="pi-arrow-left"
+            @click="$router.back()"
+          />
+        </div>
       </div>
-    </TransitionGroup>
+
+      <TransitionGroup
+        name="list"
+        tag="div"
+        class="passwords-container"
+      >
+        <div
+          v-for="password in passwords.entries"
+          :key="password.id"
+        >
+          <password
+            :password="password"
+            @click="openPasswordDialog(password)"
+          />
+        </div>
+      </TransitionGroup>
+    </template>
   </div>
 </template>
 

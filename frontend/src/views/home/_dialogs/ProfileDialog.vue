@@ -103,16 +103,6 @@ watch(theme, (newVal, oldVal) => {
       <i class="pi pi-hourglass" />
       Destroy all Sessions
     </div>
-
-    <div class="list-element ripple">
-      <i class="pi pi-download" />
-      Download
-    </div>
-
-    <div class="list-element ripple">
-      <i class="pi pi-upload" />
-      Upload
-    </div>
   </div>
 </template>
 
