@@ -14,6 +14,7 @@ import DeleteConfirmationDialog from "@/dialogs/DeleteConfirmationDialog.vue";
 import { DIALOG_DEFAULT_PROPS } from "@/helper/constants";
 import { useToast } from "primevue/usetoast";
 import { TOAST_LIFESPAN } from "@/helper/constants";
+import { rankFolderAlphabetically } from "@/scripts/search";
 
 const dialogRef = inject("dialogRef");
 const toast = useToast();
@@ -30,7 +31,7 @@ const folders = ref([]);
 const submitted = ref(false);
 
 API.get("folders").then((response) => {
-  folders.value = response.data;
+  folders.value = rankFolderAlphabetically(response.data);
 });
 
 const isChanged = computed(() => {

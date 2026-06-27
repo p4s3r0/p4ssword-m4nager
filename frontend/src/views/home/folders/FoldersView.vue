@@ -33,25 +33,16 @@ defineEmits(["reload"]);
 
 <style scoped>
 .folders-container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-2);
+  display: grid;
+  grid-template-columns: 100%;
+  gap: var(--gap-4);
   position: relative;
 }
 
-.list-move,
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.3s ease;
-}
-
-.list-enter-from,
-.list-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
-}
-
-.list-leave-active {
-  position: absolute;
+@media (min-width: 1024px) {
+  .folders-container {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-auto-rows: 80px;
+  }
 }
 </style>

@@ -14,6 +14,7 @@ import { TOAST_LIFESPAN } from "@/helper/constants";
 import { useDialog } from "primevue";
 import GeneratePasswordDialog from "@/views/home/_dialogs/AddDialog/GeneratePasswordDialog.vue";
 import { DIALOG_DEFAULT_PROPS } from "@/helper/constants";
+import { rankFolderAlphabetically } from "@/scripts/search";
 
 const toast = useToast();
 
@@ -25,7 +26,7 @@ const submitted = ref(false);
 const emit = defineEmits(["close-reload"]);
 
 API.get("folders").then((response) => {
-  folders.value = response.data;
+  folders.value = rankFolderAlphabetically(response.data);
 });
 
 function addPassword() {

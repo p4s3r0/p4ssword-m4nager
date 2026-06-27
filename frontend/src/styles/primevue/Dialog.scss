@@ -4,6 +4,10 @@
   box-shadow: none;
   border-radius: var(--border-radius-8);
 
+  @media (min-width: 1024px) {
+    max-width: 800px;
+  }
+
   .p-dialog-close-button {
     background-color: var(--surface-100) !important;
     color: var(--surface-900) !important;

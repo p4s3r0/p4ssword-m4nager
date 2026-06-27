@@ -35,5 +35,6 @@ function openProfileDialog() {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: var(--gap-6) var(--gap-4) 0 var(--gap-4);
 }
 </style>

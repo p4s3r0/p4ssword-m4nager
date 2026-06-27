@@ -8,14 +8,11 @@ import {
   rankTfasBySearch,
   rankTfasAlphabetically,
 } from "@/scripts/search";
-import { ref, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useUserStore } from "@/store/userStore";
+import { ref, watch, onMounted, onUnmounted } from "vue";
+import { useRoute } from "vue-router";
 import API from "@/plugins/axios";
-import Header from "@/views/home/_components/Header.vue";
 import Navigation from "@/views/home/_components/Navigation.vue";
 
-const router = useRouter();
 const route = useRoute();
 
 const transitionName = ref("slide-right");
@@ -35,6 +32,19 @@ const allFolders = ref([]);
 const allPasswords = ref([]);
 const allTfas = ref([]);
 
+const isMobile = ref(window.innerWidth < 1024);
+function updateWidth() {
+  isMobile.value = window.innerWidth < 1024;
+}
+
+onMounted(() => {
+  window.addEventListener("resize", updateWidth);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateWidth);
+});
+
 watch(() => route.name, (to, from) => {
     fold_pass_selector.value = to;
 
@@ -45,7 +55,6 @@ watch(() => route.name, (to, from) => {
   { immediate: true }
 );
 
-const userStore = useUserStore();
 API.get("users/get_theme").then((response) => {
   if (response.data === "dark") {
     document.documentElement.classList.add("dark");
@@ -53,13 +62,6 @@ API.get("users/get_theme").then((response) => {
     document.documentElement.classList.remove("dark");
   }
 });
-
-function logout() {
-  API.delete("users/sign_out").then(() => {
-    userStore.removeUser();
-    router.push({ name: "login" });
-  });
-}
 
 
 function search() {
@@ -106,8 +108,10 @@ watch(fold_pass_selector, () => {
 </script>
 
 <template>
-  <div class="home-view-container">
-    <Header />
+  <div
+    class="home-view"
+    :class="{ 'desktop-layout': !isMobile }"
+  >
     <div class="search-bar-container">
       <search-bar
         v-model="searchQuery"
@@ -115,7 +119,10 @@ watch(fold_pass_selector, () => {
       />
     </div>
 
-    <div class="show-folders-or-passwords">
+    <div
+      v-if="isMobile"
+      class="show-folders-or-passwords"
+    >
       <Navigation
         v-model="fold_pass_selector"
         @reload="reloadData"
@@ -125,7 +132,7 @@ watch(fold_pass_selector, () => {
     <div class="sub-view-container">
       <router-view v-slot="{ Component }">
         <transition
-          :name="transitionName"
+          :name="isMobile ? transitionName : 'fade'"
         >
           <component
             :is="Component"
@@ -142,13 +149,29 @@ watch(fold_pass_selector, () => {
 </template>
 
 <style scoped>
-
-.home-view-container {
+.home-view {
   display: flex;
   flex-direction: column;
   gap: var(--gap-5);
-  padding: var(--gap-3);
-  margin-top: 50px;
+  transition: all 0.3s ease;
+
+  &:not(.desktop-layout) {
+    padding: var(--gap-3);
+    margin-top: 50px;
+  }
+
+  &.desktop-layout {
+    gap: var(--gap-8);
+
+    .search-bar-container {
+      justify-content: flex-start;
+      max-width: 600px;
+    }
+
+    .sub-view-container {
+      max-width: 1200px;
+    }
+  }
 
   .search-bar-container {
     display: flex;
@@ -163,6 +186,15 @@ watch(fold_pass_selector, () => {
     max-width: 650px;
     justify-content: space-between;
 
+  }
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.3s ease;
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
   }
 }
 

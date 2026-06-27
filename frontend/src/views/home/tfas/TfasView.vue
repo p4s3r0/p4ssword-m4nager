@@ -32,10 +32,16 @@ const emit = defineEmits(["reload"]);
 
 <style scoped>
 .tfas-container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-2);
+  display: grid;
+  grid-template-columns: 100%;
+  gap: var(--gap-4);
   position: relative;
+}
+
+@media (min-width: 1024px) {
+  .tfas-container {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
 }
 
 .list-move,

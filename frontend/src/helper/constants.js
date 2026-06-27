@@ -1,13 +1,10 @@
 export const DIALOG_DEFAULT_PROPS = {
-  position: "bottom",
+  position: window.innerWidth < 1024 ? "bottom" : "center",
   draggable: false,
   dismissableMask: true,
   modal: true,
   style: {
-    width: "98vw"
-  },
-  breakpoints: {
-    "960px": "900px"
+    width: window.innerWidth < 1024 ? "98vw" : "800px"
   }
 };
 

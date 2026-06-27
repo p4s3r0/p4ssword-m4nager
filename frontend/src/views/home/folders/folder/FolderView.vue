@@ -1,6 +1,6 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import API from "@/plugins/axios";
 import Password from "@/components/Password.vue";
 import PMIconButton from "@/components/PMIconButton.vue";
@@ -11,11 +11,26 @@ import EditFolderDialog from "@/views/home/folders/folder/_dialogs/EditFolderDia
 
 import PasswordDialog from "@/views/home/passwords/_dialogs/PasswordDialog.vue";
 
+import { rankPasswordsAlphabetically } from "@/scripts/search";
+
 const route = useRoute();
 const router = useRouter();
 const dialog = useDialog();
 const passwords = ref({ loading: true, entries: [] });
 const folder = ref({ loading: true, object: {} });
+
+const isMobile = ref(window.innerWidth < 1024);
+function updateWidth() {
+  isMobile.value = window.innerWidth < 1024;
+}
+
+onMounted(() => {
+  window.addEventListener("resize", updateWidth);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateWidth);
+});
 
 API.get(`folders/${route.params.id}`).then((response) => {
   folder.value.object = response.data.folder;
@@ -23,9 +38,28 @@ API.get(`folders/${route.params.id}`).then((response) => {
 });
 
 API.get(`folders/${route.params.id}/passwords`).then((response) => {
-  passwords.value.entries = response.data;
+  passwords.value.entries = rankPasswordsAlphabetically(response.data);
   passwords.value.loading = false;
 });
+
+function editFolder() {
+  dialog.open(EditFolderDialog, {
+    props: {
+      ...DIALOG_DEFAULT_PROPS,
+      header: "Edit folder"
+    },
+    data: {
+      folder: folder.value.object
+    },
+    onClose: (data) => {
+      if (data?.data?.reload) {
+        API.get(`folders/${route.params.id}`).then((response) => {
+          folder.value.object = response.data.folder;
+        });
+      }
+    }
+  });
+}
 
 function deleteFolder() {
   dialog.open(DeleteConfirmationDialog, {
@@ -65,14 +99,17 @@ function openPasswordDialog(password) {
 
 function reloadData() {
   API.get(`folders/${route.params.id}/passwords`).then((response) => {
-    passwords.value.entries = response.data;
+    passwords.value.entries = rankPasswordsAlphabetically(response.data);
     passwords.value.loading = false;
   });
 }
 </script>
 
 <template>
-  <div class="folder-view">
+  <div
+    class="folder-view"
+    :class="{ 'desktop-layout': !isMobile }"
+  >
     <div class="header">
       <h1>{{ folder?.object?.name }}</h1>
       <div class="actions">
@@ -112,8 +149,25 @@ function reloadData() {
 
 <style scoped>
 .folder-view {
-  padding: var(--gap-3);
-  margin-top: 50px;
+  transition: all 0.3s ease;
+
+  &:not(.desktop-layout) {
+    padding: var(--gap-3);
+    margin-top: 50px;
+  }
+
+  &.desktop-layout {
+    padding: 0;
+    margin-top: 0;
+    max-width: 1200px;
+
+    .passwords-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: var(--gap-4);
+    }
+  }
+
   display: flex;
   flex-direction: column;
   gap: var(--gap-6);
@@ -122,6 +176,12 @@ function reloadData() {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: var(--surface-900);
+    }
 
     .actions {
       display: flex;

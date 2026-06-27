@@ -33,9 +33,16 @@ const props = defineProps({
   color: var(--surface-900);
   border-radius: var(--border-radius-4);
   background-color: var(--surface-100);
-  padding: var(--gap-4);
+  padding: var(--gap-4) calc(var(--gap-4) + 2px) var(--gap-4) var(--gap-4);
   border: 1px solid var(--surface-200);
   height: 80px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(0.99);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-color: var(--surface-300);
+  }
 
   .left-container {
     display: flex;

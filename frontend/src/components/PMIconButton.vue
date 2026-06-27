@@ -20,7 +20,6 @@ const props = defineProps({
   <Button
     :icon="`pi ${props.icon}`"
     :text="props.text"
-    severity="primary"
     :class="`color-${props.severity}`"
   />
 </template>

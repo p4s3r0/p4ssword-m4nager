@@ -1,61 +1,64 @@
 import Login from "@/views/LoginView.vue";
 import PasskeyLogin from "@/views/PasskeyLoginView.vue";
 import * as VueRouter from "vue-router";
-import { TOAST_LIFESPAN } from "@/helper/constants";
 import { useUserStore } from "@/store/userStore";
 import { DBL_getOnboarding } from "@/dexie";
-import { biometricDecrypt } from "@/plugins/biometric_authentication";
-
-// const toast = useToast();
+import MainLayout from "@/layouts/MainLayout.vue";
 
 export const routes = [
   {
-    name: "login",
     path: "/",
-    component: Login,
-  },
-  {
-    name: "passkey-login",
-    path: "/passkey-login",
-    component: PasskeyLogin,
-  },
-  {
-    name: "register",
-    path: "/register",
-    component: () => import("@/views/RegisterView.vue"),
-  },
-  {
-    name: "home",
-    path: "/home",
-    redirect: () => ({ name: "home.passwords" }),
-    component: () => import("@/views/home/HomeView.vue"),
+    component: MainLayout,
     children: [
       {
-        name: "home.passwords",
-        path: "passwords",
-        component: () => import("@/views/home/passwords/PasswordsView.vue"),
+        name: "login",
+        path: "",
+        component: Login,
       },
       {
-        name: "home.folders",
-        path: "folders",
-        component: () => import("@/views/home/folders/FoldersView.vue"),
+        name: "passkey-login",
+        path: "passkey-login",
+        component: PasskeyLogin,
       },
       {
-        name: "home.tfas",
-        path: "tfas",
-        component: () => import("@/views/home/tfas/TfasView.vue"),
-      }
+        name: "register",
+        path: "register",
+        component: () => import("@/views/RegisterView.vue"),
+      },
+      {
+        name: "home",
+        path: "home",
+        redirect: () => ({ name: "home.passwords" }),
+        component: () => import("@/views/home/HomeView.vue"),
+        children: [
+          {
+            name: "home.passwords",
+            path: "passwords",
+            component: () => import("@/views/home/passwords/PasswordsView.vue"),
+          },
+          {
+            name: "home.folders",
+            path: "folders",
+            component: () => import("@/views/home/folders/FoldersView.vue"),
+          },
+          {
+            name: "home.tfas",
+            path: "tfas",
+            component: () => import("@/views/home/tfas/TfasView.vue"),
+          }
+        ]
+      },
+      {
+        name: "folder.passwords",
+        path: "folder/:id",
+        component: () => import("@/views/home/folders/folder/FolderView.vue"),
+      },
+      {
+        name: "onboarding",
+        path: "onboarding",
+        component: () => import("@/views/OnboardingView.vue"),
+      },
     ]
-  },
-  {
-    name: "folder.passwords",
-    path: "/folder/:id",
-    component: () => import("@/views/home/folders/folder/FolderView.vue"),
-  },
-  {
-    name: "onboarding",
-    path: "/onboarding",
-    component: () => import("@/views/OnboardingView.vue"),
   },
   {
     name: "404",

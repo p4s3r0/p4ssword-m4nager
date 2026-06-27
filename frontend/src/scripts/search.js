@@ -72,9 +72,11 @@ export async function rankPasswordsBySearch(passwords, search) {
 }
 
 export function rankPasswordsAlphabetically(passwords) {
-    return [...passwords].sort((a, b) =>
-      a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
-    );
+    return [...passwords].sort((a, b) => {
+        if (a.starred && !b.starred) return -1;
+        if (!a.starred && b.starred) return 1;
+        return a.name.localeCompare(b.name, undefined, { sensitivity: "base" });
+    });
 }
 
 export async function rankTfasBySearch(tfas, search) {
@@ -112,13 +114,17 @@ export async function rankTfasBySearch(tfas, search) {
 }
 
 export function rankTfasAlphabetically(tfas) {
-    return [...tfas].sort((a, b) =>
-      a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
-    );
+    return [...tfas].sort((a, b) => {
+        if (a.starred && !b.starred) return -1;
+        if (!a.starred && b.starred) return 1;
+        return a.name.localeCompare(b.name, undefined, { sensitivity: "base" });
+    });
 }
 
 export function rankFolderAlphabetically(folders) {
-    return [...folders].sort((a, b) =>
-      a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
-    );
+    return [...folders].sort((a, b) => {
+        if (a.starred && !b.starred) return -1;
+        if (!a.starred && b.starred) return 1;
+        return a.name.localeCompare(b.name, undefined, { sensitivity: "base" });
+    });
 }

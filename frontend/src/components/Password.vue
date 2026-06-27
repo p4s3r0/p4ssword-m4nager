@@ -62,11 +62,13 @@ if (props.password) {
 </script>
 
 <template>
-  <div
-    class="password"
-  >
+  <div class="password">
     <div class="name-and-folder-container">
       <p class="password-name">
+        <i
+          v-if="props.password.starred"
+          class="pi pi-star-fill"
+        />
         {{ props.password.name }}
       </p>
       <template
@@ -104,6 +106,13 @@ if (props.password) {
   padding: var(--gap-4) calc(var(--gap-4) + 2px) var(--gap-4) var(--gap-4);
   border: 1px solid var(--surface-200);
   height: 80px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(0.99);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-color: var(--surface-300);
+  }
 
   .name-and-folder-container {
     display: flex;
