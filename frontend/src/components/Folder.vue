@@ -38,10 +38,16 @@ const props = defineProps({
   height: 80px;
   transition: all 0.2s ease;
 
-  &:hover {
-    transform: scale(0.99);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    border-color: var(--surface-300);
+  @media (hover: hover) {
+    &:hover {
+      transform: scale(0.99);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border-color: var(--surface-300);
+    }
+  }
+
+  &:active {
+    transform: scale(0.98);
   }
 
   .left-container {

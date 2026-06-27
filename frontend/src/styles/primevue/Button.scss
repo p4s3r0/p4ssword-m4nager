@@ -17,7 +17,13 @@
   }
 
   &.color-primary {
-    &:hover {
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--surface-0) !important;
+      }
+    }
+
+    &:active {
       background-color: var(--surface-0) !important;
     }
   }

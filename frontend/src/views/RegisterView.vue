@@ -111,7 +111,9 @@ function clickRegisterUser() {
   flex-direction: column;
   justify-content: space-between;
   padding: calc(var(--gap-10) * 2) var(--gap-4) var(--gap-4) var(--gap-4);
-  height: 100svh;
+  min-height: 100svh;
+  max-width: 500px;
+  margin: 0 auto;
 
   .user-input {
     display: flex;

@@ -105,8 +105,10 @@ h1 {
     background-position: center;
     transition: background 0.3s;
 }
-.ripple:hover {
-    background: var(--surface-100) radial-gradient(circle, transparent 1%, var(--surface-200) 1%) center/15000%;
+@media (hover: hover) {
+  .ripple:hover {
+      background: var(--surface-100) radial-gradient(circle, transparent 1%, var(--surface-200) 1%) center/15000%;
+  }
 }
 .ripple:active {
     background-color: #ffffff84;
@@ -119,8 +121,10 @@ h1 {
     background-position: center;
     transition: background 1s;
   }
-  .ripple2:hover {
-    background: #1E1E1E radial-gradient(circle, transparent 1%, #545454a0 1%) center/15000%;
+@media (hover: hover) {
+    .ripple2:hover {
+      background: #1E1E1E radial-gradient(circle, transparent 1%, #545454a0 1%) center/15000%;
+    }
   }
   .ripple2:active {
     background-color: #1E1E1E;
@@ -134,8 +138,10 @@ h1 {
   background-position: center;
   transition: background 0.3s;
 }
-.ripple3:hover {
-  background: #ffffff84 radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
+@media (hover: hover) {
+  .ripple3:hover {
+    background: #ffffff84 radial-gradient(circle, transparent 1%, #545454 1%) center/15000%;
+  }
 }
 .ripple3:active {
   background-color: #ffffff84;

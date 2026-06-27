@@ -142,7 +142,13 @@ function getOptionValue(option) {
     display: flex;
     justify-content: center;
 
-    &:hover:not(.pm-select-button-option-selected) {
+    @media (hover: hover) {
+      &:hover:not(.pm-select-button-option-selected) {
+        color: var(--surface-800);
+      }
+    }
+
+    &:active:not(.pm-select-button-option-selected) {
       color: var(--surface-800);
     }
 

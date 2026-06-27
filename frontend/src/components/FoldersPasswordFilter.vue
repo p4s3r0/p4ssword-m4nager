@@ -40,7 +40,13 @@ const props = {
     color: black
 }
 
-.notActive:hover {
+@media (hover: hover) {
+  .notActive:hover {
+      background: #2E2E2E radial-gradient(circle, transparent 1%, #545454a0 1%) center/15000%;
+  }
+}
+
+.notActive:active {
     background: #2E2E2E radial-gradient(circle, transparent 1%, #545454a0 1%) center/15000%;
 }
 

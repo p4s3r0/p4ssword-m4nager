@@ -109,7 +109,13 @@ async function standardLogin() {
   opacity: 0.8;
 }
 
-.footer a:hover {
+@media (hover: hover) {
+  .footer a:hover {
+    opacity: 1;
+  }
+}
+
+.footer a:active {
   opacity: 1;
 }
 </style>

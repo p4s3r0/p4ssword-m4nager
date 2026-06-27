@@ -29,7 +29,7 @@ onUnmounted(() => {
 
 <template>
   <div
-    v-if="userStore.isLoggedIn"
+    v-if="userStore.isLoggedIn && !['login', 'passkey-login', 'register', 'onboarding'].includes(route.name)"
     class="main-layout"
     :class="{ 'desktop-layout': !isMobile }"
   >

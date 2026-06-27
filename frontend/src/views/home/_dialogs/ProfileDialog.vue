@@ -135,8 +135,14 @@ watch(theme, (newVal, oldVal) => {
     padding: var(--gap-2) var(--gap-4);
     background-color: var(--surface-100);
 
-    &:hover {
-      cursor: pointer;
+    @media (hover: hover) {
+      &:hover {
+        cursor: pointer;
+        background-color: var(--surface-200);
+      }
+    }
+
+    &:active {
       background-color: var(--surface-200);
     }
   }

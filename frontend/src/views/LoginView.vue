@@ -3,11 +3,9 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useToast } from "primevue/usetoast";
 import { TOAST_LIFESPAN } from "@/helper/constants";
-import { DBL_onboardingOn } from "@/dexie";
 import BigButtonRegisterSignin from "@/components/BigButtonRegisterSignin.vue";
 import API from "@/plugins/axios";
 import { useUserStore } from "@/store/userStore";
-import { activateOnboarding } from "@/plugins/router";
 import { biometricRegister } from "@/plugins/biometric_authentication";
 import PMTextInput from "@/components/PMTextInput.vue";
 import PMPasswordInput from "@/components/PMPasswordInput.vue";
@@ -20,13 +18,6 @@ const router = useRouter();
 const username = ref("");
 const password = ref("");
 const submitted = ref(false);
-
-function redoOnboarding() {
-  DBL_onboardingOn().then((_) => {
-    activateOnboarding();
-    router.push({ name: "onboarding" });
-  });
-}
 
 function loginUser() {
   submitted.value = true;
@@ -121,10 +112,6 @@ function loginUser() {
           Don't have an account?
           <a @click="router.push({ name: 'register' })">Register</a>
         </p>
-        <p>
-          No clue what this is about? Check out the
-          <a @click="redoOnboarding()">Tutorial</a>
-        </p>
       </div>
         
       <big-button-register-signin
@@ -141,7 +128,9 @@ function loginUser() {
   flex-direction: column;
   justify-content: space-between;
   padding: calc(var(--gap-10) * 2) var(--gap-4) var(--gap-4) var(--gap-4);
-  height: 100svh;
+  min-height: 100svh;
+  max-width: 500px;
+  margin: 0 auto;
 
   .user-input {
     display: flex;

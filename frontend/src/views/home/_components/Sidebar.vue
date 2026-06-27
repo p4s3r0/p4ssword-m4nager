@@ -160,7 +160,14 @@ function openProfileDialog() {
   color: var(--surface-700);
 }
 
-.nav-item:hover {
+@media (hover: hover) {
+  .nav-item:hover {
+    background-color: var(--surface-200);
+    color: var(--surface-900);
+  }
+}
+
+.nav-item:active {
   background-color: var(--surface-200);
   color: var(--surface-900);
 }
@@ -199,11 +206,19 @@ function openProfileDialog() {
   transition: all 0.2s ease;
 }
 
-.add-button:hover {
+@media (hover: hover) {
+  .add-button:hover {
+    background: var(--surface-700);
+    border-color: var(--surface-700);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.add-button:active {
   background: var(--surface-700);
   border-color: var(--surface-700);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(0);
 }
 
 .spacer {
@@ -220,7 +235,13 @@ function openProfileDialog() {
   transition: background-color 0.2s ease;
   border: 1px dashed var(--surface-700);
 
-  &:hover {
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--surface-0);
+    }
+  }
+
+  &:active {
     background-color: var(--surface-0);
   }
 }

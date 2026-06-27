@@ -26,12 +26,14 @@ export const useUserStore = defineStore('userStore', {
   actions: {
     async loginUser(authenticationId, username, key, sessionToken) {
       try {
+        const passwordToUse = import.meta.env.DEV ? dev_password : key;
+        const encrypted = await biometricEncrypt(passwordToUse, authenticationId);
+
         this.username = username;
-        this.key = import.meta.env.DEV ? dev_password : key;
+        this.key = passwordToUse;
         this.sessionToken = sessionToken;
         this.initialized = true;
 
-        const encrypted = await biometricEncrypt(this.key, authenticationId);
         localStorage.setItem("key", encrypted.ciphertext);
         localStorage.setItem("iv", encrypted.iv);
         localStorage.setItem("sessionToken", sessionToken);
@@ -47,8 +49,12 @@ export const useUserStore = defineStore('userStore', {
         const username = localStorage.getItem("username");
         const iv = localStorage.getItem("iv");
         const sessionToken = localStorage.getItem("sessionToken");
+
+        if (!encryptedKey || !authenticationId || !username || !iv || !sessionToken) {
+          return false;
+        }
+
         const key = await biometricDecrypt(iv, encryptedKey, authenticationId);
-        
         const response = await API.post("users/refresh", { username, session_token: sessionToken });
 
         this.username = username;
