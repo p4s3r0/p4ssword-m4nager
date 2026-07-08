@@ -53,11 +53,6 @@ export const routes = [
         path: "folder/:id",
         component: () => import("@/views/home/folders/folder/FolderView.vue"),
       },
-      {
-        name: "onboarding",
-        path: "onboarding",
-        component: () => import("@/views/OnboardingView.vue"),
-      },
     ]
   },
   {

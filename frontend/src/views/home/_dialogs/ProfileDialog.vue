@@ -19,7 +19,7 @@ const theme = ref(document.documentElement.classList.contains("dark"));
 const disableThemeSwitcher = ref(false);
 
 function logout() {
-  API.delete("users/sign_out").then(() => {
+  API.delete("users/sign_out", { params: { session_token: userStore.sessionToken } }).then(() => {
     userStore.removeUser();
     dialogRef.value.close();
     router.push({ name: "login" });

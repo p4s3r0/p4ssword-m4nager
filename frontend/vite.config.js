@@ -6,31 +6,34 @@ import { resolve } from "path";
 export default defineConfig({
   plugins: [
     vue(),
-
     VitePWA({
-      registerType: "autoUpdate",
-
       manifest: {
-        name: "P4M",
-        short_name: "P4M",
-        theme_color: "#0E0E0E",
-        background_color: "#0E0E0E",
-        display: "standalone",
-
         icons: [
           {
-            src: "pwa-192x192.png",
-            sizes: "192x192",
-            type: "image/png",
+            src: '/img/icons/android-chrome-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
           },
           {
-            src: "pwa-512x512.png",
-            sizes: "512x512",
-            type: "image/png",
+            src: '/img/icons/android-chrome-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+          {
+            src: '/img/icons/android-chrome-maskable-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
+          {
+            src: '/img/icons/android-chrome-maskable-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
           },
         ],
       },
-    }),
+    })
   ],
   resolve: {
     alias: {

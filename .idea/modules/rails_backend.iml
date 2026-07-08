@@ -3314,38 +3314,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="solid_cable (v3.0.12) [path][gem]" type="rubylib">
-        <properties>
-          <option name="additionalInfo">
-            <AdditionalInfo>
-              <option name="authors" value="N/A" />
-              <option name="email" value="N/A" />
-              <option name="homepage" value="N/A" />
-              <option name="summary" value="N/A" />
-            </AdditionalInfo>
-          </option>
-          <option name="fromPath" value="true" />
-          <option name="name" value="solid_cable" />
-          <option name="requirePaths">
-            <list>
-              <option value="lib" />
-            </list>
-          </option>
-          <option name="url" value="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/solid_cable-3.0.12" />
-          <option name="version" value="3.0.12" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/solid_cable-3.0.12/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/solid_cable-3.0.12/lib" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/solid_cable-3.0.12/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/solid_cable-3.0.12/lib" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="solid_cache (v1.0.10) [path][gem]" type="rubylib">
         <properties>
           <option name="additionalInfo">

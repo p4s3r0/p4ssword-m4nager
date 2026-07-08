@@ -107,6 +107,25 @@ watch(fold_pass_selector, () => {
   searchQuery.value = "";
   search();
 });
+
+const beforeLeave = (el) => {
+  const parent = el.parentElement;
+  parent.style.height = `${parent.offsetHeight}px`;
+};
+
+const enter = (el) => {
+  const parent = el.parentElement;
+  requestAnimationFrame(() => {
+    const targetHeight = el.offsetHeight;
+    
+    parent.style.height = `${targetHeight}px`;
+  });
+};
+
+const afterEnter = (el) => {
+  const parent = el.parentElement;
+  parent.style.height = "auto";
+};
 </script>
 
 <template>
@@ -132,18 +151,19 @@ watch(fold_pass_selector, () => {
     </div>
 
     <div
-      v-if="loading"
       class="sub-view-container"
+      :class="{ loading: loading }"
     >
-      <PMLoader />
-    </div>
-    <div
-      v-else
-      class="sub-view-container"
-    >
-      <router-view v-slot="{ Component }">
+      <PMLoader v-if="loading" />
+      <router-view
+        v-else
+        v-slot="{ Component }"
+      >
         <transition
           :name="isMobile ? transitionName : 'fade'"
+          @before-leave="beforeLeave"
+          @enter="enter"
+          @after-enter="afterEnter"
         >
           <component
             :is="Component"
@@ -211,10 +231,14 @@ watch(fold_pass_selector, () => {
 
 .sub-view-container {
   display: grid;
-  grid-template-columns: 100%;
   width: 100%;
   overflow-x: hidden;
-  min-height: 400px;
+  transition: height 0.3s ease;
+  align-items: start;
+
+  &.loading {
+    height: 100px;
+  }
 
   & > * {
     grid-area: 1 / 1;
