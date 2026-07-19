@@ -11,7 +11,6 @@ This project is a Password Manager designed to work on every Platform (Windows, 
 - Wrap the Credentials within Folders to sort them
 - Adding 2FA Credentials to generate OTP Codes.
 - Global Accessible Data
-- Offline Modus
 - Copy Username/Password/OTP-Code Directly into Clipboard without exposing it
 
 ## 🔱 Host locally
@@ -31,32 +30,10 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 
 ### 2) Setup the .env Files
 
-Copy over the `.env.example` and name it `.env`. Exchange the paramater described in the comments
-
-```env
-# LEAVE AS IS #
-SQL_DATABASE_CLIENT=postgresql
-SQL_USER=postgres
-SQL_PASSWORD=postgres
-SQL_URL=postgresdb
-SQL_PORT=5432
-SQL_DB_NAME=mydb
-
-# TODO: Insert your local network ip with port :8000 #
-VUE_APP_AXIOS_BASE_URL=http://192.168.1.17:8000/
-# TODO: Insert random String
-VUE_APP_L_P=RANDOMSTRING
-```
+Locate both `.env` files. the first one is in project root, rename the `.env.example` to `.env` and fill out the missing variables.
+The other `.env` is in `/frontend`, rename the `.env.example` to `.env` and fill out the missing variables.
 
 ### 3) Run it
-If you are on Linux, execute the `run.sh` script and you are all setup.
-
-```bash
-./run.sh
-```
-
-If you are on Windows, you need to copy the `.env` file manually into the `/frontend`, `/backend` and root folder. Then simply run in the root directory the `docker-compose` command:
-
 ```bash
 sudo docker-compose up --build --force-recreate --no-deps
 ```
