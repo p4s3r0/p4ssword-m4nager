@@ -13,18 +13,18 @@
     <shared />
   </component>
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$/../../rails_backend">
-      <sourceFolder url="file://$MODULE_DIR$/../../rails_backend/features" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../rails_backend/spec" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../rails_backend/test" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/../../rails_backend/.bundle" />
-      <excludeFolder url="file://$MODULE_DIR$/../../rails_backend/components" />
-      <excludeFolder url="file://$MODULE_DIR$/../../rails_backend/log" />
-      <excludeFolder url="file://$MODULE_DIR$/../../rails_backend/public/packs" />
-      <excludeFolder url="file://$MODULE_DIR$/../../rails_backend/public/system" />
-      <excludeFolder url="file://$MODULE_DIR$/../../rails_backend/tmp" />
-      <excludeFolder url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle" />
-      <excludeFolder url="file://$MODULE_DIR$/../../rails_backend/vendor/cache" />
+    <content url="file://$MODULE_DIR$/../../backend">
+      <sourceFolder url="file://$MODULE_DIR$/../../backend/features" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../backend/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../backend/test" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/../../backend/.bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../backend/components" />
+      <excludeFolder url="file://$MODULE_DIR$/../../backend/log" />
+      <excludeFolder url="file://$MODULE_DIR$/../../backend/public/packs" />
+      <excludeFolder url="file://$MODULE_DIR$/../../backend/public/system" />
+      <excludeFolder url="file://$MODULE_DIR$/../../backend/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/../../backend/vendor/bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../backend/vendor/cache" />
     </content>
     <orderEntry type="jdk" jdkName="rbenv: 3.2.4" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -50,13 +50,13 @@
           <option name="version" value="2.1.19" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/action_text-trix-2.1.19/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/action_text-trix-2.1.19/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/action_text-trix-2.1.19/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/action_text-trix-2.1.19/app" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/action_text-trix-2.1.19/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/action_text-trix-2.1.19/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/action_text-trix-2.1.19/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/action_text-trix-2.1.19/app" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -82,13 +82,13 @@
           <option name="version" value="8.1.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actioncable-8.1.3/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actioncable-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actioncable-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actioncable-8.1.3/app" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actioncable-8.1.3/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actioncable-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actioncable-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actioncable-8.1.3/app" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -114,17 +114,17 @@
           <option name="version" value="8.1.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actionmailbox-8.1.3/db" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actionmailbox-8.1.3/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actionmailbox-8.1.3/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actionmailbox-8.1.3/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actionmailbox-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actionmailbox-8.1.3/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actionmailbox-8.1.3/app" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actionmailbox-8.1.3/db" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actionmailbox-8.1.3/db" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actionmailbox-8.1.3/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actionmailbox-8.1.3/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actionmailbox-8.1.3/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actionmailbox-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actionmailbox-8.1.3/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actionmailbox-8.1.3/app" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actionmailbox-8.1.3/db" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -150,11 +150,11 @@
           <option name="version" value="8.1.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actionmailer-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actionmailer-8.1.3/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actionmailer-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actionmailer-8.1.3/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -180,11 +180,11 @@
           <option name="version" value="8.1.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actionpack-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actionpack-8.1.3/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actionpack-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actionpack-8.1.3/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -210,15 +210,15 @@
           <option name="version" value="8.1.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actiontext-8.1.3/db" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actiontext-8.1.3/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actiontext-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actiontext-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actiontext-8.1.3/app" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actiontext-8.1.3/db" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actiontext-8.1.3/db" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actiontext-8.1.3/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actiontext-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actiontext-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actiontext-8.1.3/app" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actiontext-8.1.3/db" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -244,13 +244,13 @@
           <option name="version" value="8.1.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actionview-8.1.3/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actionview-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actionview-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actionview-8.1.3/app" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actionview-8.1.3/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/actionview-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actionview-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/actionview-8.1.3/app" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -276,11 +276,11 @@
           <option name="version" value="8.1.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activejob-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activejob-8.1.3/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activejob-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activejob-8.1.3/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -306,11 +306,11 @@
           <option name="version" value="8.1.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activemodel-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activemodel-8.1.3/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activemodel-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activemodel-8.1.3/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -336,16 +336,16 @@
           <option name="version" value="8.1.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activerecord-8.1.3/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activerecord-8.1.3/examples" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activerecord-8.1.3/examples" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activerecord-8.1.3/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activerecord-8.1.3/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activerecord-8.1.3/examples" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activerecord-8.1.3/examples" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activerecord-8.1.3/lib" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activerecord-8.1.3/examples" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activerecord-8.1.3/examples" />
         </excluded>
       </library>
     </orderEntry>
@@ -371,17 +371,17 @@
           <option name="version" value="8.1.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activestorage-8.1.3/db" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activestorage-8.1.3/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activestorage-8.1.3/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activestorage-8.1.3/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activestorage-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activestorage-8.1.3/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activestorage-8.1.3/app" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activestorage-8.1.3/db" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activestorage-8.1.3/db" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activestorage-8.1.3/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activestorage-8.1.3/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activestorage-8.1.3/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activestorage-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activestorage-8.1.3/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activestorage-8.1.3/app" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activestorage-8.1.3/db" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -407,11 +407,11 @@
           <option name="version" value="8.1.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activesupport-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activesupport-8.1.3/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/activesupport-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/activesupport-8.1.3/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -437,11 +437,11 @@
           <option name="version" value="2.4.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ast-2.4.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ast-2.4.3/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ast-2.4.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ast-2.4.3/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -467,13 +467,13 @@
           <option name="version" value="0.3.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/base64-0.3.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/base64-0.3.0/sig" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/base64-0.3.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/base64-0.3.0/sig" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/base64-0.3.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/base64-0.3.0/sig" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/base64-0.3.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/base64-0.3.0/sig" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -499,16 +499,16 @@
           <option name="version" value="3.1.22" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bcrypt-3.1.22/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bcrypt-3.1.22/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bcrypt-3.1.22/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bcrypt-3.1.22/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bcrypt-3.1.22/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bcrypt-3.1.22/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bcrypt-3.1.22/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bcrypt-3.1.22/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bcrypt-3.1.22/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bcrypt-3.1.22/ext" />
         </excluded>
       </library>
     </orderEntry>
@@ -534,22 +534,22 @@
           <option name="version" value="1.1.2" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/test" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/test" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/test" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/test" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/test" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/test" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bcrypt_pbkdf-1.1.2-arm64-darwin/.github" />
         </excluded>
       </library>
     </orderEntry>
@@ -575,21 +575,21 @@
           <option name="version" value="4.1.2" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/sig" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/sample" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/sample" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/sig" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/sig" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/sample" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/sample" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/sig" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/sample" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bigdecimal-4.1.2/sample" />
         </excluded>
       </library>
     </orderEntry>
@@ -615,19 +615,19 @@
           <option name="version" value="1.24.5" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.24.5/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.24.5/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.24.5/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.24.5/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.24.5/exe" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.24.5/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.24.5/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.24.5/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.24.5/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.24.5/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.24.5/exe" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.24.5/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.24.5/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.24.5/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.24.5/exe" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.24.5/ext" />
         </excluded>
       </library>
     </orderEntry>
@@ -653,19 +653,19 @@
           <option name="version" value="8.0.4" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/brakeman-8.0.4/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/brakeman-8.0.4/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/brakeman-8.0.4/bundle" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/brakeman-8.0.4/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/brakeman-8.0.4/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/brakeman-8.0.4/bundle" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/brakeman-8.0.4/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/brakeman-8.0.4/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/brakeman-8.0.4/bundle" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/brakeman-8.0.4/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/brakeman-8.0.4/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/brakeman-8.0.4/bundle" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/brakeman-8.0.4/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/brakeman-8.0.4/bundle" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/brakeman-8.0.4/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/brakeman-8.0.4/bundle" />
         </excluded>
       </library>
     </orderEntry>
@@ -691,22 +691,22 @@
           <option name="version" value="3.3.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/doc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/test" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/rakelib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/doc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/test" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/rakelib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/doc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/test" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/rakelib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/doc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/test" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/rakelib" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/doc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/test" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/rakelib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/doc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/test" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/builder-3.3.0/rakelib" />
         </excluded>
       </library>
     </orderEntry>
@@ -732,22 +732,22 @@
           <option name="version" value="0.9.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/spec" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/spec" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/spec" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/spec" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/spec" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/spec" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/bundler-audit-0.9.3/.github" />
         </excluded>
       </library>
     </orderEntry>
@@ -773,16 +773,16 @@
           <option name="version" value="1.3.6" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/concurrent-ruby-1.3.6/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/concurrent-ruby-1.3.6/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/concurrent-ruby-1.3.6/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/concurrent-ruby-1.3.6/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/concurrent-ruby-1.3.6/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/concurrent-ruby-1.3.6/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/concurrent-ruby-1.3.6/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/concurrent-ruby-1.3.6/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/concurrent-ruby-1.3.6/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/concurrent-ruby-1.3.6/ext" />
         </excluded>
       </library>
     </orderEntry>
@@ -808,11 +808,11 @@
           <option name="version" value="3.0.2" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/connection_pool-3.0.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/connection_pool-3.0.2/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/connection_pool-3.0.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/connection_pool-3.0.2/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -838,11 +838,11 @@
           <option name="version" value="1.0.6" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/crass-1.0.6/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/crass-1.0.6/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/crass-1.0.6/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/crass-1.0.6/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -868,16 +868,16 @@
           <option name="version" value="3.5.1" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/date-3.5.1/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/date-3.5.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/date-3.5.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/date-3.5.1/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/date-3.5.1/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/date-3.5.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/date-3.5.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/date-3.5.1/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/date-3.5.1/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/date-3.5.1/ext" />
         </excluded>
       </library>
     </orderEntry>
@@ -903,22 +903,22 @@
           <option name="version" value="1.11.1" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/misc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/misc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/exe" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/misc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/misc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/exe" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/misc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/exe" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/debug-1.11.1/misc" />
         </excluded>
       </library>
     </orderEntry>
@@ -944,15 +944,15 @@
           <option name="version" value="5.0.4" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/devise-5.0.4/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/devise-5.0.4/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/devise-5.0.4/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/devise-5.0.4/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/devise-5.0.4/app" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/devise-5.0.4/config" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/devise-5.0.4/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/devise-5.0.4/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/devise-5.0.4/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/devise-5.0.4/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/devise-5.0.4/app" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/devise-5.0.4/config" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -978,16 +978,16 @@
           <option name="version" value="3.2.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/dotenv-3.2.0/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/dotenv-3.2.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/dotenv-3.2.0/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/dotenv-3.2.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/dotenv-3.2.0/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/dotenv-3.2.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/dotenv-3.2.0/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/dotenv-3.2.0/lib" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/dotenv-3.2.0/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/dotenv-3.2.0/bin" />
         </excluded>
       </library>
     </orderEntry>
@@ -1013,11 +1013,11 @@
           <option name="version" value="2.2.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/drb-2.2.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/drb-2.2.3/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/drb-2.2.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/drb-2.2.3/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -1043,16 +1043,16 @@
           <option name="version" value="1.4.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ed25519-1.4.0/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ed25519-1.4.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ed25519-1.4.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ed25519-1.4.0/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ed25519-1.4.0/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ed25519-1.4.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ed25519-1.4.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ed25519-1.4.0/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ed25519-1.4.0/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ed25519-1.4.0/ext" />
         </excluded>
       </library>
     </orderEntry>
@@ -1078,25 +1078,25 @@
           <option name="version" value="6.0.4" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/_doc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/libexec" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/libexec" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/_doc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/_doc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/libexec" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/libexec" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/_doc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/_doc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/libexec" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/_doc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/erb-6.0.4/libexec" />
         </excluded>
       </library>
     </orderEntry>
@@ -1122,11 +1122,11 @@
           <option name="version" value="1.13.1" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/erubi-1.13.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/erubi-1.13.1/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/erubi-1.13.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/erubi-1.13.1/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -1152,11 +1152,11 @@
           <option name="version" value="1.4.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/et-orbi-1.4.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/et-orbi-1.4.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/et-orbi-1.4.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/et-orbi-1.4.0/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -1182,18 +1182,18 @@
           <option name="version" value="1.17.4" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ffi-1.17.4-arm64-darwin/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ffi-1.17.4-arm64-darwin/sig" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ffi-1.17.4-arm64-darwin/samples" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ffi-1.17.4-arm64-darwin/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ffi-1.17.4-arm64-darwin/samples" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ffi-1.17.4-arm64-darwin/sig" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ffi-1.17.4-arm64-darwin/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ffi-1.17.4-arm64-darwin/sig" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ffi-1.17.4-arm64-darwin/samples" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ffi-1.17.4-arm64-darwin/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ffi-1.17.4-arm64-darwin/samples" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ffi-1.17.4-arm64-darwin/sig" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ffi-1.17.4-arm64-darwin/samples" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ffi-1.17.4-arm64-darwin/samples" />
         </excluded>
       </library>
     </orderEntry>
@@ -1219,11 +1219,11 @@
           <option name="version" value="1.12.2" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/fugit-1.12.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/fugit-1.12.2/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/fugit-1.12.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/fugit-1.12.2/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -1249,11 +1249,11 @@
           <option name="version" value="1.3.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/globalid-1.3.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/globalid-1.3.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/globalid-1.3.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/globalid-1.3.0/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -1279,11 +1279,11 @@
           <option name="version" value="1.14.8" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/i18n-1.14.8/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/i18n-1.14.8/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/i18n-1.14.8/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/i18n-1.14.8/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -1309,11 +1309,11 @@
           <option name="version" value="1.14.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/image_processing-1.14.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/image_processing-1.14.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/image_processing-1.14.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/image_processing-1.14.0/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -1339,16 +1339,16 @@
           <option name="version" value="0.8.2" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/io-console-0.8.2/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/io-console-0.8.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/io-console-0.8.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/io-console-0.8.2/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/io-console-0.8.2/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/io-console-0.8.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/io-console-0.8.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/io-console-0.8.2/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/io-console-0.8.2/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/io-console-0.8.2/ext" />
         </excluded>
       </library>
     </orderEntry>
@@ -1374,22 +1374,22 @@
           <option name="version" value="1.18.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/doc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/man" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/doc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/exe" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/man" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/doc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/man" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/doc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/exe" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/man" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/doc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/man" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/doc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/exe" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/irb-1.18.0/man" />
         </excluded>
       </library>
     </orderEntry>
@@ -1415,16 +1415,16 @@
           <option name="version" value="2.19.7" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/json-2.19.7/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/json-2.19.7/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/json-2.19.7/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/json-2.19.7/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/json-2.19.7/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/json-2.19.7/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/json-2.19.7/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/json-2.19.7/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/json-2.19.7/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/json-2.19.7/ext" />
         </excluded>
       </library>
     </orderEntry>
@@ -1450,16 +1450,16 @@
           <option name="version" value="2.11.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/kamal-2.11.0/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/kamal-2.11.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/kamal-2.11.0/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/kamal-2.11.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/kamal-2.11.0/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/kamal-2.11.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/kamal-2.11.0/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/kamal-2.11.0/lib" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/kamal-2.11.0/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/kamal-2.11.0/bin" />
         </excluded>
       </library>
     </orderEntry>
@@ -1485,11 +1485,11 @@
           <option name="version" value="3.17.0.5" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/language_server-protocol-3.17.0.5/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/language_server-protocol-3.17.0.5/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/language_server-protocol-3.17.0.5/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/language_server-protocol-3.17.0.5/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -1515,11 +1515,11 @@
           <option name="version" value="1.1.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/lint_roller-1.1.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/lint_roller-1.1.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/lint_roller-1.1.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/lint_roller-1.1.0/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -1545,11 +1545,11 @@
           <option name="version" value="1.7.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/logger-1.7.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/logger-1.7.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/logger-1.7.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/logger-1.7.0/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -1575,11 +1575,11 @@
           <option name="version" value="2.25.1" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/loofah-2.25.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/loofah-2.25.1/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/loofah-2.25.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/loofah-2.25.1/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -1605,11 +1605,11 @@
           <option name="version" value="2.9.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/mail-2.9.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/mail-2.9.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/mail-2.9.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/mail-2.9.0/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -1635,11 +1635,11 @@
           <option name="version" value="1.2.1" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/marcel-1.2.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/marcel-1.2.1/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/marcel-1.2.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/marcel-1.2.1/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -1665,11 +1665,11 @@
           <option name="version" value="5.3.1" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/mini_magick-5.3.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/mini_magick-5.3.1/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/mini_magick-5.3.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/mini_magick-5.3.1/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -1695,22 +1695,22 @@
           <option name="version" value="1.1.5" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/bench" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/bench" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/bench" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/bench" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/lib" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/bench" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/bench" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/mini_mime-1.1.5/.github" />
         </excluded>
       </library>
     </orderEntry>
@@ -1736,19 +1736,19 @@
           <option name="version" value="6.0.6" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/minitest-6.0.6/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/minitest-6.0.6/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/minitest-6.0.6/test" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/minitest-6.0.6/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/minitest-6.0.6/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/minitest-6.0.6/test" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/minitest-6.0.6/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/minitest-6.0.6/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/minitest-6.0.6/test" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/minitest-6.0.6/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/minitest-6.0.6/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/minitest-6.0.6/test" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/minitest-6.0.6/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/minitest-6.0.6/test" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/minitest-6.0.6/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/minitest-6.0.6/test" />
         </excluded>
       </library>
     </orderEntry>
@@ -1774,16 +1774,16 @@
           <option name="version" value="1.8.1" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/msgpack-1.8.1/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/msgpack-1.8.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/msgpack-1.8.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/msgpack-1.8.1/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/msgpack-1.8.1/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/msgpack-1.8.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/msgpack-1.8.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/msgpack-1.8.1/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/msgpack-1.8.1/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/msgpack-1.8.1/ext" />
         </excluded>
       </library>
     </orderEntry>
@@ -1809,22 +1809,22 @@
           <option name="version" value="0.6.4" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/docs" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/sample" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/rakelib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/docs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/sample" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/rakelib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/docs" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/sample" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/rakelib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/docs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/sample" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/rakelib" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/docs" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/sample" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/rakelib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/docs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/sample" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-imap-0.6.4/rakelib" />
         </excluded>
       </library>
     </orderEntry>
@@ -1850,16 +1850,16 @@
           <option name="version" value="0.1.2" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-pop-0.1.2/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-pop-0.1.2/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-pop-0.1.2/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-pop-0.1.2/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-pop-0.1.2/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-pop-0.1.2/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-pop-0.1.2/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-pop-0.1.2/lib" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-pop-0.1.2/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-pop-0.1.2/.github" />
         </excluded>
       </library>
     </orderEntry>
@@ -1885,19 +1885,19 @@
           <option name="version" value="0.2.2" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-protocol-0.2.2/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-protocol-0.2.2/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-protocol-0.2.2/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-protocol-0.2.2/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-protocol-0.2.2/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-protocol-0.2.2/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-protocol-0.2.2/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-protocol-0.2.2/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-protocol-0.2.2/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-protocol-0.2.2/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-protocol-0.2.2/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-protocol-0.2.2/lib" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-protocol-0.2.2/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-protocol-0.2.2/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-protocol-0.2.2/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-protocol-0.2.2/.github" />
         </excluded>
       </library>
     </orderEntry>
@@ -1923,16 +1923,16 @@
           <option name="version" value="4.1.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-scp-4.1.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-scp-4.1.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-scp-4.1.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-scp-4.1.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-scp-4.1.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-scp-4.1.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-scp-4.1.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-scp-4.1.0/lib" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-scp-4.1.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-scp-4.1.0/.github" />
         </excluded>
       </library>
     </orderEntry>
@@ -1958,16 +1958,16 @@
           <option name="version" value="4.0.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-sftp-4.0.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-sftp-4.0.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-sftp-4.0.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-sftp-4.0.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-sftp-4.0.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-sftp-4.0.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-sftp-4.0.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-sftp-4.0.0/lib" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-sftp-4.0.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-sftp-4.0.0/.github" />
         </excluded>
       </library>
     </orderEntry>
@@ -1993,11 +1993,11 @@
           <option name="version" value="0.5.1" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-smtp-0.5.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-smtp-0.5.1/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-smtp-0.5.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-smtp-0.5.1/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -2023,19 +2023,19 @@
           <option name="version" value="7.3.2" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-ssh-7.3.2/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-ssh-7.3.2/.github" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-ssh-7.3.2/support" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-ssh-7.3.2/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-ssh-7.3.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-ssh-7.3.2/support" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-ssh-7.3.2/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-ssh-7.3.2/.github" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-ssh-7.3.2/support" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-ssh-7.3.2/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-ssh-7.3.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-ssh-7.3.2/support" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-ssh-7.3.2/.github" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/net-ssh-7.3.2/support" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-ssh-7.3.2/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/net-ssh-7.3.2/support" />
         </excluded>
       </library>
     </orderEntry>
@@ -2061,16 +2061,16 @@
           <option name="version" value="2.7.5" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/nio4r-2.7.5/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/nio4r-2.7.5/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/nio4r-2.7.5/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/nio4r-2.7.5/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/nio4r-2.7.5/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/nio4r-2.7.5/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/nio4r-2.7.5/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/nio4r-2.7.5/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/nio4r-2.7.5/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/nio4r-2.7.5/ext" />
         </excluded>
       </library>
     </orderEntry>
@@ -2096,22 +2096,22 @@
           <option name="version" value="1.19.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/gumbo-parser" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/gumbo-parser" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/gumbo-parser" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/gumbo-parser" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/gumbo-parser" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/nokogiri-1.19.3-arm64-darwin/gumbo-parser" />
         </excluded>
       </library>
     </orderEntry>
@@ -2137,19 +2137,19 @@
           <option name="version" value="0.5.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/orm_adapter-0.5.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/orm_adapter-0.5.0/spec" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/orm_adapter-0.5.0/gemfiles" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/orm_adapter-0.5.0/gemfiles" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/orm_adapter-0.5.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/orm_adapter-0.5.0/spec" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/orm_adapter-0.5.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/orm_adapter-0.5.0/spec" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/orm_adapter-0.5.0/gemfiles" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/orm_adapter-0.5.0/gemfiles" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/orm_adapter-0.5.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/orm_adapter-0.5.0/spec" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/orm_adapter-0.5.0/spec" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/orm_adapter-0.5.0/gemfiles" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/orm_adapter-0.5.0/spec" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/orm_adapter-0.5.0/gemfiles" />
         </excluded>
       </library>
     </orderEntry>
@@ -2175,16 +2175,16 @@
           <option name="version" value="0.6.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ostruct-0.6.3/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ostruct-0.6.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ostruct-0.6.3/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ostruct-0.6.3/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ostruct-0.6.3/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ostruct-0.6.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ostruct-0.6.3/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ostruct-0.6.3/lib" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ostruct-0.6.3/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ostruct-0.6.3/bin" />
         </excluded>
       </library>
     </orderEntry>
@@ -2210,11 +2210,11 @@
           <option name="version" value="1.28.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/parallel-1.28.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/parallel-1.28.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/parallel-1.28.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/parallel-1.28.0/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -2240,16 +2240,16 @@
           <option name="version" value="3.3.11.1" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/parser-3.3.11.1/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/parser-3.3.11.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/parser-3.3.11.1/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/parser-3.3.11.1/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/parser-3.3.11.1/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/parser-3.3.11.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/parser-3.3.11.1/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/parser-3.3.11.1/lib" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/parser-3.3.11.1/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/parser-3.3.11.1/bin" />
         </excluded>
       </library>
     </orderEntry>
@@ -2275,31 +2275,31 @@
           <option name="version" value="1.6.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/misc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/certs" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/ports" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/sample" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/rakelib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/misc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/ports" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/certs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/sample" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/rakelib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/misc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/certs" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/ports" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/sample" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/rakelib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/misc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/ports" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/certs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/sample" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/rakelib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/misc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/certs" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/ports" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/sample" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/rakelib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/misc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/certs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/ports" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/sample" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pg-1.6.3-arm64-darwin/rakelib" />
         </excluded>
       </library>
     </orderEntry>
@@ -2325,11 +2325,11 @@
           <option name="version" value="0.6.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pp-0.6.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pp-0.6.3/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/pp-0.6.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/pp-0.6.3/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -2355,19 +2355,19 @@
           <option name="version" value="0.2.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prettyprint-0.2.0/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prettyprint-0.2.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prettyprint-0.2.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prettyprint-0.2.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prettyprint-0.2.0/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prettyprint-0.2.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prettyprint-0.2.0/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prettyprint-0.2.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prettyprint-0.2.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prettyprint-0.2.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prettyprint-0.2.0/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prettyprint-0.2.0/lib" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prettyprint-0.2.0/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prettyprint-0.2.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prettyprint-0.2.0/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prettyprint-0.2.0/.github" />
         </excluded>
       </library>
     </orderEntry>
@@ -2393,30 +2393,30 @@
           <option name="version" value="1.9.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/rbi" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/sig" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/src" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/docs" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/include" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/include" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/docs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/src" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/sig" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/rbi" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/rbi" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/sig" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/src" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/docs" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/include" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/include" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/docs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/src" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/sig" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/rbi" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/rbi" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/src" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/docs" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/include" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/rbi" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/src" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/docs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/prism-1.9.0/include" />
         </excluded>
       </library>
     </orderEntry>
@@ -2442,16 +2442,16 @@
           <option name="version" value="5.4.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/psych-5.4.0/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/psych-5.4.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/psych-5.4.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/psych-5.4.0/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/psych-5.4.0/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/psych-5.4.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/psych-5.4.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/psych-5.4.0/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/psych-5.4.0/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/psych-5.4.0/ext" />
         </excluded>
       </library>
     </orderEntry>
@@ -2477,25 +2477,25 @@
           <option name="version" value="8.0.2" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/docs" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/tools" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/tools" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/docs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/docs" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/tools" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/tools" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/docs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/docs" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/tools" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/docs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/puma-8.0.2/tools" />
         </excluded>
       </library>
     </orderEntry>
@@ -2521,11 +2521,11 @@
           <option name="version" value="1.4.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/raabro-1.4.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/raabro-1.4.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/raabro-1.4.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/raabro-1.4.0/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -2551,22 +2551,22 @@
           <option name="version" value="1.8.1" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/doc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/doc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/doc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/doc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/doc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/doc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/ext" />
         </excluded>
       </library>
     </orderEntry>
@@ -2592,11 +2592,11 @@
           <option name="version" value="3.2.6" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rack-3.2.6/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rack-3.2.6/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rack-3.2.6/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rack-3.2.6/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -2622,11 +2622,11 @@
           <option name="version" value="3.0.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rack-cors-3.0.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rack-cors-3.0.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rack-cors-3.0.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rack-cors-3.0.0/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -2652,11 +2652,11 @@
           <option name="version" value="2.1.2" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rack-session-2.1.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rack-session-2.1.2/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rack-session-2.1.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rack-session-2.1.2/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -2682,11 +2682,11 @@
           <option name="version" value="2.2.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rack-test-2.2.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rack-test-2.2.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rack-test-2.2.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rack-test-2.2.0/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -2712,16 +2712,16 @@
           <option name="version" value="2.3.1" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rackup-2.3.1/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rackup-2.3.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rackup-2.3.1/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rackup-2.3.1/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rackup-2.3.1/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rackup-2.3.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rackup-2.3.1/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rackup-2.3.1/lib" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rackup-2.3.1/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rackup-2.3.1/bin" />
         </excluded>
       </library>
     </orderEntry>
@@ -2773,16 +2773,16 @@
           <option name="version" value="2.3.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rails-dom-testing-2.3.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rails-dom-testing-2.3.0/test" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rails-dom-testing-2.3.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rails-dom-testing-2.3.0/test" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rails-dom-testing-2.3.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rails-dom-testing-2.3.0/test" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rails-dom-testing-2.3.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rails-dom-testing-2.3.0/test" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rails-dom-testing-2.3.0/test" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rails-dom-testing-2.3.0/test" />
         </excluded>
       </library>
     </orderEntry>
@@ -2808,16 +2808,16 @@
           <option name="version" value="1.7.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rails-html-sanitizer-1.7.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rails-html-sanitizer-1.7.0/test" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rails-html-sanitizer-1.7.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rails-html-sanitizer-1.7.0/test" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rails-html-sanitizer-1.7.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rails-html-sanitizer-1.7.0/test" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rails-html-sanitizer-1.7.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rails-html-sanitizer-1.7.0/test" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rails-html-sanitizer-1.7.0/test" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rails-html-sanitizer-1.7.0/test" />
         </excluded>
       </library>
     </orderEntry>
@@ -2843,16 +2843,16 @@
           <option name="version" value="8.1.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/railties-8.1.3/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/railties-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/railties-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/railties-8.1.3/exe" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/railties-8.1.3/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/railties-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/railties-8.1.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/railties-8.1.3/exe" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/railties-8.1.3/exe" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/railties-8.1.3/exe" />
         </excluded>
       </library>
     </orderEntry>
@@ -2878,11 +2878,11 @@
           <option name="version" value="3.1.1" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rainbow-3.1.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rainbow-3.1.1/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rainbow-3.1.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rainbow-3.1.1/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -2908,19 +2908,19 @@
           <option name="version" value="13.4.2" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rake-13.4.2/doc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rake-13.4.2/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rake-13.4.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rake-13.4.2/doc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rake-13.4.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rake-13.4.2/exe" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rake-13.4.2/doc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rake-13.4.2/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rake-13.4.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rake-13.4.2/doc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rake-13.4.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rake-13.4.2/exe" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rake-13.4.2/doc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rake-13.4.2/exe" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rake-13.4.2/doc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rake-13.4.2/exe" />
         </excluded>
       </library>
     </orderEntry>
@@ -2946,22 +2946,22 @@
           <option name="version" value="7.2.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/doc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/man" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/doc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/exe" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/man" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/doc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/man" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/doc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/exe" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/man" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/doc" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/man" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/doc" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/exe" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rdoc-7.2.0/man" />
         </excluded>
       </library>
     </orderEntry>
@@ -2987,11 +2987,11 @@
           <option name="version" value="2.12.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/regexp_parser-2.12.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/regexp_parser-2.12.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/regexp_parser-2.12.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/regexp_parser-2.12.0/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -3017,11 +3017,11 @@
           <option name="version" value="0.6.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/reline-0.6.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/reline-0.6.3/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/reline-0.6.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/reline-0.6.3/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -3047,11 +3047,11 @@
           <option name="version" value="3.2.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/responders-3.2.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/responders-3.2.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/responders-3.2.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/responders-3.2.0/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -3077,21 +3077,21 @@
           <option name="version" value="1.87.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/assets" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/assets" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/exe" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/assets" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/assets" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/exe" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/assets" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/exe" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-1.87.0/assets" />
         </excluded>
       </library>
     </orderEntry>
@@ -3117,11 +3117,11 @@
           <option name="version" value="1.49.1" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-ast-1.49.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-ast-1.49.1/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-ast-1.49.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-ast-1.49.1/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -3147,13 +3147,13 @@
           <option name="version" value="1.26.1" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-performance-1.26.1/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-performance-1.26.1/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-performance-1.26.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-performance-1.26.1/config" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-performance-1.26.1/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-performance-1.26.1/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-performance-1.26.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-performance-1.26.1/config" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -3179,13 +3179,13 @@
           <option name="version" value="2.35.3" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-rails-2.35.3/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-rails-2.35.3/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-rails-2.35.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-rails-2.35.3/config" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-rails-2.35.3/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/rubocop-rails-2.35.3/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-rails-2.35.3/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/rubocop-rails-2.35.3/config" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -3237,11 +3237,11 @@
           <option name="version" value="1.13.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ruby-progressbar-1.13.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ruby-progressbar-1.13.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ruby-progressbar-1.13.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ruby-progressbar-1.13.0/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -3267,19 +3267,19 @@
           <option name="version" value="2.3.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ruby-vips-2.3.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ruby-vips-2.3.0/.github" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ruby-vips-2.3.0/example" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ruby-vips-2.3.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ruby-vips-2.3.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ruby-vips-2.3.0/example" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ruby-vips-2.3.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ruby-vips-2.3.0/.github" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ruby-vips-2.3.0/example" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ruby-vips-2.3.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ruby-vips-2.3.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ruby-vips-2.3.0/example" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ruby-vips-2.3.0/.github" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/ruby-vips-2.3.0/example" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ruby-vips-2.3.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/ruby-vips-2.3.0/example" />
         </excluded>
       </library>
     </orderEntry>
@@ -3305,11 +3305,11 @@
           <option name="version" value="0.4.1" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/securerandom-0.4.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/securerandom-0.4.1/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/securerandom-0.4.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/securerandom-0.4.1/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -3335,13 +3335,13 @@
           <option name="version" value="1.0.10" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/solid_cache-1.0.10/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/solid_cache-1.0.10/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/solid_cache-1.0.10/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/solid_cache-1.0.10/app" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/solid_cache-1.0.10/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/solid_cache-1.0.10/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/solid_cache-1.0.10/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/solid_cache-1.0.10/app" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -3367,15 +3367,15 @@
           <option name="version" value="1.4.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/solid_queue-1.4.0/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/solid_queue-1.4.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/solid_queue-1.4.0/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/solid_queue-1.4.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/solid_queue-1.4.0/app" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/solid_queue-1.4.0/config" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/solid_queue-1.4.0/app" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/solid_queue-1.4.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/solid_queue-1.4.0/config" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/solid_queue-1.4.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/solid_queue-1.4.0/app" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/solid_queue-1.4.0/config" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -3401,25 +3401,25 @@
           <option name="version" value="1.25.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/test" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/.docker" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/.github" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/examples" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/examples" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/test" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/.docker" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/test" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/.docker" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/.github" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/examples" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/examples" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/test" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/.docker" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/test" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/.docker" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/.github" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/examples" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/test" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/.docker" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/sshkit-1.25.0/examples" />
         </excluded>
       </library>
     </orderEntry>
@@ -3445,19 +3445,19 @@
           <option name="version" value="3.2.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/stringio-3.2.0/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/stringio-3.2.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/stringio-3.2.0/docs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/stringio-3.2.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/stringio-3.2.0/docs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/stringio-3.2.0/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/stringio-3.2.0/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/stringio-3.2.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/stringio-3.2.0/docs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/stringio-3.2.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/stringio-3.2.0/docs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/stringio-3.2.0/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/stringio-3.2.0/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/stringio-3.2.0/docs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/stringio-3.2.0/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/stringio-3.2.0/docs" />
         </excluded>
       </library>
     </orderEntry>
@@ -3483,16 +3483,16 @@
           <option name="version" value="1.5.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/thor-1.5.0/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/thor-1.5.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/thor-1.5.0/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/thor-1.5.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/thor-1.5.0/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/thor-1.5.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/thor-1.5.0/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/thor-1.5.0/lib" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/thor-1.5.0/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/thor-1.5.0/bin" />
         </excluded>
       </library>
     </orderEntry>
@@ -3518,16 +3518,16 @@
           <option name="version" value="0.1.21" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/thruster-0.1.21-arm64-darwin/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/thruster-0.1.21-arm64-darwin/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/thruster-0.1.21-arm64-darwin/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/thruster-0.1.21-arm64-darwin/exe" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/thruster-0.1.21-arm64-darwin/exe" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/thruster-0.1.21-arm64-darwin/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/thruster-0.1.21-arm64-darwin/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/thruster-0.1.21-arm64-darwin/exe" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/thruster-0.1.21-arm64-darwin/exe" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/thruster-0.1.21-arm64-darwin/exe" />
         </excluded>
       </library>
     </orderEntry>
@@ -3553,11 +3553,11 @@
           <option name="version" value="0.6.1" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/timeout-0.6.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/timeout-0.6.1/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/timeout-0.6.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/timeout-0.6.1/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -3583,19 +3583,19 @@
           <option name="version" value="0.2.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/tsort-0.2.0/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/tsort-0.2.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/tsort-0.2.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/tsort-0.2.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/tsort-0.2.0/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/tsort-0.2.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/tsort-0.2.0/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/tsort-0.2.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/tsort-0.2.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/tsort-0.2.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/tsort-0.2.0/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/tsort-0.2.0/lib" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/tsort-0.2.0/bin" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/tsort-0.2.0/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/tsort-0.2.0/bin" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/tsort-0.2.0/.github" />
         </excluded>
       </library>
     </orderEntry>
@@ -3621,11 +3621,11 @@
           <option name="version" value="2.0.6" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/tzinfo-2.0.6/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/tzinfo-2.0.6/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/tzinfo-2.0.6/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/tzinfo-2.0.6/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -3651,16 +3651,16 @@
           <option name="version" value="3.2.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/unicode-display_width-3.2.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/unicode-display_width-3.2.0/data" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/unicode-display_width-3.2.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/unicode-display_width-3.2.0/data" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/unicode-display_width-3.2.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/unicode-display_width-3.2.0/data" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/unicode-display_width-3.2.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/unicode-display_width-3.2.0/data" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/unicode-display_width-3.2.0/data" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/unicode-display_width-3.2.0/data" />
         </excluded>
       </library>
     </orderEntry>
@@ -3686,19 +3686,19 @@
           <option name="version" value="4.2.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/unicode-emoji-4.2.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/unicode-emoji-4.2.0/data" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/unicode-emoji-4.2.0/spec" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/unicode-emoji-4.2.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/unicode-emoji-4.2.0/data" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/unicode-emoji-4.2.0/spec" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/unicode-emoji-4.2.0/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/unicode-emoji-4.2.0/data" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/unicode-emoji-4.2.0/spec" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/unicode-emoji-4.2.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/unicode-emoji-4.2.0/data" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/unicode-emoji-4.2.0/spec" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/unicode-emoji-4.2.0/data" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/unicode-emoji-4.2.0/spec" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/unicode-emoji-4.2.0/data" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/unicode-emoji-4.2.0/spec" />
         </excluded>
       </library>
     </orderEntry>
@@ -3724,16 +3724,16 @@
           <option name="version" value="1.1.1" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/uri-1.1.1/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/uri-1.1.1/docs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/uri-1.1.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/uri-1.1.1/docs" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/uri-1.1.1/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/uri-1.1.1/docs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/uri-1.1.1/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/uri-1.1.1/docs" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/uri-1.1.1/docs" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/uri-1.1.1/docs" />
         </excluded>
       </library>
     </orderEntry>
@@ -3759,11 +3759,11 @@
           <option name="version" value="0.16.11" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/useragent-0.16.11/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/useragent-0.16.11/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/useragent-0.16.11/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/useragent-0.16.11/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -3789,16 +3789,16 @@
           <option name="version" value="1.2.9" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/warden-1.2.9/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/warden-1.2.9/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/warden-1.2.9/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/warden-1.2.9/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/warden-1.2.9/lib" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/warden-1.2.9/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/warden-1.2.9/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/warden-1.2.9/lib" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/warden-1.2.9/.github" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/warden-1.2.9/.github" />
         </excluded>
       </library>
     </orderEntry>
@@ -3824,16 +3824,16 @@
           <option name="version" value="0.8.0" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.8.0/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.8.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.8.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.8.0/ext" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.8.0/ext" />
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.8.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.8.0/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.8.0/ext" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.8.0/ext" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.8.0/ext" />
         </excluded>
       </library>
     </orderEntry>
@@ -3859,11 +3859,11 @@
           <option name="version" value="0.1.5" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/websocket-extensions-0.1.5/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/websocket-extensions-0.1.5/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/websocket-extensions-0.1.5/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/websocket-extensions-0.1.5/lib" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -3889,11 +3889,11 @@
           <option name="version" value="2.8.2" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/zeitwerk-2.8.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/zeitwerk-2.8.2/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../rails_backend/vendor/bundle/ruby/3.2.0/gems/zeitwerk-2.8.2/lib" />
+          <root url="file://$MODULE_DIR$/../../backend/vendor/bundle/ruby/3.2.0/gems/zeitwerk-2.8.2/lib" />
         </SOURCES>
       </library>
     </orderEntry>
