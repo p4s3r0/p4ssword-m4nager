@@ -7,10 +7,11 @@ class Api::RegistrationsController < Devise::RegistrationsController
     if resource.save
       if resource.active_for_authentication?
         sign_up(resource_name, resource)
+        token = resource.session_tokens.create!(token: SecureRandom.hex(32))
 
         render json: {
           message: 'Signed up successfully.',
-          user: user_json(resource)
+          user: user_json(resource, token.token)
         }, status: :created
       else
         expire_data_after_sign_in!
@@ -47,12 +48,12 @@ class Api::RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def user_json(user)
+  def user_json(user, token)
     {
       id: user.id,
       email: user.email,
       username: user.username,
-      session_token: user.session_token
+      session_token: token
     }
   end
 

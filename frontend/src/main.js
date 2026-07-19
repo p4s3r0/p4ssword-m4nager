@@ -1,14 +1,12 @@
 import { createApp } from "vue";
 import { createPinia } from 'pinia';
 import VueCryptojs from "vue-cryptojs";
-import "@/styles/core.scss";
 import App from "./App.vue";
 import data from "../package.json";
-// import "./registerServiceWorker";
 import PrimeVue from "primevue/config";
 import Aura from "@primevue/themes/aura";
 import "primeicons/primeicons.css";
-import "./styles/core.scss";
+import "@/styles/core.scss";
 import ToastService from 'primevue/toastservice';
 
 const pinia = createPinia();

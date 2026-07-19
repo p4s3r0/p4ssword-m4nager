@@ -66,6 +66,8 @@ sudo docker-compose up --build --force-recreate --no-deps
 PWAs can only be installed on Chrome (for Android and Desktop) and on Safari (for iOS). In Chrome, press the three dots and click on `Install App` or `Add to Home Screen`. In Safari you have to click the share button and then `Add to Home Screen`. Now you are all set up and ready to use the App.
 
 
+
+
 ## 📷 Screenshots
 | Login | Register |
 |----------|------------|
