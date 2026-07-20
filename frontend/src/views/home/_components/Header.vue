@@ -20,13 +20,18 @@ function openProfileDialog() {
 
 <template>
   <div class="home-header">
-    <h1>Hello, {{ userStore.username }} ✋🏼</h1>
-    <PMIconButton
-      id="menuButton"
-      icon="pi-bars"
-      class="ripple"
-      @click="openProfileDialog()"
-    />
+    <div
+      class="profile-section"
+      @click="openProfileDialog"
+    >
+      <div class="avatar">
+        {{ userStore.username.charAt(0).toUpperCase() }}
+      </div>
+      <div class="user-info">
+        <span class="status">Welcome back</span>
+        <span class="username">{{ userStore.username }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -36,5 +41,52 @@ function openProfileDialog() {
   justify-content: space-between;
   align-items: center;
   padding: var(--gap-6) var(--gap-4) 0 var(--gap-4);
+
+  .avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--border-radius-3);
+    background-color: var(--surface-100);
+    border: 1px solid var(--surface-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--surface-900);
+  }
+
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .username {
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--surface-900);
+  }
+
+  .status {
+    font-size: 0.75rem;
+    color: var(--surface-300);
+  }
+
+  .profile-section {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-3);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--surface-0);
+      }
+    }
+
+    &:active {
+      background-color: var(--surface-0);
+    }
+  }
 }
 </style>
