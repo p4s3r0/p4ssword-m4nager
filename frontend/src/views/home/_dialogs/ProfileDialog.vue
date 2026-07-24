@@ -6,8 +6,10 @@ import { useUserStore } from "@/store/userStore";
 import { useRouter } from "vue-router";
 import { inject } from "vue";
 import PMTextToggleSwitch from "@/components/PMTextToggleSwitch.vue";
+import PMSelectButton from "@/components/PMSelectButton.vue";
 import { useToast } from "primevue/usetoast";
 import { TOAST_LIFESPAN } from "@/helper/constants";
+import { t, i18n } from "@/plugins/i18n";
 
 const dialogRef = inject("dialogRef");
 
@@ -17,6 +19,18 @@ const toast = useToast();
 
 const theme = ref(document.documentElement.classList.contains("dark"));
 const disableThemeSwitcher = ref(false);
+
+const language = ref(i18n.global.locale.value);
+const languageOptions = [
+  { value: "en", label: "English", flag: "🇺🇸" },
+  { value: "de", label: "Deutsch", flag: "🇩🇪" },
+  { value: "it", label: "Italiano", flag: "🇮🇹" }
+];
+
+watch(language, (newVal) => {
+  i18n.global.locale.value = newVal;
+  localStorage.setItem("locale", newVal);
+});
 
 function logout() {
   API.delete("users/sign_out", { params: { session_token: userStore.sessionToken } }).then(() => {
@@ -33,15 +47,15 @@ function destroySessions() {
     router.push({ name: "login" });
     toast.add({
       severity: "success",
-      summary: "Success",
-      detail: "All sessions have been destroyed.",
+      summary: t("common.success"),
+      detail: t("home.profileDialog.destroyed"),
       life: TOAST_LIFESPAN
     });
   }, () => {
     toast.add({
       severity: "error",
-      summary: "Error",
-      detail: "Something went wrong!",
+      summary: t("common.error"),
+      detail: t("common.somethingWentWrong"),
       life: TOAST_LIFESPAN
     });
   });
@@ -56,8 +70,8 @@ watch(theme, (newVal, oldVal) => {
   }, () => {
     toast.add({
       severity: "error",
-      summary: "Error",
-      detail: "Something went wrong!",
+      summary: t("common.error"),
+      detail: t("common.somethingWentWrong"),
       life: TOAST_LIFESPAN
     });
     theme.value = oldVal;
@@ -78,14 +92,21 @@ watch(theme, (newVal, oldVal) => {
 <template>
   <div class="profile-dialog">
     <p class="version">
-      Version: {{ APP_VERSION }}
+      {{ $t("common.version") }}: {{ APP_VERSION }}
     </p>
 
     <div>
       <PMTextToggleSwitch
         v-model="theme"
-        :text="theme ? 'Dark Mode' : 'Light Mode'"
+        :text="theme ? $t('common.darkMode') : $t('common.lightMode')"
         :disabled="disableThemeSwitcher"
+      />
+    </div>
+
+    <div class="language-selector">
+      <PMSelectButton
+        v-model="language"
+        :options="languageOptions"
       />
     </div>
     <div
@@ -93,7 +114,7 @@ watch(theme, (newVal, oldVal) => {
       @click="logout()"
     >
       <i class="pi pi-lock" />
-      Logout
+      {{ $t("common.logout") }}
     </div>
 
     <div
@@ -101,7 +122,7 @@ watch(theme, (newVal, oldVal) => {
       @click="destroySessions()"
     >
       <i class="pi pi-hourglass" />
-      Destroy all Sessions
+      {{ $t("common.destroyAllSessions") }}
     </div>
   </div>
 </template>
@@ -115,6 +136,12 @@ watch(theme, (newVal, oldVal) => {
 
   .version {
     padding-left: var(--gap-4);
+  }
+
+  .language-selector {
+    padding: 0 var(--gap-4);
+    display: flex;
+    justify-content: center;
   }
 
   .list-element {

@@ -70,6 +70,13 @@ function getOptionIcon(option) {
   return undefined;
 }
 
+function getOptionFlag(option) {
+  if (typeof option === 'object') {
+    return option.flag;
+  }
+  return undefined;
+}
+
 function getOptionValue(option) {
   if (typeof option === 'object') {
     return option[props.optionValue];
@@ -101,6 +108,7 @@ function getOptionValue(option) {
           v-if="getOptionIcon(option)"
           :class="`pi ${getOptionIcon(option)}`"
         />
+        <span v-if="getOptionFlag(option)">{{ getOptionFlag(option) }}</span>
         <span v-if="getOptionLabel(option)">{{ getOptionLabel(option) }}</span>
       </div>
     </div>

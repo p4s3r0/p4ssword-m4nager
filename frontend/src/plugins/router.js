@@ -12,6 +12,9 @@ import { useUserStore } from "@/store/userStore";
 import { DBL_getOnboarding } from "@/dexie";
 import MainLayout from "@/layouts/MainLayout.vue";
 import { recoverFromChunkLoadError } from "@/plugins/chunkLoadRecovery";
+import { t } from "@/plugins/i18n";
+import ToastEventBus from "primevue/toasteventbus";
+import { TOAST_LIFESPAN } from "@/helper/constants";
 
 export const routes = [
   {
@@ -126,7 +129,12 @@ router.beforeEach(async (to, from, next) => {
     next({ name: "login" });
   } else if (to.name === "login" && onboarding) {
     if (userStore.isLoggedIn) {
-      toast.info("Cached Login with user `" + userStore.username + "`");
+      ToastEventBus.emit("add", {
+        severity: "info",
+        summary: t("common.info"),
+        detail: t("router.cachedLogin", { username: userStore.username }),
+        life: TOAST_LIFESPAN,
+      });
       return next({ name: "home" });
     }
 

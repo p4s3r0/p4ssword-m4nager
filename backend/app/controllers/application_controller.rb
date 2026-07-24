@@ -13,7 +13,7 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    raw_user = warden&.user(:user)
+    raw_user = warden&.user(:api_user)
 
     @current_user ||=
       case raw_user
@@ -27,7 +27,7 @@ class ApplicationController < ActionController::API
   end
 
   def user_signed_in?
-    warden&.authenticated?(:user)
+    warden&.authenticated?(:api_user)
   end
 
   def warden

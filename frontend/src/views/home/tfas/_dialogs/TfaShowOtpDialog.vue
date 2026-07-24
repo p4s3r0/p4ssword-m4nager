@@ -4,6 +4,7 @@ import PMOtp from "@/components/PMOtp.vue";
 import PMTextButton from "@/components/PMTextButton.vue";
 import { useToast } from "primevue/usetoast";
 import { TOAST_LIFESPAN } from "@/helper/constants";
+import { t } from "@/plugins/i18n";
 
 const dialogRef = inject('dialogRef');
 const otpCode = dialogRef?.value?.data?.otpCode;
@@ -14,8 +15,8 @@ function copyCode() {
   navigator.clipboard.writeText(otpCode);
   toast.add({
     severity: "success",
-    summary: "Success",
-    detail: "Copied to clipboard!",
+    summary: t("common.success"),
+    detail: t("common.copiedToClipboard"),
     life: TOAST_LIFESPAN
   });
   dialogRef.value.close();
@@ -27,7 +28,7 @@ function copyCode() {
     <PMOtp :otp-code="otpCode" />
     <div class="copy-container">
       <PMTextButton
-        label="Copy Code"
+        :text="$t('home.tfas.otp.copyCode')"
         @click="copyCode()"
       />
     </div>

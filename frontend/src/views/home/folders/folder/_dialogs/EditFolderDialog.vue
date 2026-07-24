@@ -6,6 +6,7 @@ import PMTextButton from "@/components/PMTextButton.vue";
 import { useToast } from "primevue/usetoast";
 import { TOAST_LIFESPAN } from "@/helper/constants";
 import API from "@/plugins/axios";
+import { t } from "@/plugins/i18n";
 
 const dialogRef = inject("dialogRef");
 const toast = useToast();
@@ -17,8 +18,8 @@ function confirm() {
   if (!folder.value.name) {
     toast.add({
       severity: "error",
-      summary: "Error",
-      detail: "Name is required",
+      summary: t("common.error"),
+      detail: t("common.nameRequired"),
       life: TOAST_LIFESPAN
     });
     return;
@@ -27,16 +28,16 @@ function confirm() {
   API.put(`folders/${folder.value.id}`, { folder: folder.value }).then(() => {
     toast.add({
       severity: "success",
-      summary: "Success",
-      detail: "Folder updated successfully",
+      summary: t("common.success"),
+      detail: t("home.folders.messages.updated"),
       life: TOAST_LIFESPAN
     });
     dialogRef.value.close({ reload: true });
   }).catch(() => {
     toast.add({
       severity: "error",
-      summary: "Error",
-      detail: "An error occurred while updating the folder",
+      summary: t("common.error"),
+      detail: t("home.folders.messages.updateError"),
       life: TOAST_LIFESPAN
     });
   });
@@ -48,25 +49,25 @@ function confirm() {
     <PMTextInput
       v-model="folder.name"
       name="name"
-      label="Name"
+      :label="$t('common.name')"
       required
       :submitted="submitted"
     />
 
     <PMColorPicker
       v-model="folder.color"
-      label="Color"
+      :label="$t('common.color')"
     />
 
     <div class="footer">
       <PMTextButton
-        text="Cancel"
+        :text="$t('common.cancel')"
         severity="secondary"
         @click="dialogRef.close()"
       />
 
       <PMTextButton
-        text="Confirm"
+        :text="$t('common.confirm')"
         @click="confirm"
       />
     </div>

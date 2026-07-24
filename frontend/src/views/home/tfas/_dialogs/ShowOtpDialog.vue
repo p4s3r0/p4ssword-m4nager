@@ -1,11 +1,3 @@
-<script setup>
-
-</script>
-
 <template>
-  hi
+  <div />
 </template>
-
-<style scoped>
-
-</style>

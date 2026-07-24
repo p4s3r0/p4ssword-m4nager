@@ -15,6 +15,7 @@ import { DIALOG_DEFAULT_PROPS } from "@/helper/constants";
 import { useToast } from "primevue/usetoast";
 import { TOAST_LIFESPAN } from "@/helper/constants";
 import { rankFolderAlphabetically } from "@/scripts/search";
+import { t } from "@/plugins/i18n";
 
 const dialogRef = inject("dialogRef");
 const toast = useToast();
@@ -50,8 +51,8 @@ function updatePassword() {
   if (!password.value.name) {
     toast.add({
       severity: "error",
-      summary: "Error",
-      detail: "Name is required",
+      summary: t("common.error"),
+      detail: t("common.nameRequired"),
       life: TOAST_LIFESPAN
     });
     return;
@@ -69,8 +70,8 @@ function updatePassword() {
   }).then(() => {
     toast.add({
       severity: "success",
-      summary: "Success",
-      detail: "Password updated!",
+      summary: t("common.success"),
+      detail: t("home.passwords.messages.updated"),
       life: TOAST_LIFESPAN
     });
     dialogRef.value.close({ reload: true });
@@ -81,18 +82,18 @@ function deletePassword() {
   dialog.open(DeleteConfirmationDialog, {
     props: {
       ...DIALOG_DEFAULT_PROPS,
-      header: "Delete Password",
+      header: t("home.passwords.dialog.deleteHeader"),
     },
     data: {
-      description: `Are you sure you want to delete ${password.value.name}?`,
+      description: t("home.passwords.dialog.deleteConfirmation", { name: password.value.name }),
     },
     onClose: (opt) => {
       if (opt?.data?.confirmed) {
         API.delete(`passwords/${password.value.id}`).then(() => {
           toast.add({
             severity: "success",
-            summary: "Success",
-            detail: "Password deleted!",
+            summary: t("common.success"),
+            detail: t("home.passwords.messages.deleted"),
             life: TOAST_LIFESPAN
           });
           dialogRef.value.close({ reload: true });
@@ -107,7 +108,7 @@ function deletePassword() {
   <div class="password-dialog">
     <PMTextInput
       v-model="password.name"
-      label="Name"
+      :label="$t('common.name')"
       name="name"
       required
       :submitted="submitted"
@@ -115,13 +116,13 @@ function deletePassword() {
 
     <PMTextInput
       v-model="password.username"
-      label="Username"
+      :label="$t('common.username')"
       name="username"
     />
 
     <PMPasswordInput
       v-model="password.password"
-      label="Password"
+      :label="$t('common.password')"
       name="password"
     />
 
@@ -130,13 +131,13 @@ function deletePassword() {
       :options="folders"
       option-label="name"
       option-value="id"
-      placeholder="Folder"
-      label="Folder"
+      :placeholder="$t('common.folder')"
+      :label="$t('common.folder')"
     />
 
     <PMTextArea
       v-model="password.note"
-      label="Notes"
+      :label="$t('common.notes')"
       name="notes"
     />
 
@@ -149,7 +150,7 @@ function deletePassword() {
 
       <PMTextButton
         v-if="isChanged"
-        text="Edit"
+        :text="$t('common.edit')"
         @click="updatePassword"
       />
       <span v-else />

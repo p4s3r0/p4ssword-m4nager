@@ -9,6 +9,7 @@ import "primeicons/primeicons.css";
 import "@/styles/core.scss";
 import ToastService from 'primevue/toastservice';
 import { clearChunkRecoveryState, installChunkLoadRecovery } from "@/plugins/chunkLoadRecovery";
+import i18n from "@/plugins/i18n";
 
 const pinia = createPinia();
 
@@ -55,6 +56,7 @@ app
   .use(VueCryptojs)
   .use(DialogService)
   .use(ToastService)
+  .use(i18n)
   .use(PrimeVue, {
     theme: {
       preset: Aura,

@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from "vue";
 import { useRoute, useRouter } from 'vue-router';
 import PMIconButton from "@/components/PMIconButton.vue";
 import { useUserStore } from "@/store/userStore";
@@ -6,6 +7,7 @@ import { useDialog } from "primevue";
 import AddDialog from "@/views/home/_dialogs/AddDialog/AddDialog.vue";
 import ProfileDialog from "@/views/home/_dialogs/ProfileDialog.vue";
 import { DIALOG_DEFAULT_PROPS } from "@/helper/constants";
+import { t } from "@/plugins/i18n";
 
 const props = defineProps({
   modelValue: String
@@ -16,11 +18,11 @@ const dialog = useDialog();
 const router = useRouter();
 const userStore = useUserStore();
 
-const options = [
-  { value: 'home.passwords', icon: 'pi-key', label: 'Passwords' },
-  { value: 'home.folders', icon: 'pi-folder', label: 'Folders' },
-  { value: 'home.tfas', icon: 'pi-ticket', label: '2FA' }
-];
+const options = computed(() => [
+  { value: 'home.passwords', icon: 'pi-key', label: t('common.passwords') },
+  { value: 'home.folders', icon: 'pi-folder', label: t('common.folders') },
+  { value: 'home.tfas', icon: 'pi-ticket', label: t('common.twoFa') }
+]);
 
 function onOptionChange(value) {
   emit('update:modelValue', value);
@@ -42,7 +44,7 @@ function openProfileDialog() {
   dialog.open(ProfileDialog, {
     props: {
       ...DIALOG_DEFAULT_PROPS,
-      header: "Profile"
+      header: t("common.profile")
     }
   });
 }
@@ -53,7 +55,7 @@ function openProfileDialog() {
     <div class="logo-container">
       <img
         src="/img/icons/android-chrome-192x192.png"
-        alt="Logo"
+        :alt="$t('home.sidebar.logoAlt')"
         class="logo"
       >
       <h2 class="app-name">
@@ -80,7 +82,7 @@ function openProfileDialog() {
         @click="showAddDialog"
       >
         <i class="pi pi-plus" />
-        <span>Add New</span>
+        <span>{{ $t("common.addNew") }}</span>
       </button>
     </div>
 
@@ -95,7 +97,7 @@ function openProfileDialog() {
       </div>
       <div class="user-info">
         <span class="username">{{ userStore.username }}</span>
-        <span class="status">Online</span>
+        <span class="status">{{ $t("common.online") }}</span>
       </div>
     </div>
   </div>

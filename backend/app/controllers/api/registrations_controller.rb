@@ -6,6 +6,7 @@ class Api::RegistrationsController < Devise::RegistrationsController
 
     if resource.save
       if resource.active_for_authentication?
+        reset_session
         sign_up(resource_name, resource)
         token = resource.session_tokens.create!(token: SecureRandom.hex(32))
 

@@ -7,8 +7,8 @@ export default {
 <template>
   <div id="Container404">
     <div id="innerContainer">
-      <h1>404 Site not found</h1>
-      <a @click="$router.push('/')">Return to Login</a>
+      <h1>{{ $t("error404.title") }}</h1>
+      <a @click="$router.push('/')">{{ $t("common.returnToLogin") }}</a>
     </div>
   </div>
 </template>

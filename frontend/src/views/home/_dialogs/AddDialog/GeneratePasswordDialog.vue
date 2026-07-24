@@ -50,33 +50,33 @@ function generatePassword() {
     <div class="options-container">
       <PMTextToggleSwitch
         v-model="shouldContainOptions.uppercase"
-        text="Uppercase"
+        :text="$t('common.uppercase')"
       />
 
       <PMTextToggleSwitch
         v-model="shouldContainOptions.lowercase"
-        text="Lowercase"
+        :text="$t('common.lowercase')"
       />
 
       <PMTextToggleSwitch
         v-model="shouldContainOptions.numbers"
-        text="Numbers"
+        :text="$t('common.numbers')"
       />
 
       <PMTextToggleSwitch
         v-model="shouldContainOptions.symbols"
-        text="Symbols"
+        :text="$t('common.symbols')"
       />
 
       <PMSlider
         v-model="passwordLength"
-        label="Password Length"
+        :label="$t('common.passwordLength')"
         :min="3"
         :max="30"
       />
 
       <PMTextButton
-        text="Generate"
+        :text="$t('common.generate')"
         @click="generatePassword()"
       />
 
@@ -85,7 +85,7 @@ function generatePassword() {
         <PMTextInput v-model="password" />
       </div>
       <PMTextButton
-        text="Take"
+        :text="$t('common.take')"
         @click="dialogRef?.close({ password: password })"
       />
     </div>

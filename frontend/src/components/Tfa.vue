@@ -7,6 +7,7 @@ import TfaDialog from "@/views/home/tfas/_dialogs/TfaDialog.vue";
 import { DIALOG_DEFAULT_PROPS } from "@/helper/constants";
 import { useDialog } from "primevue";
 import TfaShowOtpDialog from "@/views/home/tfas/_dialogs/TfaShowOtpDialog.vue";
+import { t } from "@/plugins/i18n";
 
 const props = defineProps({
   tfa: {
@@ -30,7 +31,7 @@ async function copyOtp() {
   dialog.open(TfaShowOtpDialog, {
     props: {
       ...DIALOG_DEFAULT_PROPS,
-      header: "OTP Code",
+      header: t("home.tfas.otp.header"),
     },
     data: {
       otpCode: otp_code,

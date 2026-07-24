@@ -3,6 +3,7 @@ import Password from "@/components/Password.vue";
 import { useDialog } from "primevue";
 import { DIALOG_DEFAULT_PROPS } from "@/helper/constants";
 import PasswordDialog from "@/views/home/passwords/_dialogs/PasswordDialog.vue";
+import { t } from "@/plugins/i18n";
 
 const props = defineProps({
   passwords: {
@@ -19,7 +20,7 @@ function openPasswordDialog(password) {
   dialog.open(PasswordDialog, {
     props: {
       ...DIALOG_DEFAULT_PROPS,
-      header: "Password"
+      header: t("home.passwords.dialog.header")
     },
     data: {
       password: password

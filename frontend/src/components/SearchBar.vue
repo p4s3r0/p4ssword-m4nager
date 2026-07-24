@@ -1,6 +1,4 @@
 <script setup>
-import PMTextInput from "@/components/PMTextInput.vue";
-
 const model = defineModel({ type: String, default: "" });
 const emit = defineEmits(['valueUpdated']);
 </script>
@@ -10,7 +8,7 @@ const emit = defineEmits(['valueUpdated']);
     <i class="pi pi-search" />
     <InputText
       v-model="model"
-      placeholder="Search"
+      :placeholder="$t('common.search')"
       @input="emit('valueUpdated', model)"
     />
   </div>

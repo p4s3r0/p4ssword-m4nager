@@ -12,7 +12,8 @@ class Api::SessionsController < Devise::SessionsController
     user = User.find_by(username: username)
 
     if user&.valid_password?(password)
-      sign_in(:user, user)
+      reset_session
+      sign_in(resource_name, user)
 
       token = SessionToken.create!(user: user, token: SecureRandom.hex(32))
 
@@ -27,7 +28,8 @@ class Api::SessionsController < Devise::SessionsController
     user = User.find_by(username: username)
 
     if user && user.session_tokens.exists?(token: params[:session_token])
-      sign_in(:user, user)
+      reset_session
+      sign_in(resource_name, user)
       render json: { user: user_json(user, params[:session_token]) }, status: :ok
     else
       render json: { error: "Invalid session" }, status: :unauthorized

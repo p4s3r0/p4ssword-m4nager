@@ -9,6 +9,7 @@ import { useUserStore } from "@/store/userStore";
 import { biometricRegister } from "@/plugins/biometric_authentication";
 import PMTextInput from "@/components/PMTextInput.vue";
 import PMPasswordInput from "@/components/PMPasswordInput.vue";
+import { t } from "@/plugins/i18n";
 
 const userStore = useUserStore();
 
@@ -24,8 +25,8 @@ function loginUser() {
   if (!username.value || !password.value) {
     toast.add({
       severity: "error",
-      summary: "Error",
-      detail: "Please fill in all required fields",
+      summary: t("common.error"),
+      detail: t("login.requiredFields"),
       life: TOAST_LIFESPAN
     });
     return;
@@ -45,8 +46,8 @@ function loginUser() {
     } catch (error) {
       toast.add({
         severity: "error",
-        summary: "Error",
-        detail: "Biometric Authentication failed. Please try again.",
+        summary: t("common.error"),
+        detail: t("login.biometricFailed"),
         life: TOAST_LIFESPAN
       });
       return;
@@ -57,24 +58,24 @@ function loginUser() {
     if (success) {
       toast.add({
         severity: "success",
-        summary: "Success",
-        detail: "Logged in!",
+        summary: t("common.success"),
+        detail: t("login.loggedIn"),
         life: TOAST_LIFESPAN
       });
       router.push({ name: "home" });
     } else {
       toast.add({
         severity: "error",
-        summary: "Error",
-        detail: "Biometric Authentication failed. Please try again.",
+        summary: t("common.error"),
+        detail: t("login.biometricFailed"),
         life: TOAST_LIFESPAN
       });
     }
   }, () => {
     toast.add({
       severity: "error",
-      summary: "Error",
-      detail: "Something went wrong!",
+      summary: t("common.error"),
+      detail: t("login.somethingWentWrong"),
       life: TOAST_LIFESPAN
     });
   });
@@ -85,20 +86,23 @@ function loginUser() {
   <div class="container-login-view">
     <div class="top-part">
       <div class="header">
-        <h1>Let's sign you in.</h1>
-        <h2>Welcome back. <br>You've been missed!</h2>
+        <h1>{{ $t("login.title") }}</h1>
+        <h2>
+          {{ $t("login.subtitleLine1") }} <br>
+          {{ $t("login.subtitleLine2") }}
+        </h2>
       </div>
       <div class="user-input">
         <PMTextInput
           v-model="username"
-          label="Username"
+          :label="$t('common.username')"
           name="username"
           required
           :submitted="submitted"
         />
         <PMPasswordInput
           v-model="password"
-          label="Password"
+          :label="$t('common.password')"
           name="password"
           required
           :submitted="submitted"
@@ -109,13 +113,13 @@ function loginUser() {
     <div class="footer">
       <div class="links">
         <p>
-          Don't have an account?
-          <a @click="router.push({ name: 'register' })">Register</a>
+          {{ $t("common.noAccount") }}
+          <a @click="router.push({ name: 'register' })">{{ $t("common.register") }}</a>
         </p>
       </div>
-        
+      
       <big-button-register-signin
-        text="Sign in"
+        :text="$t('common.signIn')"
         @click="loginUser()"
       />
     </div>

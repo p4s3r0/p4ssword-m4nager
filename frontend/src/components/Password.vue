@@ -7,6 +7,7 @@ import { DECRYPT } from "@/plugins/encryption";
 import { useTempStore } from "@/store/tempStore";
 import PMTag from "@/components/PMTag.vue";
 import PMIconButton from "@/components/PMIconButton.vue";
+import { t } from "@/plugins/i18n";
 
 const props = defineProps({
   password: {
@@ -27,8 +28,8 @@ async function copyUsername() {
   navigator.clipboard.writeText(username_saved.value);
   toast.add({
     severity: "info",
-    summary: "Info",
-    detail: "Copied Username to Clipboard!",
+    summary: t("common.info"),
+    detail: t("common.copiedUsernameToClipboard"),
     life: TOAST_LIFESPAN
   });
 }
@@ -37,8 +38,8 @@ async function copyPassword() {
   navigator.clipboard.writeText(password_saved.value);
   toast.add({
     severity: "info",
-    summary: "Info",
-    detail: "Copied to Clipboard!",
+    summary: t("common.info"),
+    detail: t("common.copiedToClipboard"),
     life: TOAST_LIFESPAN
   });
 }

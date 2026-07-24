@@ -15,6 +15,7 @@ import { useDialog } from "primevue";
 import GeneratePasswordDialog from "@/views/home/_dialogs/AddDialog/GeneratePasswordDialog.vue";
 import { DIALOG_DEFAULT_PROPS } from "@/helper/constants";
 import { rankFolderAlphabetically } from "@/scripts/search";
+import { t } from "@/plugins/i18n";
 
 const toast = useToast();
 
@@ -34,8 +35,8 @@ function addPassword() {
   if (!password.value.name) {
     toast.add({
       severity: "error",
-      summary: "Error",
-      detail: "Name is required",
+      summary: t("common.error"),
+      detail: t("common.nameRequired"),
       life: TOAST_LIFESPAN
     });
     return;
@@ -53,8 +54,8 @@ function addPassword() {
   }).then(() => {
     toast.add({
       severity: "success",
-      summary: "Success",
-      detail: "Password added!",
+      summary: t("common.success"),
+      detail: t("home.passwords.messages.added"),
       life: TOAST_LIFESPAN
     });
     emit("close-reload");
@@ -65,7 +66,7 @@ function generatePassword() {
   dialog.open(GeneratePasswordDialog, {
     props: {
       ...DIALOG_DEFAULT_PROPS,
-      header: "Generate Password"
+      header: t("home.generatePasswordDialog.header")
     },
     onClose: (data) => {
       if (data?.data?.password) {
@@ -81,20 +82,20 @@ function generatePassword() {
     <PMTextInput
       v-model="password.name"
       name="name"
-      label="Name"
+      :label="$t('common.name')"
       required
       :submitted="submitted"
     />
     <PMTextInput
       v-model="password.username"
       name="username"
-      label="Username"
+      :label="$t('common.username')"
     />
     <div class="password-container">
       <PMPasswordInput
         v-model="password.password"
         name="password"
-        label="Password"
+        :label="$t('common.password')"
         class="password"
       />
       <PMIconButton
@@ -108,13 +109,13 @@ function generatePassword() {
       :options="folders"
       option-label="name"
       option-value="id"
-      placeholder="Folder"
-      label="Folder"
+      :placeholder="$t('common.folder')"
+      :label="$t('common.folder')"
     />
 
     <PMTextArea
       v-model="password.notes"
-      label="Notes"
+      :label="$t('common.notes')"
       name="notes"
     />
 
@@ -125,7 +126,7 @@ function generatePassword() {
       />
 
       <PMTextButton
-        text="Save"
+        :text="$t('common.save')"
         @click="addPassword"
       />
     </div>

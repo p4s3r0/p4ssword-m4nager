@@ -4,18 +4,18 @@ import PMSelectButton from "@/components/PMSelectButton.vue";
 import AddPassword from "@/views/home/_dialogs/AddDialog/_components/AddPassword.vue";
 import AddFolder from "@/views/home/_dialogs/AddDialog/_components/AddFolder.vue";
 import AddTfa from "@/views/home/_dialogs/AddDialog/_components/AddTfa.vue";
+import { t } from "@/plugins/i18n";
 
 const dialogRef = inject("dialogRef");
 const addOptions = [
-  { value: "folder", icon: "pi-folder", label: "Folder" },
-  { value: "password", icon: "pi-key", label: "Password" },
-  { value: "tfa", icon: "pi-ticket", label: "TFA" }
+  { value: "folder", icon: "pi-folder", label: t("home.addDialog.options.folder") },
+  { value: "password", icon: "pi-key", label: t("home.addDialog.options.password") },
+  { value: "tfa", icon: "pi-ticket", label: t("home.addDialog.options.tfa") }
 ];
 const addOption = ref("password");
 
 watch(addOption, (val) => {
-  const option = addOptions.find((opt) => opt.value === val);
-  dialogRef.value.options.props.header = `Add ${option.label}`;
+  dialogRef.value.options.props.header = t(`home.addDialog.headers.${val}`);
 }, { immediate: true });
 </script>
 

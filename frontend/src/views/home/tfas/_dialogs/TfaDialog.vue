@@ -10,6 +10,7 @@ import { useToast } from "primevue/usetoast";
 import { TOAST_LIFESPAN } from "@/helper/constants";
 import DeleteConfirmationDialog from "@/dialogs/DeleteConfirmationDialog.vue";
 import { DIALOG_DEFAULT_PROPS } from "@/helper/constants";
+import { t } from "@/plugins/i18n";
 
 const dialogRef = inject("dialogRef");
 const dialog = useDialog();
@@ -33,8 +34,8 @@ function updateTfa() {
   if (!tfa.value.name) {
     toast.add({
       severity: "error",
-      summary: "Error",
-      detail: "Name is required",
+      summary: t("common.error"),
+      detail: t("common.nameRequired"),
       life: TOAST_LIFESPAN
     });
     return;
@@ -48,8 +49,8 @@ function updateTfa() {
   }).then(() => {
     toast.add({
       severity: "success",
-      summary: "Success",
-      detail: "TFA updated!",
+      summary: t("common.success"),
+      detail: t("home.tfas.messages.updated"),
       life: TOAST_LIFESPAN
     });
     dialogRef.value.close({ reload: true });
@@ -60,18 +61,18 @@ function deleteTfa() {
   dialog.open(DeleteConfirmationDialog, {
     props: {
       ...DIALOG_DEFAULT_PROPS,
-      header: "Delete TFA",
+      header: t("home.tfas.dialog.deleteHeader"),
     },
     data: {
-      description: `Are you sure you want to delete ${tfa.value.name}?`,
+      description: t("home.tfas.dialog.deleteConfirmation", { name: tfa.value.name }),
     },
     onClose: (opt) => {
       if (opt?.data?.confirmed) {
         API.delete(`tfas/${tfa.value.id}`).then(() => {
           toast.add({
             severity: "success",
-            summary: "Success",
-            detail: "TFA deleted!",
+            summary: t("common.success"),
+            detail: t("home.tfas.messages.deleted"),
             life: TOAST_LIFESPAN
           });
           dialogRef.value.close({ reload: true });
@@ -86,14 +87,14 @@ function deleteTfa() {
   <div class="tfa-dialog">
     <PMTextInput
       v-model="tfa.name"
-      label="Name"
+      :label="$t('common.name')"
       name="name"
       required
       :submitted="submitted"
     />
     <PMTextInput
       v-model="tfa.secret"
-      label="Secret"
+      :label="$t('common.secret')"
       name="secret"
     />
 
@@ -106,7 +107,7 @@ function deleteTfa() {
 
       <PMTextButton
         v-if="isChanged"
-        text="Edit"
+        :text="$t('common.edit')"
         @click="updateTfa"
       />
     </div>

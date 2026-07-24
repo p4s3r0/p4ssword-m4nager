@@ -14,12 +14,12 @@ const description = dialogRef?.value?.data?.description;
     </p>
     <div class="footer">
       <PMTextButton
-        text="Delete"
+        :text="$t('common.delete')"
         severity="delete"
         @click="dialogRef.close({ confirmed: true })"
       />
       <PMTextButton
-        text="No"
+        :text="$t('common.no')"
         @click="dialogRef.close({ confirmed: false})"
       />
     </div>

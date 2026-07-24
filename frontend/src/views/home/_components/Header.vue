@@ -4,6 +4,7 @@ import { useUserStore } from "@/store/userStore";
 import { useDialog } from "primevue";
 import { DIALOG_DEFAULT_PROPS } from "@/helper/constants";
 import ProfileDialog from "@/views/home/_dialogs/ProfileDialog.vue";
+import { t } from "@/plugins/i18n";
 
 const userStore = useUserStore();
 const dialog = useDialog();
@@ -12,7 +13,7 @@ function openProfileDialog() {
   dialog.open(ProfileDialog, {
     props: {
       ...DIALOG_DEFAULT_PROPS,
-      header: "Profile"
+      header: t("common.profile")
     }
   });
 }
@@ -28,7 +29,7 @@ function openProfileDialog() {
         {{ userStore.username.charAt(0).toUpperCase() }}
       </div>
       <div class="user-info">
-        <span class="status">Welcome back</span>
+        <span class="status">{{ $t("common.welcomeBack") }}</span>
         <span class="username">{{ userStore.username }}</span>
       </div>
     </div>

@@ -7,6 +7,7 @@ import PMToggleButton from "@/components/PMToggleButton.vue";
 import PMTextButton from "@/components/PMTextButton.vue";
 import { useToast } from "primevue/usetoast";
 import { TOAST_LIFESPAN } from "@/helper/constants";
+import { t } from "@/plugins/i18n";
 
 const toast = useToast();
 
@@ -20,8 +21,8 @@ function addFolder() {
   if (!folder.value.name) {
     toast.add({
       severity: "error",
-      summary: "Error",
-      detail: "Name is required",
+      summary: t("common.error"),
+      detail: t("common.nameRequired"),
       life: TOAST_LIFESPAN
     });
     return;
@@ -36,8 +37,8 @@ function addFolder() {
   }).then(() => {
     toast.add({
       severity: "success",
-      summary: "Success",
-      detail: "Folder added!",
+      summary: t("common.success"),
+      detail: t("home.folders.messages.added"),
       life: TOAST_LIFESPAN
     });
     emit("close-reload");
@@ -50,13 +51,13 @@ function addFolder() {
     <PMTextInput
       v-model="folder.name"
       name="name"
-      label="Name"
+      :label="$t('common.name')"
       :required="submitted"
     />
 
     <PMColorPicker
       v-model="folder.color"
-      label="Color"
+      :label="$t('common.color')"
     />
 
 
@@ -67,7 +68,7 @@ function addFolder() {
       />
 
       <PMTextButton
-        text="Save"
+        :text="$t('common.save')"
         @click="addFolder"
       />
     </div>

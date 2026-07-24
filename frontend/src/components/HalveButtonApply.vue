@@ -1,6 +1,6 @@
 <template>
   <div id="mainBigButtonRegisterSigning">
-    <p>Apply Edit</p>
+    <p>{{ $t("common.applyEdit") }}</p>
   </div>
 </template>
 

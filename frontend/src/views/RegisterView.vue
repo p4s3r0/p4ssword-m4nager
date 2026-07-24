@@ -8,6 +8,7 @@ import { useRouter } from "vue-router";
 import API from "@/plugins/axios";
 import PMTextInput from "@/components/PMTextInput.vue";
 import PMPasswordInput from "@/components/PMPasswordInput.vue";
+import { t } from "@/plugins/i18n";
 
 const router = useRouter();
 const toast = useToast();
@@ -21,8 +22,8 @@ function clickRegisterUser() {
   if (!email.value || !username.value || !password.value) {
     toast.add({
       severity: "error",
-      summary: "Error",
-      detail: "Please fill in all required fields",
+      summary: t("common.error"),
+      detail: t("register.requiredFields"),
       life: TOAST_LIFESPAN
     });
     return;
@@ -45,8 +46,8 @@ function clickRegisterUser() {
 
     toast.add({
       severity: "success",
-      summary: "Success",
-      detail: "User Registered!",
+      summary: t("common.success"),
+      detail: t("register.registered"),
       life: TOAST_LIFESPAN
     });
     router.push("/");
@@ -54,8 +55,8 @@ function clickRegisterUser() {
   }, () => {
     toast.add({
       severity: "error",
-      summary: "Error",
-      detail: "Error!",
+      summary: t("common.error"),
+      detail: t("register.error"),
       life: TOAST_LIFESPAN
     });
   });
@@ -66,27 +67,30 @@ function clickRegisterUser() {
   <div class="container-register-view">
     <div class="top-part">
       <div class="header">
-        <h1>Let's Register you.</h1>
-        <h2>Welcome stranger. <br>Lemme keep your passwords</h2>
+        <h1>{{ $t("register.title") }}</h1>
+        <h2>
+          {{ $t("register.subtitleLine1") }} <br>
+          {{ $t("register.subtitleLine2") }}
+        </h2>
       </div>
       <div class="user-input">
         <PMTextInput
           v-model="email"
-          label="Email"
+          :label="$t('common.email')"
           name="email"
           required
           :submitted="submitted"
         />
         <PMTextInput
           v-model="username"
-          label="Username"
+          :label="$t('common.username')"
           name="username"
           required
           :submitted="submitted"
         />
         <PMPasswordInput
           v-model="password"
-          label="Password"
+          :label="$t('common.password')"
           name="password"
           required
           :submitted="submitted"
@@ -95,10 +99,13 @@ function clickRegisterUser() {
     </div>
     <div class="footer">
       <div class="links">
-        <p>Already have an account? <a @click="$router.push('/');">Login</a></p>
+        <p>
+          {{ $t("common.alreadyHaveAccount") }}
+          <a @click="$router.push('/')">{{ $t("common.login") }}</a>
+        </p>
       </div>
       <big-button-register-signin
-        text="Register"
+        :text="$t('common.register')"
         @click="clickRegisterUser()"
       />
     </div>

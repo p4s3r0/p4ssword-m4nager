@@ -7,6 +7,7 @@ import { ENCRYPT } from "@/plugins/encryption";
 import { useToast } from "primevue/usetoast";
 import { TOAST_LIFESPAN } from "@/helper/constants";
 import { useDialog } from "primevue";
+import { t } from "@/plugins/i18n";
 
 const toast = useToast();
 
@@ -20,8 +21,8 @@ function addTfa() {
   if (!tfa.value.name) {
     toast.add({
       severity: "error",
-      summary: "Error",
-      detail: "Name is required",
+      summary: t("common.error"),
+      detail: t("common.nameRequired"),
       life: TOAST_LIFESPAN
     });
     return;
@@ -35,8 +36,8 @@ function addTfa() {
   }).then(() => {
     toast.add({
       severity: "success",
-      summary: "Success",
-      detail: "Tfa added!",
+      summary: t("common.success"),
+      detail: t("home.tfas.messages.added"),
       life: TOAST_LIFESPAN
     });
     emit("close-reload");
@@ -49,19 +50,19 @@ function addTfa() {
     <PMTextInput
       v-model="tfa.name"
       name="name"
-      label="Name"
+      :label="$t('common.name')"
       required
       :submitted="submitted"
     />
     <PMTextInput
       v-model="tfa.secret"
       name="secret"
-      label="Secret"
+      :label="$t('common.secret')"
     />
 
     <div class="footer">
       <PMTextButton
-        text="Save"
+        :text="$t('common.save')"
         @click="addTfa"
       />
     </div>

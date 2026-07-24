@@ -1,6 +1,6 @@
 <template>
   <div id="mainBigButtonRegisterSigning">
-    <p>Cancel</p>
+    <p>{{ $t("common.cancel") }}</p>
   </div>
 </template>
 

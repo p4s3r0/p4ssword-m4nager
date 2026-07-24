@@ -5,7 +5,7 @@ import PMTextInput from "@/components/PMTextInput.vue";
 const props = defineProps({
   label: {
     type: String,
-    default: "Color"
+    default: undefined
   }
 });
 
@@ -39,7 +39,7 @@ const colorPickerInput = ref(null);
       </div>
       <PMTextInput
         v-model="model"
-        :label="props.label"
+        :label="props.label || $t('common.color')"
         class="color-input"
       />
     </div>

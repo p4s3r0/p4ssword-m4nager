@@ -13,6 +13,7 @@ import EditFolderDialog from "@/views/home/folders/folder/_dialogs/EditFolderDia
 import PasswordDialog from "@/views/home/passwords/_dialogs/PasswordDialog.vue";
 
 import { rankPasswordsAlphabetically } from "@/scripts/search";
+import { t } from "@/plugins/i18n";
 
 const route = useRoute();
 const router = useRouter();
@@ -56,7 +57,7 @@ function editFolder() {
   dialog.open(EditFolderDialog, {
     props: {
       ...DIALOG_DEFAULT_PROPS,
-      header: "Edit folder"
+      header: t("folder.passwords.dialog.editHeader")
     },
     data: {
       folder: folder.value.object
@@ -76,10 +77,10 @@ function deleteFolder() {
   dialog.open(DeleteConfirmationDialog, {
     props: {
       ...DIALOG_DEFAULT_PROPS,
-      header: "Delete folder?"
+      header: t("folder.passwords.dialog.deleteHeader")
     },
     data: {
-      description: "Are you sure you want to delete this folder? This action cannot be undone. All the passwords in this folder will be moved to the default folder.",
+      description: t("folder.passwords.dialog.deleteConfirmation"),
     },
     onClose: (data) => {
       if (data?.data?.confirmed) {
@@ -95,7 +96,7 @@ function openPasswordDialog(password) {
   dialog.open(PasswordDialog, {
     props: {
       ...DIALOG_DEFAULT_PROPS,
-      header: "Password"
+      header: t("folder.passwords.dialog.passwordHeader")
     },
     data: {
       password: password

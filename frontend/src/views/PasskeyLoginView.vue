@@ -5,6 +5,7 @@ import { useUserStore } from "@/store/userStore";
 import { useToast } from "primevue/usetoast";
 import { TOAST_LIFESPAN } from "@/helper/constants";
 import BigButtonRegisterSignin from "@/components/BigButtonRegisterSignin.vue";
+import { t } from "@/plugins/i18n";
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -20,8 +21,8 @@ async function login() {
   if (success) {
     toast.add({
       severity: "success",
-      summary: "Success",
-      detail: "Welcome back, " + username.value + "!",
+      summary: t("common.success"),
+      detail: t("passkeyLogin.welcomeBackUser", { username: username.value }),
       life: TOAST_LIFESPAN
     });
     await nextTick();
@@ -29,8 +30,8 @@ async function login() {
   } else {
     toast.add({
       severity: "error",
-      summary: "Error",
-      detail: "Authentication failed. Please login manually.",
+      summary: t("common.error"),
+      detail: t("passkeyLogin.authenticationFailed"),
       life: TOAST_LIFESPAN
     });
     userStore.removeUser();
@@ -54,8 +55,8 @@ async function standardLogin() {
 <template>
   <div class="passkey-login-view">
     <div class="header">
-      <h1>Welcome Back!</h1>
-      <h2>Sign in with Passkey</h2>
+      <h1>{{ $t("passkeyLogin.title") }}</h1>
+      <h2>{{ $t("passkeyLogin.subtitle") }}</h2>
     </div>
     <div class="passkey-login-container">
       <div class="center-content">
@@ -68,12 +69,12 @@ async function standardLogin() {
           </h1>
         </div>
         <BigButtonRegisterSignin
-          text="Login with Passkey"
+          :text="$t('passkeyLogin.loginButton')"
           @click="login"
         />
       </div>
       <div class="footer">
-        <a @click="standardLogin()">Login as another user</a>
+        <a @click="standardLogin()">{{ $t("passkeyLogin.anotherUser") }}</a>
       </div>
     </div>
   </div>
