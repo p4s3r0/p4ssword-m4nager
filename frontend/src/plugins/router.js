@@ -1,9 +1,17 @@
 import Login from "@/views/LoginView.vue";
 import PasskeyLogin from "@/views/PasskeyLoginView.vue";
+import RegisterView from "@/views/RegisterView.vue";
+import HomeView from "@/views/home/HomeView.vue";
+import PasswordsView from "@/views/home/passwords/PasswordsView.vue";
+import FoldersView from "@/views/home/folders/FoldersView.vue";
+import TfasView from "@/views/home/tfas/TfasView.vue";
+import FolderView from "@/views/home/folders/folder/FolderView.vue";
+import Error404 from "@/views/Error404.vue";
 import * as VueRouter from "vue-router";
 import { useUserStore } from "@/store/userStore";
 import { DBL_getOnboarding } from "@/dexie";
 import MainLayout from "@/layouts/MainLayout.vue";
+import { recoverFromChunkLoadError } from "@/plugins/chunkLoadRecovery";
 
 export const routes = [
   {
@@ -23,42 +31,42 @@ export const routes = [
       {
         name: "register",
         path: "register",
-        component: () => import("@/views/RegisterView.vue"),
+        component: RegisterView,
       },
       {
         name: "home",
         path: "home",
         redirect: () => ({ name: "home.passwords" }),
-        component: () => import("@/views/home/HomeView.vue"),
+        component: HomeView,
         children: [
           {
             name: "home.passwords",
             path: "passwords",
-            component: () => import("@/views/home/passwords/PasswordsView.vue"),
+            component: PasswordsView,
           },
           {
             name: "home.folders",
             path: "folders",
-            component: () => import("@/views/home/folders/FoldersView.vue"),
+            component: FoldersView,
           },
           {
             name: "home.tfas",
             path: "tfas",
-            component: () => import("@/views/home/tfas/TfasView.vue"),
+            component: TfasView,
           }
         ]
       },
       {
         name: "folder.passwords",
         path: "folder/:id",
-        component: () => import("@/views/home/folders/folder/FolderView.vue"),
+        component: FolderView,
       },
     ]
   },
   {
     name: "404",
     path: "/:pathMatch(.*)*",
-    component: () => import("@/views/Error404.vue"),
+    component: Error404,
   },
 ];
 
@@ -66,6 +74,10 @@ export const routes = [
 export const router = VueRouter.createRouter({
   history: VueRouter.createWebHistory(),
   routes,
+});
+
+router.onError((error) => {
+  void recoverFromChunkLoadError(error);
 });
 
 let onboarding = true;

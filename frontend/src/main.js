@@ -8,6 +8,7 @@ import Aura from "@primevue/themes/aura";
 import "primeicons/primeicons.css";
 import "@/styles/core.scss";
 import ToastService from 'primevue/toastservice';
+import { clearChunkRecoveryState, installChunkLoadRecovery } from "@/plugins/chunkLoadRecovery";
 
 const pinia = createPinia();
 
@@ -31,6 +32,7 @@ import TextArea from "primevue/textarea";
 import Toast from 'primevue/toast';
 
 const app = createApp(App);
+installChunkLoadRecovery();
 // eslint-disable-next-line vue/no-reserved-component-names
 app.component("Button", Button);
 app.component("FloatLabel", FloatLabel);
@@ -63,3 +65,7 @@ app
     },
   })
   .mount("#app");
+
+router.isReady().then(() => {
+  clearChunkRecoveryState();
+});

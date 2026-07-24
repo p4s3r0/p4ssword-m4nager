@@ -10,7 +10,10 @@ export default defineConfig({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg}']
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+        skipWaiting: true,
       },
       includeAssets: ['favicon.ico', 'img/icons/apple-touch-icon.png', 'img/icons/safari-pinned-tab.svg'],
       manifest: {
