@@ -25,7 +25,7 @@ const initialPassword = { ...dialogRef?.value?.data?.password };
 initialPassword.password = DECRYPT(initialPassword.enc_password);
 initialPassword.username = DECRYPT(initialPassword.enc_username);
 initialPassword.note = DECRYPT(initialPassword.enc_note);
-initialPassword.folder_id = initialPassword?.folder?.id;
+initialPassword.folder_id = initialPassword.folder_id ?? initialPassword?.folder?.id;
 
 const password = ref({ ...initialPassword });
 const folders = ref([]);

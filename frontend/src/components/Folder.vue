@@ -19,7 +19,7 @@ const props = defineProps({
       </p>
     </div>
     <p class="amount">
-      {{ props.folder.passwords_count }}
+      ({{ props.folder.passwords_count }})
     </p>
   </div>
 </template>
@@ -73,7 +73,7 @@ const props = defineProps({
   }
 
   .amount {
-    color: var(--surface-200);
+    color: var(--surface-400);
   }
 }
 </style>
