@@ -101,6 +101,10 @@ if (props.password) {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
   cursor: pointer;
   border-radius: var(--border-radius-4);
   background-color: var(--surface-100);
@@ -124,9 +128,13 @@ if (props.password) {
   .name-and-folder-container {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
     gap: var(--gap-1);
 
     .password-name {
+      min-width: 0;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -138,6 +146,7 @@ if (props.password) {
   .password-icons {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
     gap: var(--gap-2);
 
     .copy-icon {

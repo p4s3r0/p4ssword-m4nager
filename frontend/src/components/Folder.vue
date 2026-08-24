@@ -29,6 +29,10 @@ const props = defineProps({
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
   cursor: pointer;
   color: var(--surface-900);
   border-radius: var(--border-radius-4);
@@ -55,14 +59,19 @@ const props = defineProps({
     align-items: center;
     gap: var(--gap-4);
     height: 100%;
+    min-width: 0;
+    flex: 1;
 
     .folder-color {
       width: var(--gap-2);
       height: 100%;
       border-radius: 999px;
+      flex-shrink: 0;
     }
 
     .folder-name {
+      flex: 1;
+      min-width: 0;
       font-size: 1.2em;
       margin: 0;
       white-space: nowrap;
@@ -74,7 +83,7 @@ const props = defineProps({
 
   .amount {
     color: var(--surface-400);
+    flex-shrink: 0;
   }
 }
 </style>
-  

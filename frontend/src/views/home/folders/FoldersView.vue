@@ -35,8 +35,13 @@ defineEmits(["reload"]);
 .folders-container {
   display: grid;
   grid-template-columns: 100%;
+  min-width: 0;
   gap: var(--gap-4);
   position: relative;
+
+  > * {
+    min-width: 0;
+  }
 }
 
 @media (min-width: 1024px) {

@@ -85,6 +85,10 @@ function open2FAView() {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
   background-color: var(--surface-100);
   border-radius: var(--border-radius-4);
   padding: var(--gap-4) calc(var(--gap-4) + 2px) var(--gap-4) var(--gap-4);
@@ -107,13 +111,28 @@ function open2FAView() {
   .left {
     display: flex;
     align-items: center;
+    flex: 1;
+    min-width: 0;
     gap: var(--gap-4);
     padding: var(--gap-2);
+
+    .pi {
+      flex-shrink: 0;
+    }
   }
 
   .name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 1.2em;
     margin: 0;
+  }
+
+  > :last-child {
+    flex-shrink: 0;
   }
 }
 </style>
